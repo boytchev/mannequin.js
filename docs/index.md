@@ -4,16 +4,18 @@ This is the short user guide for [mannequin.js](../index.md) and its [live demos
 
 #### Initialization
 
-The **mannequin.js** library (and its minified **mannequin.min.js**) is provided as a JavaScript file.
-To use it in a web page include the library:
+The **mannequin.js** library is provided as a JavaScript file.
+To use it in a web page include either the library or its minified version
+along with ```three.js```:
 
 ``` xml
-<script src="mannequin.js"></script>
+<script src="three.min.js"></script>
+<script src="mannequin.min.js"></script>
 ```
 
-There is a placeholder function `createScene()`, that sets up the scene
-and its attributes (lighting, camera, ground, etc.) It is expected that
-you will provide your own set-up function, depending on your project.
+There is a helper function `createScene()`, that sets up the Three.js scene
+and its elements (lighting, camera, ground, etc.) It is expected that you
+will provide your own function to initialize the scene, depending on your project.
 
 Figures are created as instances of three classes: `Male`, `Female` and
 `Child`. Here is a minimal program that creates a figure in the browser:
@@ -23,9 +25,9 @@ Figures are created as instances of three classes: `Male`, `Female` and
 <html>
   <head>
     <script src="three.min.js"></script>
+    <script src="mannequin.min.js"></script>
   </head>
   <body>
-    <script src="mannequin.min.js"></script>
     <script>
       createScene();
       var man = new Male();
@@ -34,8 +36,6 @@ Figures are created as instances of three classes: `Male`, `Female` and
 </html>
 ```
 
-You can run this program [online](example-minimal.html). Note, that
-the tag `<base href="../">` in the online example is just to access
-the folder with `three.min.js` and `mannequin.min.js`.
+You can run this program [online](example-minimal.html).
 
 November, 2020

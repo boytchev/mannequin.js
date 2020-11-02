@@ -73,8 +73,13 @@ function onWindowResize( event )
 
 function drawFrame()
 {
-	if( animate ) animate(100*clock.getElapsedTime());
+	animate(100*clock.getElapsedTime());
 	renderer.render( scene, camera );
+}
+
+
+function animate()
+{
 }
 
 	
