@@ -28,4 +28,4 @@ acknowledgement.
 
 Visit the library site [mannequin.js](https://boytchev.github.io/mannequin.js/) for live demonstrations.
 
-<img src="./snapshots/demo-mannequin-01.jpg" width="100"><img src="snapshots/demo-mannequin-02.jpg" width="100"><img src="snapshots/demo-mannequin-03.jpg" width="100"><img src="snapshots/demo-mannequin-04.jpg" width="100"><img src="snapshots/demo-mannequin-05.jpg" width="100">
+<img src="./snapshots/demo-mannequin-01.jpg" width="150"><img src="snapshots/demo-mannequin-02.jpg" width="150"><img src="snapshots/demo-mannequin-03.jpg" width="150"><img src="snapshots/demo-mannequin-04.jpg" width="150"><img src="snapshots/demo-mannequin-05.jpg" width="150">
