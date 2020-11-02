@@ -53,7 +53,7 @@ second parameter for direction, which could be the constant `LEFT` or
 `RIGHT`.
 
 If present, a function called `animate(t)` defines the posture of all
-figures in the scene at a given time `t`. The value of `t` is set by
+figures in the scene at a given time *t*. The value of *t* is set by
 mannequin.js and corresponds to tenths of seconds.
 
 ###### Head
