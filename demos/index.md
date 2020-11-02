@@ -1,7 +1,7 @@
-### Demonstrations
+### Live demos
 
-These are several live demonstration of [mannequin.js](../index.md) library.
-Click on an image to open a live demonstration. For more information about
+These are several live demos of [mannequin.js](../index.md).
+Click on an image to open them. For more information about
 the library check the [User guide](../docs).
 
 #### General position
