@@ -1,6 +1,6 @@
 # About
 
-<img src="demos/snapshots/demo-mannequin-01.jpg" width="150"><img src="demos/snapshots/demo-mannequin-02.jpg" width="150"><img src="demos/snapshots/demo-mannequin-03.jpg" width="150"><img src="demos/snapshots/demo-mannequin-04.jpg" width="150"><img src="demos/snapshots/demo-mannequin-05.jpg" width="150">
+<img src="demos/snapshots/demo-mannequin-01.jpg" width="100"> <img src="demos/snapshots/demo-mannequin-02.jpg" width="100"> <img src="demos/snapshots/demo-mannequin-03.jpg" width="100"> <img src="demos/snapshots/demo-mannequin-04.jpg" width="100"> <img src="demos/snapshots/demo-mannequin-05.jpg" width="100">
 
 Mannequin.js is a simple library of an articulated human figure.
 The shape of the figure and its movements are done purely in JavaScript.
@@ -10,9 +10,11 @@ for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
-GPL-3.0 License.
-
 Available are [live demos](../demos) that can be played
 in your browser.
 
 The [User guide](../docs) describes how to access and move body parts.
+
+GPL-3.0 License.
+
+<sub>*2020-11-02*</sub>
