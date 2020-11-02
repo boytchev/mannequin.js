@@ -14,7 +14,7 @@ was implemented in JS/Three.js and is a direct predecessor of the current manneq
 The main library is **mannequin.js**. It requires **three.min.js**, which is also
 included in this repository. There is no need to compile anything. See the
 [live demos](https://boytchev.github.io/mannequin.js/demos) for examples how to use
-the library or the [API documentation](https://boytchev.github.io/mannequin.js/docs)
+the library or the [User guide](https://boytchev.github.io/mannequin.js/docs)
 for the specific body parts and their methods.
 
 ### License
