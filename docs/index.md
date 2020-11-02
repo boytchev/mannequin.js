@@ -7,7 +7,7 @@ This is the short user guide for [mannequin.js](../index.md) and its [live demos
 The **mannequin.js** library (and its minified **mannequin.min.js**) is provided as a JavaScript file.
 To use it in a web page include the library:
 
-```
+``` xml
 <script src="mannequin.js"></script>
 ```
 
@@ -18,7 +18,7 @@ you will provide your own set-up function, depending on your project.
 Figures are created as instances of three classes: `Male`, `Female` and
 `Child`. Here is a minimal program that creates a figure in the browser:
 
-```javascript
+``` xml
 <!DOCTYPE html>
 <html>
   <head>
