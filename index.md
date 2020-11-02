@@ -13,10 +13,7 @@ was implemented in JS/Three.js.
 
 # License
 
-The source code of mannequin.js is made open as a form of software heritage.
-The exact license is not decided yet, however, the code can be used/reused in
-any type of non-commercial or educational project, provided there is proper 
-acknowledgement.
+GPL-3.0 License.
 
 # Demonstrations
 
