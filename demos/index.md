@@ -2,7 +2,7 @@
 
 These are several live demonstration of [mannequin.js](index.md) library.
 
-###General position.
+####General position.
 
 This examples shows a rotating nodding man. It serves as a hell-world example.
 [<img src="snapshots/demo-mannequin-01.jpg" width="400">](demo-mannequin-01.html)
