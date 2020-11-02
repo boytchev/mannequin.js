@@ -2,9 +2,10 @@
 
 These are several live demonstration of [mannequin.js](index.md) library.
 
-General position. A simple position with minimal motion &ndash; only the head is nodding.
+###General position.
 
-<img src="./snapshots/demo-mannequin-01.jpg" width="400">
+This examples shows a rotating nodding man. It serves as a hell-world example.
+[<img src="snapshots/demo-mannequin-01.jpg" width="400">](demo-mannequin-01.html)
 
 Types of figures. Example of how to create a male, a female and a child figure.
 
