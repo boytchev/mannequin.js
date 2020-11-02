@@ -1,26 +1,41 @@
-### Demonstrations
+# Demonstrations
 
-These are several live demonstration of [mannequin.js](index.md) library.
+These are several live demonstration of [mannequin.js](../index.md) library.
+Click on an image to open a live demonstration.
 
-####General position.
+###General position
 
-This examples shows a rotating nodding man. It serves as a hell-world example.
+This examples shows a nodding man. It serves as a hello-world example, as it
+just makes a male figure in a static posture and animates its head.
+
 [<img src="snapshots/demo-mannequin-01.jpg" width="400">](demo-mannequin-01.html)
 
-Types of figures. Example of how to create a male, a female and a child figure.
+###Types of figures
 
-<img src="./snapshots/demo-mannequin-02.jpg" width="400">
+The library supports three shapes: a male, a female and a child. This example 
+constructs three figures.
 
-Modifications. Demonstration how to attach Three.js objects to body parts or even how to
-replace body parts with custom objects.
+[<img src="snapshots/demo-mannequin-02.jpg" width="400">](demo-mannequin-02.html)
 
-<img src="./snapshots/demo-mannequin-03.jpg" width="400">
+###Modifications
 
-Global position. Extracting global position of body parts in order to implement interaction
-with other objects in the scene.
+It is possible to hide body parts and attach other custom graphical objects.
+This example demonstrates bracelets on the figure hands. Additionally, one of
+the legs is replaced by custom Three.js objects.
 
-<img src="./snapshots/demo-mannequin-04.jpg" width="400">
+[<img src="./snapshots/demo-mannequin-03.jpg" width="400">](demo-mannequin-03.html)
 
-Social scene. A more complex example of two figures sitting agains each other.
+###Global position
 
-<img src="./snapshots/demo-mannequin-05.jpg" width="400">
+There is a method to extracting a global position of body parts in order to implement
+interaction with other objects in the scene. 
+
+[<img src="./snapshots/demo-mannequin-04.jpg" width="400">](demo-mannequin-04.html)
+
+
+###Social scene
+
+This is a more complex example of two figures sitting agains each other. There are
+subtle movements in both figures.
+
+[<img src="./snapshots/demo-mannequin-05.jpg" width="400">](demo-mannequin-05.html)
