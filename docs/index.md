@@ -42,9 +42,9 @@ to add the correct path to the three.js and mannequin.js libraries.
 #### Body parts
 
 All figures (male, female and child) have the same structure of joints.
-The following image shows their names as objects within the main figure instance.
+The following image shows their names within the main figure instance.
 
-<img src="snapshots/body-parts.jpg" width="500">
+[<img src="snapshots/body-parts.jpg" width="500">](snapshots/body-parts.jpg)
 
 For example, if a woman figure is created by `woman = new Female()`, then its
 right arm is accessed by `woman.r_arm`. Left and right body parts are in respect
