@@ -36,8 +36,7 @@ Figures are created as instances of three classes: `Male`, `Female` and
 </html>
 ```
 
-You can run this program [online](example-minimal.html). Note that you have
-to add the correct path to the three.js and mannequin.js libraries.
+You can run this program [online](example-minimal.html). 
 
 #### Body parts
 
@@ -55,9 +54,14 @@ is the angle in degrees (i.e. 180 is half turn, 360 is full turn). Some
 methods have an optional second parameter for direction, which could be either `LEFT`
 or `RIGHT`.
 
+To animate a figure define a function called `animate(t)`, where `t` is
+set by mannequin.js with the current time (in 0.1 seconds). Then inside thisfunction
+set the position of the body part in respect to the time `t`.
+
 ###### Head
 
-The head has three methods of moving. Nodding move the chin up and down.
+The head has three methods of moving. Method `nod(t)` moves the chin up and down.
+See live demons of head's [nod](example-head-nod.html), turn and tilt.
 
 
 November, 2020

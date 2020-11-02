@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.min.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+			
+			var man = new Male();
+			
+			function animate(t)
+			{
+				man.head.nod( 60*sin(5*t) );
+			}			
+
+		</script>
+	</body>
+	
+</html>
