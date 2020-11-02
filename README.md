@@ -13,7 +13,7 @@ was implemented in JS/Three.js and is a direct predecessor of the current manneq
 
 The main library is `mannequin.js`. It requires `three.min.js`, which is also
 included in this repository. There is no need to compile anything. See the
-[live demos](https://boytchev.github.io/mannequin.js/) [live demos](demos.md)for examples how to use
+[live demos](https://boytchev.github.io/mannequin.js/demos/demos.md) for examples how to use
 the library.
 
 ### License
