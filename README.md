@@ -1,2 +1,2 @@
 # mannequin.js
- A simple model of human figure
+ A simple model of articulated human figure
