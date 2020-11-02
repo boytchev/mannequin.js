@@ -26,6 +26,6 @@ acknowledgement.
 
 # Demonstrations
 
-Visit the library site [mannequin.js](https://boytchev.github.io/mannequin.js/) for live demonstrations.
+Visit the library site for [live demonstrations](https://boytchev.github.io/mannequin.js/).
 
 <img src="./snapshots/demo-mannequin-01.jpg" width="150"><img src="snapshots/demo-mannequin-02.jpg" width="150"><img src="snapshots/demo-mannequin-03.jpg" width="150"><img src="snapshots/demo-mannequin-04.jpg" width="150"><img src="snapshots/demo-mannequin-05.jpg" width="150">
