@@ -1,8 +1,8 @@
-# About
+### About
 
-<img src="demos/snapshots/demo-mannequin-01.jpg" width="80"> <img src="demos/snapshots/demo-mannequin-02.jpg" width="80"> <img src="demos/snapshots/demo-mannequin-03.jpg" width="80"> <img src="demos/snapshots/demo-mannequin-04.jpg" width="80"> <img src="demos/snapshots/demo-mannequin-05.jpg" width="80">
+<img src="demos/snapshots/demo-mannequin-01.jpg" width="90"> <img src="demos/snapshots/demo-mannequin-02.jpg" width="90"> <img src="demos/snapshots/demo-mannequin-03.jpg" width="90"> <img src="demos/snapshots/demo-mannequin-04.jpg" width="90"> <img src="demos/snapshots/demo-mannequin-05.jpg" width="90">
 
-Mannequin.js is a simple library of an articulated human figure.
+**Mannequin.js** is a simple library of an articulated human figure.
 The shape of the figure and its movements are done purely in JavaScript.
 The graphics is implemented in [Three.js](threejs.org). The library is
 used in the course *Fundamentals of Computer Graphics*
@@ -17,4 +17,4 @@ The [User guide](../docs) describes how to access and move body parts.
 
 GPL-3.0 License.
 
-<sub><sub>November, 2020</sub></sub>
+November, 2020
