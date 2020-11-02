@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="three.min.js"></script>
+	</head>
+	
+	<body>
+		<script src="human.js"></script>
+		<script>
+		
+			createScene();
+			
+			var man = new Male();
+
+			man.l_arm.straddle(90);
+			man.r_arm.straddle(90);
+			
+			man.l_leg.straddle(30);
+			man.r_leg.straddle(30);
+			
+			man.l_ankle.tilt(30,RIGHT);
+			man.r_ankle.tilt(30,LEFT);
+			
+			function animate(t)
+			{
+				man.turn( t );
+				man.head.nod( 20+30*sin(5*t) );
+			}			
+	
+		</script>
+	</body>
+</html>
