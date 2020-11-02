@@ -46,8 +46,18 @@ The following image shows their names within the main figure instance.
 
 [<img src="snapshots/body-parts.jpg" width="500">](snapshots/body-parts.jpg)
 
-For example, if a woman figure is created by `woman = new Female()`, then its
-right arm is accessed by `woman.r_arm`. Left and right body parts are in respect
+For example, if a figure is created by `man = new Male()`, then the
+right arm is accessed by `man.r_arm`. Left and right body parts are in respect
 to the figure, not to the viewer.
+
+Each body part has methods to move it. The first parameter of the methods
+is the angle in degrees (i.e. 180 is half turn, 360 is full turn). Some
+methods have an optional second parameter for direction, which could be either `LEFT`
+or `RIGHT`.
+
+###### Head
+
+The head has three methods of moving. Nodding move the chin up and down.
+
 
 November, 2020
