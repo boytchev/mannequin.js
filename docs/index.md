@@ -18,23 +18,19 @@ you will provide your own set-up function, depending on your project.
 Figures are created as instances of three classes: `Male`, `Female` and
 `Child`. Here is a minimal program that creates a figure in the browser:
 
-```
+```javascript
 <!DOCTYPE html>
-
 <html>
-	<head>
-		<script src="three.min.js"></script>
-	</head>
-	
-	<body>
-		<script src="mannequin.min.js"></script>
-		<script>
-		
-			createScene();
-			
-			var man = new Male();
-		</script>
-	</body>
+  <head>
+    <script src="three.min.js"></script>
+  </head>
+  <body>
+    <script src="mannequin.min.js"></script>
+    <script>
+      createScene();
+      var man = new Male();
+    </script>
+  </body>
 </html>
 ```
 
