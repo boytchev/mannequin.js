@@ -10,10 +10,7 @@ at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 GPL-3.0 License.
 
-#### Demonstrations
+Available are [live demos](../demos) that can be played
+in your browser.
 
-Available are several [live demonstrations](../demos) that can be played in your browser.
-
-#### Documentation
-
-A brief [User guide](../docs) describes how to access and move body parts.
+The [User guide](../docs) describes how to access and move body parts.
