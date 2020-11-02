@@ -29,7 +29,7 @@ acknowledgement.
 ### General position
 A simple position with minimal motion &ndash; only the head is nodding.
 
-<img src="snapshots/demo-mannequin-01.jpg" width="400">
+<img src="https://raw.githubusercontent.com/boytchev/mannequin.js/main/snapshots/demo-mannequin-01.jpg" width="400">
 
 ### Types of figures
 Example of how to create a male, a female and a child figure.
