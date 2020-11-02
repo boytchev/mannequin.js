@@ -1,4 +1,4 @@
-// human.js
+// mannequin.js
 //
 // a libary for human figure
 //
