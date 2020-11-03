@@ -62,30 +62,30 @@ second parameter for *direction* of motion, which could be the constant `LEFT` o
 
 The central body parts are the ones which have single instances - head, neck, torso, pelvis and the body as a whole. The move the whole **body** use methods bend, turn and tilt of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
 
-* `bend ( angle )`
-* `turn ( angle )`
-* `turn ( angle, direction )`
-* `tilt ( angle )`
-* `tilt ( angle, direction )`
+* `.bend ( angle )`
+* `.turn ( angle )`
+* `.turn ( angle, direction )`
+* `.tilt ( angle )`
+* `.tilt ( angle, direction )`
 
 
-The **head** has three methods of moving &ndash; nodding, turning and tilting. The *dir* parameter is optional. If present it defines the direction of motion. By default it is `LEFT`.
+The **head** supports similar methods: nod, turn and tilt ([demo](https://boytchev.github.io/mannequin.js/docs/example-head.html)):
 
-* `head.nod(x)` &ndash; [live demo](example-head-nod.html)
-* `head.turn(x,dir)` &ndash; [live demo](example-head-turn.html)
-* `head.tilt(x,dir)` &ndash; [live demo](example-head-tilt.html)
+* `.head.nod ( angle )`
+* `.head.turn ( angle )`
+* `.head.turn ( angle, dir )`
+* `.head.tilt ( angle )`
+* `.head.tilt ( angle, dir )`
 
-The **torso** has three methods of moving &ndash; bending, turning and tilting, which are similar to the head movement, except that bending corresponds to nodding.
+The **torso** has tje same methods as the whole body: bend, turn and tilt ([demo](https://boytchev.github.io/mannequin.js/docs/example-torso.html)):
 
-* `torso.bend(x)` &ndash; [live demo](example-torso-bend.html)
-* `torso.turn(x,dir)` &ndash; [live demo](example-head-turn.html)
-* `torso.tilt(x,dir)` &ndash; [live demo](example-head-tilt.html)
+* `.torso.bend ( angle )`
+* `.torso.turn ( angle )`
+* `.torso.turn ( angle, direction )`
+* `.torso.tilt ( angle )`
+* `.torso.tilt ( angle, direction )`
 
-Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
-
-Similarily, the **pelvis** is not controlled individually. Instead, the hole body can be rotated by bending, turning and tilting.
-
-
+Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck. Similarily, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
 
 
 November, 2020
