@@ -17,3 +17,5 @@ was implemented in JS/Three.js and is a direct predecessor of the current manneq
 
 GPL-3.0 License.
 
+[User guide](docs/)
+
