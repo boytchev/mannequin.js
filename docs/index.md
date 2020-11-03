@@ -51,18 +51,20 @@ arm is accessed by `man.r_arm`. Left and right body parts are in respect
 to the figure, not to the viewer.
 
 Each body part has rotation methods that turn it around a pivot point.
-The first parameter of the methods is the angle of rotation in degrees,
-so 180 is half turn and 360 is full turn. Some methods have an optional
-second parameter for direction, which could be the constant `LEFT` or
+The first parameter *x* of the methods is the angle of rotation in degrees,
+so 180 is half turn and 360 is full turn. Negative angles are allowed and
+the represent turning in the opposite direction. Some methods have an optional
+second parameter *dir* for direction, which could be the constant `LEFT` or
 `RIGHT`.
 
-###### Head
+###### Head and neck
 
 The head has three methods of moving.
 
-* `nod(t)` moves the chin up and down ([live demo](example-head-nod.html))
-* `turn(t,dir)` moves the nose left or right
-* `tilt(t,dir)` moves the face clockwise or counterclockwise
+* `nod(x)` moves the chin up and down ([live demo](example-head-nod.html))
+* `turn(x,dir)` moves the nose left or right ([live demo](example-head-turn.html)), if present *dir* define the direction of turning
+* `tilt(x,dir)` moves the face clockwise or counterclockwise ([live demo](example-head-tilt.html)), if present *dir* define the direction of tilting
 
+Although the neck is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
 
 November, 2020
