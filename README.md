@@ -102,19 +102,29 @@ Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boy
 
 If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm2.html)). 
 
-The motion of the **elbow** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-elbow.html)). Negative values for *angle* results in unnatural elbow position.
+The motion of the **elbow** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
 
 * `figure.r_elbow.bend ( angle )`
+
+The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/docs/example-wrist.html)), but similar to the arms, the directions are symmetrical, if *direction* is not set:
+
+* `figure.r_wrist.bend ( angle )`
+* `figure.r_wrist.turn ( angle )`
+* `figure.r_wrist.turn ( angle, direction )`
+* `figure.r_wrist.tilt ( angle )`
+* `figure.r_wrist.tilt ( angle, direction )`
+
+The last body part of the upper limbs are the **fingers**. They can only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-fingers.html)), however, they are composed of two segments and the bending angle is distributed over both of them.
+
+* `figure.r_fingers.bend ( angle )`
+
+
 
 
 /*
 	leg		.raise(x) .straddle(x,dir) .turn(x,dir)
 	  knee	.bend(x)
 	  ankle	.bend(x)  .turn(x,dir) .tilt(x,dir)
-
-	  elbow	.bend(x)
-	  wrist	.bend(x)  .turn(x,dir) .tilt(x,dir)
-	  fingers	.bend(x)
 */
 November, 2020
 
