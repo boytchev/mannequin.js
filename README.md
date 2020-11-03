@@ -20,15 +20,9 @@ was implemented in JS/Three.js and is a direct predecessor of the current manneq
 ## Initialization
 
 The **mannequin.js** library is provided as a JavaScript file that has to
-be include along with three.js:
+be include along with three.js. Human figures are created as instances of classes, e.g. `new Male()`, `new Female()` or `new Child()`.
 
-``` xml
-<script src="three.min.js"></script>
-<script src="mannequin.min.js"></script>
-```
-
-Figures are created as instances of classes, e.g. `new Male()`, `new Female()` or
-`new Child()`. Here is a minimal program that creates a static figure in the browser:
+Here is a minimal program that creates a male figure in the browser ([demo](example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -46,13 +40,7 @@ Figures are created as instances of classes, e.g. `new Male()`, `new Female()` o
 </html>
 ```
 
-You can run this program [online](example-minimal.html). 
-
-The helper function `createScene()` provides a default set-up of the scene
-and its elements, like lighting, camera, ground, etc. Another helper function,
-`animate(t)` is responsible for defining figures' postures at moment *t*. If
-the set-up is done with a custom function, then it should also manage the
-animation loop by itself.
+The helper function `createScene()` provides a default set-up of the scene and its elements, like lighting, camera, ground, etc. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the set-up is done with a custom function, then it should also manage the animation loop by itself.
 
 
 #### Body parts
