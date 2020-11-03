@@ -60,33 +60,57 @@ second parameter for *direction* of motion, which could be the constant `LEFT` o
 
 ### Central body parts
 
-The central body parts are the ones which have single instances - head, neck, torso, pelvis and the body as a whole. The move the whole **body** use methods bend, turn and tilt of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
+The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. The move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
 
-* `.bend ( angle )`
-* `.turn ( angle )`
-* `.turn ( angle, direction )`
-* `.tilt ( angle )`
-* `.tilt ( angle, direction )`
+* `figure.bend ( angle )`
+* `figure.turn ( angle )`
+* `figure.turn ( angle, direction )`
+* `figure.tilt ( angle )`
+* `figure.tilt ( angle, direction )`
 
 
-The **head** supports similar methods: nod, turn and tilt ([demo](https://boytchev.github.io/mannequin.js/docs/example-head.html)):
+The **head** supports similar methods: *nod*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/docs/example-head.html)):
 
-* `.head.nod ( angle )`
-* `.head.turn ( angle )`
-* `.head.turn ( angle, dir )`
-* `.head.tilt ( angle )`
-* `.head.tilt ( angle, dir )`
+* `figure.head.nod ( angle )`
+* `figure.head.turn ( angle )`
+* `figure.head.turn ( angle, dir )`
+* `figure.head.tilt ( angle )`
+* `figure.head.tilt ( angle, dir )`
 
-The **torso** has tje same methods as the whole body: bend, turn and tilt ([demo](https://boytchev.github.io/mannequin.js/docs/example-torso.html)):
+The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/docs/example-torso.html)):
 
-* `.torso.bend ( angle )`
-* `.torso.turn ( angle )`
-* `.torso.turn ( angle, direction )`
-* `.torso.tilt ( angle )`
-* `.torso.tilt ( angle, direction )`
+* `figure.torso.bend ( angle )`
+* `figure.torso.turn ( angle )`
+* `figure.torso.turn ( angle, direction )`
+* `figure.torso.tilt ( angle )`
+* `figure.torso.tilt ( angle, direction )`
 
 Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck. Similarily, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
 
 
+### Upper limbs
+
+The upper limbs are symmetrical body parts: arm, elbow, wrist and fingers.
+
+Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
+
+* `figure.r_arm.raise ( angle )`
+* `figure.r_arm.straddle ( angle )`
+* `figure.r_arm.straddle ( angle, direction )`
+* `figure.r_arm.turn ( angle )`
+* `figure.r_arm.turn ( angle, direction )`
+
+If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm2.html)). 
+
+
+/*
+	leg		.raise(x) .straddle(x,dir) .turn(x,dir)
+	  knee	.bend(x)
+	  ankle	.bend(x)  .turn(x,dir) .tilt(x,dir)
+
+	  elbow	.bend(x)
+	  wrist	.bend(x)  .turn(x,dir) .tilt(x,dir)
+	  fingers	.bend(x)
+*/
 November, 2020
 
