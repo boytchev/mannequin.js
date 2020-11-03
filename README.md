@@ -3,11 +3,11 @@
 and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](threejs.org).
 
-[<img src="demos/snapshots/demo-mannequin-01.jpg" width="150">](demos/demo-mannequin-01.html)
-[<img src="demos/snapshots/demo-mannequin-02.jpg" width="150">](demos/demo-mannequin-02.html)
-[<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](demos/demo-mannequin-03.html)
-[<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](demos/demo-mannequin-04.html)
-[<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](demos/demo-mannequin-05.html)
+[<img src="demos/snapshots/demo-mannequin-01.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos//demo-mannequin-01.html)
+[<img src="demos/snapshots/demo-mannequin-02.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos//demo-mannequin-02.html)
+[<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos//demo-mannequin-03.html)
+[<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos//demo-mannequin-04.html)
+[<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos//demo-mannequin-05.html)
 
 This is the fourth incarnation of the human figure. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
