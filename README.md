@@ -60,10 +60,12 @@ second parameter for *direction* of motion, which could be the constant `LEFT` o
 
 ### Central body parts
 
-The central body parts are the ones which have single instances - head, neck, torso, pelvis and the body as a whole. The move the whole **body** use methods bend, turn and tilt of the figure ([demo](example-pelvis-bend.html)):
+The central body parts are the ones which have single instances - head, neck, torso, pelvis and the body as a whole. The move the whole **body** use methods bend, turn and tilt of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
 
 * `bend ( angle )`
+* `turn ( angle )`
 * `turn ( angle, direction )`
+* `tilt ( angle )`
 * `tilt ( angle, direction )`
 
 
