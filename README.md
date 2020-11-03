@@ -22,7 +22,7 @@ was implemented in JS/Three.js and is a direct predecessor of the current manneq
 The **mannequin.js** library is provided as a JavaScript file that has to
 be include along with three.js. Human figures are created as instances of classes, e.g. `new Male()`, `new Female()` or `new Child()`.
 
-Here is a minimal program that creates a male figure in the browser ([demo](example-minimal.html)):
+Here is a minimal program that creates a male figure in the browser ([demo](https://boytchev.github.io/mannequin.js/docs/example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ Here is a minimal program that creates a male figure in the browser ([demo](exam
 The helper function `createScene()` provides a default set-up of the scene and its elements, like lighting, camera, ground, etc. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the set-up is done with a custom function, then it should also manage the animation loop by itself.
 
 
-#### Body parts
+## Body parts
 
 All types of figures have the same structure of joints as shown below:
 
