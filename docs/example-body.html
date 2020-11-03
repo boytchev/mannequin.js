@@ -14,11 +14,23 @@
 			
 			var man = new Male();
 				man.turn( -90 );
+				man.position.x = -30;
 				man.position.y = 3.7;
+			
+			var child = new Child();
+				child.turn( -90 );
+				child.position.y = -7.8;
+			
+			var woman = new Female();
+				woman.turn( -90 );
+				woman.position.x = 30;
+				woman.position.y = 2.2;
 			
 			function animate(t)
 			{
-				man.torso.turn( 90*sin(3*t) );
+				man.bend( 45*sin(3*t) );
+				child.turn( 60*sin(3*t)-90 );
+				woman.tilt( 30*sin(3*t) );
 			}			
 
 		</script>

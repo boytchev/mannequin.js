@@ -48,17 +48,24 @@ The helper function `createScene()` provides a default set-up of the scene and i
 All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer.
 
 
-[<img src="docs/snapshots/body-parts.jpg" >](snapshots/body-parts.jpg)
+<img src="docs/snapshots/body-parts.jpg">
 
 
 Each body part has rotation methods that turn it around a pivot point.
-The first parameter *x* of the methods is the angle of rotation in degrees,
+The first parameter *angle* of the methods is the angle of rotation in degrees,
 so 180 is half turn and 360 is full turn. Negative angles are allowed and
-the represent turning in the opposite direction. Some methods have an optional
-second parameter *dir* for direction, which could be the constant `LEFT` or
+they represent turning in the opposite direction. Some methods have an optional
+second parameter for *direction* of motion, which could be the constant `LEFT` or
 `RIGHT`.
 
-###### Central body parts
+### Central body parts
+
+The central body parts are the ones which have single instances - head, neck, torso, pelvis and the body as a whole. The move the whole **body** use methods bend, turn and tilt of the figure ([demo](example-pelvis-bend.html)):
+
+* `bend ( angle )`
+* `turn ( angle, direction )`
+* `tilt ( angle, direction )`
+
 
 The **head** has three methods of moving &ndash; nodding, turning and tilting. The *dir* parameter is optional. If present it defines the direction of motion. By default it is `LEFT`.
 
@@ -74,7 +81,7 @@ The **torso** has three methods of moving &ndash; bending, turning and tilting, 
 
 Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
 
-Similarily, the *pelvis* is not controlled individually. Instead, the hole body can be rotated by bending, turning and tilting.
+Similarily, the **pelvis** is not controlled individually. Instead, the hole body can be rotated by bending, turning and tilting.
 
 
 
