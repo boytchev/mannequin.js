@@ -1,11 +1,10 @@
 # Table of contents
 
 - [About](#About)
-- [User guide](#User-guide)
-  * [Initialization](#Initialization)
-  * [Body parts](#Body-parts)
-    + [Central body parts](#Central-body-parts)
-    + [Upper limbs](#Upper-limbs)
+- [Initialization](#Initialization)
+- [Body parts](#Body-parts)
+    * [Central body parts](#Central-body-parts)
+    * [Upper limbs](#Upper-limbs)
 
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
@@ -27,10 +26,7 @@ for Computer Sciences undergraduate students from the
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
-# User guide
-
-
-## Initialization
+# Initialization
 
 The **mannequin.js** library is provided as a JavaScript file that has to
 be include along with three.js. Human figures are created as instances of classes, e.g. `new Male()`, `new Female()` or `new Child()`.
@@ -56,7 +52,7 @@ Here is a minimal program that creates a male figure in the browser ([demo](http
 The helper function `createScene()` provides a default set-up of the scene and its elements, like lighting, camera, ground, etc. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the set-up is done with a custom function, then it should also manage the animation loop by itself.
 
 
-## Body parts
+# Body parts
 
 All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer.
 
@@ -71,7 +67,7 @@ they represent turning in the opposite direction. Some methods have an optional
 second parameter for *direction* of motion, which could be the constant `LEFT` or
 `RIGHT`.
 
-### Central body parts
+## Central body parts
 
 The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. The move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
 
@@ -101,7 +97,7 @@ The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* 
 Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck. Similarily, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
 
 
-### Upper limbs
+## Upper limbs
 
 The upper limbs are symmetrical body parts: arm, elbow, wrist and fingers.
 
