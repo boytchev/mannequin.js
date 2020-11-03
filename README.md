@@ -47,7 +47,7 @@ The helper function `createScene()` provides a default set-up of the scene and i
 
 All types of figures have the same structure of joints as shown below:
 
-[<img src="snapshots/body-parts.jpg" width="500">](snapshots/body-parts.jpg)
+[<img src="demos/snapshots/body-parts.jpg" >](snapshots/body-parts.jpg)
 
 For example, if a figure is created by `man = new Male()`, then the right
 arm is accessed by `man.r_arm`. Left and right body parts are in respect
