@@ -92,7 +92,7 @@ Although the **neck** is a separate part of the body, it is not controlled indiv
 
 The upper limbs are symmetrical body parts: arm, elbow, wrist and fingers.
 
-Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
+Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm1.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
 
 * `figure.r_arm.raise ( angle )`
 * `figure.r_arm.straddle ( angle )`
