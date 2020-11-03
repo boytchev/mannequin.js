@@ -58,13 +58,14 @@ second parameter *dir* for direction, which could be the constant `LEFT` or
 `RIGHT`.
 
 **Head**
-The head has three methods of moving &ndash; nodding, turning and tilting.
+
+The head has three methods of moving &ndash; nodding, turning and tilting. The *dir* parameter is optional. If present it defines the direction of motion. By default it is *LEFT*.
 
 * `nod(x)` &ndash; [live demo](example-head-nod.html)
 * `turn(x,dir)` &ndash; [live demo](example-head-turn.html)
 * `tilt(x,dir)` &ndash; [live demo](example-head-tilt.html)
 
-The *dir* parameter is optional. If present it defines the direction of motion. By default it is *LEFT*.
+
 
 ####### Neck
 Although the neck is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
