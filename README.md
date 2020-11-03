@@ -6,6 +6,11 @@
     * [Central body parts](#Central-body-parts)
     * [Upper limbs](#Upper-limbs)
     * [Lower limbs](#Lower-limbs)
+- [Posture](#Posture)
+    * [Static posture](#Static-posture)
+    * [Dynamic posture](#Dynamic-posture)
+- [Body modifications](#Body-modifications)
+- [Miscallaneous](#Miscallaneous)
 
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
@@ -154,13 +159,25 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 * `figure.r_ankle.tilt ( angle, direction )`
 
 
+# Posture
 
+tbd
 
+### Static posture
 
-/*
-	leg		.raise(x) .straddle(x,dir) .turn(x,dir)
-	  knee	.bend(x)
-	  ankle	.bend(x)  .turn(x,dir) .tilt(x,dir)
-*/
+tbd
+
+### Dynamic posture
+
+tbd
+
+# Body modifications
+
+tbd
+
+# Miscallaneous
+
+tbd
+
 November, 2020
 
