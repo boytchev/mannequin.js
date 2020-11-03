@@ -57,13 +57,27 @@ the represent turning in the opposite direction. Some methods have an optional
 second parameter *dir* for direction, which could be the constant `LEFT` or
 `RIGHT`.
 
-###### Head and neck
+**Head**
+The head has three methods of moving &ndash; nodding, turning and tilting.
 
-The head has three methods of moving.
+* `nod(x)` &ndash; [live demo](example-head-nod.html)
+* `turn(x,dir)` &ndash; [live demo](example-head-turn.html)
+* `tilt(x,dir)` &ndash; [live demo](example-head-tilt.html)
 
-* `nod(x)` moves the chin up and down ([live demo](example-head-nod.html))
-* `turn(x,dir)` moves the nose left or right ([live demo](example-head-turn.html)), if present *dir* define the direction of turning
-* `tilt(x,dir)` moves the face clockwise or counterclockwise ([live demo](example-head-tilt.html)), if present *dir* define the direction of tilting
+The *dir* parameter is optional. If present it defines the direction of motion. By default it is *LEFT*.
+
+####### Neck
+Although the neck is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
+
+####### Torso
+
+The torso has three methods of moving &ndash; bending, turning and tilting.
+
+* `bend(x)` moves the torso forward and backward ([live demo](example-torso-bend.html))
+* `turn(x,dir)` moves the nose left or right ([live demo](example-head-turn.html)) 
+* `tilt(x,dir)` moves the face clockwise or counterclockwise ([live demo](example-head-tilt.html))
+
+The *dir* parameter is optional. If present it defines the direction of motion. By default it is *LEFT*.
 
 Although the neck is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck.
 
