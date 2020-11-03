@@ -45,13 +45,11 @@ The helper function `createScene()` provides a default set-up of the scene and i
 
 ## Body parts
 
-All types of figures have the same structure of joints as shown below:
+All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer.
 
-[<img src="demos/snapshots/body-parts.jpg" >](snapshots/body-parts.jpg)
 
-For example, if a figure is created by `man = new Male()`, then the right
-arm is accessed by `man.r_arm`. Left and right body parts are in respect
-to the figure, not to the viewer.
+[<img src="docs/snapshots/body-parts.jpg" >](snapshots/body-parts.jpg)
+
 
 Each body part has rotation methods that turn it around a pivot point.
 The first parameter *x* of the methods is the angle of rotation in degrees,
