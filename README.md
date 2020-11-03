@@ -31,6 +31,8 @@ for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
+Mannequin.js has GPL-3.0 License.
+
 
 # Initialization
 
