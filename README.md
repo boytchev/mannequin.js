@@ -5,6 +5,7 @@
 - [Body parts](#Body-parts)
     * [Central body parts](#Central-body-parts)
     * [Upper limbs](#Upper-limbs)
+    * [Lower limbs](#Lower-limbs)
 
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
@@ -67,7 +68,7 @@ they represent turning in the opposite direction. Some methods have an optional
 second parameter for *direction* of motion, which could be the constant `LEFT` or
 `RIGHT`.
 
-## Central body parts
+### Central body parts
 
 The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. The move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([demo](https://boytchev.github.io/mannequin.js/docs/example-body.html)):
 
@@ -97,9 +98,9 @@ The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* 
 Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck. Similarily, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
 
 
-## Upper limbs
+### Upper limbs
 
-The upper limbs are symmetrical body parts: arm, elbow, wrist and fingers.
+The upper limbs are symmetrical body parts: *arm*, *elbow*, *wrist* and *fingers*.
 
 Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm1.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
 
@@ -126,6 +127,32 @@ The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([d
 The last body part of the upper limbs are the **fingers**. They can only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-fingers.html)), however, they are composed of two segments and the bending angle is distributed over both of them.
 
 * `figure.r_fingers.bend ( angle )`
+
+
+### Lower limbs
+
+The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
+
+Both **legs** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/docs/example-leg.html)). Straddling and turning are symmetrical if *direciton* is not set.
+
+* `figure.r_leg.raise ( angle )`
+* `figure.r_leg.straddle ( angle )`
+* `figure.r_leg.straddle ( angle, direction )`
+* `figure.r_leg.turn ( angle )`
+* `figure.r_leg.turn ( angle, direction )`
+
+The motion of the **knee** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+
+* `figure.r_knee.bend ( angle )`
+
+The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/docs/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *direction* is not set:
+
+* `figure.r_ankle.bend ( angle )`
+* `figure.r_ankle.turn ( angle )`
+* `figure.r_ankle.turn ( angle, direction )`
+* `figure.r_ankle.tilt ( angle )`
+* `figure.r_ankle.tilt ( angle, direction )`
+
 
 
 

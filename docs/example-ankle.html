@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.min.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+			
+			var man = new Male();
+				man.turn( -90 );
+				man.position.x = -30;
+				man.position.y = 8;
+			
+			var child = new Child();
+				child.turn( -90 );
+				child.position.y = -7.8;
+			
+			var woman = new Female();
+				woman.turn( -90 );
+				woman.position.x = 30;
+				woman.position.y = 2.2;
+			
+			function animate(t)
+			{
+				man.r_ankle.bend( 70*sin(3*t) );
+				man.l_ankle.bend( 70*sin(3*t) );
+				
+				child.r_ankle.turn( 60*sin(3*t) );
+				child.l_ankle.turn( 60*sin(3*t) );
+				
+				woman.r_ankle.tilt( 30*sin(3*t) );
+				woman.l_ankle.tilt( 30*sin(3*t) );
+			}			
+
+		</script>
+	</body>
+	
+</html>
