@@ -102,6 +102,10 @@ Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boy
 
 If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([demo](https://boytchev.github.io/mannequin.js/docs/example-arm2.html)). 
 
+The motion of the **elbow** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/docs/example-elbow.html)):
+
+* `figure.r_elbow.bend ( angle )`
+
 
 /*
 	leg		.raise(x) .straddle(x,dir) .turn(x,dir)
