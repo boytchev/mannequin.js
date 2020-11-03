@@ -12,6 +12,10 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 This is the fourth incarnation of the human figure. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
 was implemented in JS/Three.js and is a direct predecessor of the current mannequin.js.
+Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics*
+for Computer Sciences undergraduate students from the
+[Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
+at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
 # User guide
