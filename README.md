@@ -1,3 +1,12 @@
+# Table of contents
+
+- [About](#About)
+- [User guide](#User-guide)
+  * [Initialization](#Initialization)
+  * [Body parts](#Body-parts)
+    + [Central body parts](#Central-body-parts)
+    + [Upper limbs](#Upper-limbs)
+
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
 and its movements are done purely in JavaScript. The graphics is implemented in
