@@ -15,7 +15,7 @@
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
 and its movements are done purely in JavaScript. The graphics is implemented in
-[Three.js](threejs.org). Click on an image to open a live demo.
+[Three.js](https://threejs.org). Click on an image to open a live demo.
 
 [<img src="demos/snapshots/demo-mannequin-01.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-01.html)
 [<img src="demos/snapshots/demo-mannequin-02.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-02.html)
@@ -31,7 +31,9 @@ for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
-Mannequin.js has GPL-3.0 License.
+Mannequin.js is **GPL-3.0**.
+
+Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
 
 
 # Initialization
