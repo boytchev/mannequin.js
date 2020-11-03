@@ -12,9 +12,6 @@ be include along with three.js:
 <script src="mannequin.min.js"></script>
 ```
 
-The helper function `createScene()` provides a default set-up of the scene
-and its elements, like lighting, camera, ground, etc. 
-
 Figures are created as instances of classes, e.g. `new Male()`, `new Female()` or
 `new Child()`. Here is a minimal program that creates a static figure in the browser:
 
@@ -36,6 +33,13 @@ Figures are created as instances of classes, e.g. `new Male()`, `new Female()` o
 
 You can run this program [online](example-minimal.html). 
 
+The helper function `createScene()` provides a default set-up of the scene
+and its elements, like lighting, camera, ground, etc. Another helper function,
+`animate(t)` is responsible for defining figures' postures at moment *t*. If
+the set-up is done with a custom function, then it should also manage the
+animation loop by itself.
+
+
 #### Body parts
 
 All types of figures have the same structure of joints as shown below:
@@ -52,14 +56,13 @@ so 180 is half turn and 360 is full turn. Some methods have an optional
 second parameter for direction, which could be the constant `LEFT` or
 `RIGHT`.
 
-If present, a function called `animate(t)` defines the posture of all
-figures in the scene at a given time *t*. The value of *t* is set by
-mannequin.js and corresponds to tenths of seconds.
-
 ###### Head
 
-The head has three methods of moving. Method `nod(t)` moves the chin up and down.
-See live demons of head's [nod](example-head-nod.html), turn and tilt.
+The head has three methods of moving.
+
+* `nod(t)` moves the chin up and down ([live demo](example-head-nod.html))
+* `turn(t,dir)` moves the nose left or right
+* `tilt(t,dir)` moves the face clockwise or counterclockwise
 
 
 November, 2020
