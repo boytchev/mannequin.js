@@ -61,7 +61,9 @@ second parameter *dir* for direction, which could be the constant `LEFT` or
 
 The **head** has three methods of moving &ndash; nodding, turning and tilting. The *dir* parameter is optional. If present it defines the direction of motion. By default it is `LEFT`.
 
-* ``` javascript head.nod(x)``` &ndash; [live demo](example-head-nod.html)
+* ``` javascript
+		head.nod(x)
+	``` &ndash; [live demo](example-head-nod.html)
 * `head.turn(x,dir)` &ndash; [live demo](example-head-turn.html)
 * `head.tilt(x,dir)` &ndash; [live demo](example-head-tilt.html)
 
