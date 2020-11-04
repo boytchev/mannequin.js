@@ -188,9 +188,9 @@ Sometimes this might lead to unexpected results, especially if the user assumes 
 
 The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. This version of mannequin.js does not provide posture editor, so all rotations has to be defined programmatically.
 
-<img src="docs/snapshots/example-position.jpg">
+<img src="docs/snapshots/example-posture.jpg">
 
-Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-position.html)) could start by defining the whole pody position:
+Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-posture.html)) could start by defining the whole pody position:
 
 ``` javascript
 // overall body position
