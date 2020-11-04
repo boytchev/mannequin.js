@@ -254,13 +254,13 @@ The following code introduces a slight animation to the Tai Chi Chuan posture ([
 ``` javascript
 function animate(t)
 {
-	man.torso.turn(2*sin(0.9*t));
-	man.torso.tilt(2*cos(0.7*t));
-	man.torso.bend(-20+2*sin(0.7*t));
-	man.head.turn(70+2*sin(0.8*t),RIGHT);
-	man.head.nod(5*cos(1.2*t));
+    man.torso.turn(2*sin(0.9*t));
+    man.torso.tilt(2*cos(0.7*t));
+    man.torso.bend(-20+2*sin(0.7*t));
+    man.head.turn(70+2*sin(0.8*t),RIGHT);
+    man.head.nod(5*cos(1.2*t));
 	
-	man.r_fingers.bend( 120*THREE.Math.clamp(2*sin(3*t)*sin(2*t)-1,0,1) );
+    man.r_fingers.bend( 120*THREE.Math.clamp(2*sin(3*t)*sin(2*t)-1,0,1) );
 }
 ```
 
