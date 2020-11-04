@@ -188,7 +188,7 @@ Sometimes this might lead to unexpected results, especially if the user assumes 
 
 The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. This version of mannequin.js does not provide posture editor, so all rotations has to be defined programmatically.
 
-<img src="docs/snapshots/example-posture.jpg">
+[<img src="docs/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/docs/example-posture.html)
 
 Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-posture.html)) could start by defining the whole pody position:
 
@@ -245,8 +245,27 @@ man.r_fingers.bend(90);
 	
 ### Dynamic posture
 
-tbd
+The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function. The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, than the animation loop should be managed manually.
 
+The following code introduces a slight animation to the Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)).
+
+[<img src="docs/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)
+
+``` javascript
+function animate(t)
+{
+	man.torso.turn(2*sin(0.9*t));
+	man.torso.tilt(2*cos(0.7*t));
+	man.torso.bend(-20+2*sin(0.7*t));
+	man.head.turn(70+2*sin(0.8*t),RIGHT);
+	man.head.nod(5*cos(1.2*t));
+	
+	man.r_fingers.bend( 120*THREE.Math.clamp(2*sin(3*t)*sin(2*t)-1,0,1) );
+}
+```
+
+To make the animation loop faster, all constant rotations should be defined outside *animate*. Also, if a rotaiton changing in the loop, there is no need to set it up outside the loop.
+			
 # Body modifications
 
 tbd
