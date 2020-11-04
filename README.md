@@ -165,11 +165,30 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 
 # Posture
 
-tbd
+The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program. For example:
+
+``` javascript
+figure.head.nod(30);
+figure.head.turn(45);
+figure.head.tilt(20,RIGHT);
+```
+
+produces the same posture as:
+
+``` javascript
+figure.head.tilt(20,RIGHT);
+figure.head.turn(45);
+figure.head.nod(30);
+```
+
+Sometimes this might lead to unexpected results, especially if the user assumes an order of rotations that is different from what mannequin.js uses. This might happen when a body part is rotated around 3 or 2 axes.
+
 
 ### Static posture
 
-tbd
+The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. This version of mannequin.js does not provide posture editor, so all rotations has to be defined programmatically.
+
+
 
 ### Dynamic posture
 
