@@ -165,7 +165,7 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 
 # Posture
 
-The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program. For example:
+The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program ([demo](https://boytchev.github.io/mannequin.js/docs/example-order.html)). For example:
 
 ``` javascript
 figure.head.nod(30);
@@ -188,8 +188,61 @@ Sometimes this might lead to unexpected results, especially if the user assumes 
 
 The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. This version of mannequin.js does not provide posture editor, so all rotations has to be defined programmatically.
 
+<img src="docs/snapshots/example-position.jpg">
 
+Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-position.html)) could start by defining the whole pody position:
 
+``` javascript
+// overall body position
+man.position.y = -7.7;
+man.tilt(5,LEFT);
+man.bend(15);
+
+// torso and head
+man.torso.turn(30,RIGHT);
+man.torso.tilt(15,RIGHT);
+man.torso.bend(-15);
+man.head.turn(70,RIGHT);
+```
+
+Then the orientation of the legs can be set:
+
+``` javascript
+// right leg
+man.r_leg.raise(85);
+man.r_leg.turn(20);
+man.r_leg.straddle(40,LEFT);
+man.r_knee.bend(90);
+man.r_ankle.bend(35);
+man.r_ankle.turn(20,RIGHT);
+man.r_ankle.tilt(-15);
+
+// left leg
+man.l_leg.raise(-30);
+man.l_knee.bend(25);
+man.l_ankle.bend(42);
+```
+				
+Finally, the arms are fixed:
+	
+``` javascript
+// left arm
+man.l_arm.raise(10);
+man.l_arm.turn(-40);
+man.l_arm.tilt(-60);
+man.l_elbow.bend(155);
+man.l_wrist.turn(50);
+man.l_fingers.bend(-10);
+
+// right arm
+man.r_arm.raise(-10);
+man.r_arm.tilt(70);
+man.r_arm.turn(20);
+man.r_elbow.bend(40);
+man.r_wrist.turn(30);
+man.r_fingers.bend(90);
+```
+	
 ### Dynamic posture
 
 tbd
