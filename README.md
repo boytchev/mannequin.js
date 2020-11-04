@@ -249,7 +249,7 @@ The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set
 
 The following code introduces a slight animation to the Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)).
 
-[<img src="docs/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)
+[<img src="docs/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)
 
 ``` javascript
 function animate(t)
