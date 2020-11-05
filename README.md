@@ -248,7 +248,7 @@ man.r_fingers.bend(90);
 
 The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function. The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, than the animation loop should be managed manually.
 
-The following code introduces a slight animation to the Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)).
+The following code introduces a slight animation to the Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)):
 
 [<img src="docs/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/docs/example-dynamic.html)
 
@@ -292,9 +292,34 @@ man.r_arm.hide();
 ```
 
 
-# Future plans
+### Attaching custom objects
 
 tbd
+
+### Replacing with custom objects
+
+tbd
+
+### Accessing global positions
+
+tbd
+
+### Touching the ground
+
+tbd
+
+# Future plans
+
+Currently mannequi.js is used to support one of the homework assignments in the course *Fundamentals of Computer Graphics*. Apparently, the library could be used for other activities. This provides ideas for further improvements in the functionalities.
+
+This is a list of possible improvements:
+
+- Custom order of rotations
+- Compatability with other developers
+- Models for animals and other creatures
+- Online posture editor
+- Interpolating postures
+- Import animation from Three.js, Blender, etc.
 
 November, 2020
 
