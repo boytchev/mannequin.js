@@ -6,11 +6,12 @@
     * [Central body parts](#Central-body-parts)
     * [Upper limbs](#Upper-limbs)
     * [Lower limbs](#Lower-limbs)
-- [Posture](#Posture)
+- [Body posture](#Body posture)
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
-- [Body modifications](#Body-modifications)
-- [Miscallaneous](#Miscallaneous)
+- [Other functions](#Other-functions)
+	* [Hiding body parts](#Hiding-body-parts)
+- [Future plans](#Future-plans)
 
 # About
 **Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
@@ -163,7 +164,7 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 * `figure.r_ankle.tilt ( angle, direction )`
 
 
-# Posture
+# Body posture
 
 The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program ([demo](https://boytchev.github.io/mannequin.js/docs/example-order.html)). For example:
 
@@ -267,11 +268,31 @@ function animate(t)
 
 To make the animation loop faster, all constant rotations should be defined outside *animate*. Also, if a rotaiton changing in the loop, there is no need to set it up outside the loop.
 			
-# Body modifications
+# Other functions
 
-tbd
+Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
 
-# Miscallaneous
+### Hiding body parts
+
+Each body part could be hidden. This does not remove the body part and its graphical object from the figure, instead it is just not rendered in the frame. The method to hide a joint from a figure is:
+
+``` javascript
+figure.joint.hide();
+```
+
+where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the body parts attached to them. THe following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees([demo](https://boytchev.github.io/mannequin.js/docs/example-hide.html)).
+
+[<img src="docs/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/docs/example-hide.html):
+
+``` javascript
+man.l_leg.hide();
+man.r_leg.hide();
+man.l_arm.hide();
+man.r_arm.hide();
+```
+
+
+# Future plans
 
 tbd
 
