@@ -6,7 +6,7 @@
     * [Central body parts](#Central-body-parts)
     * [Upper limbs](#Upper-limbs)
     * [Lower limbs](#Lower-limbs)
-- [Body posture](#Body posture)
+- [Body posture](#Body-posture)
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
 - [Other functions](#Other-functions)
@@ -280,9 +280,9 @@ Each body part could be hidden. This does not remove the body part and its graph
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the body parts attached to them. THe following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees([demo](https://boytchev.github.io/mannequin.js/docs/example-hide.html)).
+where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. THe following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([demo](https://boytchev.github.io/mannequin.js/docs/example-hide.html)):
 
-[<img src="docs/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/docs/example-hide.html):
+[<img src="docs/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/docs/example-hide.html)
 
 ``` javascript
 man.l_leg.hide();
