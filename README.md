@@ -46,7 +46,7 @@ Three.js is included in this repository to safeguard against incompatibilities w
 The **mannequin.js** library is provided as a JavaScript file that has to
 be include along with three.js. Human figures are created as instances of classes, e.g. `new Male()`, `new Female()` or `new Child()`.
 
-Here is a minimal program that creates a male figure in the browser ([demo](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Here is a minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -84,7 +84,7 @@ second parameter for *direction* of motion, which could be the constant `LEFT` o
 
 ### Central body parts
 
-The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. The move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([demo](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. The move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
 
 * `figure.bend ( angle )`
 * `figure.turn ( angle )`
@@ -93,7 +93,7 @@ The central body parts are the ones which have single instances - *head*, *neck*
 * `figure.tilt ( angle, direction )`
 
 
-The **head** supports similar methods: *nod*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
+The **head** supports similar methods: *nod*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
 
 * `figure.head.nod ( angle )`
 * `figure.head.turn ( angle )`
@@ -101,7 +101,7 @@ The **head** supports similar methods: *nod*, *turn* and *tilt* ([demo](https://
 * `figure.head.tilt ( angle )`
 * `figure.head.tilt ( angle, dir )`
 
-The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
+The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
 
 * `figure.torso.bend ( angle )`
 * `figure.torso.turn ( angle )`
@@ -116,7 +116,7 @@ Although the **neck** is a separate part of the body, it is not controlled indiv
 
 The upper limbs are symmetrical body parts: *arm*, *elbow*, *wrist* and *fingers*.
 
-Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/examples/example-arm1.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
+Both **arms** support methods *raise*, *straddle* and *turn* ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm1.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
 
 * `figure.r_arm.raise ( angle )`
 * `figure.r_arm.straddle ( angle )`
@@ -124,13 +124,13 @@ Both **arms** support methods *raise*, *straddle* and *turn* ([demo](https://boy
 * `figure.r_arm.turn ( angle )`
 * `figure.r_arm.turn ( angle, direction )`
 
-If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([demo](https://boytchev.github.io/mannequin.js/examples/example-arm2.html)). 
+If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm2.html)). 
 
-The motion of the **elbow** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
+The motion of the **elbow** is only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
 
 * `figure.r_elbow.bend ( angle )`
 
-The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, the directions are symmetrical, if *direction* is not set:
+The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, the directions are symmetrical, if *direction* is not set:
 
 * `figure.r_wrist.bend ( angle )`
 * `figure.r_wrist.turn ( angle )`
@@ -138,7 +138,7 @@ The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([d
 * `figure.r_wrist.tilt ( angle )`
 * `figure.r_wrist.tilt ( angle, direction )`
 
-The last body part of the upper limbs are the **fingers**. They can only *bend* ([demo](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)), however, they are composed of two segments and the bending angle is distributed over both of them.
+The last body part of the upper limbs are the **fingers**. They can only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)), however, they are composed of two segments and the bending angle is distributed over both of them.
 
 * `figure.r_fingers.bend ( angle )`
 
@@ -147,7 +147,7 @@ The last body part of the upper limbs are the **fingers**. They can only *bend* 
 
 The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
 
-Both **legs** support methods *raise*, *straddle* and *turn* ([demo](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical if *direciton* is not set.
+Both **legs** support methods *raise*, *straddle* and *turn* ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical if *direciton* is not set.
 
 * `figure.r_leg.raise ( angle )`
 * `figure.r_leg.straddle ( angle )`
@@ -155,11 +155,11 @@ Both **legs** support methods *raise*, *straddle* and *turn* ([demo](https://boy
 * `figure.r_leg.turn ( angle )`
 * `figure.r_leg.turn ( angle, direction )`
 
-The motion of the **knee** is only *bend* ([demo](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+The motion of the **knee** is only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
 
 * `figure.r_knee.bend ( angle )`
 
-The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([demo](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *direction* is not set:
+The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *direction* is not set:
 
 * `figure.r_ankle.bend ( angle )`
 * `figure.r_ankle.turn ( angle )`
@@ -170,7 +170,7 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 
 # Body posture
 
-The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program ([demo](https://boytchev.github.io/mannequin.js/examples/example-order.html)). For example:
+The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program ([live example](https://boytchev.github.io/mannequin.js/examples/example-order.html)). For example:
 
 ``` javascript
 figure.head.nod(30);
@@ -195,7 +195,7 @@ The static posture defines the position of body part that do not change. By defa
 
 [<img src="examples/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 
-Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/examples/example-posture.html)) could start by defining the whole pody position:
+Sometimes it is better to define the figure step by step. Tai Chi Chuan posture ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture.html)) could start by defining the whole pody position:
 
 ``` javascript
 // overall body position
@@ -252,7 +252,7 @@ man.r_fingers.bend(90);
 
 The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function. The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, than the animation loop should be managed manually.
 
-The following code introduces a slight animation to the Tai Chi Chuan posture ([demo](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)):
+The following code introduces a slight animation to the Tai Chi Chuan posture ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)):
 
 [<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
 
@@ -284,7 +284,7 @@ Each body part could be hidden. This does not remove the body part and its graph
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. THe following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([demo](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
+where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. THe following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([live example](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
 
 [<img src="examples/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/examples/example-hide.html)
 
