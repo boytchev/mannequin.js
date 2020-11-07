@@ -13,8 +13,7 @@
     * [Dynamic posture](#Dynamic-posture)
 - [Other functions](#Other-functions)
 	* [Hiding body parts](#Hiding-body-parts)
-	* [Attaching custom objects](#Attaching-custom-objects)
-	* [Replacing with custom objects](#Replacing-with-custom-objects)
+	* [Custom body parts](#Custom-body-parts)
 	* [Accessing global positions](#Accessing-global-positions)
 	* [Touching the ground](#Touching-the-ground)
 - [Future plans](#Future-plans)
@@ -294,7 +293,7 @@ function animate(t)
 
     child.turn(-90-20*time1+20*time2);
     child.tilt(10*time1);
-	:
+    :
 	
     scene.rotation.y = rad(30*time1);
 }
@@ -326,11 +325,7 @@ man.r_arm.hide();
 ```
 
 
-### Attaching custom objects
-
-tbd
-
-### Replacing with custom objects
+### Custom body parts
 
 tbd
 
