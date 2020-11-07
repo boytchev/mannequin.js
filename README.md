@@ -398,6 +398,27 @@ loop.geometry.verticesNeedUpdate = true;
 
 Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and test their global position.
 
+The following example uses four contact points on each show (i.e. *man.r_ankle* and *man.l_ankle*). The minimal vertical position of the eigth contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+
+[<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
+
+``` javascript
+// get minimal vertical position of contact points
+var bottom = Math.min(
+    man.l_ankle.point(-2,2,2).y,
+    man.l_ankle.point(-2,2,-2).y,
+    man.l_ankle.point(-2.5,-1,0).y,
+    man.l_ankle.point(-2.1,6,0).y,
+
+    man.r_ankle.point(-2,2,2).y,
+    man.r_ankle.point(-2,2,-2).y,
+    man.r_ankle.point(-2.5,-1,0).y,
+    man.r_ankle.point(-2.1,6,0).y
+);
+
+man.position.y += (-29.5-bottom);
+```			
+				
 # Future plans
 
 Currently mannequin.js is used to support one of the homework assignments in the course *Fundamentals of Computer Graphics*. Apparently, the library could be used for other activities. This provides ideas for further improvements in the functionalities.
@@ -411,6 +432,7 @@ This is unordered list of possible future improvements:
 - Compatability with other models
 - Export and import of animations
 - A rudimental inverse kinematics
+- Collisions & motion restriction
 
 November, 2020
 
