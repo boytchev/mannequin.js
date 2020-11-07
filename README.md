@@ -24,7 +24,7 @@
 and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
-[<img src="examples/snapshots/example-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
+[<img src="examples/snapshots/example-posture" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-03.html)
 [<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
@@ -277,23 +277,26 @@ man.r_fingers.bend(90);
 	
 ### Dynamic posture
 
-The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function. The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, than the animation loop should be managed manually.
-
-The following code introduces a slight animation to the Tai Chi Chuan posture ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)):
+The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, than the animation loop should be managed manually.
 
 [<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
 
 ``` javascript
 function animate(t)
 {
-    man.torso.turn(2*sin(0.9*t));
-    man.torso.tilt(2*cos(0.7*t));
-    man.torso.bend(-20+2*sin(0.7*t));
+    var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
+        time2 = (sin(2*t-60)+cos(3*t-90)+cos(5*t-120))/3;
+
+    ball.position.x = -3*time1;
+
+    child.position.x = -3*time1;
+    child.position.y = 4+cos(90*time1);
+
+    child.turn(-90-20*time1+20*time2);
+    child.tilt(10*time1);
+	:
 	
-    man.head.turn(70+2*sin(0.8*t),RIGHT);
-    man.head.nod(5*cos(1.2*t));
-	
-    man.r_fingers.bend( 120*THREE.Math.clamp(2*sin(3*t)*sin(2*t)-1,0,1) );
+    scene.rotation.y = rad(30*time1);
 }
 ```
 
