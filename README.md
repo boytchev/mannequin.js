@@ -74,7 +74,7 @@ The helper function `createScene()` provides a default set-up of the scene and i
 
 Human figures are created as instances of classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
-[<img src="examples/snapshots/body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
+[<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
 ``` javascript
 var man = new Male();
