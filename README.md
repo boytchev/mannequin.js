@@ -343,7 +343,7 @@ man.l_wrist.scale.set(3,5,3);
 man.r_wrist.scale.set(3,5,3);
 ```
 
-Any Three.js object descendent of Object3D could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
+Any custom *THREE.Object3D* could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
 
 ``` javascript
 figure.joint.attach(object);
