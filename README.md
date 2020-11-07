@@ -335,8 +335,34 @@ figure.joint.attach(object);
 
 Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entorely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
 
-[<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html):
+[<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 
+``` javascript
+man = new Male();
+
+// adding bracelets
+bracelet = new THREE.Mesh(
+    new THREE.CylinderGeometry(3,3,1,16),	
+    new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
+);
+bracelet.castShadow = true;
+bracelet.position.y = 6;
+man.l_elbow.attach(bracelet);
+
+bracelet = bracelet.clone();
+man.r_elbow.attach(bracelet);
+
+
+// replacing the leg with other objects
+man.r_leg.hide();
+
+material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
+
+obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32),	material);
+    obj.castShadow = true;
+    obj.position.y = 2;
+    man.r_leg.attach(obj);
+```
 
 ### Accessing global positions
 
