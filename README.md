@@ -14,7 +14,7 @@
 - [Other functions](#Other-functions)
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
-	* [Accessing global positions](#Accessing-global-positions)
+	* [Global positions](#Global-positions)
 	* [Touching the ground](#Touching-the-ground)
 - [Future plans](#Future-plans)
 
