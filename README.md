@@ -400,7 +400,7 @@ Global positions could be used to ground figures &ndash; this is to put them dow
 
 The following example uses four contact points on each show (i.e. *man.r_ankle* and *man.l_ankle*). The minimal vertical position of the eigth contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
-[<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
+[<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
 ``` javascript
 // get minimal vertical position of contact points
