@@ -55,6 +55,17 @@
 			man.r_wrist.turn(30);
 			man.r_fingers.bend(90);
 				
+			// stick
+			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
+				material = new THREE.MeshPhongMaterial({color:'crimson'}),
+				stick = new THREE.Mesh(geometry,material);
+				stick.rotation.x = rad(90);
+				stick.position.set(-0.5,1,0);
+				stick.castShadow = true;
+				
+			man.r_fingers.attach(stick);
+			
+			
 			function animate(t)
 			{
 				scene.rotation.y = t/400;
