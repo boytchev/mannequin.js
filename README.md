@@ -26,14 +26,13 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="examples/snapshots/example-custom-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
-[<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
+[<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-05.html)
 
 This is the fourth incarnation of the human figure. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
 was implemented in JS/Three.js and is a direct predecessor of the current mannequin.js.
-Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics*
-for Computer Sciences undergraduate students from the
+Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
