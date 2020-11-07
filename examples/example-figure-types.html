@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.min.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+			
+			var man = new Male();
+				man.position.set(20,3.5,0);
+				man.turn(-120);
+				man.head.bend(30);
+				man.head.turn(30,RIGHT);
+
+				man.l_leg.straddle(5);
+				man.l_ankle.turn(20);
+				
+				man.r_leg.straddle(5);
+				man.r_ankle.turn(20);
+
+				man.l_arm.straddle(5);
+				man.l_arm.turn(-25);
+				man.l_elbow.bend(35);
+				man.l_fingers.bend(10);
+
+				man.r_arm.straddle(5);
+				man.r_arm.turn(-25);
+				man.r_elbow.bend(35);
+				man.r_fingers.bend(40);
+			
+			var woman = new Female();
+				woman.position.set(-20,2,0);
+				woman.turn(-60);
+				woman.head.bend(30);
+				woman.head.turn(30,LEFT);
+
+				woman.l_leg.straddle(-5);
+
+				woman.r_leg.straddle(-5);
+
+				woman.l_arm.raise(15);
+				woman.l_arm.straddle(5);
+				woman.l_wrist.bend(45);
+				woman.l_wrist.turn(-45);
+				woman.l_fingers.bend(110);
+
+				woman.r_wrist.bend(45);
+				woman.r_wrist.turn(45);
+			
+			var kid = new Child();
+				kid.position.y = -8;
+				kid.turn(-90);
+	
+				kid.l_arm.turn(100);
+				kid.l_elbow.bend(120);
+				kid.l_wrist.turn(80);
+				kid.l_fingers.bend(90);
+				
+				kid.r_arm.turn(100);
+				kid.r_arm.straddle(-10);
+				kid.r_elbow.bend(125);
+				kid.r_wrist.bend(10);
+				kid.r_fingers.bend(130);
+				
+			function animate(t)
+			{
+				scene.rotation.y = rad(50*sin(t/2));
+			}
+				
+		</script>
+	</body>
+</html>

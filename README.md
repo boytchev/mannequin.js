@@ -2,6 +2,8 @@
 
 - [About](#About)
 - [Initialization](#Initialization)
+	* [Minimal program](#Minimal-program)
+	* [Figure types](#Figure-types)
 - [Body parts](#Body-parts)
     * [Central body parts](#Central-body-parts)
     * [Upper limbs](#Upper-limbs)
@@ -23,7 +25,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
 [<img src="demos/snapshots/demo-mannequin-01.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-01.html)
-[<img src="demos/snapshots/demo-mannequin-02.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-02.html)
+[<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-03.html)
 [<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
 [<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-05.html)
@@ -36,7 +38,7 @@ for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
-Mannequin.js is **GPL-3.0**.
+Mannequin.js is licensed under **GPL-3.0**.
 
 Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
 
@@ -44,7 +46,9 @@ Three.js is included in this repository to safeguard against incompatibilities w
 # Initialization
 
 The **mannequin.js** library is provided as a JavaScript file that has to
-be include along with three.js. Human figures are created as instances of classes, e.g. `new Male()`, `new Female()` or `new Child()`.
+be include along with three.js. 
+
+### Minimal programm
 
 Here is a minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
 
@@ -65,6 +69,29 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 ```
 
 The helper function `createScene()` provides a default set-up of the scene and its elements, like lighting, camera, ground, etc. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the set-up is done with a custom function, then it should also manage the animation loop by itself.
+
+### Figure types
+
+Human figures are created as instances of classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+
+[<img src="examples/snapshots/body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
+
+``` javascript
+var man = new Male();
+    man.position.set(20,3.5,0);
+    man.turn(-120);
+    :
+var woman = new Female();
+    woman.position.set(-20,2,0);
+    woman.turn(-60);
+    :
+var kid = new Child();
+    kid.position.y = -8;
+    kid.turn(-90);
+    :
+```
+
+These three classes have a common predecessor the class `Human(feminine,height)`, where the first parameter of the constructor is boolean and defines whether the shape is feminine or masculine, the second parameter is a number for relative height (adults have height 1).
 
 
 # Body parts
