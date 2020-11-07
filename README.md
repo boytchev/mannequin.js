@@ -24,7 +24,7 @@
 and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
-[<img src="demos/snapshots/demo-mannequin-01.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-01.html)
+[<img src="examples/snapshots/example-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-01.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-03.html)
 [<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
@@ -91,15 +91,15 @@ var kid = new Child();
     :
 ```
 
-These three classes have a common predecessor the class `Human(feminine,height)`, where the first parameter of the constructor is boolean and defines whether the shape is feminine or masculine, the second parameter is a number for relative height (adults have height 1).
+These three classes have a common predecessor &ndash; the class `Human(feminine,height)`, where *feminine* is boolean and defines whether the shape is feminine or masculine, and the second parameter is a number for relative height (adults have height 1).
 
 
 # Body parts
 
-All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer.
+All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
 
 
-<img src="examples/snapshots/body-parts.jpg">
+[<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html))
 
 
 Each body part has rotation methods that turn it around a pivot point.

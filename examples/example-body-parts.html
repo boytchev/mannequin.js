@@ -2,19 +2,20 @@
 
 <html>
 	<head>
-		<script src="../three.min.js"></script>
-		<script src="../mannequin.min.js"></script>
+		<base href="../">
+		<script src="three.min.js"></script>
 	</head>
 	
 	<body>
+		<script src="mannequin.js"></script>
 		<script>
 		
 			createScene();
 			
 			var man = new Male();
 
-			man.l_arm.straddle(90);
-			man.r_arm.straddle(90);
+			man.l_arm.straddle(30);
+			man.r_arm.straddle(30);
 			
 			man.l_leg.straddle(30);
 			man.r_leg.straddle(30);
@@ -24,8 +25,7 @@
 			
 			function animate(t)
 			{
-				man.turn( t );
-				man.head.nod( 20+30*sin(5*t) );
+				man.turn( 20*sin(t)-90 );
 			}			
 	
 		</script>
