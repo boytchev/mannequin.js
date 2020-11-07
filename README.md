@@ -14,8 +14,7 @@
 - [Other functions](#Other-functions)
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
-	* [Global positions](#Global-positions)
-	* [Touching the ground](#Touching-the-ground)
+	* [Global position](#Global-position)
 - [Future plans](#Future-plans)
 
 # About
@@ -27,7 +26,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="examples/snapshots/example-custom-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
-[<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-05.html)
+[<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
 
 This is the fourth incarnation of the human figure. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
@@ -379,7 +378,7 @@ obj.position.y = 2;
 man.r_leg.attach(obj);
 ```
 
-### Global positions
+### Global position
 
 Not all interacion between figures and other objects can be implemented by attaching. Mannequin'js provides method `point(x,y,z)` for each body part. THis method calculates the globall coordinates the the point *(x,y,z)*, defined in the local coordinate system of the body part.
 
@@ -397,22 +396,21 @@ loop.geometry.vertices[4] = man.r_ankle.point(-1.5,5.5,0);
 loop.geometry.verticesNeedUpdate = true;
 ```
 
-### Touching the ground
-
-tbd
+Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and test their global position.
 
 # Future plans
 
-Currently mannequi.js is used to support one of the homework assignments in the course *Fundamentals of Computer Graphics*. Apparently, the library could be used for other activities. This provides ideas for further improvements in the functionalities.
+Currently mannequin.js is used to support one of the homework assignments in the course *Fundamentals of Computer Graphics*. Apparently, the library could be used for other activities. This provides ideas for further improvements in the functionalities.
 
-This is a list of possible improvements:
+This is unordered list of possible future improvements:
 
-- Custom order of rotations
-- Compatability with other developers
-- Models for animals and other creatures
-- Online posture editor
-- Interpolating postures
-- Import animation from Three.js, Blender, etc.
+- Custom order of joint rotations
+- Interpolatings between postures
+- Online posture and scene editor
+- Models for machines and animals
+- Compatability with other models
+- Export and import of animations
+- A rudimental inverse kinematics
 
 November, 2020
 
