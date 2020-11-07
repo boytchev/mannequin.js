@@ -35,7 +35,6 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
-<iframe src="https://boytchev.github.io/mannequin.js/examples/example-scene.html">
 
 Mannequin.js is licensed under **GPL-3.0**.
 
