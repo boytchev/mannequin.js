@@ -24,7 +24,7 @@
 and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
-[<img src="examples/snapshots/example-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-01.html)
+[<img src="examples/snapshots/example-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 [<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-03.html)
 [<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
