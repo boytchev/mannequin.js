@@ -382,7 +382,21 @@ man.r_leg.attach(obj);
 
 ### Global positions
 
-Not all interacion between figures and other objects cannot be implemented by attaching.
+Not all interacion between figures and other objects can be implemented by attaching. Mannequin'js provides method `point(x,y,z)` for each body part. THis method calculates the globall coordinates the the point *(x,y,z)*, defined in the local coordinate system of the body part.
+
+The following example creates a thread going through 5 points relative to body parts of a figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
+
+[<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
+
+``` javascript
+loop.geometry.vertices[0] = man.r_fingers.point(0,0,0);
+loop.geometry.vertices[1] = man.head.point(2.5,0,0);
+loop.geometry.vertices[2] = man.l_fingers.point(0,0,0);
+loop.geometry.vertices[3] = man.l_ankle.point(-1.5,5.5,0);
+loop.geometry.vertices[4] = man.r_ankle.point(-1.5,5.5,0);
+
+loop.geometry.verticesNeedUpdate = true;
+```
 
 ### Touching the ground
 
