@@ -25,7 +25,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 
 [<img src="examples/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
-[<img src="demos/snapshots/demo-mannequin-03.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-03.html)
+[<img src="examples/snapshots/example-custom-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 [<img src="demos/snapshots/demo-mannequin-04.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-04.html)
 [<img src="demos/snapshots/demo-mannequin-05.jpg" width="150">](https://boytchev.github.io/mannequin.js/demos/demo-mannequin-05.html)
 
@@ -327,7 +327,16 @@ man.r_arm.hide();
 
 ### Custom body parts
 
-tbd
+Any Three.js object descendent of Object3D could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
+
+``` javascript
+figure.joint.attach(object);
+```
+
+Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entorely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+
+[<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html):
+
 
 ### Accessing global positions
 

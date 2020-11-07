@@ -56,10 +56,10 @@
 			function animate(t)
 			{
 				t=t/3;
-				
+			
 				man.position.set(25*sin(0.4*t)*sin(0.58*t),10*sin(0.63*t),0);
 				
-				man.turn(t);
+				man.turn(t-90);
 				man.bend(t/2);
 				man.tilt(t/3);
 
