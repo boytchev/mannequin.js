@@ -14,8 +14,10 @@
 			
 			var man = new Male();
 
-			man.l_arm.straddle(30);
-			man.r_arm.straddle(30);
+			man.turn(-90);
+			
+			man.l_arm.straddle(40);
+			man.r_arm.straddle(40);
 			
 			man.l_leg.straddle(30);
 			man.r_leg.straddle(30);
@@ -23,9 +25,64 @@
 			man.l_ankle.tilt(30,RIGHT);
 			man.r_ankle.tilt(30,LEFT);
 			
+			
+			
+			var fontStyle = new THREE.MeshPhongMaterial({color:'crimson'}),
+				fontParams = {};
+				
+			function addLabel(text,x,y,z=0)
+			{
+				var geometry = new THREE.TextGeometry(text,fontParams),
+					label = new THREE.Mesh(geometry,fontStyle);
+					label.position.set(x,y,z);
+					label.castShadow = true;
+					
+				scene.add(label);
+			}
+			
+			function addLabels(font)
+			{
+				fontParams = {
+					font: font,
+					size: 2.5,
+					height: 0.1,
+					curveSegments: 8,
+					bevelEnabled: false
+				}
+			
+				addLabel('head',-4,31,0);
+				addLabel('neck',-4,21,2);
+				addLabel('torso',-4,11,2.5);
+				addLabel('pelvis',-4.5,1,2);
+				
+				addLabel('l_leg',9,-3);
+				addLabel('l_knee',15,-15);
+				addLabel('l_ankle',21,-27);
+
+				addLabel('r_leg',-16.5,-3);
+				addLabel('r_knee',-25,-15);
+				addLabel('r_ankle',-32,-27);
+
+				addLabel('l_arm',8,20,-0.25);
+				addLabel('l_elbow',17,13,-0.5);
+				addLabel('l_wrist',22,8,-0.75);
+				addLabel('l_fingers',20,0,-1.0);
+
+				addLabel('r_arm',-17,20,-0.25);
+				addLabel('r_elbow',-28,13,-0.5);
+				addLabel('r_wrist',-32,8,-0.75);
+				addLabel('r_fingers',-35,0,-1.0);
+			}
+
+			(new THREE.FontLoader()).load(
+				'examples/fonts/optimer_regular.typeface.json',
+				addLabels);
+			
+				
+
 			function animate(t)
 			{
-				man.turn( 20*sin(t)-90 );
+				scene.rotation.y = rad(45*sin(t/2));
 			}			
 	
 		</script>
