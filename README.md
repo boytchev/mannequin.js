@@ -327,6 +327,22 @@ man.r_arm.hide();
 
 ### Custom body parts
 
+Body parts are descendents of *THREE.Object3D* and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+
+[<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
+
+``` javascript
+man = new Male();
+
+man.head.scale.set(3,3,3);
+
+man.l_arm.scale.set(1/2,1/2,1/2);
+man.r_arm.scale.set(1/2,1/2,1/2);
+
+man.l_wrist.scale.set(3,5,3);
+man.r_wrist.scale.set(3,5,3);
+```
+
 Any Three.js object descendent of Object3D could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
 
 ``` javascript
@@ -358,15 +374,15 @@ man.r_leg.hide();
 
 material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
 
-obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32),	material);
-    obj.castShadow = true;
-    obj.position.y = 2;
-    man.r_leg.attach(obj);
+obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
+obj.castShadow = true;
+obj.position.y = 2;
+man.r_leg.attach(obj);
 ```
 
-### Accessing global positions
+### Global positions
 
-tbd
+Not all interacion between figures and other objects cannot be implemented by attaching.
 
 ### Touching the ground
 

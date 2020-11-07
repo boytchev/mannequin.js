@@ -13,45 +13,24 @@
 			
 			man = new Male();
 
-			// adding bracelets
-			bracelet = new THREE.Mesh(
-					new THREE.CylinderGeometry(3,3,1,16),	
-					new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
-			);
-			bracelet.castShadow = true;
-			bracelet.position.y = 6;
-			man.l_elbow.attach(bracelet);
+			man.scale.set(0.7,0.7,0.7);
 			
-			bracelet = bracelet.clone();
-			man.r_elbow.attach(bracelet);
-
-
-			// replacing the leg with other objects
-			man.r_leg.hide();
-
-			material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
+			man.head.scale.set(3,3,3);
 			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
-				obj.castShadow = true;
-				obj.position.y = 2;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(3,3,1, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 5.25;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(2.5,2.8,1, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 7.75;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(1.5,2.5,3, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 11;
-				man.r_leg.attach(obj);
+			man.l_arm.scale.set(1/2,1/2,1/2);
+			man.r_arm.scale.set(1/2,1/2,1/2);
 
+			man.l_wrist.scale.set(3,5,3);
+			man.r_wrist.scale.set(3,5,3);
 
+			man.l_leg.scale.set(1/2,1/2,1/2);
+			man.r_leg.scale.set(1/2,1/2,1/2);
+
+			man.l_knee.scale.set(3,3,3);
+			man.r_knee.scale.set(3,3,3);
+
+			man.l_ankle.scale.set(1/2,1.5,1);
+			man.r_ankle.scale.set(1/2,1.5,1);
 
 			function animate(t)
 			{
@@ -60,8 +39,8 @@
 				man.position.set(25*sin(0.4*t)*sin(0.58*t),10*sin(0.63*t),0);
 				
 				man.turn(t-90);
-				man.bend(t/2);
-				man.tilt(t/3);
+				man.bend(40*sin(t));
+				man.tilt(90*sin(t/2));
 
 				man.torso.bend(30*sin(1.2*t)+20);
 				man.torso.turn(40*sin(2.1*t));
