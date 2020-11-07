@@ -35,6 +35,8 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
+<iframe src="https://boytchev.github.io/mannequin.js/examples/example-scene.html">
+
 Mannequin.js is licensed under **GPL-3.0**.
 
 Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
@@ -398,7 +400,7 @@ loop.geometry.verticesNeedUpdate = true;
 
 Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and test their global position.
 
-The following example uses four contact points on each show (i.e. *man.r_ankle* and *man.l_ankle*). The minimal vertical position of the eigth contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+The following example uses four contact points on each shoe (i.e. *man.r_ankle* and *man.l_ankle*). The minimal vertical position of the eigth contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
 [<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
