@@ -18,6 +18,9 @@
 */
 
 
+const MANNEQUIN_VERSION = 4.01;
+
+
 function createScene()
 {
 	renderer = new THREE.WebGLRenderer({antialias:true});
