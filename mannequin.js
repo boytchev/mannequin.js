@@ -97,33 +97,6 @@ const LEFT = -1;
 const RIGHT = 1;
 
 
-var colors = [
-	'antiquewhite',	// head
-	'gray',			// shoes
-	'antiquewhite',	// pelvis
-	'burlywood',	// joints
-	'antiquewhite',	// limbs
-	'bisque'		// torso
-]; 
-
-
-// head texture
-var texHead = new THREE.TextureLoader().load("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAGFBMVEX////Ly8v5+fne3t5GRkby8vK4uLi/v7/GbmKXAAAAZklEQVRIx2MYQUAQHQgQVkBtwEjICkbK3MAkQFABpj+R5ZkJKTAxImCFSSkhBamYVgiQrAADEHQkIW+iqiBCAfXjAkMHpgKqgyHgBiwBRfu4ECScYEZGvkD1JxEKhkA5OVTqi8EOAOyFJCGMDsu4AAAAAElFTkSuQmCC");
-
-
-// limb and body texture
-var texLimb = new THREE.TextureLoader().load("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAABlBMVEX////Ly8vsgL9iAAAAHElEQVQoz2OgEPyHAjgDjxoKGWTaRRkYDR/8AAAU9d8hJ6+ZxgAAAABJRU5ErkJggg==");
-
-
-// joint object-template
-var sphere = new THREE.Mesh(
-		new THREE.SphereBufferGeometry(1, 16, 8),
-		new THREE.MeshPhongMaterial({color:colors[3],shininess:	1})
-	);
-sphere.castShadow = true;
-sphere.receiveShadow = true;
-
-
 // calculate 2cosine-based lump
 // params is array of [ [u-min, u-max, v-min, v-max, 1/height], ...]
 function cossers(u,v,params)
@@ -160,7 +133,7 @@ class ParametricShape extends THREE.Group
 
 	addSphere(r,y)
 	{
-		var s = sphere.clone();
+		var s = Mannequin.sphereTemplate.clone();
 			s.scale.set(r,r,r);
 			s.position.set(0,y,0);
 		this.add(s);
@@ -174,7 +147,7 @@ class HeadShape extends ParametricShape
 {
 	constructor(feminine,params)
 	{
-		super(texHead,colors[0],function (u,v,target)
+		super(Mannequin.texHead,Mannequin.colors[0],function (u,v,target)
 		{
 			var r = cossers(u,v,[[0.4,0.9,0,1,-3],[0,1,0,0.1,3],[0,1,0.9,1,3],[1.00,1.05,0.55,0.85,-3],[1.00,1.05,0.15,0.45,-3],[0.93,1.08,0.40,0.60,8],[0.0,0.7,0.05,0.95,3],[-0.2,0.2,-0.15,1.15,-6],
 				[-0.07,0.07,0.45,0.55,20], // nose
@@ -200,7 +173,7 @@ class ShoeShape extends THREE.Group
 	{
 		super();
 		
-		this.add(new ParametricShape(texLimb,colors[1],function (u,v,target)
+		this.add(new ParametricShape(Mannequin.texLimb,Mannequin.colors[1],function (u,v,target)
 		{
 			var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1],[0.6,0.68,0.35,0.65,feminine?1.2:1000]]);
 			u = 360*u;
@@ -213,7 +186,7 @@ class ShoeShape extends THREE.Group
 		
 		if (feminine)
 		{
-			this.add(new ParametricShape(texLimb,colors[4],function (u,v,target)
+			this.add(new ParametricShape(Mannequin.texLimb,Mannequin.colors[4],function (u,v,target)
 			{
 				var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1/2]]);
 				u = 360*u;
@@ -236,7 +209,7 @@ class PelvisShape extends ParametricShape
 {
 	constructor(feminine,params)
 	{
-		super(texLimb,colors[2],function (u,v,target)
+		super(Mannequin.texLimb,Mannequin.colors[2],function (u,v,target)
 		{
 			var r = cossers(u,v,[[0.6,0.95,0,1,4],[0.7,1.0,0.475,0.525,-13],[0.0,0.3,0.3,0.9,feminine?1000:5],[-0.2,0.3,0,0.3,-4],[-0.2,0.3,-0.3,0,-4]]);
 			u = 360*u-90;
@@ -256,7 +229,7 @@ class LimbShape extends ParametricShape
 	constructor(feminine,params,nx=24,ny=12)
 	{
 		var x=params[0], y=params[1], z=params[2], alpha=params[3], dAlpha=params[4], offset=params[5], scale=params[6], rad=params[7];
-		super(texLimb,colors[4], function (u,v,target)
+		super(Mannequin.texLimb,Mannequin.colors[4], function (u,v,target)
 		{
 			v = 360*v;
 			var r = offset+scale*cos(alpha+dAlpha*u);
@@ -279,7 +252,7 @@ class TorsoShape extends ParametricShape
 	constructor(feminine,params)
 	{
 		var x=params[0], y=params[1], z=params[2], alpha=params[3], dAlpha=params[4], offset=params[5], scale=params[6];
-		super(texLimb,colors[5], function (u,v,target)
+		super(Mannequin.texLimb,Mannequin.colors[5], function (u,v,target)
 		{
 			var r = offset+scale*cos(alpha+dAlpha*u);
 			if (feminine) r += cossers(u,v,[[0.35,0.85,0.7,0.95,2],[0.35,0.85,0.55,0.8,2]])-1;
@@ -674,3 +647,31 @@ class Child extends Mannequin
 {
 	constructor(){super(false,0.65);} 
 }
+
+
+// default body parts colours
+Mannequin.colors = [
+	'antiquewhite',	// head
+	'gray',			// shoes
+	'antiquewhite',	// pelvis
+	'burlywood',	// joints
+	'antiquewhite',	// limbs
+	'bisque'		// torso
+]; 
+
+
+// head texture
+Mannequin.texHead = new THREE.TextureLoader().load("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAAAGFBMVEX////Ly8v5+fne3t5GRkby8vK4uLi/v7/GbmKXAAAAZklEQVRIx2MYQUAQHQgQVkBtwEjICkbK3MAkQFABpj+R5ZkJKTAxImCFSSkhBamYVgiQrAADEHQkIW+iqiBCAfXjAkMHpgKqgyHgBiwBRfu4ECScYEZGvkD1JxEKhkA5OVTqi8EOAOyFJCGMDsu4AAAAAElFTkSuQmCC");
+
+
+// limb and body texture
+Mannequin.texLimb = new THREE.TextureLoader().load("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAABlBMVEX////Ly8vsgL9iAAAAHElEQVQoz2OgEPyHAjgDjxoKGWTaRRkYDR/8AAAU9d8hJ6+ZxgAAAABJRU5ErkJggg==");
+
+
+// joint object-template
+Mannequin.sphereTemplate = new THREE.Mesh(
+		new THREE.SphereBufferGeometry(1, 16, 8),
+		new THREE.MeshPhongMaterial({color:Mannequin.colors[3],shininess:	1})
+	);
+Mannequin.sphereTemplate.castShadow = true;
+Mannequin.sphereTemplate.receiveShadow = true;
