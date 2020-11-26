@@ -607,7 +607,7 @@ class Fingers extends Phalange
 }
 
 
-class Human extends Joint
+class Mannequin extends Joint
 {
 	constructor(feminine,height=1)
 	{
@@ -655,19 +655,19 @@ class Human extends Joint
 }
 
 
-class Female extends Human
+class Female extends Mannequin
 {
 	constructor(){super(true,0.95);} 
 }
 
 
-class Male extends Human
+class Male extends Mannequin
 {
 	constructor(){super(false);} 
 }
 
 
-class Child extends Human
+class Child extends Mannequin
 {
 	constructor(){super(false,0.65);} 
 }

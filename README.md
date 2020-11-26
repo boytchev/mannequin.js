@@ -18,7 +18,7 @@
 - [Future plans](#Future-plans)
 
 # About
-**Mannequin.js** is a simple library of an articulated human figure. The shape of the figure
+**Mannequin.js** is a simple library of an articulated mannequin figure. The shape of the figure
 and its movements are done purely in JavaScript. The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
@@ -28,7 +28,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
 
-This is the fourth incarnation of the human figure. The first one was implemented
+This is the fourth incarnation of the mannequin figure. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
 was implemented in JS/Three.js and is a direct predecessor of the current mannequin.js.
 Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate students from the
@@ -70,7 +70,7 @@ The helper function `createScene()` provides a default set-up of the scene and i
 
 ### Figure types
 
-Human figures are created as instances of classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+Mannequin figures are created as instances of classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
@@ -89,7 +89,7 @@ var kid = new Child();
     :
 ```
 
-These three classes have a common predecessor &ndash; the class `Human(feminine,height)`, where *feminine* is boolean and defines whether the shape is feminine or masculine, and the second parameter is a number for relative height (adults have height 1).
+These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where *feminine* is boolean and defines whether the shape is feminine or masculine, and the second parameter is a number for relative height (adults have height 1).
 
 
 # Body parts
