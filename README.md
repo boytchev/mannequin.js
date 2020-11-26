@@ -311,12 +311,12 @@ By default all figures use a predefined set of colors for body parts. It is stor
 
 ``` javascript
 Mannequin.colors = [
-	'antiquewhite',	// head
-	'gray',			// shoes
-	'antiquewhite',	// pelvis
-	'burlywood',	// joints
-	'antiquewhite',	// limbs
-	'bisque'		// torso
+    'antiquewhite',	// head
+    'gray',			// shoes
+    'antiquewhite',	// pelvis
+    'burlywood',	// joints
+    'antiquewhite',	// limbs
+    'bisque'		// torso
 ];
 ```
 
