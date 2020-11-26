@@ -12,6 +12,7 @@
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
 - [Other functions](#Other-functions)
+	* [Colors](#Colors)
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
 	* [Global position](#Global-position)
@@ -303,6 +304,33 @@ To make the animation loop faster, all constant rotations should be defined outs
 # Other functions
 
 Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
+
+### Colors
+
+By default all figures use a predefined set of colors for body parts. It is stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp):
+
+``` javascript
+Mannequin.colors = [
+	'antiquewhite',	// head
+	'gray',			// shoes
+	'antiquewhite',	// pelvis
+	'burlywood',	// joints
+	'antiquewhite',	// limbs
+	'bisque'		// torso
+];
+```
+
+Modification of `Mannequin.colors` has effect if it is done before the creation of figure instances ([live example](https://boytchev.github.io/mannequin.js/examples/example-default-colors.html)):
+
+[<img src="examples/snapshots/example-default-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-default-colors.html)
+
+``` javascript
+Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
+
+var man = new Male();
+```
+
+
 
 ### Hiding body parts
 

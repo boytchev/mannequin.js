@@ -134,6 +134,7 @@ class ParametricShape extends THREE.Group
 	addSphere(r,y)
 	{
 		var s = Mannequin.sphereTemplate.clone();
+			s.material = new THREE.MeshPhongMaterial({color:Mannequin.colors[3],shininess:	1});
 			s.scale.set(r,r,r);
 			s.position.set(0,y,0);
 		this.add(s);
