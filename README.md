@@ -325,12 +325,12 @@ The global color of joints and limbs refers to all joints and all limbs. Modific
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
 ``` javascript
-\\ global colors
+// global colors
 Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
 
 var man = new Male();
 :
-\\ individual colors
+// individual colors
 man.l_elbow.recolor( 'yellow', 'black' );
 man.l_wrist.recolor( 'orange' );
 man.l_fingers.recolor( 'coral' );
