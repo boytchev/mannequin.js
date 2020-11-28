@@ -340,7 +340,7 @@ man.r_knee.recolor( 'antiquewhite', 'black' );
 
 The first parameter of `recolor` is the color of the main section of the joint. The second parameter is the colour of the spherical section of the body part.
 
-The tip of the fingers are accessed via `figure.fingers.tips`.
+The tips of the fingers are accessed via `fingers.tips`.
 
 
 ### Hiding body parts
