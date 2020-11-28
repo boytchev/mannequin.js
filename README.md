@@ -320,7 +320,7 @@ Mannequin.colors = [
 ];
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the recolor `method` of joints ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of joints ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
