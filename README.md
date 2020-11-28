@@ -12,7 +12,7 @@
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
 - [Other functions](#Other-functions)
-	* [Colors](#Colors)
+	* [Custom colors](#Custom-colors)
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
 	* [Global position](#Global-position)
@@ -305,9 +305,9 @@ To make the animation loop faster, all constant rotations should be defined outs
 
 Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
 
-### Colors
+### Custom colors
 
-By default all figures use a predefined set of colors for body parts. It is stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp):
+By default all figures use a predefined set of global colors for body parts. Global colors are stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) in specific order &ndash; head, shoes, pelvis, joints, limbs and torso:
 
 ``` javascript
 Mannequin.colors = [
@@ -320,16 +320,27 @@ Mannequin.colors = [
 ];
 ```
 
-Modification of `Mannequin.colors` has effect if it is done before the creation of figure instances ([live example](https://boytchev.github.io/mannequin.js/examples/example-default-colors.html)):
+The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the recolor `method` of joints ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
-[<img src="examples/snapshots/example-default-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-default-colors.html)
+[<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
 ``` javascript
+\\ global colors
 Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
 
 var man = new Male();
+:
+\\ individual colors
+man.l_elbow.recolor( 'yellow', 'black' );
+man.l_wrist.recolor( 'orange' );
+man.l_fingers.recolor( 'coral' );
+man.l_fingers.tips.recolor( 'maroon' );
+man.r_knee.recolor( 'antiquewhite', 'black' );
 ```
 
+The first parameter of `recolor` is the color of the main section of the joint. The second parameter is the colour of the spherical section of the body part.
+
+The tip of the fingers are accessed via `figure.fingers.tips`.
 
 
 ### Hiding body parts

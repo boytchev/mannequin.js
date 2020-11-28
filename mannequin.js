@@ -18,7 +18,7 @@
 */
 
 
-const MANNEQUIN_VERSION = 4.01;
+const MANNEQUIN_VERSION = 4.02;
 
 
 function createScene()
@@ -384,6 +384,51 @@ class Joint extends THREE.Group
 		return scene.worldToLocal(this.children[0].localToWorld(new THREE.Vector3(x,y,z)));
 	}
 
+
+	// change the colour of the joint
+	recolor( color, secondaryColor = color )
+	{
+		var joint = this.userJoint.children[0];
+
+		if( typeof color === 'string' )
+			color = new THREE.Color( color );
+			
+		if( typeof secondaryColor === 'string' )
+			secondaryColor = new THREE.Color( secondaryColor );
+			
+		joint.children[0].material.color = color;
+			
+		if( joint.children.length>1 )
+		{
+//			joint = joint.children[1];
+//			joint.material = joint.material.clone();
+//			joint.material.color = secondaryColor;
+			joint.children[1].material.color = secondaryColor;
+		}
+	}
+	
+	// change the colour of the joint
+	color( color, secondaryColor = color )
+	{
+		var joint = this.userJoint.children[0];
+
+		if( ! (color instanceof THREE.Color) )
+			color = new THREE.Color( color );
+			
+		if( color ) joint.children[0].material.color = color;
+			
+		if( joint.children.length>1 )
+		{
+//			joint = joint.children[1];
+//			joint.material = joint.material.clone();
+//			joint.material.color = secondaryColor;
+			if( ! (secondaryColor instanceof THREE.Color) )
+				secondaryColor = new THREE.Color( secondaryColor );
+			
+			joint.children[1].material.color = secondaryColor;
+		}
+	}
+	
 }
 
 
@@ -573,13 +618,13 @@ class Fingers extends Phalange
 	{
 		super(parentJoint,[1.2,1.5,3.5,0,45,0.3,0.4,0.2]);
 		
-		this.sub_finger = new Phalange(this,[1.2,1,3.5,45,45,0.3,0.4,0.2]);
+		this.tips = new Phalange(this,[1.2,1,3.5,45,45,0.3,0.4,0.2]);
 	}
 	
 	_turn()
 	{
 		this.turnJoint(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
-		this.sub_finger.turnJoint(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
+		this.tips.turnJoint(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
 	}
 }
 

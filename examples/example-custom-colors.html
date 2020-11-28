@@ -7,11 +7,12 @@
 	</head>
 	
 	<body>
-		<script src="mannequin.min.js"></script>
+		<script src="mannequin.js"></script>
 		<script>
 		
 			createScene();
 			
+			// gobal colours
 			Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
 
 			var man = new Male();
@@ -41,8 +42,16 @@
 			
 			man.position.y = -3.7;
 			
+			// individual colours
+			man.l_elbow.recolor( 'yellow', 'black' );
+			man.l_wrist.recolor( 'orange' );
+			man.l_fingers.recolor( 'coral' );
+			man.l_fingers.tips.recolor( 'maroon' );
+			man.r_knee.recolor( 'antiquewhite', 'black' );
+			
 			function animate(t)
 			{
+				man.head.turn( -45*sin(t/2) );
 				scene.rotation.y = rad(45*sin(t/2));
 			}			
 	
