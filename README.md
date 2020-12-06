@@ -387,7 +387,7 @@ Any custom *THREE.Object3D* could be attached to a body part. The attached objec
 figure.joint.attach(object);
 ```
 
-Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entorely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
 
 [<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 
@@ -420,7 +420,7 @@ man.r_leg.attach(obj);
 
 ### Global position
 
-Not all interacion between figures and other objects can be implemented by attaching. Mannequin'js provides method `point(x,y,z)` for each body part. THis method calculates the globall coordinates the the point *(x,y,z)*, defined in the local coordinate system of the body part.
+Not all interacion between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method calculates the global coordinates the the point *(x,y,z)*, defined in the local coordinate system of the body part.
 
 The following example creates a thread going through 5 points relative to body parts of a figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
 
