@@ -28,7 +28,7 @@
 //        │   ├─ turn(angle,leftOrRight)
 //        │   ├─ tilt(angle,leftOrRight)
 //        │   ├─ _turn()
-//        │   ├─ turnJoint(x,y,z,order)
+//        │   ├─ eulerRotation(x,y,z,order)
 //        │   ├─ hide()
 //        │   ├─ attach(image)
 //        │   ├─ point(x,y,z)
@@ -309,14 +309,14 @@ class TorsoShape extends ParametricShape
 			var r = offset+scale*cos(alpha+dAlpha*u);
 			if (feminine) r += Mannequin.cossers(u,v,[[0.35,0.85,0.7,0.95,2],[0.35,0.85,0.55,0.8,2]])-1;
 			v = 360*v+90;
-			var x1 = x*(0.3+r)*cos(v)/2;
-			var y1 = y*u;
-			var z1 = z*r*sin(v)/2;
-			var x2 = x*cos(v)*cos(180*u-90)/2;
-			var y2 = y*(1/2+sin(180*u-90)/2);
-			var z2 = z*sin(v)*cos(180*u-90)/2;
-			var k = Math.pow(Math.abs(2*u-1),16);
-			var kx = Math.pow(Math.abs(2*u-1),2);
+			var x1 = x*(0.3+r)*cos(v)/2,
+				y1 = y*u,
+				z1 = z*r*sin(v)/2;
+			var x2 = x*cos(v)*cos(180*u-90)/2,
+				y2 = y*(1/2+sin(180*u-90)/2),
+				z2 = z*sin(v)*cos(180*u-90)/2;
+			var k = Math.pow(Math.abs(2*u-1),16)
+				kx = Math.pow(Math.abs(2*u-1),2);
 			if (x2<0) kx=k;
 			target.set(x1*(1-kx)+kx*x2,y1*(1-k)+k*y2,z1*(1-k)+k*z2);
 		},30,20);
@@ -397,11 +397,11 @@ class Joint extends THREE.Group
 	
 	_turn()
 	{
-		this.turnJoint(this.tiltAngle,-this.turnAngle,-this.bendAngle);
+		this.eulerRotation(this.tiltAngle,-this.turnAngle,-this.bendAngle);
 	}
 
 
-	turnJoint(x,y=0,z=0,order='XYZ')
+	eulerRotation(x,y=0,z=0,order='XYZ')
 	{
 		this.children[0].rotation.set(rad(x),rad(y),rad(z),order);
 	}
@@ -494,8 +494,8 @@ class Head extends Joint
 	
 	_turn()
 	{
-		this.turnJoint(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
-		this.parentJoint.turnJoint(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
+		this.eulerRotation(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
+		this.parentJoint.eulerRotation(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
 	}
 }
 
@@ -643,8 +643,8 @@ class Fingers extends Phalange
 	
 	_turn()
 	{
-		this.turnJoint(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
-		this.tips.turnJoint(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
+		this.eulerRotation(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
+		this.tips.eulerRotation(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
 	}
 }
 
@@ -692,7 +692,7 @@ class Mannequin extends Joint
 	
 	_turn()
 	{
-		this.turnJoint(this.tiltAngle,-this.turnAngle,-this.bendAngle,'YXZ');
+		this.eulerRotation(this.tiltAngle,-this.turnAngle,-this.bendAngle,'YXZ');
 	}
 }
 
