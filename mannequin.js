@@ -27,19 +27,20 @@
 //        │   ├─ bend(angle)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   ├─ tilt(angle,leftOrRight)
-//        │   ├─ _turn()
-//        │   ├─ eulerRotation(x,y,z,order)
 //        │   ├─ hide()
 //        │   ├─ attach(image)
 //        │   ├─ point(x,y,z)
-//        │   └─ recolor(color,secondaryColor)
+//        │   ├─ recolor(color,secondaryColor)
+//        │   ├─ getPosture()
+//        │   ├─ _rotate()
+//        │   └─ _eulerRotate(x,y,z,order)
 //        │
 //        ├─ Pelvis(parentJoint)
 //        ├─ Torso(parentJoint)
 //        ├─ Neck(parentJoint)
 //        ├─ Head(parentJoint)
 //        │   ├─ nod(angle)
-//        │   └─ _turn()
+//        │   └─ _rotate()
 //        ├─ Leg(parentJoint,leftOrRight)
 //        │   ├─ raise(angle)
 //        │   ├─ turn(angle,leftOrRight)
@@ -59,12 +60,13 @@
 //        │   └─ tilt(angle,leftOrRight)
 //        ├─ Phalange(parentJoint,params)
 //        │   └─ Fingers(parentJoint)
-//        │       └─ _turn()
+//        │       └─ _rotate()
 //        └─ Mannequin(feminine,height=1)
 //            │   ├─ feminine, pelvis, torso, neck, head,
 //            │   │  l_leg, l_knee, l_ankle, l_arm, l_elbow, l_wrist, l_fingers,
 //            │   │  r_leg, r_knee, r_ankle, r_arm, r_elbow, r_wrist, r_fingers
-//            │   └─ _turn()
+//            │   ├─ getPosture()
+//            │   └─ _rotate()
 //            ├─ colors[]
 //            ├─ texHead
 //            ├─ texLimb
@@ -75,16 +77,16 @@
 //            ├─ Female()
 //            └─ Child()
 /*
-	human	.bend(x)  .turn(x,dir) .tilt(x,dir)
-	  torso	.bend(x)  .turn(x,dir) .tilt(x,dir)
-	  head	.nod(x)   .turn(x,dir) .tilt(x,dir)
-	leg		.raise(x) .straddle(x,dir) .turn(x,dir)
-	  knee	.bend(x)
-	  ankle	.bend(x)  .turn(x,dir) .tilt(x,dir)
-	arm		.raise(x) .straddle(x,dir) .turn(x,dir)
-	  elbow	.bend(x)
-	  wrist	.bend(x)  .turn(x,dir) .tilt(x,dir)
-	  fingers	.bend(x)
+	human      .bend(x)  .turn(x,dir)      .tilt(x,dir)
+	  torso    .bend(x)  .turn(x,dir)      .tilt(x,dir)
+	  head     .nod(x)   .turn(x,dir)      .tilt(x,dir)
+	leg        .raise(x) .straddle(x,dir)  .turn(x,dir)
+	  knee     .bend(x)
+	  ankle    .bend(x)  .turn(x,dir)      .tilt(x,dir)
+	arm        .raise(x) .straddle(x,dir)  .turn(x,dir)
+	  elbow    .bend(x)
+	  wrist    .bend(x)  .turn(x,dir)      .tilt(x,dir)
+	  fingers  .bend(x)
 */
 
 
@@ -315,7 +317,7 @@ class TorsoShape extends ParametricShape
 			var x2 = x*cos(v)*cos(180*u-90)/2,
 				y2 = y*(1/2+sin(180*u-90)/2),
 				z2 = z*sin(v)*cos(180*u-90)/2;
-			var k = Math.pow(Math.abs(2*u-1),16)
+			var k = Math.pow(Math.abs(2*u-1),16),
 				kx = Math.pow(Math.abs(2*u-1),2);
 			if (x2<0) kx=k;
 			target.set(x1*(1-kx)+kx*x2,y1*(1-k)+k*y2,z1*(1-k)+k*z2);
@@ -374,34 +376,40 @@ class Joint extends THREE.Group
 	}
 
 
+	getPosture()
+	{
+		return [this.bendAngle, this.turnAngle, this.tiltAngle];
+	}
+
+	
 	bend(angle)
 	{
 		this.bendAngle = angle;
-		this._turn();
+		this._rotate();
 	}
 
 	
 	turn(angle,leftOrRight=LEFT)
 	{
 		this.turnAngle = leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 
 	
 	tilt(angle,leftOrRight=LEFT)
 	{
 		this.tiltAngle = leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 
 	
-	_turn()
+	_rotate()
 	{
-		this.eulerRotation(this.tiltAngle,-this.turnAngle,-this.bendAngle);
+		this._eulerRotate(this.tiltAngle,-this.turnAngle,-this.bendAngle);
 	}
 
 
-	eulerRotation(x,y=0,z=0,order='XYZ')
+	_eulerRotate(x,y=0,z=0,order='XYZ')
 	{
 		this.children[0].rotation.set(rad(x),rad(y),rad(z),order);
 	}
@@ -442,9 +450,6 @@ class Joint extends THREE.Group
 			
 		if( joint.children.length>1 )
 		{
-//			joint = joint.children[1];
-//			joint.material = joint.material.clone();
-//			joint.material.color = secondaryColor;
 			joint.children[1].material.color = secondaryColor;
 		}
 	}
@@ -489,13 +494,13 @@ class Head extends Joint
 	nod(angle)
 	{
 		this.bendAngle = angle;
-		this._turn();
+		this._rotate();
 	}
 	
-	_turn()
+	_rotate()
 	{
-		this.eulerRotation(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
-		this.parentJoint.eulerRotation(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
+		this._eulerRotate(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
+		this.parentJoint._eulerRotate(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
 	}
 }
 
@@ -511,19 +516,19 @@ class Leg extends Joint
 	raise(angle)
 	{
 		this.bendAngle = angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	turn(angle,leftOrRight=this.leftOrRight)
 	{
 		this.turnAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	straddle(angle,leftOrRight=this.leftOrRight)
 	{
 		this.tiltAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 }
 
@@ -535,10 +540,15 @@ class Knee extends Joint
 		super(parentJoint,null,null,[4,14,4,-40,290,0.65,0.25,1.5],LimbShape);
 	}
 	
+	getPosture()
+	{
+		return [this.bendAngle];
+	}
+	
 	bend(angle)
 	{
 		this.bendAngle = -angle;
-		this._turn();
+		this._rotate();
 	}
 }
 
@@ -553,13 +563,13 @@ class Ankle extends Joint
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
 	{
 		this.tiltAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	tilt(angle,leftOrRight=-this.parentJoint.parentJoint.leftOrRight)
 	{
 		this.turnAngle = leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 }
 
@@ -575,19 +585,19 @@ class Arm extends Joint
 	raise(angle)
 	{
 		this.bendAngle = angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	turn(angle,leftOrRight=this.leftOrRight)
 	{
 		this.turnAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	straddle(angle,leftOrRight=this.leftOrRight)
 	{
 		this.tiltAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 }
 
@@ -597,6 +607,11 @@ class Elbow extends Joint
 	constructor(parentJoint)
 	{
 		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape);
+	}
+	
+	getPosture()
+	{
+		return [this.bendAngle];
 	}
 }
 
@@ -611,13 +626,13 @@ class Wrist extends Joint
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
 	{
 		this.turnAngle = -leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 	
 	tilt(angle,leftOrRight=-this.parentJoint.parentJoint.leftOrRight)
 	{
 		this.tiltAngle = leftOrRight*angle;
-		this._turn();
+		this._rotate();
 	}
 }
 
@@ -641,10 +656,15 @@ class Fingers extends Phalange
 		this.tips = new Phalange(this,[1.2,1,3.5,45,45,0.3,0.4,0.2]);
 	}
 	
-	_turn()
+	getPosture()
 	{
-		this.eulerRotation(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
-		this.tips.eulerRotation(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
+		return [this.bendAngle];
+	}
+	
+	_rotate()
+	{
+		this._eulerRotate(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
+		this.tips._eulerRotate(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
 	}
 }
 
@@ -689,10 +709,34 @@ class Mannequin extends Joint
 		scene.add(this);
 	}
 		
-	
-	_turn()
+	getPosture()
 	{
-		this.eulerRotation(this.tiltAngle,-this.turnAngle,-this.bendAngle,'YXZ');
+		var bodyPos = [this.bendAngle, this.turnAngle, this.tiltAngle];
+		return [ bodyPos,
+					this.pelvis.getPosture(),
+						this.torso.getPosture(),
+						this.neck.getPosture(),
+						this.head.getPosture(),
+					this.l_leg.getPosture(),
+						this.l_knee.getPosture(),
+						this.l_ankle.getPosture(),
+					this.r_leg.getPosture(),
+						this.r_knee.getPosture(),
+						this.r_ankle.getPosture(),
+					this.l_arm.getPosture(),
+						this.l_elbow.getPosture(),
+						this.l_wrist.getPosture(),
+						this.l_fingers.getPosture(),
+					this.r_arm.getPosture(),
+						this.r_elbow.getPosture(),
+						this.r_wrist.getPosture(),
+						this.r_fingers.getPosture()
+				];
+	}
+	
+	_rotate()
+	{
+		this._eulerRotate(this.tiltAngle,-this.turnAngle,-this.bendAngle,'YXZ');
 	}
 }
 
