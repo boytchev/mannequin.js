@@ -5,6 +5,7 @@
 //
 // mannequin.js
 //   ├─ MANNEQUIN_VERSION
+//   ├─ MANNEQUIN_POSTURE_VERSION
 //   ├─ createScene()
 //   ├─ animate()
 //   ├─ rad(x)
@@ -32,6 +33,7 @@
 //        │   ├─ point(x,y,z)
 //        │   ├─ recolor(color,secondaryColor)
 //        │   ├─ getPosture()
+//        │   ├─ setPosture(angles)
 //        │   ├─ _rotate()
 //        │   └─ _eulerRotate(x,y,z,order)
 //        │
@@ -46,7 +48,9 @@
 //        │   ├─ turn(angle,leftOrRight)
 //        │   └─ straddle(angle,leftOrRight)
 //        ├─ Knee(parentJoint)
-//        │   └─ bend(angle)
+//        │   ├─ bend(angle)
+//        │   ├─ getPosture()
+//        │   └─ setPosture(angles)
 //        ├─ Ankle(parentJoint)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   └─ tilt(angle,leftOrRight)
@@ -55,12 +59,16 @@
 //        │   ├─ turn(angle,leftOrRight)
 //        │   └─ straddle(angle,leftOrRight)
 //        ├─ Elbow(parentJoint)
+//        │   ├─ getPosture()
+//        │   └─ setPosture(angles)
 //        ├─ Wrist(parentJoint)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   └─ tilt(angle,leftOrRight)
 //        ├─ Phalange(parentJoint,params)
 //        │   └─ Fingers(parentJoint)
-//        │       └─ _rotate()
+//        │       ├─ _rotate()
+//        │       ├─ getPosture()
+//        │       └─ setPosture(angles)
 //        └─ Mannequin(feminine,height=1)
 //            │   ├─ feminine, pelvis, torso, neck, head,
 //            │   │  l_leg, l_knee, l_ankle, l_arm, l_elbow, l_wrist, l_fingers,
@@ -91,6 +99,7 @@
 
 
 const MANNEQUIN_VERSION = 4.03;
+const MANNEQUIN_POSTURE_VERSION = 1;
 
 
 function createScene()
@@ -382,6 +391,15 @@ class Joint extends THREE.Group
 	}
 
 	
+	setPosture( angles )
+	{
+		this.bendAngle = angles[0];
+		this.turnAngle = angles[1];
+		this.tiltAngle = angles[2];
+		this._rotate();
+	}
+
+	
 	bend(angle)
 	{
 		this.bendAngle = angle;
@@ -545,6 +563,12 @@ class Knee extends Joint
 		return [this.bendAngle];
 	}
 	
+	setPosture( angles )
+	{
+		this.bendAngle = angles[0];
+		this._rotate();
+	}
+
 	bend(angle)
 	{
 		this.bendAngle = -angle;
@@ -613,6 +637,12 @@ class Elbow extends Joint
 	{
 		return [this.bendAngle];
 	}
+	
+	setPosture( angles )
+	{
+		this.bendAngle = angles[0];
+		this._rotate();
+	}
 }
 
 
@@ -659,6 +689,12 @@ class Fingers extends Phalange
 	getPosture()
 	{
 		return [this.bendAngle];
+	}
+	
+	setPosture( angles )
+	{
+		this.bendAngle = angles[0];
+		this._rotate();
 	}
 	
 	_rotate()
@@ -711,13 +747,13 @@ class Mannequin extends Joint
 		
 	getPosture()
 	{
-		var bodyPos = [this.bendAngle, this.turnAngle, this.tiltAngle];
-		return [ bodyPos,
+		var bodyPos = [this.bendAngle, this.turnAngle, this.tiltAngle],
+			posture = [ bodyPos,
 					this.pelvis.getPosture(),
 						this.torso.getPosture(),
 						this.neck.getPosture(),
 						this.head.getPosture(),
-					this.l_leg.getPosture(),
+						this.l_leg.getPosture(),
 						this.l_knee.getPosture(),
 						this.l_ankle.getPosture(),
 					this.r_leg.getPosture(),
@@ -732,6 +768,40 @@ class Mannequin extends Joint
 						this.r_wrist.getPosture(),
 						this.r_fingers.getPosture()
 				];
+		return { version: MANNEQUIN_POSTURE_VERSION,
+				 data: posture,
+			   };
+	}
+	
+	setPosture( posture )
+	{
+		if( posture.version != MANNEQUIN_POSTURE_VERSION )
+			console.warn( 'Wrong mannequin.js posture version' );
+		
+		var angles = posture.data[0];
+		this.bendAngle = angles[0];
+		this.turnAngle = angles[1];
+		this.tiltAngle = angles[2];
+		this._rotate();
+		
+		this.pelvis.setPosture( posture.data[1] );
+			this.torso.setPosture( posture.data[2] );
+			this.neck.setPosture( posture.data[3] );
+			this.head.setPosture( posture.data[4] );
+			this.l_leg.setPosture( posture.data[5] );
+			this.l_knee.setPosture( posture.data[6] );
+			this.l_ankle.setPosture( posture.data[7] );
+		this.r_leg.setPosture( posture.data[8] );
+			this.r_knee.setPosture( posture.data[9] );
+			this.r_ankle.setPosture( posture.data[10] );
+		this.l_arm.setPosture( posture.data[11] );
+			this.l_elbow.setPosture( posture.data[12] );
+			this.l_wrist.setPosture( posture.data[13] );
+			this.l_fingers.setPosture( posture.data[14] );
+		this.r_arm.setPosture( posture.data[15] );
+			this.r_elbow.setPosture( posture.data[16] );
+			this.r_wrist.setPosture( posture.data[17] );
+			this.r_fingers.setPosture( posture.data[18] );
 	}
 	
 	_rotate()
@@ -805,3 +875,25 @@ Mannequin.cossers = function(u,v,params)
 }
 
 
+Mannequin.interpolate = function ( posture1, posture2, k )
+{
+	if( posture1.version != posture2.version )
+		console.warn( 'Incompatibe posture interpolation. Error code 1.' );
+
+	function lerp( data1, data2, k )
+	{
+		if( data1 instanceof Array )
+		{
+			var result = [];
+			for( var i in data1 )
+				result.push( lerp(data1[i],data2[i],k) );
+			return result;
+		}
+		else
+		{
+			return data1*(1-k) + k*data2;
+		}
+	}
+	
+	return {version: posture1.version, data: lerp(posture1.data,posture2.data, k) };
+}
