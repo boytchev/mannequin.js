@@ -6,19 +6,12 @@
 // mannequin.js
 //   ├─ MANNEQUIN_VERSION
 //   ├─ createScene()
-//   ├─ onWindowResize( event )
-//   ├─ drawFrame()
 //   ├─ animate()
 //   ├─ rad(x)
 //   ├─ sin(x)
 //   ├─ cos(x)
 //   ├─ LEFT
 //   ├─ RIGHT
-//   ├─ cossers(u,v,params)
-//   ├─ texHead
-//   ├─ texLimb
-//   ├─ sphereTemplate
-//   ├─ colors[]
 //   │
 //   ├─ ParametricShape(tex,col,func,nU=3,nV=3)
 //   │    │   └─ addSphere(r,y)
@@ -31,7 +24,6 @@
 //   │
 //   └─ Joint(parentJoint,pos,rot,params,shape)
 //        │   ├─ userJoint, parentJoint, bendAngle, turnAngle, tiltAngle
-//        │   ├─ direct(x,y,z)
 //        │   ├─ bend(angle)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   ├─ tilt(angle,leftOrRight)
@@ -74,6 +66,12 @@
 //            │   │  l_leg, l_knee, l_ankle, l_arm, l_elbow, l_wrist, l_fingers,
 //            │   │  r_leg, r_knee, r_ankle, r_arm, r_elbow, r_wrist, r_fingers
 //            │   └─ _turn()
+//            ├─ colors[]
+//            ├─ texHead
+//            ├─ texLimb
+//            ├─ sphereTemplate
+//            ├─ cossers(u,v,params)
+//            │
 //            ├─ Male()
 //            ├─ Female()
 //            └─ Child()
@@ -142,15 +140,15 @@ function createScene()
 
 	
 	clock = new THREE.Clock();
+	
+	
+	function drawFrame()
+	{
+		animate(100*clock.getElapsedTime());
+		renderer.render( scene, camera );
+	}
 }
 
-
-
-function drawFrame()
-{
-	animate(100*clock.getElapsedTime());
-	renderer.render( scene, camera );
-}
 
 
 function animate()
@@ -167,24 +165,6 @@ function cos(x) {return Math.cos(rad(x));}
 // direction of motion
 const LEFT = -1;
 const RIGHT = 1;
-
-
-// calculate 2cosine-based lump
-// params is array of [ [u-min, u-max, v-min, v-max, 1/height], ...]
-function cossers(u,v,params)
-{
-	function cosser(t, min, max)
-	{
-		if (t<min) t++;
-		if (t>max) t--;
-		if( min<=t && t<=max )
-			return 0.5+0.5*Math.cos( (t-min)/(max-min)*2*Math.PI-Math.PI );
-		return 0;
-	}
-	for (var i=0, r=1; i<params.length; i++)
-		r += cosser(u,params[i][0],params[i][1])*cosser(v,params[i][2],params[i][3])/params[i][4];
-	return r;
-}
 
 
 // create parametric surface
@@ -222,7 +202,7 @@ class HeadShape extends ParametricShape
 	{
 		super(Mannequin.texHead,Mannequin.colors[0],function (u,v,target)
 		{
-			var r = cossers(u,v,[[0.4,0.9,0,1,-3],[0,1,0,0.1,3],[0,1,0.9,1,3],[1.00,1.05,0.55,0.85,-3],[1.00,1.05,0.15,0.45,-3],[0.93,1.08,0.40,0.60,8],[0.0,0.7,0.05,0.95,3],[-0.2,0.2,-0.15,1.15,-6],
+			var r = Mannequin.cossers(u,v,[[0.4,0.9,0,1,-3],[0,1,0,0.1,3],[0,1,0.9,1,3],[1.00,1.05,0.55,0.85,-3],[1.00,1.05,0.15,0.45,-3],[0.93,1.08,0.40,0.60,8],[0.0,0.7,0.05,0.95,3],[-0.2,0.2,-0.15,1.15,-6],
 				[-0.07,0.07,0.45,0.55,20], // nose
 				[-0.07,0.01,0.35,0.55,10], // nostril
 				[-0.07,0.01,0.45,0.65,10], // nostril
@@ -248,7 +228,7 @@ class ShoeShape extends THREE.Group
 		
 		this.add(new ParametricShape(Mannequin.texLimb,Mannequin.colors[1],function (u,v,target)
 		{
-			var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1],[0.6,0.68,0.35,0.65,feminine?1.2:1000]]);
+			var r = Mannequin.cossers(u,v,[[0.6,1.1,0.05,0.95,1],[0.6,0.68,0.35,0.65,feminine?1.2:1000]]);
 			u = 360*u;
 			v = 180*v-90;
 			target.set(
@@ -261,7 +241,7 @@ class ShoeShape extends THREE.Group
 		{
 			this.add(new ParametricShape(Mannequin.texLimb,Mannequin.colors[4],function (u,v,target)
 			{
-				var r = cossers(u,v,[[0.6,1.1,0.05,0.95,1/2]]);
+				var r = Mannequin.cossers(u,v,[[0.6,1.1,0.05,0.95,1/2]]);
 				u = 360*u;
 				v = 180*v-90;
 				target.set(
@@ -284,7 +264,7 @@ class PelvisShape extends ParametricShape
 	{
 		super(Mannequin.texLimb,Mannequin.colors[2],function (u,v,target)
 		{
-			var r = cossers(u,v,[[0.6,0.95,0,1,4],[0.7,1.0,0.475,0.525,-13],[0.0,0.3,0.3,0.9,feminine?1000:5],[-0.2,0.3,0,0.3,-4],[-0.2,0.3,-0.3,0,-4]]);
+			var r = Mannequin.cossers(u,v,[[0.6,0.95,0,1,4],[0.7,1.0,0.475,0.525,-13],[0.0,0.3,0.3,0.9,feminine?1000:5],[-0.2,0.3,0,0.3,-4],[-0.2,0.3,-0.3,0,-4]]);
 			u = 360*u-90;
 			v = 180*v-90;
 			target.set(
@@ -328,7 +308,7 @@ class TorsoShape extends ParametricShape
 		super(Mannequin.texLimb,Mannequin.colors[5], function (u,v,target)
 		{
 			var r = offset+scale*cos(alpha+dAlpha*u);
-			if (feminine) r += cossers(u,v,[[0.35,0.85,0.7,0.95,2],[0.35,0.85,0.55,0.8,2]])-1;
+			if (feminine) r += Mannequin.cossers(u,v,[[0.35,0.85,0.7,0.95,2],[0.35,0.85,0.55,0.8,2]])-1;
 			v = 360*v+90;
 			var x1 = x*(0.3+r)*cos(v)/2;
 			var y1 = y*u;
@@ -395,15 +375,6 @@ class Joint extends THREE.Group
 	}
 
 
-	direct(x,y,z)
-	{
-		this.tiltAngle = x;
-		this.turnAngle = y;
-		this.bendAngle = z;
-		this._turn();
-	}
-	
-	
 	bend(angle)
 	{
 		this.bendAngle = angle;
@@ -793,3 +764,23 @@ Mannequin.sphereTemplate = new THREE.Mesh(
 	);
 Mannequin.sphereTemplate.castShadow = true;
 Mannequin.sphereTemplate.receiveShadow = true;
+
+
+// calculate 2cosine-based lump
+// params is array of [ [u-min, u-max, v-min, v-max, 1/height], ...]
+Mannequin.cossers = function(u,v,params)
+{
+	function cosser(t, min, max)
+	{
+		if (t<min) t++;
+		if (t>max) t--;
+		if( min<=t && t<=max )
+			return 0.5+0.5*Math.cos( (t-min)/(max-min)*2*Math.PI-Math.PI );
+		return 0;
+	}
+	for (var i=0, r=1; i<params.length; i++)
+		r += cosser(u,params[i][0],params[i][1])*cosser(v,params[i][2],params[i][3])/params[i][4];
+	return r;
+}
+
+
