@@ -2,81 +2,8 @@
 //
 // a libary for human figure
 //
-//
-// mannequin.js
-//   ├─ MANNEQUIN_VERSION
-//   ├─ createScene()
-//   ├─ onWindowResize( event )
-//   ├─ drawFrame()
-//   ├─ animate()
-//   ├─ rad(x)
-//   ├─ sin(x)
-//   ├─ cos(x)
-//   ├─ LEFT
-//   ├─ RIGHT
-//   ├─ cossers(u,v,params)
-//   ├─ texHead
-//   ├─ texLimb
-//   ├─ sphereTemplate
-//   ├─ colors[]
-//   │
-//   ├─ ParametricShape(tex,col,func,nU=3,nV=3)
-//   │    │   └─ addSphere(r,y)
-//   │    │
-//   │    ├─ HeadShape(feminine,params)
-//   │    ├─ ShowShape(feminine,params)
-//   │    ├─ PelvisShape(feminine,params)
-//   │    ├─ LimbShape(feminine,params)
-//   │    └─ TorsoShape(feminine,params)
-//   │
-//   └─ Joint(parentJoint,pos,rot,params,shape)
-//        │   ├─ userJoint, parentJoint, bendAngle, turnAngle, tiltAngle
-//        │   ├─ direct(x,y,z)
-//        │   ├─ bend(angle)
-//        │   ├─ turn(angle,leftOrRight)
-//        │   ├─ tilt(angle,leftOrRight)
-//        │   ├─ _turn()
-//        │   ├─ turnJoint(x,y,z,order)
-//        │   ├─ hide()
-//        │   ├─ attach(image)
-//        │   ├─ point(x,y,z)
-//        │   ├─ recolor(color,secondaryColor)
-//        │   └─ color(color,secondaryColor)
-//        │
-//        ├─ Pelvis(parentJoint)
-//        ├─ Torso(parentJoint)
-//        ├─ Neck(parentJoint)
-//        ├─ Head(parentJoint)
-//        │   ├─ nod(angle)
-//        │   └─ _turn()
-//        ├─ Leg(parentJoint,leftOrRight)
-//        │   ├─ raise(angle)
-//        │   ├─ turn(angle,leftOrRight)
-//        │   └─ straddle(angle,leftOrRight)
-//        ├─ Knee(parentJoint)
-//        │   └─ bend(angle)
-//        ├─ Ankle(parentJoint)
-//        │   ├─ turn(angle,leftOrRight)
-//        │   └─ tilt(angle,leftOrRight)
-//        ├─ Arm(parentJoint,leftOrRight)
-//        │   ├─ raise(angle)
-//        │   ├─ turn(angle,leftOrRight)
-//        │   └─ straddle(angle,leftOrRight)
-//        ├─ Elbow(parentJoint)
-//        ├─ Wrist(parentJoint)
-//        │   ├─ turn(angle,leftOrRight)
-//        │   └─ tilt(angle,leftOrRight)
-//        ├─ Phalange(parentJoint,params)
-//        │   └─ Fingers(parentJoint)
-//        │       └─ _turn()
-//        └─ Mannequin(feminine,height=1)
-//            │   ├─ feminine, pelvis, torso, neck, head,
-//            │   │  l_leg, l_knee, l_ankle, l_arm, l_elbow, l_wrist, l_fingers,
-//            │   │  r_leg, r_knee, r_ankle, r_arm, r_elbow, r_wrist, r_fingers
-//            │   └─ _turn()
-//            ├─ Male()
-//            ├─ Female()
-//            └─ Child()
+
+
 /*
 	human	.bend(x)  .turn(x,dir) .tilt(x,dir)
 	  torso	.bend(x)  .turn(x,dir) .tilt(x,dir)
@@ -91,7 +18,7 @@
 */
 
 
-const MANNEQUIN_VERSION = 4.03;
+const MANNEQUIN_VERSION = 4.02;
 
 
 function createScene()
@@ -121,13 +48,6 @@ function createScene()
 		scene.add( light, new THREE.AmbientLight('white',0.5) );
 	
 	
-	function onWindowResize( event )
-	{
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-
-		renderer.setSize( window.innerWidth, window.innerHeight, true );
-	}
 	window.addEventListener( 'resize', onWindowResize, false );
 	onWindowResize();
 	
@@ -144,6 +64,14 @@ function createScene()
 	clock = new THREE.Clock();
 }
 
+
+function onWindowResize( event )
+{
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize( window.innerWidth, window.innerHeight, true );
+}
 
 
 function drawFrame()
