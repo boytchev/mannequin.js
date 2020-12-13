@@ -32,8 +32,7 @@
 //        │   ├─ hide()
 //        │   ├─ attach(image)
 //        │   ├─ point(x,y,z)
-//        │   ├─ recolor(color,secondaryColor)
-//        │   └─ color(color,secondaryColor)
+//        │   └─ recolor(color,secondaryColor)
 //        │
 //        ├─ Pelvis(parentJoint)
 //        ├─ Torso(parentJoint)
@@ -446,28 +445,6 @@ class Joint extends THREE.Group
 //			joint = joint.children[1];
 //			joint.material = joint.material.clone();
 //			joint.material.color = secondaryColor;
-			joint.children[1].material.color = secondaryColor;
-		}
-	}
-	
-	// change the colour of the joint
-	color( color, secondaryColor = color )
-	{
-		var joint = this.userJoint.children[0];
-
-		if( ! (color instanceof THREE.Color) )
-			color = new THREE.Color( color );
-			
-		if( color ) joint.children[0].material.color = color;
-			
-		if( joint.children.length>1 )
-		{
-//			joint = joint.children[1];
-//			joint.material = joint.material.clone();
-//			joint.material.color = secondaryColor;
-			if( ! (secondaryColor instanceof THREE.Color) )
-				secondaryColor = new THREE.Color( secondaryColor );
-			
 			joint.children[1].material.color = secondaryColor;
 		}
 	}
