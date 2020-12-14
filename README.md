@@ -304,9 +304,9 @@ To make the animation loop faster, all constant rotations should be defined outs
 			
 ### Working with postures
 
-A posture could be extracted from a figure with the `getPosture()` method. It return an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `setPosture(posture)` method is used to push a posture to a figure.
+A posture could be extracted from a figure with the `getPosture()` method. It returns an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `setPosture(posture)` method is used to push a posture to a figure.
 
-Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `bled(posture0,posture1,k)`, mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
+Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `blend(posture0,posture1,k)`, mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
 The following example blends the posture of one figure and copies it to another figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)):
 
 [<img src="examples/snapshots/example-posture-blend.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)
@@ -327,7 +327,7 @@ man.setPosture( Mannequin.blend(A,B,0.5) );
 woman.setPosture( man.getPosture() );
 ```
 
-Converting the posture to and from a string could be done with `JSON.stringify` and `JSON,parse`.
+Converting the posture to and from a string could be done with `JSON.stringify` and `JSON.parse`.
 
 # Other functions
 
