@@ -494,7 +494,7 @@ Currently mannequin.js is used to support one of the homework assignments in the
 This is unordered list of possible future improvements:
 
 - Custom order of joint rotations
-- Interpolations between postures
+- <del>Interpolations between postures</del> &ndash; implemented December 2020
 - Online posture and scene editor
 - Models for machines and animals
 - Compatibility with other models
