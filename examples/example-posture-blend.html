@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.min.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+			
+			var man = new Male(),
+				woman = new Female();
+				
+			man.position.x = -20;
+			woman.position.x = 20;
+			
+			// stick
+			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
+				material = new THREE.MeshPhongMaterial({color:'crimson'}),
+				stick = new THREE.Mesh(geometry,material);
+				stick.rotation.x = rad(90);
+				stick.position.set(-0.5,1,0);
+				stick.castShadow = true;
+				
+			man.r_fingers.attach(stick);
+			woman.r_fingers.attach(stick.clone());
+			
+			// preset postures
+			var A = {"version":1,"data":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,10],[0],[0,10,0],[0,0,-10],[0],[0,-10,0],[0,0,0],[0],[0,0,0],[0],[0,-30,-30],[30],[0,-140,-30],[80]]};
+			
+			var B = {"version":1,"data":[[15,0,-5],[0,0,0],[-15,30,15],[0,0,0],[0,70,0],[-30,0,0],[-25],[42,0,0],[85,-20,40],[-90],[35,15,-20],[10,-40,60],[155],[0,50,0],[-10],[-10,-20,-70],[40],[0,-30,0],[90]]};
+			
+			function animate(t)
+			{
+				var k = THREE.Math.clamp( 0.5+sin(t), 0, 1 );
+				
+				// blend posture between A and B
+				man.setPosture( Mannequin.blend(A,B,k) );
+				
+				// copy posture from one figure to another
+				woman.setPosture( man.getPosture() );
+				woman.turn( 180 );
+				
+				// get minimal vertical position of contact points
+				var bottom = Math.min(
+					man.l_ankle.point(-2,2,2).y,
+					man.l_ankle.point(-2,2,-2).y,
+					man.l_ankle.point(-2.5,-1,0).y,
+					man.l_ankle.point(-2.1,6,0).y,
+				);
+				man.position.y += (-29.5-bottom);
+				
+				var bottom = Math.min(
+					woman.l_ankle.point(-2,2,2).y,
+					woman.l_ankle.point(-2,2,-2).y,
+					woman.l_ankle.point(-2.5,-1,0).y,
+					woman.l_ankle.point(-2.1,6,0).y,
+				);
+				woman.position.y += (-29.5-bottom);
+
+				scene.rotation.y = t/400;
+			}
+		</script>
+	</body>
+	
+</html>

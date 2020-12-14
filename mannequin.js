@@ -8,6 +8,7 @@
 //   ├─ MANNEQUIN_POSTURE_VERSION
 //   ├─ createScene()
 //   ├─ animate()
+//   ├─ blend(posture0,posture1,k)
 //   ├─ rad(x)
 //   ├─ sin(x)
 //   ├─ cos(x)
@@ -875,25 +876,25 @@ Mannequin.cossers = function(u,v,params)
 }
 
 
-Mannequin.interpolate = function ( posture1, posture2, k )
+Mannequin.blend = function ( posture0, posture1, k )
 {
-	if( posture1.version != posture2.version )
-		console.warn( 'Incompatibe posture interpolation. Error code 1.' );
+	if( posture0.version != posture1.version )
+		console.warn( 'Incompatibe posture blending. Error code 1.' );
 
-	function lerp( data1, data2, k )
+	function lerp( data0, data1, k )
 	{
-		if( data1 instanceof Array )
+		if( data0 instanceof Array )
 		{
 			var result = [];
-			for( var i in data1 )
-				result.push( lerp(data1[i],data2[i],k) );
+			for( var i in data0 )
+				result.push( lerp(data0[i],data1[i],k) );
 			return result;
 		}
 		else
 		{
-			return data1*(1-k) + k*data2;
+			return data0*(1-k) + k*data1;
 		}
 	}
 	
-	return {version: posture1.version, data: lerp(posture1.data,posture2.data, k) };
+	return {version: posture1.version, data: lerp(posture0.data,posture1.data, k) };
 }

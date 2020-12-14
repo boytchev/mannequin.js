@@ -11,6 +11,7 @@
 - [Body posture](#Body-posture)
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
+    * [Working with postures](#Working-with-postures)
 - [Other functions](#Other-functions)
 	* [Custom colors](#Custom-colors)
 	* [Hiding body parts](#Hiding-body-parts)
@@ -301,6 +302,33 @@ function animate(t)
 
 To make the animation loop faster, all constant rotations should be defined outside *animate*. Also, if a rotation changing in the loop, there is no need to set it up outside the loop.
 			
+### Working with postures
+
+A posture could be extracted from a figure with the `getPosture()` method. It return an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `setPosture(posture)` method is used to push a posture to a figure.
+
+Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `bled(posture0,posture1,k)`, mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
+The following example blends the posture of one figure and copies it to another figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)):
+
+[<img src="examples/snapshots/example-posture-blend.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)
+
+``` javascript
+// two figures
+man = new Male();
+woman = new Female();
+
+// two postured
+A = {"version":1,"data":[...]};
+B = {"version":1,"data":[...]};
+
+// set an intermediate posture
+man.setPosture( Mannequin.blend(A,B,0.5) );
+
+// copy the posture to another figure
+woman.setPosture( man.getPosture() );
+```
+
+Converting the posture to and from a string could be done with `JSON.stringify` and `JSON,parse`.
+
 # Other functions
 
 Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
