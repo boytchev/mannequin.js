@@ -316,7 +316,7 @@ The following example blends the posture of one figure and copies it to another 
 man = new Male();
 woman = new Female();
 
-// two postured
+// two postures
 A = {"version":1,"data":[...]};
 B = {"version":1,"data":[...]};
 
