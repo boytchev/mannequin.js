@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="three.min.js"></script>
+		<script src="OrbitControls.js"></script>
+		<script src="mannequin.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			// create a scene with a better shadow
+			createScene();
+			scene.children[0].shadow.mapSize.width = 4*1024;
+			scene.children[0].shadow.mapSize.height = 4*1024;	
+			scene.children[2].material.transparent = true;
+			scene.children[2].material.opacity = 0.5;
+			
+			const controls = new THREE.OrbitControls( camera, renderer.domElement );
+			controls.update();
+
+			var model = new Female();
+				model.turn( -90 );
+				model.l_leg.straddle( -4 );
+				model.r_leg.straddle( -4 );
+				model.l_ankle.tilt( -4 );
+				model.r_ankle.tilt( -4 );
+				model.position.y = 2.2;
+
+			model.l_tips = model.l_fingers.tips;
+			model.r_tips = model.r_fingers.tips;
+			
+/*			var dragPoint = new THREE.Mesh(
+				new THREE.SphereBufferGeometry(1.5),
+				new THREE.MeshLambertMaterial({color:'black'})
+			);
+			var dragPoint2 = new THREE.Mesh(
+				new THREE.SphereBufferGeometry(2.5),
+				new THREE.MeshLambertMaterial({color:'crimson'})
+			);
+			*/
+			var p1 = new THREE.Vector3();
+			var p2 = new THREE.Vector3();
+			var line = new THREE.Line3( p1, p2 );
+			
+//			var p3 = new THREE.Vector3();
+			//scene.add( dragPoint );
+			
+		//model.l_elbow.attach( dragPoint2 );
+			
+			var names = ['pelvis', 'torso', 'neck', /*'head', */'l_leg', 'l_knee', 'l_ankle', 'l_arm', 'l_elbow', 'l_wrist', 'l_fingers', 'l_tips', 'r_leg', 'r_knee', 'r_ankle', 'r_arm', 'r_elbow', 'r_wrist', 'r_fingers', 'r_tips'];
+			for( var name of names )
+			{
+				for( var part of model[name].children[0].children[0].children )
+					part.name = name;
+				for( var part of model[name].children[0].children[0].children[0].children )
+					part.name = name;
+				if( model[name].children[0].children[0].children[1] )
+					for( var part of model[name].children[0].children[0].children[1].children )
+						part.name = name;
+			}
+			
+//			model.l_wrist.attach( dragPoint );
+			
+			var mouse = new THREE.Vector2(),
+				newMouse = new THREE.Vector2(),
+				//selected = false,
+				raycaster = new THREE.Raycaster();  
+			
+			document.addEventListener( 'mousedown', onMouseDown );
+			document.addEventListener( 'mouseup', onMouseUp );
+			document.addEventListener( 'mousemove', onMouseMove );
+			 
+			var obj = undefined;
+			
+			function onMouseUp( event )
+			{
+				controls.enabled = true;
+				deselect( );
+			}
+
+			function select( object )
+			{
+				if( obj ) deselect( );
+				
+				obj = object;
+				obj.traverse( function(o) {if(o.material) o.material.emissive.setRGB(0,-1,-0.4)} );
+			}
+			
+			function deselect( )
+			{
+				if( !obj ) return;
+				
+				obj.traverse( function(o) {if(o.material) o.material.emissive.setRGB(0,0,0)} );
+				obj = undefined;
+			}
+			
+			function onMouseDown( event )
+			{
+				event.preventDefault();
+				
+				mouse.x = event.clientX/window.innerWidth * 2 - 1;
+				mouse.y = -event.clientY/window.innerHeight * 2 + 1;
+
+				p1.set( mouse.x, mouse.y, -1 ).unproject( camera );
+				p2.set( mouse.x, mouse.y, 1 ).unproject( camera );
+				line.set( p1, p2 );
+
+				raycaster.setFromCamera( mouse, camera );
+				
+				var intersects = raycaster.intersectObject( model, true );
+				
+				if( intersects.length )
+				{
+					controls.enabled = false;
+console.log('name=',intersects[0].object.name);
+					select( model[intersects[0].object.name] );
+				}
+			}
+
+			function animate()
+			{
+				if( !obj ) return;
+
+				var dragPoint = new THREE.Vector3();
+				
+				var dist1 = 1,
+					dist2 = 0,
+					step = 0.5;
+				while( step>0.001 )
+				{
+					while( dist1 > dist2 )
+					{
+						var p = new THREE.Vector3(0,0,0);
+
+						dragPoint.copy( obj.point(0,obj.y,0) );
+						line.closestPointToPoint( dragPoint, false, p );
+						dist1 = p.distanceTo( dragPoint );
+						
+						obj.bendAngle += step;
+						obj._rotate();
+						obj.updateMatrixWorld( true );
+						
+						dragPoint.copy( obj.point(0,obj.y,0) );
+						line.closestPointToPoint( dragPoint, false, p );
+						dist2 = p.distanceTo( dragPoint );
+					}
+					obj.bendAngle -= step;
+					obj._rotate();
+					step /= 2;
+				}
+				var dist1 = 1,
+					dist2 = 0,
+					step = -0.5;
+				while( step<-0.001 )
+				{
+					while( dist1 > dist2 )
+					{
+						var p = new THREE.Vector3(0,0,0);
+
+						dragPoint.copy( obj.point(0,obj.y,0) );
+						line.closestPointToPoint( dragPoint, false, p );
+						dist1 = p.distanceTo( dragPoint );
+						
+						obj.bendAngle += step;
+						obj._rotate();
+						obj.updateMatrixWorld( true );
+						
+						dragPoint.copy( obj.point(0,obj.y,0) );
+						line.closestPointToPoint( dragPoint, false, p );
+						dist2 = p.distanceTo( dragPoint );
+					}
+					obj.bendAngle -= step;
+					obj._rotate();
+					step /= 2;
+				}
+			}
+			
+			function onMouseMove( event )
+			{
+				if( !obj ) return;
+				
+				event.preventDefault();
+				
+				mouse.x = event.clientX/window.innerWidth * 2 - 1;
+				mouse.y = -event.clientY/window.innerHeight * 2 + 1;
+
+				p1.set( mouse.x, mouse.y, -1 ).unproject( camera );
+				p2.set( mouse.x, mouse.y, 1 ).unproject( camera );
+				line.set( p1, p2 );
+			}
+			
+		</script>
+	</body>
+	
+</html>
