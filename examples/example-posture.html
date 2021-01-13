@@ -4,7 +4,7 @@
 
 	<head>
 		<script src="../three.min.js"></script>
-		<script src="../mannequin.min.js"></script>
+		<script src="../mannequin.js"></script>
 	</head>
 	
 	<body>
@@ -40,19 +40,18 @@
 			man.l_ankle.bend(42);
 			
 			// left arm
-			man.l_arm.raise(10);
-			man.l_arm.turn(-40);
-			man.l_arm.tilt(-60);
+			man.l_arm.straddle(70);
+			man.l_arm.turn(-30);
+			man.l_arm.tilt(80);
 			man.l_elbow.bend(155);
-			man.l_wrist.turn(50);
+			man.l_wrist.turn(-90);
 			man.l_fingers.bend(-10);
 			
 			// right arm
-			man.r_arm.raise(-10);
-			man.r_arm.tilt(70);
-			man.r_arm.turn(20);
+			man.r_arm.straddle(70);
 			man.r_elbow.bend(40);
-			man.r_wrist.turn(30);
+			man.r_elbow.turn(-10);
+			man.r_wrist.turn(-120);
 			man.r_fingers.bend(90);
 				
 			// stick

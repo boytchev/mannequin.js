@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<script src="../three.min.js"></script>
-		<script src="../mannequin.min.js"></script>
+		<script src="../mannequin.js"></script>
 	</head>
 	
 	<body>
@@ -31,6 +31,7 @@
 				man.r_arm.straddle(5);
 				man.r_arm.turn(-25);
 				man.r_elbow.bend(35);
+				man.r_wrist.turn(180);
 				man.r_fingers.bend(40);
 			
 			var woman = new Female();
@@ -46,11 +47,11 @@
 				woman.l_arm.raise(15);
 				woman.l_arm.straddle(5);
 				woman.l_wrist.bend(45);
-				woman.l_wrist.turn(-45);
+				woman.l_wrist.turn(180);
 				woman.l_fingers.bend(110);
 
 				woman.r_wrist.bend(45);
-				woman.r_wrist.turn(45);
+				woman.r_wrist.turn(-135);
 			
 			var kid = new Child();
 				kid.position.y = -8;
@@ -58,13 +59,13 @@
 	
 				kid.l_arm.turn(100);
 				kid.l_elbow.bend(120);
-				kid.l_wrist.turn(80);
+				kid.l_wrist.turn(-100);
 				kid.l_fingers.bend(90);
 				
 				kid.r_arm.turn(100);
 				kid.r_arm.straddle(-10);
 				kid.r_elbow.bend(125);
-				kid.r_wrist.bend(10);
+				kid.r_wrist.bend(170);
 				kid.r_fingers.bend(130);
 				
 			function animate(t)

@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<script src="../three.min.js"></script>
-		<script src="../mannequin.min.js"></script>
+		<script src="../mannequin.js"></script>
 	</head>
 	
 	<body>
@@ -35,8 +35,8 @@
 			man.r_elbow.bend(120);
 			man.l_wrist.bend(40);
 			man.r_wrist.bend(40);
-			man.l_wrist.turn(90);
-			man.r_wrist.turn(90);
+			man.l_wrist.turn(-90);
+			man.r_wrist.turn(-90);
 			man.l_fingers.bend(30);
 			man.r_fingers.bend(30);
 
@@ -63,8 +63,8 @@
 			woman.r_arm.raise(-20);
 			woman.r_arm.straddle(-5);
 			woman.r_elbow.bend(25);
-			woman.r_wrist.turn(90);
-			woman.r_wrist.tilt(30);
+			woman.r_wrist.turn(-90);
+			woman.r_wrist.tilt(-30);
 			woman.r_fingers.bend(50);
 
 			woman.l_arm.raise(10);
@@ -72,6 +72,7 @@
 			woman.l_arm.turn(-50);
 			woman.l_elbow.bend(40);
 			woman.l_wrist.bend(65);
+			woman.l_wrist.turn(180);
 			woman.l_fingers.bend(20);
 
 			

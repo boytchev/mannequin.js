@@ -33,6 +33,7 @@
 //        │   ├─ attach(image)
 //        │   ├─ point(x,y,z)
 //        │   ├─ recolor(color,secondaryColor)
+//        │   ├─ select(state)
 //        │   ├─ getPosture()
 //        │   ├─ setPosture(angles)
 //        │   ├─ _rotate()
@@ -85,6 +86,17 @@
 //            ├─ Male()
 //            ├─ Female()
 //            └─ Child()
+//
+//
+// Class structure
+//   │
+//   ├─ ParametricShape = Group
+//   │    ├─ Mesh - body part
+//   │    └─ Sphere Mesh - optional joint
+//   ├─ HeadShape = Group
+//   │    ├─ Mesh - body part
+//   │    └─ Sphere Mesh - optional joint
+//   │
 /*
 	human      .bend(x)  .turn(x,dir)      .tilt(x,dir)
 	  torso    .bend(x)  .turn(x,dir)      .tilt(x,dir)
@@ -98,9 +110,14 @@
 	  fingers  .bend(x)
 */
 
+/*
+	Change log
+	
+	4.04	added Joint.select(...)
+*/
 
-const MANNEQUIN_VERSION = 4.03;
-const MANNEQUIN_POSTURE_VERSION = 1;
+const MANNEQUIN_VERSION = 4.04;
+const MANNEQUIN_POSTURE_VERSION = 2;
 
 
 function createScene()
@@ -142,11 +159,12 @@ function createScene()
 	
 
 	var ground = new THREE.Mesh(
-			new THREE.BoxGeometry(1000,1,1000),
+			new THREE.PlaneBufferGeometry(1000,1000),
 			new THREE.MeshPhongMaterial({color:'antiquewhite',shininess:1})
 		);
 		ground.receiveShadow = true;
-		ground.position.y = -30;
+		ground.position.y = -29.5;
+		ground.rotation.x = -Math.PI/2;
 		scene.add( ground );
 
 	
@@ -295,8 +313,12 @@ class LimbShape extends ParametricShape
 		var x=params[0], y=params[1], z=params[2], alpha=params[3], dAlpha=params[4], offset=params[5], scale=params[6], rad=params[7];
 		super(Mannequin.texLimb,Mannequin.colors[4], function (u,v,target)
 		{
+			var dR = Mannequin.cossers(u,v,[[-0.1,0.2,0.1,0.9,-1],[0.8,1.1,0.1,0.9,-1]])-1;
+			
 			v = 360*v;
 			var r = offset+scale*cos(alpha+dAlpha*u);
+			r += dR;
+			
 			target.set(x*r*cos(v)/2,y*u,z*r*sin(v)/2);
 			var w = new THREE.Vector3(x*cos(v)*cos(170*u-85)/2,
 				y*(1/2+sin(180*u-90)/2),
@@ -364,7 +386,7 @@ class Joint extends THREE.Group
 		if (parentJoint)
 		{	// attaching to parent joint
 			this.position.set(0,parentJoint.y,0);
-			parentJoint.children[0].add(this);
+			parentJoint.userJoint.add(this);
 			this.feminine = parentJoint.feminine;
 		}
 		
@@ -372,7 +394,7 @@ class Joint extends THREE.Group
 		{	// initial joint orientation
 			this.rotateX(rad(rot[0]));
 			this.rotateZ(rad(rot[2]));
-			this.rotateY(rad(rot[1]));
+			this.rotateY(rad(rot[1]));			
 		}
 		
 		if (pos)
@@ -400,7 +422,7 @@ class Joint extends THREE.Group
 		this._rotate();
 	}
 
-	
+			
 	bend(angle)
 	{
 		this.bendAngle = angle;
@@ -473,6 +495,12 @@ class Joint extends THREE.Group
 		}
 	}
 	
+	select( state )
+	{
+		this.traverse( function(o) {
+			if(o.material && o.material.emissive) o.material.emissive.setRGB( 0, state?-1:0, state?-0.4:0 );
+		} );
+	}
 }
 
 
@@ -603,13 +631,13 @@ class Arm extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape);
+		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180+180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape);
 		this.leftOrRight = leftOrRight;
 	}
 	
 	raise(angle)
 	{
-		this.bendAngle = angle;
+		this.bendAngle = -angle;
 		this._rotate();
 	}
 	
@@ -621,7 +649,7 @@ class Arm extends Joint
 	
 	straddle(angle,leftOrRight=this.leftOrRight)
 	{
-		this.tiltAngle = -leftOrRight*angle;
+		this.tiltAngle = leftOrRight*angle;
 		this._rotate();
 	}
 }
@@ -632,6 +660,12 @@ class Elbow extends Joint
 	constructor(parentJoint)
 	{
 		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape);
+	}
+	
+	bend(angle)
+	{
+		this.bendAngle = -angle;
+		this._rotate();
 	}
 	
 	getPosture()
