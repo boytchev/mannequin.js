@@ -499,7 +499,7 @@ This is unordered list of possible future improvements:
 - Models for machines and animals
 - Compatibility with other models
 - <del>Export and import of animations</del> &ndash; December 2020, `getPosture` `setPosture`
-- A rudimental inverse kinematics
+- <del>A rudimental inverse kinematics</del> &ndash; January 2021, implemented in the Posture Editor
 - Collisions & motion restriction
 
 January, 2021
