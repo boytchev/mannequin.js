@@ -14,9 +14,6 @@
 			-moz-appearance: none;
 			appearance: none;
 			-webkit-tap-highlight-color: transparent;
-		}
-
-		input[type=checkbox]:focus {
 			outline: 0;
 		}
 
@@ -28,14 +25,13 @@
 		
 		label span {
 			font-size: 12px;
-			#font-weight: bold;
 			font-family: Sans-serif;
 			display: inline-block;
 			margin-left: 5px;
-			#border: solid 1px red;
 			text-transform: uppercase;
 			letter-spacing: 1px;
 			vertical-align: middle;
+			color: gray;
 		}
 		
 		.toggle {
@@ -65,6 +61,7 @@
 			#border-color: green;
 		}
 		.toggle:checked+span {
+			color: black;
 			font-weight: bold;
 		}
 		.toggle:checked:after {
@@ -77,9 +74,11 @@
 	</head>
 	
 	<body>
-		<label><input id="ik" type="checkbox" class="toggle"><span>&nbsp;Inverse &nbsp;kinematics</span></label><br>
-		<label><input id="m2" type="checkbox" class="toggle"><span>&nbsp;Secondary &nbsp;motion</span></label>
-		<label><input id="m3" type="checkbox" class="toggle"><span>&nbsp;Tertiary &nbsp;motion</span></label>
+		<label><input id="m1" type="checkbox" class="toggle" checked><span>&nbsp;Primary &nbsp;axis</span></label>
+		<label><input id="m2" type="checkbox" class="toggle"><span>&nbsp;Secondary &nbsp;axis</span></label>
+		<label><input id="m3" type="checkbox" class="toggle"><span>&nbsp;Tertiary &nbsp;axis</span></label>
+		<br>
+		<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label>
 	
 		<script>
 			// create a scene with a better shadow
@@ -130,6 +129,7 @@
 			model.r_ankle.x = -2;
 			
 			var elemIK = document.getElementById( 'ik' ),
+				elemM1 = document.getElementById( 'm1' ),
 				elemM2 = document.getElementById( 'm2' ),
 				elemM3 = document.getElementById( 'm3' );
 			
@@ -141,8 +141,9 @@
 			document.addEventListener( 'mouseup', onMouseUp );
 			document.addEventListener( 'mousemove', onMouseMove );
 			
-			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM3.checked=false;} );
-			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM2.checked=false;} );
+			elemM1.addEventListener( 'change', function(elem){if(elem.target.checked) elemM2.checked=elemM3.checked=false;} );
+			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM3.checked=false;} );
+			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=false;} );
 			 
 			var obj = undefined;
 			
@@ -247,7 +248,7 @@
 				// no selected object
 				if( !obj ) return;
 
-				if( mouseButton & 0x01 && !elemM2.checked && !elemM3.checked )
+				if( (mouseButton & 0x01) && !elemM2.checked && !elemM3.checked )
 				{
 					var joint = obj;
 					while( !(joint instanceof Pelvis) )
@@ -257,13 +258,13 @@
 						if( (joint instanceof Torso) || !elemIK.checked ) break;
 					}
 				}
-				
+				else
 				if( mouseButton & 0x02 || elemM2.checked )
 				{
 					inverseKinematics( obj, AXIS.X );
 				}
-				
-				if( mouseButton & 0x04 || elemM3.checked )
+				else
+				if( elemM3.checked )
 				{
 					inverseKinematics( obj, AXIS.Y );
 				}

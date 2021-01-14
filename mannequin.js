@@ -25,7 +25,7 @@
 //   │    └─ TorsoShape(feminine,params)
 //   │
 //   └─ Joint(parentJoint,pos,rot,params,shape)
-//        │   ├─ userJoint, parentJoint, bendAngle, turnAngle, tiltAngle
+//        │   ├─ userJoint, parentJoint, primaryAngle, secondaryAngle, tertiaryAngle
 //        │   ├─ bend(angle)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   ├─ tilt(angle,leftOrRight)
@@ -402,51 +402,51 @@ class Joint extends THREE.Group
 			this.position.set(pos[0],pos[1],pos[2]);
 		}
 		
-		this.bendAngle = 0;
-		this.turnAngle = 0;
-		this.tiltAngle = 0;
+		this.primaryAngle = 0;
+		this.secondaryAngle = 0;
+		this.tertiaryAngle = 0;
 	}
 
 
 	getPosture()
 	{
-		return [this.bendAngle, this.turnAngle, this.tiltAngle];
+		return [this.primaryAngle, this.secondaryAngle, this.tertiaryAngle];
 	}
 
 	
 	setPosture( angles )
 	{
-		this.bendAngle = angles[0];
-		this.turnAngle = angles[1];
-		this.tiltAngle = angles[2];
+		this.primaryAngle = angles[0];
+		this.secondaryAngle = angles[1];
+		this.tertiaryAngle = angles[2];
 		this._rotate();
 	}
 
 			
 	bend(angle)
 	{
-		this.bendAngle = angle;
+		this.primaryAngle = angle;
 		this._rotate();
 	}
 
 	
 	turn(angle,leftOrRight=LEFT)
 	{
-		this.turnAngle = leftOrRight*angle;
+		this.secondaryAngle = leftOrRight*angle;
 		this._rotate();
 	}
 
 	
 	tilt(angle,leftOrRight=LEFT)
 	{
-		this.tiltAngle = leftOrRight*angle;
+		this.tertiaryAngle = leftOrRight*angle;
 		this._rotate();
 	}
 
 	
 	_rotate()
 	{
-		this._eulerRotate(this.tiltAngle,-this.turnAngle,-this.bendAngle);
+		this._eulerRotate(this.tertiaryAngle,-this.secondaryAngle,-this.primaryAngle);
 	}
 
 
@@ -540,14 +540,14 @@ class Head extends Joint
 	
 	nod(angle)
 	{
-		this.bendAngle = angle;
+		this.primaryAngle = angle;
 		this._rotate();
 	}
 	
 	_rotate()
 	{
-		this._eulerRotate(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
-		this.parentJoint._eulerRotate(this.tiltAngle/2,-this.turnAngle/2,-this.bendAngle/2);
+		this._eulerRotate(this.tertiaryAngle/2,-this.secondaryAngle/2,-this.primaryAngle/2);
+		this.parentJoint._eulerRotate(this.tertiaryAngle/2,-this.secondaryAngle/2,-this.primaryAngle/2);
 	}
 }
 
@@ -562,19 +562,19 @@ class Leg extends Joint
 	
 	raise(angle)
 	{
-		this.bendAngle = angle;
+		this.primaryAngle = angle;
 		this._rotate();
 	}
 	
 	turn(angle,leftOrRight=this.leftOrRight)
 	{
-		this.turnAngle = -leftOrRight*angle;
+		this.secondaryAngle = -leftOrRight*angle;
 		this._rotate();
 	}
 	
 	straddle(angle,leftOrRight=this.leftOrRight)
 	{
-		this.tiltAngle = -leftOrRight*angle;
+		this.tertiaryAngle = -leftOrRight*angle;
 		this._rotate();
 	}
 }
@@ -589,18 +589,18 @@ class Knee extends Joint
 	
 	getPosture()
 	{
-		return [this.bendAngle];
+		return [this.primaryAngle];
 	}
 	
 	setPosture( angles )
 	{
-		this.bendAngle = angles[0];
+		this.primaryAngle = angles[0];
 		this._rotate();
 	}
 
 	bend(angle)
 	{
-		this.bendAngle = -angle;
+		this.primaryAngle = -angle;
 		this._rotate();
 	}
 }
@@ -615,13 +615,13 @@ class Ankle extends Joint
 	
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
 	{
-		this.tiltAngle = -leftOrRight*angle;
+		this.tertiaryAngle = -leftOrRight*angle;
 		this._rotate();
 	}
 	
 	tilt(angle,leftOrRight=-this.parentJoint.parentJoint.leftOrRight)
 	{
-		this.turnAngle = leftOrRight*angle;
+		this.secondaryAngle = leftOrRight*angle;
 		this._rotate();
 	}
 }
@@ -637,19 +637,19 @@ class Arm extends Joint
 	
 	raise(angle)
 	{
-		this.bendAngle = -angle;
+		this.primaryAngle = -angle;
 		this._rotate();
 	}
 	
 	turn(angle,leftOrRight=this.leftOrRight)
 	{
-		this.turnAngle = -leftOrRight*angle;
+		this.secondaryAngle = -leftOrRight*angle;
 		this._rotate();
 	}
 	
 	straddle(angle,leftOrRight=this.leftOrRight)
 	{
-		this.tiltAngle = leftOrRight*angle;
+		this.tertiaryAngle = leftOrRight*angle;
 		this._rotate();
 	}
 }
@@ -664,18 +664,18 @@ class Elbow extends Joint
 	
 	bend(angle)
 	{
-		this.bendAngle = -angle;
+		this.primaryAngle = -angle;
 		this._rotate();
 	}
 	
 	getPosture()
 	{
-		return [this.bendAngle];
+		return [this.primaryAngle];
 	}
 	
 	setPosture( angles )
 	{
-		this.bendAngle = angles[0];
+		this.primaryAngle = angles[0];
 		this._rotate();
 	}
 }
@@ -690,13 +690,13 @@ class Wrist extends Joint
 	
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
 	{
-		this.turnAngle = -leftOrRight*angle;
+		this.secondaryAngle = -leftOrRight*angle;
 		this._rotate();
 	}
 	
 	tilt(angle,leftOrRight=-this.parentJoint.parentJoint.leftOrRight)
 	{
-		this.tiltAngle = leftOrRight*angle;
+		this.tertiaryAngle = leftOrRight*angle;
 		this._rotate();
 	}
 }
@@ -723,19 +723,19 @@ class Fingers extends Phalange
 	
 	getPosture()
 	{
-		return [this.bendAngle];
+		return [this.primaryAngle];
 	}
 	
 	setPosture( angles )
 	{
-		this.bendAngle = angles[0];
+		this.primaryAngle = angles[0];
 		this._rotate();
 	}
 	
 	_rotate()
 	{
-		this._eulerRotate(this.tiltAngle/4,-this.turnAngle/4,this.bendAngle);
-		this.tips._eulerRotate(this.tiltAngle/3,-this.turnAngle/3,this.bendAngle);
+		this._eulerRotate(this.tertiaryAngle/4,-this.secondaryAngle/4,this.primaryAngle);
+		this.tips._eulerRotate(this.tertiaryAngle/3,-this.secondaryAngle/3,this.primaryAngle);
 	}
 }
 
@@ -782,7 +782,7 @@ class Mannequin extends Joint
 		
 	getPosture()
 	{
-		var bodyPos = [this.bendAngle, this.turnAngle, this.tiltAngle],
+		var bodyPos = [this.primaryAngle, this.secondaryAngle, this.tertiaryAngle],
 			posture = [ bodyPos,
 					this.pelvis.getPosture(),
 						this.torso.getPosture(),
@@ -814,9 +814,9 @@ class Mannequin extends Joint
 			console.warn( 'Wrong mannequin.js posture version' );
 		
 		var angles = posture.data[0];
-		this.bendAngle = angles[0];
-		this.turnAngle = angles[1];
-		this.tiltAngle = angles[2];
+		this.primaryAngle = angles[0];
+		this.secondaryAngle = angles[1];
+		this.tertiaryAngle = angles[2];
 		this._rotate();
 		
 		this.pelvis.setPosture( posture.data[1] );
@@ -841,7 +841,7 @@ class Mannequin extends Joint
 	
 	_rotate()
 	{
-		this._eulerRotate(this.tiltAngle,-this.turnAngle,-this.bendAngle,'YXZ');
+		this._eulerRotate(this.tertiaryAngle,-this.secondaryAngle,-this.primaryAngle,'YXZ');
 	}
 }
 
