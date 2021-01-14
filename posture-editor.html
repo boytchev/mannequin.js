@@ -79,6 +79,7 @@
 		<label><input id="m3" type="checkbox" class="toggle"><span>&nbsp;Tertiary &nbsp;axis</span></label>
 		<br>
 		<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label>
+		<label><input id="br" type="checkbox" class="toggle" checked><span>&nbsp;Biological &nbsp;restriction</span></label>
 	
 		<script>
 			// create a scene with a better shadow
@@ -129,6 +130,7 @@
 			model.r_ankle.x = -2;
 			
 			var elemIK = document.getElementById( 'ik' ),
+				elemBR = document.getElementById( 'br' ),
 				elemM1 = document.getElementById( 'm1' ),
 				elemM2 = document.getElementById( 'm2' ),
 				elemM3 = document.getElementById( 'm3' );
@@ -197,6 +199,21 @@
 			function relativeTurn( joint, axis, angle )
 			{
 				joint.rotateOnAxis( axis, rad(angle) );
+				if( elemBR.checked )
+				{
+					//joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, joint.limit.max.x );
+					//joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, joint.limit.max.y );
+					if( joint.limit.min.z <= joint.limit.max.z )
+						joint.rotation.z = THREE.Math.clamp( joint.rotation.z, joint.limit.min.z, joint.limit.max.z );
+					else
+					{
+						if( joint.rotation.z<(joint.limit.min.z+joint.limit.max.z)/2 )
+							joint.rotation.z = THREE.Math.clamp( joint.rotation.z, -Math.PI, joint.limit.max.z );
+						else
+							joint.rotation.z = THREE.Math.clamp( joint.rotation.z, joint.limit.min.z, Math.PI );
+					}
+				}
+				console.log('rot.z',joint.rotation.z,'min',joint.limit.min.z,'max',joint.limit.max.z);
 				joint.updateMatrix();
 			}
 			
@@ -268,7 +285,6 @@
 				{
 					inverseKinematics( obj, AXIS.Y );
 				}
-				
 			}
 			
 			function onMouseMove( event )

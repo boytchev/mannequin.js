@@ -24,8 +24,9 @@
 //   │    ├─ LimbShape(feminine,params)
 //   │    └─ TorsoShape(feminine,params)
 //   │
-//   └─ Joint(parentJoint,pos,rot,params,shape)
+//   └─ Joint(parentJoint,pos,rot,params,shape,limit)
 //        │   ├─ userJoint, parentJoint, primaryAngle, secondaryAngle, tertiaryAngle
+//        │   ├─ limit{x,y,z}
 //        │   ├─ bend(angle)
 //        │   ├─ turn(angle,leftOrRight)
 //        │   ├─ tilt(angle,leftOrRight)
@@ -365,7 +366,7 @@ class TorsoShape extends ParametricShape
 // flexible joint
 class Joint extends THREE.Group
 {
-	constructor(parentJoint,pos,rot,params,shape)
+	constructor(parentJoint,pos,rot,params,shape,limitArray=[0,0,0,0,0,0])
 	{
 		super();
 		var y = params[1];
@@ -374,7 +375,8 @@ class Joint extends THREE.Group
 		if (shape!=PelvisShape && shape!=ShoeShape) image.position.set(0,y/2,0);
 		image.castShadow=true;
 
-
+		this.limit = new THREE.Box3(new THREE.Vector3(limitArray[4],limitArray[2],limitArray[0]),new THREE.Vector3(limitArray[5],limitArray[3],limitArray[1]));
+		
 		this.userJoint = new THREE.Group();
 		this.userJoint.add(image);
 		this.userJoint.castShadow = true;
@@ -508,7 +510,7 @@ class Pelvis extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,[0,0,-20],[3,4,parentJoint.feminine?5.5:5],PelvisShape);
+		super(parentJoint,null,[0,0,-20],[3,4,parentJoint.feminine?5.5:5],PelvisShape,[-Math.PI,Math.PI, 0,0, 0,0]);
 	}
 }
 
@@ -517,7 +519,7 @@ class Torso extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[-2,4,0],[0,0,20],[5,17,10,parentJoint.feminine?10:80,parentJoint.feminine?520:380,parentJoint.feminine?0.8:0.9,parentJoint.feminine?0.25:0.2],TorsoShape);
+		super(parentJoint,[-2,4,0],[0,0,20],[5,17,10,parentJoint.feminine?10:80,parentJoint.feminine?520:380,parentJoint.feminine?0.8:0.9,parentJoint.feminine?0.25:0.2],TorsoShape,[-1.6,0.9, 0,0, 0,0]);
 	}
 }
 
@@ -526,7 +528,7 @@ class Neck extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[0,15,0],[0,0,10],[2,parentJoint.feminine?5:4,2,45,60,1,0.2,0],LimbShape);
+		super(parentJoint,[0,15,0],[0,0,10],[2,parentJoint.feminine?5:4,2,45,60,1,0.2,0],LimbShape, [-0.4,0.3, 0,0, 0,0]);
 	}
 }
 
@@ -535,7 +537,7 @@ class Head extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[1,3,0],null,[3,4,2.5],HeadShape);
+		super(parentJoint,[1,3,0],null,[3,4,2.5],HeadShape, [-0.8,0.6, 0,0, 0,0]);
 	}
 	
 	nod(angle)
@@ -556,7 +558,7 @@ class Leg extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,-3,4*leftOrRight],[0,180,200],[4,15,4,-70,220,1,0.4,2],LimbShape);
+		super(parentJoint,[0,-3,4*leftOrRight],[0,180,200],[4,15,4,-70,220,1,0.4,2],LimbShape,[-2.8,0.8, -1,-1,1,1]);
 		this.leftOrRight = leftOrRight;
 	}
 	
@@ -584,7 +586,7 @@ class Knee extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[4,14,4,-40,290,0.65,0.25,1.5],LimbShape);
+		super(parentJoint,null,null,[4,14,4,-40,290,0.65,0.25,1.5],LimbShape,[0,2.7, -1,-1,1,1]);
 	}
 	
 	getPosture()
@@ -610,7 +612,7 @@ class Ankle extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,[0,0,-90],[1,4,2],ShoeShape);
+		super(parentJoint,null,[0,0,-90],[1,4,2],ShoeShape,[-2.8,-0.4, 0,0, 0,0]);
 	}
 	
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
@@ -631,7 +633,7 @@ class Arm extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180+180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape);
+		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180+180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape,[2,0.4, 0,0, 0,0]);
 		this.leftOrRight = leftOrRight;
 	}
 	
@@ -659,7 +661,7 @@ class Elbow extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape);
+		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape,[0,2.7, 0,0, 0,0]);
 	}
 	
 	bend(angle)
@@ -685,7 +687,7 @@ class Wrist extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[1.2,2,3.5,-90,45,0.5,0.3,1/2],LimbShape);
+		super(parentJoint,null,null,[1.2,2,3.5,-90,45,0.5,0.3,1/2],LimbShape,[-Math.PI/2,Math.PI/2, 0,0, 0,0]);
 	}
 	
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
@@ -706,7 +708,7 @@ class Phalange extends Joint
 {
 	constructor(parentJoint,params)
 	{
-		super(parentJoint,null,null,params,LimbShape);
+		super(parentJoint,null,null,params,LimbShape,[0,1.7, 0,0, 0,0]);
 	}
 	
 }
