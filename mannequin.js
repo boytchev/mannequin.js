@@ -558,7 +558,7 @@ class Leg extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,-3,4*leftOrRight],[0,180,200],[4,15,4,-70,220,1,0.4,2],LimbShape,[-2.8,0.8, -1,-1,1,1]);
+		super(parentJoint,[0,-3,4*leftOrRight],[0,180,200],[4,15,4,-70,220,1,0.4,2],LimbShape,[-2.8,0.8, -1,-1,3,-2]);
 		this.leftOrRight = leftOrRight;
 	}
 	
@@ -612,7 +612,7 @@ class Ankle extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,[0,0,-90],[1,4,2],ShoeShape,[-2.8,-0.4, 0,0, 0,0]);
+		super(parentJoint,null,[0,0,-90],[1,4,2],ShoeShape,[-2.8,-0.4, -1,1, 0,0]);
 	}
 	
 	turn(angle,leftOrRight=this.parentJoint.parentJoint.leftOrRight)
@@ -633,7 +633,7 @@ class Arm extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180+180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape,[2,0.4, 0,0, 0,0]);
+		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[-leftOrRight*10,leftOrRight*180+180,-leftOrRight*180],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape,[2,0.4, 0,0, 0.1,-3]);
 		this.leftOrRight = leftOrRight;
 	}
 	

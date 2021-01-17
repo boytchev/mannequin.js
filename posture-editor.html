@@ -75,11 +75,11 @@
 	
 	<body>
 		<label><input id="m1" type="checkbox" class="toggle" checked><span>&nbsp;Primary &nbsp;axis</span></label>
-		<label><input id="m2" type="checkbox" class="toggle"><span>&nbsp;Secondary &nbsp;axis</span></label>
+		<label><input id="m2" type="checkbox" class="toggle" ><span>&nbsp;Secondary &nbsp;axis</span></label>
 		<label><input id="m3" type="checkbox" class="toggle"><span>&nbsp;Tertiary &nbsp;axis</span></label>
 		<br>
 		<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label>
-		<label><input id="br" type="checkbox" class="toggle" checked><span>&nbsp;Biological &nbsp;restriction</span></label>
+		<label><input id="br" type="checkbox" class="toggle" ><span>&nbsp;Biological &nbsp;restriction</span></label>
 	
 		<script>
 			// create a scene with a better shadow
@@ -212,8 +212,26 @@
 						else
 							joint.rotation.z = THREE.Math.clamp( joint.rotation.z, joint.limit.min.z, Math.PI );
 					}
+					if( joint.limit.min.y <= joint.limit.max.y )
+						joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, joint.limit.max.y );
+					else
+					{
+						if( joint.rotation.y<(joint.limit.min.y+joint.limit.max.y)/2 )
+							joint.rotation.y = THREE.Math.clamp( joint.rotation.y, -Math.PI, joint.limit.max.y );
+						else
+							joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, Math.PI );
+					}
+					if( joint.limit.min.x <= joint.limit.max.x )
+						joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, joint.limit.max.x );
+					else
+					{
+						if( joint.rotation.x<(joint.limit.min.x+joint.limit.max.x)/2 )
+							joint.rotation.x = THREE.Math.clamp( joint.rotation.x, -Math.PI, joint.limit.max.x );
+						else
+							joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, Math.PI );
+					}
 				}
-				console.log('rot.z',joint.rotation.z,'min',joint.limit.min.z,'max',joint.limit.max.z);
+//				console.log('rot.x',joint.rotation.x.toFixed(2),'rot.y',joint.rotation.y.toFixed(2),'rot.z',joint.rotation.z.toFixed(2));
 				joint.updateMatrix();
 			}
 			
@@ -260,20 +278,25 @@
 				}
 			}
 			
-			function animate()
+			function animate( time )
 			{
+				//var joint = model.l_leg;
+				//joint.rotation.set( Math.PI, 0, 6.28 - (0.7 + 1.6*Math.sin(time/100)) );
+				//console.log('rot.x',joint.rotation.x.toFixed(2),'rot.y',joint.rotation.y.toFixed(2),'rot.z',joint.rotation.z.toFixed(2));
+				//return;
+
 				// no selected object
 				if( !obj ) return;
 
 				if( (mouseButton & 0x01) && !elemM2.checked && !elemM3.checked )
 				{
 					var joint = obj;
-					while( !(joint instanceof Pelvis) )
+					do
 					{
 						inverseKinematics( joint, AXIS.Z );
 						joint = joint.parent.parent;
-						if( (joint instanceof Torso) || !elemIK.checked ) break;
 					}
+					while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
 				}
 				else
 				if( mouseButton & 0x02 || elemM2.checked )
