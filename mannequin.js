@@ -528,6 +528,15 @@ class Head extends Joint
 	set turn( angle )		{ this.ry =  angle/2; this.parentJoint.ry =  angle/2; }
 	set turnLeft( angle )	{ this.ry =  angle/2; this.parentJoint.ry =  angle/2; }
 	set turnRight( angle )	{ this.ry = -angle/2; this.parentJoint.ry = -angle/2; }
+
+	get posture() {	return [2*this.rx, 2*this.ry, 2*this.rz]; }
+	set posture( angles )
+	{
+		this.rx = angles[0]/2; this.parentJoint.rx = angles[0]/2;
+		this.ry = angles[1]/2; this.parentJoint.ry = angles[1]/2;
+		this.rz = angles[2]/2; this.parentJoint.rz = angles[2]/2;
+		this.rotateNow();
+	} // Head.posture
 } // Head
 
 
