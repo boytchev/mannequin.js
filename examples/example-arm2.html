@@ -5,6 +5,7 @@
 	<head>
 		<script src="../three.min.js"></script>
 		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
@@ -13,29 +14,28 @@
 			createScene();
 			
 			var man = new Male();
-				man.turn( -90 );
 				man.position.x = -30;
-				man.position.y = 3.7;
 			
 			var child = new Child();
-				child.turn( -90 );
-				child.position.y = -7.8;
 			
 			var woman = new Female();
-				woman.turn( -90 );
 				woman.position.x = 30;
-				woman.position.y = 2.2;
 			
+			addLabel(man.r_arm,'arm.straddleRight', 20,0.08,0, 3, 3);
+			addLabel(child.l_arm,'arm.straddle', -7,-0.1,0, 3, 1);
+			addLabel(child.r_arm,'arm.straddle', 12,0.1,0, 3, 3);
+			addLabel(woman.l_arm,'arm.straddleLeft', -7,-0.08,0, 3, 1);
+
 			function animate(t)
 			{
-				man.l_arm.straddle( 30*sin(3*t)+30 );
-				man.r_arm.straddle( 30*sin(3*t)+30 );
+				man.l_arm.straddleRight = 30*sin(2*t)+30;
+				man.r_arm.straddleRight = 30*sin(2*t)+30;
 				
-				child.l_arm.straddle( 30*sin(3*t)+30, LEFT);
-				child.r_arm.straddle( 30*sin(3*t)+30, LEFT );
+				child.l_arm.straddle = 30*sin(2*t)+30;
+				child.r_arm.straddle = 30*sin(2*t)+30;
 				
-				woman.l_arm.straddle( 30*sin(3*t)+30, RIGHT );
-				woman.r_arm.straddle( 30*sin(3*t)+30, RIGHT );
+				woman.l_arm.straddleLeft = 30*sin(2*t)+30;
+				woman.r_arm.straddleLeft = 30*sin(2*t)+30;
 			}			
 
 		</script>

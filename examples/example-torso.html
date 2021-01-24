@@ -5,6 +5,7 @@
 	<head>
 		<script src="../three.min.js"></script>
 		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
@@ -13,24 +14,22 @@
 			createScene();
 			
 			var man = new Male();
-				man.turn( -90 );
 				man.position.x = -30;
-				man.position.y = 3.7;
 			
 			var child = new Child();
-				child.turn( -90 );
-				child.position.y = -7.8;
 			
 			var woman = new Female();
-				woman.turn( -90 );
 				woman.position.x = 30;
-				woman.position.y = 2.2;
+			
+			addLabel(man.torso,'torso.bend',1,0.5,4);
+			addLabel(child.torso,'torso.turn',1,0.5,4);
+			addLabel(woman.torso,'torso.tilt',1,0.5,4.5);
 			
 			function animate(t)
 			{
-				man.torso.bend( 60*sin(3*t) );
-				child.torso.turn( 60*sin(3*t) );
-				woman.torso.tilt( 15*sin(3*t) );
+				man.torso.bend = 60*sin(2*t);
+				child.torso.turn = 60*sin(2*t);
+				woman.torso.tilt = 15*sin(2*t);
 			}			
 
 		</script>

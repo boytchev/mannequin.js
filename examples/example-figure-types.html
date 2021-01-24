@@ -12,62 +12,66 @@
 			createScene();
 			
 			var man = new Male();
-				man.position.set(20,3.5,0);
-				man.turn(-120);
-				man.head.bend(30);
-				man.head.turn(30,RIGHT);
+				man.position.x = 20;
 
-				man.l_leg.straddle(5);
-				man.l_ankle.turn(20);
+				man.turnRight = 120;
+
+				man.head.nod = 40;
+				man.head.turnRight = 50;
+
+				man.l_ankle.turn = 20;
+				man.r_ankle.turn = 20;
 				
-				man.r_leg.straddle(5);
-				man.r_ankle.turn(20);
+				man.l_arm.straddle = 15;
+				man.l_arm.raise = -15;
+				man.l_elbow.bend = 35;
+				man.l_fingers.bend = 40;
 
-				man.l_arm.straddle(5);
-				man.l_arm.turn(-25);
-				man.l_elbow.bend(35);
-				man.l_fingers.bend(10);
-
-				man.r_arm.straddle(5);
-				man.r_arm.turn(-25);
-				man.r_elbow.bend(35);
-				man.r_wrist.turn(180);
-				man.r_fingers.bend(40);
+				man.r_arm.raise = 15;
+				man.r_arm.straddle = 15;
+				man.r_wrist.bend = -15;
+				man.r_wrist.turn = -120;
+				man.r_wrist.tilt = 30;
+				man.r_fingers.bend = 110;
 			
 			var woman = new Female();
-				woman.position.set(-20,2,0);
-				woman.turn(-60);
-				woman.head.bend(30);
-				woman.head.turn(30,LEFT);
+				woman.position.x = -20;
 
-				woman.l_leg.straddle(-5);
+				woman.turnRight = 60;
+				
+				woman.head.nod = 40;
+				woman.head.turnLeft = 50;
+				
+				woman.l_arm.raise = 15;
+				woman.l_arm.straddle = 20;
+				woman.l_wrist.bend = -15;
+				woman.l_wrist.turn = -120;
+				woman.l_wrist.tilt = 30;
+				woman.l_fingers.bend = 110;
 
-				woman.r_leg.straddle(-5);
+				woman.r_arm.straddle = 15;
+				woman.r_arm.turn = -45;
+				woman.r_elbow.bend = 10;
+				woman.r_wrist.bend = -45;
 
-				woman.l_arm.raise(15);
-				woman.l_arm.straddle(5);
-				woman.l_wrist.bend(45);
-				woman.l_wrist.turn(180);
-				woman.l_fingers.bend(110);
-
-				woman.r_wrist.bend(45);
-				woman.r_wrist.turn(-135);
-			
 			var kid = new Child();
-				kid.position.y = -8;
-				kid.turn(-90);
+				kid.position.z = -5
+				kid.turnRight = 90;
+				
+				kid.l_arm.turn = 60;
+				kid.l_arm.straddle = 10;
+				kid.l_elbow.bend = 125;
+				kid.l_wrist.tilt = -30;
+				kid.l_wrist.bend = -20;
+				kid.l_fingers.bend = 50;
+				
+				kid.r_arm.turn = 60;
+				kid.r_arm.straddle = 10;
+				kid.r_elbow.bend = 125;
+				kid.r_wrist.tilt = -30;
+				kid.r_wrist.bend = -20;
+				kid.r_fingers.bend = 50;
 	
-				kid.l_arm.turn(100);
-				kid.l_elbow.bend(120);
-				kid.l_wrist.turn(-100);
-				kid.l_fingers.bend(90);
-				
-				kid.r_arm.turn(100);
-				kid.r_arm.straddle(-10);
-				kid.r_elbow.bend(125);
-				kid.r_wrist.bend(170);
-				kid.r_fingers.bend(130);
-				
 			function animate(t)
 			{
 				scene.rotation.y = rad(50*sin(t/2));

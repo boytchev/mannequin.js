@@ -5,37 +5,42 @@
 	<head>
 		<script src="../three.min.js"></script>
 		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
 		<script>
 		
 			createScene();
-			
+
 			var man = new Male();
-				man.turn( -90 );
 				man.position.x = -30;
-				man.position.y = 3.7;
+				man.l_arm.straddle = 10;
+				man.r_arm.straddle = 10;
 			
 			var child = new Child();
-				child.turn( -90 );
-				child.position.y = -7.8;
+				child.l_arm.straddle = 10;
+				child.r_arm.straddle = 10;
 			
 			var woman = new Female();
-				woman.turn( -90 );
 				woman.position.x = 30;
-				woman.position.y = 2.2;
+				woman.l_arm.straddle = 10;
+				woman.r_arm.straddle = 10;
+
+			addLabel(man.l_fingers.tips,'fingers.bend', -8,0.5,0, 2, 1);
+			addLabel(woman.r_fingers.tips,'fingers.bend', 8,-0.5,0, 4, 3);
 			
 			function animate(t)
 			{
-				man.r_fingers.bend( 60*sin(3*t)+60 );
-				man.l_fingers.bend( 60*sin(3*t+180)+60 );
+				man.r_fingers.bend = 60*sin(2*t)+60;
+				man.l_fingers.bend = 10*sin(2*t+180)+10;
 				
-				child.r_fingers.bend( 60*sin(3*t+120)+60 );
-				child.l_fingers.bend( 60*sin(3*t+300)+60 );
+				child.r_fingers.bend = 60*sin(2*t+120)+60;
+				child.l_fingers.bend = 60*sin(2*t+300)+60;
 				
-				woman.r_fingers.bend( 60*sin(3*t+50)+60 );
-				woman.l_fingers.bend( 60*sin(3*t+240)+60 );
+				woman.r_fingers.bend = 10*sin(2*t+50)+10;
+				woman.l_fingers.bend = 60*sin(2*t+240)+60;
+
 			}			
 
 		</script>

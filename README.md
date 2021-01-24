@@ -30,7 +30,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
 
-This is the fourth incarnation of the mannequin figure. The first one was implemented
+This is the fourth incarnation of the mannequin figure library. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
 was implemented in JS/Three.js and is a direct predecessor of the current mannequin.js.
 Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate students from the
@@ -38,7 +38,7 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
-Mannequin.js is licensed under **GPL-3.0**.
+Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.1** from January 2021.
 
 Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
 
@@ -46,7 +46,7 @@ Three.js is included in this repository to safeguard against incompatibilities w
 # Initialization
 
 The **mannequin.js** library is provided as a JavaScript file that has to
-be include along with three.js. 
+be include along with three.js or three.min.js. 
 
 ### Minimal program
 
@@ -57,7 +57,7 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 <html>
   <head>
     <script src="three.min.js"></script>
-    <script src="mannequin.min.js"></script>
+    <script src="mannequin.js"></script>
   </head>
   <body>
     <script>
@@ -72,127 +72,138 @@ The helper function `createScene()` provides a default set-up of the scene and i
 
 ### Figure types
 
-Mannequin figures are created as instances of classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+Mannequin figures are created as instances of the classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
 ``` javascript
 var man = new Male();
-    man.position.set(20,3.5,0);
-    man.turn(-120);
+    man.position.x = 20;
+	man.turnRight = 120;
     :
 var woman = new Female();
-    woman.position.set(-20,2,0);
-    woman.turn(-60);
+	woman.position.x = -20;
+	woman.turnRight = 60;
     :
 var kid = new Child();
-    kid.position.y = -8;
-    kid.turn(-90);
+	kid.position.z = -5
+	kid.turnRight = 90;
     :
 ```
 
-These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where *feminine* is boolean and defines whether the shape is feminine or masculine, and the second parameter is a number for relative height (adults have height 1).
+These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean *feminine* defines whether the shape is feminine or masculine, and the number *height* is the relative height of the figure (a male has height 1).
 
 
 # Body parts
 
-All types of figures have the same structure of joints. For example, the right arm of a figure is accessed by `r_arm`. Left and right body parts are in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
+All types of figures have the same structure of joints. For example, the right arm of a figure is named `r_arm`. Left and right body parts are in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
 
 
 [<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
 
 
-Each body part has rotation methods that turn it around a pivot point.
-The first parameter *angle* of the methods is the angle of rotation in degrees,
+Each body part has properties that define its rotation around a pivot point. The values of the rotation properties are angles of rotation in degrees,
 so 180 is half turn and 360 is full turn. Negative angles are allowed and
-they represent turning in the opposite direction. Some methods have an optional
-second parameter for *direction* of motion, which could be the constant `LEFT` or
-`RIGHT`.
+they represent turning in the opposite direction. 
 
 ### Central body parts
 
-The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. To move the whole **body** use methods *bend*, *turn* and *tilt* of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. To rotate the whole body use properties for *bending*, *turning* and *tilting* of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
 
-* `figure.bend ( angle )`
-* `figure.turn ( angle )`
-* `figure.turn ( angle, direction )`
-* `figure.tilt ( angle )`
-* `figure.tilt ( angle, direction )`
+* `figure.bend = angle;`
+* `figure.turn = angle;`
+* `figure.turnLeft = angle`
+* `figure.turnRight = angle`
+* `figure.tilt = angle`
+* `figure.tiltLeft = angle`
+* `figure.tiltRight = angle`
 
 
-The **head** supports similar methods: *nod*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
+The **head** supports properties for *nodding*, *turning* and *tilting* ([live example](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
 
-* `figure.head.nod ( angle )`
-* `figure.head.turn ( angle )`
-* `figure.head.turn ( angle, dir )`
-* `figure.head.tilt ( angle )`
-* `figure.head.tilt ( angle, dir )`
+* `figure.head.nod = angle;`
+* `figure.head.turn = angle;`
+* `figure.head.turnLeft = angle;`
+* `figure.head.turnRight = angle;`
+* `figure.head.tilt = angle;`
+* `figure.head.tiltLeft = angle;`
+* `figure.head.tiltRight = angle;`
 
-The **torso** has the same methods as the whole body: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
+The **torso** has properties for *bending*, *turning* and *tilting* ([live example](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
 
-* `figure.torso.bend ( angle )`
-* `figure.torso.turn ( angle )`
-* `figure.torso.turn ( angle, direction )`
-* `figure.torso.tilt ( angle )`
-* `figure.torso.tilt ( angle, direction )`
+* `figure.torso.bend = angle;`
+* `figure.torso.turn = angle;`
+* `figure.torso.turnLeft = angle;`
+* `figure.torso.turnRight = angle;`
+* `figure.torso.tilt = angle;`
+* `figure.torso.tiltLeft = angle;`
+* `figure.torso.tiltRight = angle;`
 
-Although the **neck** is a separate part of the body, it is not controlled individually. Instead, a part of the head motion is distributed over the neck. Similarly, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
+Although the **neck** is a separate part of the body, it is not controlled individually. Instead, half of the head rotation is distributed over the neck. Similarly, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
 
 
 ### Upper limbs
 
 The upper limbs are symmetrical body parts: *arm*, *elbow*, *wrist* and *fingers*.
 
-Both **arms** support methods *raise*, *straddle* and *turn* ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm1.html)). The following list refers to the right arm, however, the same methods are available for the right hand:
+Both **arms** support properties for *raising*, *straddling* and *turning* ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm1.html)). The following list refers to the right arm, however, the same properties are available for the left arm:
 
-* `figure.r_arm.raise ( angle )`
-* `figure.r_arm.straddle ( angle )`
-* `figure.r_arm.straddle ( angle, direction )`
-* `figure.r_arm.turn ( angle )`
-* `figure.r_arm.turn ( angle, direction )`
+* `figure.r_arm.raise = angle;`
+* `figure.r_arm.straddle = angle;`
+* `figure.r_arm.straddleLeft = angle;`
+* `figure.r_arm.straddleRight = angle;`
+* `figure.r_arm.turn = angle;`
+* `figure.r_arm.turnLeft = angle;`
+* `figure.r_arm.turnRight = angle;`
 
-If the *direction* parameter is omitted, then the default motions of *straddle* and *turn* are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm2.html)). 
+If *directionless* properties are used (e.g. `straddle` or `turn`), then the rotations are symmetrical. For example, the left arm is straddled to the left, while the right arm is straddled to the right ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm2.html)). 
 
-The motion of the **elbow** is only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
+The motion of the **elbow** is only *bending* ([live example](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
 
-* `figure.r_elbow.bend ( angle )`
+* `figure.r_elbow.bend = angle;`
 
-The **wrists** have the same methods as the torso: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, the directions are symmetrical, if *direction* is not set:
+The **wrists** have the same properties as the torso: *bending*, *turning* and *tilting* ([live example](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, the directions are symmetrical:
 
-* `figure.r_wrist.bend ( angle )`
-* `figure.r_wrist.turn ( angle )`
-* `figure.r_wrist.turn ( angle, direction )`
-* `figure.r_wrist.tilt ( angle )`
-* `figure.r_wrist.tilt ( angle, direction )`
+* `figure.r_wrist.bend = angle;`
+* `figure.r_wrist.turn = angle;`
+* `figure.r_wrist.turnLeft = angle;`
+* `figure.r_wrist.turnRight = angle;`
+* `figure.r_wrist.tilt = angle;`
+* `figure.r_wrist.tiltLeft = angle;`
+* `figure.r_wrist.tiltRight = angle;`
 
 The last body parts of the upper limbs are the **fingers**. They can only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)), however, they are composed of two segments and the bending angle is distributed over both of them.
 
-* `figure.r_fingers.bend ( angle )`
+* `figure.r_fingers.bend = angle;`
 
 
 ### Lower limbs
 
 The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
 
-Both **legs** support methods *raise*, *straddle* and *turn* ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical if *direction* is not set.
+Both **legs** support properties for *raising*, *straddling* and *turning* ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical if *directionless* properties are used.
 
-* `figure.r_leg.raise ( angle )`
-* `figure.r_leg.straddle ( angle )`
-* `figure.r_leg.straddle ( angle, direction )`
-* `figure.r_leg.turn ( angle )`
-* `figure.r_leg.turn ( angle, direction )`
+* `figure.r_leg.raise = angle;`
+* `figure.r_leg.straddle = angle;`
+* `figure.r_leg.straddleLeft = angle;`
+* `figure.r_leg.straddleRight = angle;`
+* `figure.r_leg.turn = angle;`
+* `figure.r_leg.turnLeft = angle;`
+* `figure.r_leg.turnRight = angle;`
 
-The motion of the **knee** is only *bend* ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+The motion of the **knee** is only *bending* ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
 
-* `figure.r_knee.bend ( angle )`
+* `figure.r_knee.bend = angle;`
 
-The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *direction* is not set:
+The **ankles** have the same properties as the wrists for *bending*, *turning* and *tilting* ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *directionless* properties are used:
 
-* `figure.r_ankle.bend ( angle )`
-* `figure.r_ankle.turn ( angle )`
-* `figure.r_ankle.turn ( angle, direction )`
-* `figure.r_ankle.tilt ( angle )`
-* `figure.r_ankle.tilt ( angle, direction )`
+* `figure.r_ankle.bend = angle;`
+* `figure.r_ankle.turn = angle;`
+* `figure.r_ankle.turnLeft = angle;`
+* `figure.r_ankle.turnRight = angle;`
+* `figure.r_ankle.tilt = angle;`
+* `figure.r_ankle.tiltLeft = angle;`
+* `figure.r_ankle.tiltRight = angle;`
 
 
 # Body posture
@@ -200,20 +211,20 @@ The **ankles** have the same methods as the wrists: *bend*, *turn* and *tilt* ([
 The posture of a figure is defined by a setting the rotations of body parts. The order of rotations is fixed independent on the order of rotations in the user program ([live example](https://boytchev.github.io/mannequin.js/examples/example-order.html)). For example:
 
 ``` javascript
-figure.head.nod(30);
-figure.head.turn(45);
-figure.head.tilt(20,RIGHT);
+figure.head.nod = 30;
+figure.head.turn = 45;
+figure.head.tiltRight = 20;
 ```
 
 produces the same posture as:
 
 ``` javascript
-figure.head.tilt(20,RIGHT);
-figure.head.turn(45);
-figure.head.nod(30);
+figure.head.tiltRight = 20;
+figure.head.turn = 45;
+figure.head.nod = 30;
 ```
 
-Sometimes this might lead to unexpected results, especially if the user assumes an order of rotations that is different from what mannequin.js uses. This might happen when a body part is rotated around 3 or 2 axes.
+Sometimes this might lead to unexpected results, especially if the user assumes an order of rotations that is different from what mannequin.js uses. This might happen when a body part is rotated around 2 or 3 axes.
 
 
 ### Static posture
@@ -226,58 +237,44 @@ Sometimes it is better to define the figure step by step. Tai Chi Chuan posture 
 
 ``` javascript
 // overall body position
-man.position.y = -7.7;
-man.tilt(5,LEFT);
-man.bend(15);
-
+man.position.y -= 11.5;
+man.turnRight = -10;
+:
 // torso and head
-man.torso.turn(30,RIGHT);
-man.torso.tilt(15,RIGHT);
-man.torso.bend(-15);
-man.head.turn(70,RIGHT);
+man.torso.turnRight = 30;
+man.torso.tiltRight = 15;
+:
 ```
 
 Then the orientation of the legs can be set:
 
 ``` javascript
 // right leg
-man.r_leg.raise(85);
-man.r_leg.turn(20);
-man.r_leg.straddle(40,LEFT);
-man.r_knee.bend(90);
-man.r_ankle.bend(35);
-man.r_ankle.turn(20,RIGHT);
-man.r_ankle.tilt(-15);
-
+man.r_leg.raise = 85;
+man.r_leg.straddleLeft = 40;
+:
 // left leg
-man.l_leg.raise(-30);
-man.l_knee.bend(25);
-man.l_ankle.bend(42);
+man.l_leg.raise = -30;
+man.l_knee.bend = 25;
+:
 ```
 				
 Finally, the arms are fixed:
 	
 ``` javascript
 // left arm
-man.l_arm.raise(10);
-man.l_arm.turn(-40);
-man.l_arm.tilt(-60);
-man.l_elbow.bend(155);
-man.l_wrist.turn(50);
-man.l_fingers.bend(-10);
-
+man.l_arm.straddle = 70;
+man.l_arm.turn = -30;
+:
 // right arm
-man.r_arm.raise(-10);
-man.r_arm.tilt(70);
-man.r_arm.turn(20);
-man.r_elbow.bend(40);
-man.r_wrist.turn(30);
-man.r_fingers.bend(90);
+man.r_arm.straddle = 70;
+man.r_elbow.bend = 40;
+:
 ```
 	
 ### Dynamic posture
 
-The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same methods that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, then the animation loop should be managed manually.
+The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If *createScene* and *animate* are not used, then the animation loop should be managed manually.
 
 [<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
 
@@ -292,19 +289,22 @@ function animate(t)
     child.position.x = -3*time1;
     child.position.y = 4+cos(90*time1);
 
-    child.turn(-90-20*time1+20*time2);
-    child.tilt(10*time1);
+    child.turn = -90-20*time1+20*time2;
+    child.tilt = 10*time1;
     :
 	
     scene.rotation.y = rad(30*time1);
 }
 ```
 
-To make the animation loop faster, all constant rotations should be defined outside *animate*. Also, if a rotation changing in the loop, there is no need to set it up outside the loop.
+To make the animation loop faster, all constant rotations should be defined outside *animate*. Also, if a rotation is changing in the loop, there is no need to set it up outside the loop.
 			
 ### Working with postures
 
-A posture could be extracted from a figure with the `getPosture()` method. It returns an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `setPosture(posture)` method is used to push a posture to a figure.
+A posture could be extracted from a figure with the `posture` property. It contains an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `posture` property can be used to to push a posture to a figure.
+
+There is alternative `postureString` property to get or set the posture as a string. Converting the posture to and from a string is done with `JSON.stringify` and `JSON.parse`.
+
 
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `blend(posture0,posture1,k)`, mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
 The following example blends the posture of one figure and copies it to another figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)):
@@ -317,17 +317,16 @@ man = new Male();
 woman = new Female();
 
 // two postures
-A = {"version":1,"data":[...]};
-B = {"version":1,"data":[...]};
+A = {"version":3,"data":[[-5,10,-15],...]};
+B = {"version":3,"data":[[0,-90,0],...]};
 
 // set an intermediate posture
-man.setPosture( Mannequin.blend(A,B,0.5) );
+man.posture = Mannequin.blend(A,B,0.5);
 
 // copy the posture to another figure
-woman.setPosture( man.getPosture() );
+woman.posture = man.posture;
 ```
 
-Converting the posture to and from a string could be done with `JSON.stringify` and `JSON.parse`.
 
 # Other functions
 
@@ -335,7 +334,7 @@ Apart for moving body parts, the current version of mannequin.js provides basic 
 
 ### Custom colors
 
-By default, all figures use a predefined set of global colors for body parts. Global colors are stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) in specific order &ndash; head, shoes, pelvis, joints, limbs and torso:
+By default, all figures use a predefined set of global colors for body parts. Global colors are stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) in specific order &ndash; *head*, *shoes*, *pelvis*, *joints*, *limbs* and *torso*:
 
 ``` javascript
 Mannequin.colors = [
@@ -348,7 +347,7 @@ Mannequin.colors = [
 ];
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of joints ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of each body part ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
@@ -366,9 +365,9 @@ man.l_fingers.tips.recolor( 'maroon' );
 man.r_knee.recolor( 'antiquewhite', 'black' );
 ```
 
-The first parameter of `recolor` is the color of the main section of the joint. The second parameter is the color of the spherical section of the body part.
+The first parameter of `recolor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
 
-The tips of the fingers are accessed via `fingers.tips`.
+The tips of the fingers are accessed via `l_fingers.tips` and `r_fingers.tips`.
 
 
 ### Hiding body parts
@@ -393,7 +392,7 @@ man.r_arm.hide();
 
 ### Custom body parts
 
-Body parts are descendants of *THREE.Object3D* and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
 
 [<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
 
@@ -409,7 +408,7 @@ man.l_wrist.scale.set(3,5,3);
 man.r_wrist.scale.set(3,5,3);
 ```
 
-Any custom *THREE.Object3D* could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
+Any custom `THREE.Object3D` could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
 
 ``` javascript
 figure.joint.attach(object);
@@ -455,9 +454,9 @@ The following example creates a thread going through 5 points relative to body p
 [<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 
 ``` javascript
-loop.geometry.vertices[0] = man.r_fingers.point(0,0,0);
+loop.geometry.vertices[0] = man.r_fingers.tips.point(0,1,0);
 loop.geometry.vertices[1] = man.head.point(2.5,0,0);
-loop.geometry.vertices[2] = man.l_fingers.point(0,0,0);
+loop.geometry.vertices[2] = man.l_fingers.tips.point(0,1,0);
 loop.geometry.vertices[3] = man.l_ankle.point(-1.5,5.5,0);
 loop.geometry.vertices[4] = man.r_ankle.point(-1.5,5.5,0);
 
@@ -466,7 +465,7 @@ loop.geometry.verticesNeedUpdate = true;
 
 Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and test their global position.
 
-The following example uses four contact points on each shoe (i.e. *man.r_ankle* and *man.l_ankle*). The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
 [<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
@@ -498,7 +497,7 @@ This is unordered list of possible future improvements:
 - Online posture and scene editor &ndash; under construction
 - Models for machines and animals
 - Compatibility with other models
-- <del>Export and import of animations</del> &ndash; December 2020, `getPosture` `setPosture`
+- <del>Export and import of animations</del> &ndash; December 2020, `posture`
 - <del>A rudimental inverse kinematics</del> &ndash; January 2021, implemented in the Posture Editor
 - Collisions & motion restriction
 

@@ -5,6 +5,7 @@
 	<head>
 		<script src="../three.min.js"></script>
 		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
@@ -13,29 +14,27 @@
 			createScene();
 			
 			var man = new Male();
-				man.turn( -90 );
 				man.position.x = -30;
-				man.position.y = 3.7;
 			
 			var child = new Child();
-				child.turn( -90 );
-				child.position.y = -7.8;
 			
 			var woman = new Female();
-				woman.turn( -90 );
 				woman.position.x = 30;
-				woman.position.y = 2.2;
+			
+			addLabel(man.l_arm,'arm.raise', -6.5,-0.15,0, 3, 1);
+			addLabel(child.l_arm,'arm.straddle', -6.5,-0.1,0, 3, 1);
+			addLabel(woman.l_arm,'arm.turn', -6.5,-0.15,0, 3, 1);
 			
 			function animate(t)
 			{
-				man.l_arm.raise( 60*sin(3*t) );
-				man.r_arm.raise( 60*sin(3*t) );
+				man.l_arm.raise = 60*sin(2*t);
+				man.r_arm.raise = 60*sin(2*t);
 				
-				child.l_arm.straddle( 60*sin(3*t)+60 );
-				child.r_arm.straddle( 60*sin(3*t)+60 );
+				child.l_arm.straddle = 40*sin(2*t)+50;
+				child.r_arm.straddle = 40*sin(2*t)+50;
 				
-				woman.l_arm.turn( 90*sin(3*t) );
-				woman.r_arm.turn( 90*sin(3*t) );
+				woman.l_arm.turn = 50*sin(2*t)-10;
+				woman.r_arm.turn = 50*sin(2*t)-10;
 			}			
 
 		</script>

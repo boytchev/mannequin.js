@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+			
+			var man = new Male();
+
+			man.position.y -= 0.4;
+			
+			man.l_leg.straddle = 10;
+			man.l_ankle.tilt = 10;
+
+			man.r_leg.straddle = 10;
+			man.r_ankle.tilt = 10;
+
+			man.l_arm.straddle = 10;
+			man.l_arm.turn = -10;
+			man.l_arm.raise = -10;
+			man.l_elbow.bend = 20;
+			man.l_wrist.bend = -20;
+			man.l_fingers.bend = 20;
+			
+			// right arm
+			man.r_arm.raise = -20;
+			man.r_arm.straddle = 30;
+			man.r_elbow.bend = 70;
+			man.r_wrist.turn = 30;
+			man.r_wrist.tilt = 40;
+			man.r_fingers.bend = 90;
+
+			// stick
+			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
+				material = new THREE.MeshPhongMaterial({color:'crimson'}),
+				stick = new THREE.Mesh(geometry,material);
+				stick.rotation.x = rad(90);
+				stick.position.set(-0.5,1,0);
+				stick.castShadow = true;
+				
+			man.r_fingers.attach(stick);
+			
+			
+			function animate(t)
+			{
+				scene.rotation.y = t/400;
+			}
+		</script>
+	</body>
+	
+</html>

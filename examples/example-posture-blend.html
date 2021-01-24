@@ -30,20 +30,24 @@
 			woman.r_fingers.attach(stick.clone());
 			
 			// preset postures
-			var A = {"version":2,"data":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,10],[0],[0,10,0],[0,0,-10],[0],[0,-10,0],[0,0,0],[0],[0,0,0],[0],[0,30,40],[-60],[-20,25,40],[80]]};
+			var A = {"version":3,"data":[[-5,10,-15],[15,-30,20],[0,-35,0],[6,0,30],[25],[0,-6,-42],[40,20,-85],[90],[-20,-20,-35],[-70,30,0],[155],[0,30,0],[-10],[70,0,0],[40],[-20,-60,0],[90]]};
 			
-			var B = {"version":2,"data":[[15,0,-5],[0,0,0],[-15,30,15],[0,0,0],[0,70,0],[-30,0,0],[-25],[42,0,0],[85,-20,40],[-90],[35,15,-20],[0,-30,-80],[-155],[0,-90,0],[-10],[0,0,70],[-40],[0,120,0],[90]]};
+			var B = {"version":3,"data":[[0,-90,0],[0,0,0],[0,0,0],[10,0,0],[0],[0,-10,0],[-10,0,0],[0],[0,10,0],[-10,10,-10],[20],[0,0,-20],[20],[30,0,-20],[70],[40,30,0],[90]]};
+			
+			man.posture = A;
+			woman.posture = A;
 			
 			function animate(t)
 			{
 				var k = THREE.Math.clamp( 0.5+sin(t), 0, 1 );
 
 				// blend posture between A and B
-				man.setPosture( Mannequin.blend(A,B,k) );
-				
+				man.posture = Mannequin.blend(A,B,k);
+				man.turn = 0;
+					
 				// copy posture from one figure to another
-				woman.setPosture( man.getPosture() );
-				woman.turn( 180 );
+				woman.posture = man.posture;
+				woman.turn = 180;
 				
 				// get minimal vertical position of contact points
 				var bottom = Math.min(

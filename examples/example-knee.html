@@ -5,6 +5,7 @@
 	<head>
 		<script src="../three.min.js"></script>
 		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
@@ -13,29 +14,30 @@
 			createScene();
 			
 			var man = new Male();
-				man.turn( -90 );
 				man.position.x = -30;
-				man.position.y = 3.7;
+				man.l_leg.raise = 20;
+				man.r_leg.raise = 20;
 			
 			var child = new Child();
-				child.turn( -90 );
-				child.position.y = -7.8;
 			
 			var woman = new Female();
-				woman.turn( -90 );
 				woman.position.x = 30;
-				woman.position.y = 2.2;
+				woman.l_leg.raise = 20;
+				woman.r_leg.raise = 20;
+			
+			addLabel(man.l_knee,'knee.bend', -7,0.15,0, 1, 1);
+			addLabel(woman.r_knee,'knee.bend', 8,-0.15,0, 1, 3);
 			
 			function animate(t)
 			{
-				man.r_knee.bend( 60*sin(3*t)+60 );
-				man.l_knee.bend( 60*sin(3*t+180)+60 );
+				man.r_knee.bend = 40*sin(2*t)+40;
+				man.l_knee.bend = 40*sin(2*t+180)+40;
 				
-				child.r_knee.bend( 60*sin(3*t+120)+60 );
-				child.l_knee.bend( 60*sin(3*t+300)+60 );
+				child.r_knee.bend = 60*sin(2*t+120)+60;
+				child.l_knee.bend = 60*sin(2*t+300)+60;
 				
-				woman.r_knee.bend( 60*sin(3*t+50)+60 );
-				woman.l_knee.bend( 60*sin(3*t+240)+60 );
+				woman.r_knee.bend = 40*sin(2*t+50)+40;
+				woman.l_knee.bend = 40*sin(2*t+240)+40;
 			}			
 
 		</script>

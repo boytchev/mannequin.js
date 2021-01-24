@@ -2,84 +2,71 @@
 
 <html>
 	<head>
-		<base href="../">
-		<script src="three.min.js"></script>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.js"></script>
+		<script src="fonts/optimer_regular.typeface.js"></script>
 	</head>
 	
 	<body>
-		<script src="mannequin.js"></script>
 		<script>
 		
 			createScene();
 			
 			var man = new Male();
+			man.position.y -= 5;
 
-			man.turn(-90);
+			man.turnRight = 90;
 			
-			man.l_arm.straddle(40);
-			man.r_arm.straddle(40);
+			man.l_fingers.bend = 20;
+			man.r_fingers.bend = 20;
 			
-			man.l_leg.straddle(30);
-			man.r_leg.straddle(30);
+			man.l_leg.straddle = 30;
+			man.r_leg.straddle = 30;
 			
-			man.l_ankle.tilt(30,RIGHT);
-			man.r_ankle.tilt(30,LEFT);
+			man.l_ankle.tilt = 35;
+			man.r_ankle.tilt = 35;
+						
+			addLabel(man.head,'head',6);
+			addLabel(man.neck,'neck',-2,0.5,3);
+			addLabel(man.torso,'torso',-1,0.5,3);
+			addLabel(man.pelvis,'pelvis',0,0.5,2);
 			
-			
-			
-			var fontStyle = new THREE.MeshPhongMaterial({color:'crimson'}),
-				fontParams = {};
-				
-			function addLabel(text,x,y,z=0)
-			{
-				var geometry = new THREE.TextGeometry(text,fontParams),
-					label = new THREE.Mesh(geometry,fontStyle);
-					label.position.set(x,y,z);
-					label.castShadow = true;
-					
-				scene.add(label);
-			}
-			
-			function addLabels(font)
-			{
-				fontParams = {
-					font: font,
-					size: 2.5,
-					height: 0.1,
-					curveSegments: 8,
-					bevelEnabled: false
-				}
-			
-				addLabel('head',-4,31,0);
-				addLabel('neck',-4,21,2);
-				addLabel('torso',-4,11,2.5);
-				addLabel('pelvis',-4.5,1,2);
-				
-				addLabel('l_leg',9,-3);
-				addLabel('l_knee',15,-15);
-				addLabel('l_ankle',21,-27);
+			addLabel(man.l_arm,'l_arm', -1,-0.3,0, 3, 2);
+			addLabel(man.l_elbow,'l_elbow', 0,-0.15,0, 3, 2);
+			addLabel(man.l_wrist,'l_wrist', 0,0,1, 2, 2);
+			addLabel(man.l_fingers.tips,'l_fingers', 1,0,1, 2, 2);
 
-				addLabel('r_leg',-16.5,-3);
-				addLabel('r_knee',-25,-15);
-				addLabel('r_ankle',-32,-27);
+			addLabel(man.r_arm,'r_arm', -1,1.4,0, 3, 2);
+			addLabel(man.r_elbow,'r_elbow', 0,1.2,0, 3, 2);
+			addLabel(man.r_wrist,'r_wrist', 0,0,11.5, 0, 2);
+			addLabel(man.r_fingers.tips,'r_fingers', 0,0,13.5, 0, 2);
 
-				addLabel('l_arm',8,20,-0.25);
-				addLabel('l_elbow',17,13,-0.5);
-				addLabel('l_wrist',22,8,-0.75);
-				addLabel('l_fingers',20,0,-1.0);
+			addLabel(man.l_leg,'l_leg', -1,0.5,0, 1, 1.98);
+			addLabel(man.l_knee,'l_knee', -1,0.25,0, 1, 1.92);
+			addLabel(man.l_ankle,'l_ankle', 1,0.3,-1, 0, 3, 3);
 
-				addLabel('r_arm',-17,20,-0.25);
-				addLabel('r_elbow',-28,13,-0.5);
-				addLabel('r_wrist',-32,8,-0.75);
-				addLabel('r_fingers',-35,0,-1.0);
-			}
-
-			(new THREE.FontLoader()).load(
-				'./examples/fonts/optimer_regular.typeface.json',
-				addLabels);
+			addLabel(man.r_leg,'r_leg', -1,-1.55,0, 1, 2.02);
+			addLabel(man.r_knee,'r_knee', -1,-1.25,0, 1, 2.08);
+			addLabel(man.r_ankle,'r_ankle', 1,-1.3,-1, 0, 3, 3);
 			
 			function animate(t)
 			{
+				man.head.turn = -45*sin(t/2-20);
+				
+				man.torso.tilt = -15*sin(t/2-10);
+
+				man.l_arm.straddle = 50 - 30*sin(t/2);
+				man.r_arm.straddle = 50 + 30*sin(t/2);
+				
+				man.l_elbow.bend = 30 + 30*sin(t/2);
+				man.r_elbow.bend = 30 - 30*sin(t/2);
+				
+				man.l_wrist.bend = 15 + 10*sin(t/2);
+				man.r_wrist.bend = 15 - 10*sin(t/2);
+				
+				man.l_fingers.bend = 20 + 10*sin(t/2);
+				man.r_fingers.bend = 20 - 10*sin(t/2);
+				
 				scene.rotation.y = rad(45*sin(t/2));
 			}			
 	
