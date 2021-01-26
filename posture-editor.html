@@ -17,14 +17,118 @@
 			outline: 0;
 		}
 
+/*https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/*/
+input[type=range] {
+  width: 15em;
+  margin: 7.9px 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: rgba(48, 113, 169, 0);
+  border: 0.2px solid #010101;
+  border-radius: 24.9px;
+  width: 100%;
+  height: 9.2px;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -8.1px;
+  width: 25px;
+  height: 25px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #438bc9;
+}
+input[type=range]::-moz-range-track {
+  background: rgba(48, 113, 169, 0);
+  border: 0.2px solid #010101;
+  border-radius: 24.9px;
+  width: 100%;
+  height: 9.2px;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 7.9px 0;
+  color: transparent;
+  width: 100%;
+  height: 9.2px;
+  cursor: pointer;
+}
+input[type=range]::-ms-fill-lower {
+  background: #255681;
+  border: 0.2px solid #010101;
+  border-radius: 49.8px;
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(48, 113, 169, 0);
+  border: 0.2px solid #010101;
+  border-radius: 49.8px;
+}
+input[type=range]::-ms-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: rgba(48, 113, 169, 0);
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #438bc9;
+}
+/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+how to remove the virtical space around the range input in IE*/
+@supports (-ms-ime-align:auto) {
+  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+  input[type=range] {
+    margin: 0;
+    /*Edge starts the margin from the thumb, not the track as other browsers do*/
+  }
+}/***********************/
+		span.short { display:inline-block; width:2em; text-align: right;}
+
+		#panel {
+			padding: 1em 0 0 1em;
+			width:15em;
+			position:fixed;
+			top:0;
+			left:0;
+			z-index: 10;
+		}
+		
 		label {
 			cursor: pointer;
-			display: block;
+			display: inline-block;
 			margin-bottom: 10px;
+			z-index: 10;
+			
 		}
 		
 		label span {
-			font-size: 12px;
+			font-size: 10px;
 			font-family: Sans-serif;
 			display: inline-block;
 			margin-left: 5px;
@@ -74,14 +178,23 @@
 	</head>
 	
 	<body>
-		<label><input id="m1" type="checkbox" class="toggle" checked><span>&nbsp;Primary &nbsp;axis</span></label>
-		<label><input id="m2" type="checkbox" class="toggle" ><span>&nbsp;Secondary &nbsp;axis</span></label>
-		<label><input id="m3" type="checkbox" class="toggle"><span>&nbsp;Tertiary &nbsp;axis</span></label>
-		<br>
-		<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label>
-		<label><input id="br" type="checkbox" class="toggle" ><span>&nbsp;Biological &nbsp;restriction</span></label>
-	
+		<div id="panel">
+			<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label><br>
+			<label><input id="br" type="checkbox" class="toggle" checked><span>&nbsp;Biological &nbsp;restriction</span></label><br>
+			<br>
+			<label><span id="name"></span></label><br>
+			<label id="labelz" style="visibility:hidden;"><input id="m1" type="checkbox" class="toggle" checked><span id="namez"></span></label><br>
+			<label id="labelx" style="visibility:hidden;"><input id="m2" type="checkbox" class="toggle" ><span id="namex"></span></label><br>
+			<label id="labely" style="visibility:hidden;"><input id="m3" type="checkbox" class="toggle"><span id="namey"></span></label><br>
+			<div style="display:none;">
+			<label><span id="vx" class="short"></span></span><input type="range" id="rx" value="0" min="-180" max="180" step="5"><br>
+			<span id="vy" class="short"></span><input type="range" id="ry" value="0" min="-180" max="180" step="5"><br>
+			<span id="vz" class="short"></span><input type="range" id="rz" value="0" min="-180" max="180" step="5"><br></div>
+		</div>
+		
 		<script>
+			const EPS = 0.00001;
+			
 			// create a scene with a better shadow
 			createScene();
 			var light = scene.children[0];
@@ -91,21 +204,11 @@
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.update();
 
-			var model = new Female();
-				model.turn( -90 );
-				model.l_leg.straddle( -4 );
-				model.r_leg.straddle( -4 );
-				model.l_ankle.tilt( -4 );
-				model.r_ankle.tilt( -4 );
-				model.position.y = 2.2;
+			var model = new Male();
 
 			model.l_tips = model.l_fingers.tips;
 			model.r_tips = model.r_fingers.tips;
-			
-			const AXIS = {	X: new THREE.Vector3(1,0,0), 			
-							Y: new THREE.Vector3(0,1,0), 			
-							Z: new THREE.Vector3(0,0,1)
-						};
+
 
 			var dragPoint = new THREE.Mesh(
 				new THREE.SphereBufferGeometry( 0.001 ),
@@ -114,20 +217,42 @@
 			
 			var screenPoint = new THREE.Vector3();
 			
-			var names = ['pelvis', 'torso', 'neck', 'head', 'l_leg', 'l_knee', 'l_ankle', 'l_arm', 'l_elbow', 'l_wrist', 'l_fingers', 'l_tips', 'r_leg', 'r_knee', 'r_ankle', 'r_arm', 'r_elbow', 'r_wrist', 'r_fingers', 'r_tips'];
-			for( var name of names )
+			var names = [
+				['pelvis','tilt','turn','bend','body'],
+				['torso','tilt','turn','bend','torso'],
+				['neck','tilt','turn','nod','neck'],
+				['head','tilt','turn','nod','head'],
+				['l_leg','straddle','turn','raise','left leg'],
+				['l_knee','','','bend','left knee'],
+				['l_ankle','tilt','turn','bend','left ankle'],
+				['l_arm','straddle','turn','raise','left arm'],
+				['l_elbow','','','bend','left elbow'],
+				['l_wrist','tilt','turn','bend','left wrist'],
+				['l_fingers','','','bend','left fingers'],
+				['l_tips','','','bend','left finger tips'],
+				['r_leg','straddle','turn','raise','right leg'],
+				['r_knee','','','bend','right knee'],
+				['r_ankle','tilt','turn','bend','right ankle'],
+				['r_arm','straddle','turn','raise','right arm'],
+				['r_elbow','','','bend','right elbow'],
+				['r_wrist','tilt','turn','bend','right wrist'],
+				['r_fingers','','','bend','right fingers'],
+				['r_tips','','','bend','right finger tips']
+			];
+			var properties
+			for( var nameData of names )
 			{
-				model[name].x = 0;
+				var name = nameData[0];
+				for( var part of model[name].children[0].children )
+					part.name = name;
 				for( var part of model[name].children[0].children[0].children )
 					part.name = name;
-				for( var part of model[name].children[0].children[0].children[0].children )
-					part.name = name;
-				if( model[name].children[0].children[0].children[1] )
-					for( var part of model[name].children[0].children[0].children[1].children )
+				if( model[name].children[0].children[1] )
+					for( var part of model[name].children[0].children[1].children )
 						part.name = name;
+				model[name].name = {x:nameData[1], y:nameData[2], z:nameData[3]};
+				model[name].fullName = nameData[4];
 			}
-			model.l_ankle.x = -2;
-			model.r_ankle.x = -2;
 			
 			var elemIK = document.getElementById( 'ik' ),
 				elemBR = document.getElementById( 'br' ),
@@ -143,11 +268,16 @@
 			document.addEventListener( 'mouseup', onMouseUp );
 			document.addEventListener( 'mousemove', onMouseMove );
 			
+			document.getElementById( 'rx' ).addEventListener( 'input', onChangedSlider );
+			document.getElementById( 'ry' ).addEventListener( 'input', onChangedSlider );
+			document.getElementById( 'rz' ).addEventListener( 'input', onChangedSlider );
+			
 			elemM1.addEventListener( 'change', function(elem){if(elem.target.checked) elemM2.checked=elemM3.checked=false;} );
 			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM3.checked=false;} );
 			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=false;} );
 			 
-			var obj = undefined;
+			var obj = undefined,
+				lastObj = undefined;
 			
 			
 			function onMouseUp( event )
@@ -160,8 +290,8 @@
 			function select( object )
 			{
 				if( obj ) deselect( );
-				
-				obj = object;
+
+				lastObj = obj = object;
 				obj.select( true );
 			}
 			
@@ -175,7 +305,7 @@
 			
 			function onMouseDown( event )
 			{
-				event.preventDefault();
+//				event.preventDefault();
 				
 				mouseButton = event.buttons;
 				
@@ -185,57 +315,84 @@
 				raycaster.setFromCamera( mouse, camera );
 				
 				var intersects = raycaster.intersectObject( model, true );
-				
+
 				if( intersects.length )
 				{
 					controls.enabled = false;
-					select( model[intersects[0].object.name] );
 					
+					var name = intersects[0].object.name;
+					select( model[name] );
+
+					document.getElementById('name').innerHTML = model[name].fullName;
+					document.getElementById('namex').innerHTML = model[name].name.x||'axis x';
+					document.getElementById('namey').innerHTML = model[name].name.y||'axis y';
+					document.getElementById('namez').innerHTML = model[name].name.z||'axis z';
+			
+					document.getElementById('labelx').style.visibility = (!elemBR.checked || model[name].name.x)?'visible':'hidden';
+					document.getElementById('labely').style.visibility = (!elemBR.checked || model[name].name.y)?'visible':'hidden';
+					document.getElementById('labelz').style.visibility = (!elemBR.checked || model[name].name.z)?'visible':'hidden';
+
 					dragPoint.position.copy( obj.worldToLocal(intersects[0].point) );
 					obj.add( dragPoint );
 				}
 			}
 
-			function relativeTurn( joint, axis, angle )
+			function relativeTurn( joint, rotationalAngle, angle )
 			{
-				joint.rotateOnAxis( axis, rad(angle) );
 				if( elemBR.checked )
 				{
-					//joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, joint.limit.max.x );
-					//joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, joint.limit.max.y );
-					if( joint.limit.min.z <= joint.limit.max.z )
-						joint.rotation.z = THREE.Math.clamp( joint.rotation.z, joint.limit.min.z, joint.limit.max.z );
-					else
+					var val = joint[rotationalAngle],
+						min = joint.minRot[rotationalAngle],
+						max = joint.maxRot[rotationalAngle];
+						
+					if( val<min-EPS && angle<0 ) return;
+					if( val>max+EPS && angle>0 ) return;
+					if( min == max ) return;
+				}
+				joint[rotationalAngle] += angle;
+				joint.updateMatrix();
+				
+				document.getElementById("rx").value = joint.x;
+				document.getElementById("ry").value = joint.y;
+				document.getElementById("rz").value = joint.z;
+				document.getElementById("vx").innerHTML = joint.x.toFixed(0);
+				document.getElementById("vy").innerHTML = joint.y.toFixed(0);
+				document.getElementById("vz").innerHTML = joint.z.toFixed(0);
+/*			
+//console.log('from\t',joint.rotation.x.toFixed(3),joint.rotation.y.toFixed(3),joint.rotation.z.toFixed(3));
+				var oldRotation = joint[rotationalAngle];
+				joint[rotationalAngle] += angle;
+//console.log('\tvia\t',joint.rotation.x.toFixed(3),joint.rotation.y.toFixed(3),joint.rotation.z.toFixed(3));
+				if( elemBR.checked )
+				{
+					var val = joint[rotationalAngle],
+						min = joint.minRot[rotationalAngle],
+						max = joint.maxRot[rotationalAngle],
+						impossible;
+							
+					// normalize angle between 0 and 359
+					val = ((val%360)+360)%360;
+					if( min-EPS <= max+EPS )
 					{
-						if( joint.rotation.z<(joint.limit.min.z+joint.limit.max.z)/2 )
-							joint.rotation.z = THREE.Math.clamp( joint.rotation.z, -Math.PI, joint.limit.max.z );
-						else
-							joint.rotation.z = THREE.Math.clamp( joint.rotation.z, joint.limit.min.z, Math.PI );
+						impossible = val<min-EPS || max+EPS<val;
 					}
-					if( joint.limit.min.y <= joint.limit.max.y )
-						joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, joint.limit.max.y );
 					else
 					{
-						if( joint.rotation.y<(joint.limit.min.y+joint.limit.max.y)/2 )
-							joint.rotation.y = THREE.Math.clamp( joint.rotation.y, -Math.PI, joint.limit.max.y );
-						else
-							joint.rotation.y = THREE.Math.clamp( joint.rotation.y, joint.limit.min.y, Math.PI );
+						impossible = max-EPS<val && val<min+EPS;
 					}
-					if( joint.limit.min.x <= joint.limit.max.x )
-						joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, joint.limit.max.x );
-					else
+
+					if( impossible )
 					{
-						if( joint.rotation.x<(joint.limit.min.x+joint.limit.max.x)/2 )
-							joint.rotation.x = THREE.Math.clamp( joint.rotation.x, -Math.PI, joint.limit.max.x );
-						else
-							joint.rotation.x = THREE.Math.clamp( joint.rotation.x, joint.limit.min.x, Math.PI );
+						joint[rotationalAngle] = oldRotation;
 					}
 				}
-//				console.log('rot.x',joint.rotation.x.toFixed(2),'rot.y',joint.rotation.y.toFixed(2),'rot.z',joint.rotation.z.toFixed(2));
+
+//console.log(joint.rotation.x.toFixed(2),joint.rotation.y.toFixed(2),joint.rotation.z.toFixed(2));
 				joint.updateMatrix();
+*/
 			}
 			
-			function kinematic2D( joint, axis, angle, ignoreIfPositive )
+			function kinematic2D( joint, rotationalAngle, angle, ignoreIfPositive )
 			{
 				// returns >0 if this turn gets closer
 				
@@ -243,7 +400,7 @@
 				screenPoint = obj.localToWorld( screenPoint ).project( camera );
 				var distOriginal = mouse.distanceTo( screenPoint );
 				
-				relativeTurn( joint, axis, angle );
+				relativeTurn( joint, rotationalAngle, angle );
 				joint.updateMatrixWorld( true );
 				
 				screenPoint.copy( dragPoint.position );
@@ -254,25 +411,25 @@
 				
 				if( ignoreIfPositive && dist>0 ) return dist;
 				
-				relativeTurn( joint, axis, -angle );
+				relativeTurn( joint, rotationalAngle, -angle );
 				joint.updateMatrixWorld( true );
 				
 				return dist;
 			}
 			
-			function inverseKinematics( joint, axis )
+			function inverseKinematics( joint, rotationalAngle )
 			{
 				// try going in postive or negative direction
-				var kPos = kinematic2D(joint,axis,0.01),
-					kNeg = kinematic2D(joint,axis,-0.01);
+				var kPos = kinematic2D(joint,rotationalAngle,0.1),
+					kNeg = kinematic2D(joint,rotationalAngle,-0.1);
 
 				// if both make worse results, then exit
 				if( kPos>0 || kNeg>0 )
 				{
 					var step = Math.sign( kPos-kNeg )/2;
-					while( Math.abs(step)>0.001 )
+					while( Math.abs(step)>0.01 )
 					{
-						while( kinematic2D(joint,axis,step,true)>0 );
+						while( kinematic2D(joint,rotationalAngle,step,true)>0 );
 						step /= 2;
 					}
 				}
@@ -280,11 +437,6 @@
 			
 			function animate( time )
 			{
-				//var joint = model.l_leg;
-				//joint.rotation.set( Math.PI, 0, 6.28 - (0.7 + 1.6*Math.sin(time/100)) );
-				//console.log('rot.x',joint.rotation.x.toFixed(2),'rot.y',joint.rotation.y.toFixed(2),'rot.z',joint.rotation.z.toFixed(2));
-				//return;
-
 				// no selected object
 				if( !obj ) return;
 
@@ -293,21 +445,22 @@
 					var joint = obj;
 					do
 					{
-						inverseKinematics( joint, AXIS.Z );
-						joint = joint.parent.parent;
+						inverseKinematics( joint, 'z' );
+						joint = joint.parent;
 					}
 					while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
 				}
 				else
 				if( mouseButton & 0x02 || elemM2.checked )
 				{
-					inverseKinematics( obj, AXIS.X );
+					inverseKinematics( obj, 'x' );
 				}
 				else
-				if( elemM3.checked )
+				if( mouseButton & 0x04 || elemM3.checked )
 				{
-					inverseKinematics( obj, AXIS.Y );
+					inverseKinematics( obj, 'y' );
 				}
+
 			}
 			
 			function onMouseMove( event )
@@ -320,6 +473,18 @@
 				mouse.y = -event.clientY/window.innerHeight * 2 + 1;
 	
 				mouseButton = event.buttons;
+			}
+		
+			function onChangedSlider()
+			{
+				if( !lastObj ) return;
+				
+				lastObj.x = Number(document.getElementById("rx").value);
+				lastObj.y = Number(document.getElementById("ry").value);
+				lastObj.z = Number(document.getElementById("rz").value);
+				document.getElementById("vx").innerHTML = lastObj.x;
+				document.getElementById("vy").innerHTML = lastObj.y;
+				document.getElementById("vz").innerHTML = lastObj.z;
 			}
 			
 		</script>

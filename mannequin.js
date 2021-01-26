@@ -27,8 +27,8 @@
 //   │    ├─ LimbShape(feminine,params,nU,nV)
 //   │    └─ TorsoShape(feminine,params)
 //   │
-//   └─ Joint(parentJoint,pos,baseRot,params,shape,limitArray)
-//        │   ├─ rx,ry,rz
+//   └─ Joint(parentJoint,pos,baseRot,params,shape)
+//        │   ├─ x,y,z
 //        │   ├─ posture
 //        │   ├─ rotateNow()
 //        │   ├─ hide()
@@ -92,7 +92,7 @@ function createScene()
 {
 	renderer = new THREE.WebGLRenderer({antialias:true});
 		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0; z-index:-1;';
+		renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0;';
 		renderer.shadowMap.enabled = true;
 		renderer.setAnimationLoop(drawFrame);
 		document.body.appendChild( renderer.domElement );
@@ -325,25 +325,23 @@ class TorsoShape extends ParametricShape
 // flexible joint
 class Joint extends THREE.Group
 {
-	constructor(parentJoint,pos,baseRot,params,shape,limitArray=[0,0,0,0,0,0])
+	constructor(parentJoint,pos,baseRot,params,shape)
 	{
 		super();
-		var y = params[1];
+		var yVal = params[1];
 	
 		this.image = new shape(parentJoint?parentJoint.feminine:false,params);
-		if (shape!=PelvisShape && shape!=ShoeShape) this.image.position.set(0,y/2,0);
+		if (shape!=PelvisShape && shape!=ShoeShape) this.image.position.set(0,yVal/2,0);
 		this.image.castShadow=true;
 		this.add( this.image );
 
-		this.limit = new THREE.Box3(new THREE.Vector3(limitArray[4],limitArray[2],limitArray[0]),new THREE.Vector3(limitArray[5],limitArray[3],limitArray[1]));
-		
 		this.castShadow = true;
-		this.y=y;
+		this.yVal=yVal;
 		this.parentJoint = parentJoint;
 		
 		if (parentJoint)
 		{	// attaching to parent joint
-			this.position.set(0,parentJoint.y,0);
+			this.position.set(0,parentJoint.yVal,0);
 			parentJoint.add(this);
 			this.feminine = parentJoint.feminine;
 		}
@@ -358,39 +356,51 @@ class Joint extends THREE.Group
 		this.order = 'xyz';
 		this.rot = new THREE.Vector3();
 		
+		this.minRot = this.baseRot.clone();
+		this.maxRot = this.baseRot.clone();
+		
 		this.rotateNow();
 	} // Joint.constructor
 
-	get rz( ) { return this.rot.z; } 
-	set rz( angle )
+	get z( ) { return this.rot.z; } 
+	set z( angle )
 	{
+		angle = ((angle%360)+360)%360;
+		if( angle>180 ) angle = angle-360;
+		
 		this.rot.z = angle;
 		this.rotateNow();
-	} // Joint.rz
+	} // Joint.z
 	
 	
-	get rx( ) { return this.rot.x; } 
-	set rx( angle )
+	get x( ) { return this.rot.x; } 
+	set x( angle )
 	{
+		angle = ((angle%360)+360)%360;
+		if( angle>180 ) angle = angle-360;
+		
 		this.rot.x = angle;
 		this.rotateNow();
-	} // Joint.rx
+	} // Joint.x
 	
 	
-	get ry( ) { return this.rot.y; } 
-	set ry( angle )
+	get y( ) { return this.rot.y; } 
+	set y( angle )
 	{
+		angle = ((angle%360)+360)%360;
+		if( angle>180 ) angle = angle-360;
+		
 		this.rot.y = angle;
 		this.rotateNow();
-	} // Joint.ry
+	} // Joint.y
 	
 	
-	get posture() {	return [this.rx, this.ry, this.rz]; }
+	get posture() {	return [this.x, this.y, this.z]; }
 	set posture( angles )
 	{
-		this.rx = angles[0];
-		this.ry = angles[1];
-		this.rz = angles[2];
+		this.x = angles[0];
+		this.y = angles[1];
+		this.z = angles[2];
 		this.rotateNow();
 	} // Joint.posture
 
@@ -468,7 +478,11 @@ class Pelvis extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[3,4,parentJoint.feminine?5.5:5],PelvisShape,[-Math.PI,Math.PI, 0,0, 0,0]);
+		super(parentJoint,null,null,[3,4,parentJoint.feminine?5.5:5],PelvisShape);
+
+		this.minRot = new THREE.Vector3(Number.NEGATIVE_INFINITY,Number.NEGATIVE_INFINITY,Number.NEGATIVE_INFINITY);
+		this.maxRot = new THREE.Vector3(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY);
+
 	} // Pelvis.constructor
 } // Pelvis
 
@@ -477,23 +491,26 @@ class Torso extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[-2,4,0],[0,0,-5],[5,17,10,parentJoint.feminine?10:80,parentJoint.feminine?520:380,parentJoint.feminine?0.8:0.9,parentJoint.feminine?0.25:0.2],TorsoShape,[-1.6,0.9, 0,0, 0,0]);
+		super(parentJoint,[-2,4,0],[0,0,-5],[5,17,10,parentJoint.feminine?10:80,parentJoint.feminine?520:380,parentJoint.feminine?0.8:0.9,parentJoint.feminine?0.25:0.2],TorsoShape);
 
 		this.order = 'yzx';
+		
+		this.minRot = new THREE.Vector3(-45,-45,-45);
+		this.maxRot = new THREE.Vector3(45,45,45);
 	} // Torso.constructor
 	
-	get bend( )				{ return -this.rz; }
-	set bend( angle )		{ this.rz = -angle; }
+	get bend( )				{ return -this.z; }
+	set bend( angle )		{ this.z = -angle; }
 	
-	get tilt( )				{ return -this.rx; }
-	set tilt( angle )		{ this.rx = -angle; }
-	set tiltLeft( angle )	{ this.rx = -angle; }
-	set tiltRight( angle )	{ this.rx =  angle; }
+	get tilt( )				{ return -this.x; }
+	set tilt( angle )		{ this.x = -angle; }
+	set tiltLeft( angle )	{ this.x = -angle; }
+	set tiltRight( angle )	{ this.x =  angle; }
 	
-	get turn( )				{ return this.ry; }
-	set turn( angle )		{ this.ry =  angle; }
-	set turnLeft( angle )	{ this.ry =  angle; }
-	set turnRight( angle )	{ this.ry = -angle; }
+	get turn( )				{ return this.y; }
+	set turn( angle )		{ this.y =  angle; }
+	set turnLeft( angle )	{ this.y =  angle; }
+	set turnRight( angle )	{ this.y = -angle; }
 } // Torso
 
 
@@ -501,7 +518,11 @@ class Neck extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[0,15,0],[0,0,10],[2,parentJoint.feminine?5:4,2,45,60,1,0.2,0],LimbShape, [-0.4,0.3, 0,0, 0,0]);
+		super(parentJoint,[0,15,0],[0,0,10],[2,parentJoint.feminine?5:4,2,45,60,1,0.2,0],LimbShape);
+		
+		this.minRot = new THREE.Vector3(-45/2,-90/2,-55/2);
+		this.maxRot = new THREE.Vector3(45/2,90/2,35/2);
+		
 	} // Neck.constructor
 } // Neck
 
@@ -510,31 +531,34 @@ class Head extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,[1,3,0],null,[3,4,2.5],HeadShape, [-0.8,0.6, 0,0, 0,0]);
+		super(parentJoint,[1,3,0],null,[3,4,2.5],HeadShape);
 
 		this.order = 'yzx';
+		
+		this.minRot = new THREE.Vector3(-45,-90,-55);
+		this.maxRot = new THREE.Vector3(45,90,35);
 	} // Head.constructor
 
 
-	get nod( )				{ return -2*this.rz; }
-	set nod( angle )		{ this.rz = -angle/2; this.parentJoint.rz = -angle/2; }
+	get nod( )				{ return -2*this.z; }
+	set nod( angle )		{ this.z = -angle/2; this.parentJoint.rz = -angle/2; }
 	
-	get tilt( )				{ return -2*this.rx; }
-	set tilt( angle )		{ this.rx = -angle/2; this.parentJoint.rx = -angle/2; }
-	set tiltLeft( angle )	{ this.rx = -angle/2; this.parentJoint.rx = -angle/2; }
-	set tiltRight( angle )	{ this.rx =  angle/2; this.parentJoint.rx =  angle/2; }
+	get tilt( )				{ return -2*this.x; }
+	set tilt( angle )		{ this.x = -angle/2; this.parentJoint.rx = -angle/2; }
+	set tiltLeft( angle )	{ this.x = -angle/2; this.parentJoint.rx = -angle/2; }
+	set tiltRight( angle )	{ this.x =  angle/2; this.parentJoint.rx =  angle/2; }
 	
-	get turn( )				{ return 2*this.ry; }
-	set turn( angle )		{ this.ry =  angle/2; this.parentJoint.ry =  angle/2; }
-	set turnLeft( angle )	{ this.ry =  angle/2; this.parentJoint.ry =  angle/2; }
-	set turnRight( angle )	{ this.ry = -angle/2; this.parentJoint.ry = -angle/2; }
+	get turn( )				{ return 2*this.y; }
+	set turn( angle )		{ this.y =  angle/2; this.parentJoint.ry =  angle/2; }
+	set turnLeft( angle )	{ this.y =  angle/2; this.parentJoint.ry =  angle/2; }
+	set turnRight( angle )	{ this.y = -angle/2; this.parentJoint.ry = -angle/2; }
 
-	get posture() {	return [2*this.rx, 2*this.ry, 2*this.rz]; }
+	get posture() {	return [2*this.x, 2*this.y, 2*this.z]; }
 	set posture( angles )
 	{
-		this.rx = angles[0]/2; this.parentJoint.rx = angles[0]/2;
-		this.ry = angles[1]/2; this.parentJoint.ry = angles[1]/2;
-		this.rz = angles[2]/2; this.parentJoint.rz = angles[2]/2;
+		this.x = angles[0]/2; this.parentJoint.rx = angles[0]/2;
+		this.y = angles[1]/2; this.parentJoint.ry = angles[1]/2;
+		this.z = angles[2]/2; this.parentJoint.rz = angles[2]/2;
 		this.rotateNow();
 	} // Head.posture
 } // Head
@@ -544,23 +568,35 @@ class Leg extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[-1,-3,4*leftOrRight],[0,180,180],[4,15,4,-70,220,1,0.4,2],LimbShape,[-2.8,0.8, -1,1, 3,-2]);
+		super(parentJoint,[-1,-3,4*leftOrRight],[0,180,180],[4,15,4,-70,220,1,0.4,2],LimbShape);
 		this.leftOrRight = leftOrRight;
+
 		this.order = 'xyz'; //xyz xzy 
+		
+		if( leftOrRight==-1 )
+		{
+			this.minRot = new THREE.Vector3(-25,-30,-155);
+			this.maxRot = new THREE.Vector3(75,30,25);
+		}
+		else
+		{
+			this.minRot = new THREE.Vector3(-75,-30,-155);
+			this.maxRot = new THREE.Vector3(25,30,25);
+		}
 	} // Leg.constructor
 	
-	get raise( )			{ return -this.rz; }
-	set raise( angle )		{ this.rz = -angle; }
+	get raise( )			{ return -this.z; }
+	set raise( angle )		{ this.z = -angle; }
 	
-	get straddle( )				{ return -this.leftOrRight*this.rx; }
-	set straddle( angle )		{ this.rx = -this.leftOrRight*angle; }
-	set straddleLeft( angle )	{ this.rx =  angle; }
-	set straddleRight( angle )	{ this.rx = -angle; }
+	get straddle( )				{ return -this.leftOrRight*this.x; }
+	set straddle( angle )		{ this.x = -this.leftOrRight*angle; }
+	set straddleLeft( angle )	{ this.x =  angle; }
+	set straddleRight( angle )	{ this.x = -angle; }
 	
-	get turn( )				{ return this.leftOrRight*this.ry; }
-	set turn( angle )		{ this.ry =  this.leftOrRight*angle; }
-	set turnLeft( angle )	{ this.ry =  this.leftOrRight*angle; }
-	set turnRight( angle )	{ this.ry = -this.leftOrRight*angle; }
+	get turn( )				{ return this.leftOrRight*this.y; }
+	set turn( angle )		{ this.y =  this.leftOrRight*angle; }
+	set turnLeft( angle )	{ this.y =  this.leftOrRight*angle; }
+	set turnRight( angle )	{ this.y = -this.leftOrRight*angle; }
 } // Leg
 
 
@@ -568,16 +604,19 @@ class Knee extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[4,14,4,-40,290,0.65,0.25,1.5],LimbShape,[0,2.7, 0,0, 0,0]);
+		super(parentJoint,null,null,[4,14,4,-40,290,0.65,0.25,1.5],LimbShape);
 
 		this.order = 'xyz';
+		
+		this.minRot = new THREE.Vector3(0,0,0);
+		this.maxRot = new THREE.Vector3(0,0,160);
 	} // Knee.constructor
 	
-	get bend( )			{ return this.rz; }
-	set bend( angle )	{ this.rz = angle; }
+	get bend( )			{ return this.z; }
+	set bend( angle )	{ this.z = angle; }
 
-	get posture()		{ return [this.rz] };
-	set posture(angles)	{ this.rz = angles[0] };
+	get posture()		{ return [this.z] };
+	set posture(angles)	{ this.z = angles[0] };
 } // Knee
 
 
@@ -585,24 +624,28 @@ class Ankle extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,[0,0,parentJoint.feminine?-96:-90],[1,4,2],ShoeShape,[-3,-0.4, -1,1, -0.5,0.5]);
+		super(parentJoint,null,[0,0,parentJoint.feminine?-96:-90],[1,4,2],ShoeShape);
 		this.leftOrRight = parentJoint.parentJoint.leftOrRight; // i.e. leg
 		
 		this.order = 'yxz'; //xz
+		
+		this.minRot = new THREE.Vector3(-45,-45,-70);
+		this.maxRot = new THREE.Vector3(45,45,80);
+		
 	} // Ankle.constructor
 	
-	get bend( )				{ return -this.rz; }
-	set bend( angle )		{ this.rz = -angle; }
+	get bend( )				{ return -this.z; }
+	set bend( angle )		{ this.z = -angle; }
 	
-	get tilt( )				{ return this.leftOrRight*this.ry; }
-	set tilt( angle )		{ this.ry =  this.leftOrRight*angle; }
-	set tiltLeft( angle )	{ this.ry =  angle; }
-	set tiltRight( angle )	{ this.ry = -angle; }
+	get tilt( )				{ return this.leftOrRight*this.y; }
+	set tilt( angle )		{ this.y =  this.leftOrRight*angle; }
+	set tiltLeft( angle )	{ this.y =  angle; }
+	set tiltRight( angle )	{ this.y = -angle; }
 	
-	get turn( )				{ return -this.leftOrRight*this.rx; }
-	set turn( angle )		{ this.rx = -this.leftOrRight*angle; }
-	set turnLeft( angle )	{ this.rx =  angle; }
-	set turnRight( angle )	{ this.rx = -angle; }
+	get turn( )				{ return -this.leftOrRight*this.x; }
+	set turn( angle )		{ this.x = -this.leftOrRight*angle; }
+	set turnLeft( angle )	{ this.x =  angle; }
+	set turnRight( angle )	{ this.x = -angle; }
 } // Ankle
 
 
@@ -610,23 +653,35 @@ class Arm extends Joint
 {
 	constructor(parentJoint,leftOrRight)
 	{
-		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[0,0,185],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape,[2,0.4, 0,0, 0.1,-3]);
+		super(parentJoint,[0,14,leftOrRight*(parentJoint.feminine?5:6)],[0,0,185],[3.5,11,2.5,-90,360,0.9,0.2,1.5],LimbShape);
 		this.leftOrRight = leftOrRight;
+
 		this.order = 'zxy';
+		
+		if( leftOrRight == -1 )
+		{
+			this.minRot = new THREE.Vector3(-120,-80,-80);
+			this.maxRot = new THREE.Vector3(20,90,175);
+		}
+		else
+		{
+			this.minRot = new THREE.Vector3(-20,-90,-80);
+			this.maxRot = new THREE.Vector3(120,80,175);
+		}
 	} // Arm.constructor
 	
-	get raise( )			{ return this.rz; }
-	set raise( angle )		{ this.rz = angle; }
+	get raise( )			{ return this.z; }
+	set raise( angle )		{ this.z = angle; }
 	
-	get straddle( )				{ return this.leftOrRight*this.rx; }
-	set straddle( angle )		{ this.rx = this.leftOrRight*angle; }
-	set straddleLeft( angle )	{ this.rx = -angle; }
-	set straddleRight( angle )	{ this.rx =  angle; }
+	get straddle( )				{ return this.leftOrRight*this.x; }
+	set straddle( angle )		{ this.x = this.leftOrRight*angle; }
+	set straddleLeft( angle )	{ this.x = -angle; }
+	set straddleRight( angle )	{ this.x =  angle; }
 	
-	get turn( )				{ return this.leftOrRight*this.ry; }
-	set turn( angle )		{ this.ry =  this.leftOrRight*angle; }
-	set turnLeft( angle )	{ this.ry = -angle; }
-	set turnRight( angle )	{ this.ry =  angle; }
+	get turn( )				{ return this.leftOrRight*this.y; }
+	set turn( angle )		{ this.y =  this.leftOrRight*angle; }
+	set turnLeft( angle )	{ this.y = -angle; }
+	set turnRight( angle )	{ this.y =  angle; }
 } // Arm
 
 
@@ -634,16 +689,20 @@ class Elbow extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape,[0,2.7, 0,0, 0,0]);
+		super(parentJoint,null,null,[2.5,9,2,-40,150,0.5,0.45,1.1],LimbShape);
 
 		this.order = 'xyz';
+		
+		this.minRot = new THREE.Vector3(0,0,0);
+		this.maxRot = new THREE.Vector3(0,0,160);
+		
 	} // Elbow.constructor
 	
-	get bend( )			{ return this.rz; }
-	set bend( angle )	{ this.rz = angle; }
+	get bend( )			{ return this.z; }
+	set bend( angle )	{ this.z = angle; }
 
-	get posture()		{ return [this.rz] };
-	set posture(angles)	{ this.rz = angles[0] };
+	get posture()		{ return [this.z] };
+	set posture(angles)	{ this.z = angles[0] };
 } // Elbow
 
 
@@ -651,23 +710,35 @@ class Wrist extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint,null,[0,-parentJoint.parentJoint.leftOrRight*90,0],[1.2,2,3.5,-90,45,0.5,0.3,1/2],LimbShape,[-Math.PI/2,Math.PI/2, 0,0, 0,0]);
+		super(parentJoint,null,[0,-parentJoint.parentJoint.leftOrRight*90,0],[1.2,2,3.5,-90,45,0.5,0.3,1/2],LimbShape);
 		this.leftOrRight = parentJoint.parentJoint.leftOrRight;
+
 		this.order = 'yzx'; //zy
+		
+		if( this.leftOrRight==-1 )
+		{
+			this.minRot = new THREE.Vector3(-20,-90,-90);
+			this.maxRot = new THREE.Vector3(35,90,90);
+		}
+		else
+		{
+			this.minRot = new THREE.Vector3(-35,-90,-90);
+			this.maxRot = new THREE.Vector3(20,90,90);
+		}
 	} // Wrist.constructor
 	
-	get bend( )				{ return this.rz; }
-	set bend( angle )		{ this.rz = angle; }
+	get bend( )				{ return this.z; }
+	set bend( angle )		{ this.z = angle; }
 	
-	get tilt( )				{ return this.leftOrRight*this.rx; }
-	set tilt( angle )		{ this.rx = this.leftOrRight*angle; }
-	set tiltLeft( angle )	{ this.rx = -angle; }
-	set tiltRight( angle )	{ this.rx =  angle; }
+	get tilt( )				{ return this.leftOrRight*this.x; }
+	set tilt( angle )		{ this.x = this.leftOrRight*angle; }
+	set tiltLeft( angle )	{ this.x = -angle; }
+	set tiltRight( angle )	{ this.x =  angle; }
 	
-	get turn( )				{ return this.leftOrRight*this.ry; }
-	set turn( angle )		{ this.ry =  this.leftOrRight*angle; }
-	set turnLeft( angle )	{ this.ry = -angle; }
-	set turnRight( angle )	{ this.ry =  angle; }
+	get turn( )				{ return this.leftOrRight*this.y; }
+	set turn( angle )		{ this.y =  this.leftOrRight*angle; }
+	set turnLeft( angle )	{ this.y = -angle; }
+	set turnRight( angle )	{ this.y =  angle; }
 } // Wrist
 
 
@@ -675,7 +746,13 @@ class Phalange extends Joint
 {
 	constructor(parentJoint,params)
 	{
-		super(parentJoint,null,null,params,LimbShape,[0,1.7, 0,0, 0,0]);
+		super(parentJoint,null,null,params,LimbShape);
+		
+		this.order = 'xyz';
+		
+		this.minRot = new THREE.Vector3(0,0,0);
+		this.maxRot = new THREE.Vector3(0,0,90);
+		
 	} // Phalange.constructor
 } // Phalange
 
@@ -689,13 +766,17 @@ class Fingers extends Phalange
 		this.tips = new Phalange(this,[1.2,1,3.5,45,45,0.3,0.4,0.2]);
 		
 		this.order = 'xyz';
+		
+		this.minRot = new THREE.Vector3(0,0,0);
+		this.maxRot = new THREE.Vector3(0,0,120);
+		
 	} // Fingers.constructor
 
-	get bend( )			{ return this.rz; }
-	set bend( angle )	{ this.rz = this.tips.rz = angle; }
+	get bend( )			{ return this.z; }
+	set bend( angle )	{ this.z = this.tips.rz = angle; }
 
-	get posture()		{ return [this.rz] };
-	set posture(angles)	{ this.rz = this.tips.rz = angles[0] };
+	get posture()		{ return [this.z] };
+	set posture(angles)	{ this.z = this.tips.rz = angles[0] };
 } // Fingers
 
 
@@ -745,24 +826,24 @@ class Mannequin extends Joint
 	} // Mannequin.constructor
 	
 	
-	get bend( )				{ return -this.rz; }
-	set bend( angle )		{ this.rz = -angle; }
+	get bend( )				{ return -this.z; }
+	set bend( angle )		{ this.z = -angle; }
 	
-	get tilt( )				{ return this.rx; }
-	set tilt( angle )		{ this.rx =  angle; }
-	set tiltLeft( angle )	{ this.rx =  angle; }
-	set tiltRight( angle )	{ this.rx = -angle; }
+	get tilt( )				{ return this.x; }
+	set tilt( angle )		{ this.x =  angle; }
+	set tiltLeft( angle )	{ this.x =  angle; }
+	set tiltRight( angle )	{ this.x = -angle; }
 	
-	get turn( )				{ return this.ry; }
-	set turn( angle )		{ this.ry =  angle; }
-	set turnLeft( angle )	{ this.ry =  angle; }
-	set turnRight( angle )	{ this.ry = -angle; }
+	get turn( )				{ return this.y; }
+	set turn( angle )		{ this.y =  angle; }
+	set turnLeft( angle )	{ this.y =  angle; }
+	set turnRight( angle )	{ this.y = -angle; }
 
 
 	get posture()
 	{
 		var posture = [ 
-				[this.rx, this.ry, this.rz],
+				[this.x, this.y, this.z],
 					this.torso.posture,
 					this.head.posture,
 					this.l_leg.posture,
@@ -792,9 +873,9 @@ class Mannequin extends Joint
 		
 		var i = 0,
 			angles = posture.data[i++];
-		this.rx = angles[0];
-		this.ry = angles[1];
-		this.rz = angles[2];
+		this.x = angles[0];
+		this.y = angles[1];
+		this.z = angles[2];
 		this.rotateNow();
 		
 		this.torso.posture = posture.data[i++];
