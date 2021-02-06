@@ -27,8 +27,8 @@
 			// overall body position
 			child.position.y = 5.5;
 
-			child.r_leg.straddleLeft = 5;
-			child.l_leg.straddleRight = 5;
+			child.r_leg.straddle = 5;
+			child.l_leg.straddle = 5;
 			child.r_leg.raise = 10;
 			child.l_leg.raise = 10;
 			child.r_knee.bend = 15;
@@ -42,22 +42,24 @@
 				ball.position.x = -3*time1;
 				
 				child.position.x = -3*time1;
-				child.position.y = 4+cos(90*time1);
-				
+				child.position.y = 4.2+cos(90*time1);
+
+				child.bend = 0;
 				child.turn = -90-20*time1+20*time2;
 				child.tilt = 10*time1;
 
+				child.torso.turn = 0;
 				child.torso.tilt = 25*time1;
 				child.torso.bend = 10-35*time2;
 
 				child.head.tilt = 25*time1;
 				child.head.turn = 20*time2;
 				
-				child.l_leg.straddleRight = 4+20*time1;
-				child.r_leg.straddleRight = -4+20*time1;
+				child.l_leg.straddle = -4-20*time1;
+				child.r_leg.straddle = -4+20*time1;
 
-				child.l_ankle.tiltLeft = 10+25*time1;
-				child.r_ankle.tiltRight = 10-25*time1;
+				child.l_ankle.tilt = 10-35*time1;
+				child.r_ankle.tilt = 10+35*time1;
 
 				child.l_arm.straddle = 70+70*time2;
 				child.r_arm.straddle = 70-70*time2;
@@ -67,8 +69,8 @@
 
 				child.l_fingers.bend = 90-90*time2;
 				child.r_fingers.bend = 90+90*time2;
-
-				scene.rotation.y = rad(30*time1);
+				
+				scene.rotation.y = time1/2;
 			}
 		</script>
 	</body>

@@ -15,15 +15,18 @@
 			
 			var man = new Male();
 				man.position.x = -30;
+				man.l_arm.straddle = 20;
 			
 			var child = new Child();
+				child.l_arm.straddle = 30;
 			
 			var woman = new Female();
 				woman.position.x = 30;
+				woman.r_arm.straddle = 20;
 			
-			addLabel(man.l_leg,'leg.raise', 3,0.4,0, 1, 0.95);
-			addLabel(child.l_leg,'leg.straddle', 2,0.3,0, 1, 0.95);
-			addLabel(woman.r_leg,'leg.turn', 14,-0.3,0, 1, 3.07);
+			addLabel(man.l_leg,'leg.raise', 2,0.4,0, 1, 0.9);
+			addLabel(child.l_leg,'leg.straddle', 1,0.3,0, 1, 0.95).scale.set(1.4,1.4,1.4);
+			addLabel(woman.r_leg,'leg.turn', 12,-0.3,0, 1, 3.07);
 			
 			function animate(t)
 			{

@@ -16,26 +16,26 @@
 			var man = new Male();
 				man.position.x = -30;
 				man.position.y = 8;
-			
+				
 			var child = new Child();
 			
 			var woman = new Female();
 				woman.position.x = 30;
 			
-			addLabel(man.l_ankle,'ankle.bend', 4,-0.95,1, 0, -1, -1);
-			addLabel(child.r_ankle,'ankle.turn', 4,-0.9,0.4, 0, -1, -1);
-			addLabel(woman.r_ankle,'ankle.tilt', 4,-0.9,0.5, 0, -1, -1);
+			addLabel(man.l_ankle,'ankle.bend', -1,-0.95,3, 1, 2, 0);
+			addLabel(child.r_ankle,'ankle.turn', 1,-1.7,0.4, 1, 2, 0).scale.set(1.5,1.5,1.5);
+			addLabel(woman.r_ankle,'ankle.tilt', 1,-1.2,0.5, 1, 2, 0);
 			
 			function animate(t)
 			{
 				man.r_ankle.bend = 50*sin(2*t)-10;
 				man.l_ankle.bend = 50*sin(2*t)-10;
 				
-				child.r_ankle.turn = 30*sin(2*t)+30;
-				child.l_ankle.turn = 30*sin(2*t)+30;
+				child.r_ankle.turn = 30*sin(2*t)-5;
+				child.l_ankle.turn = 30*sin(2*t)-5;
 				
-				woman.r_ankle.tilt = 25*sin(2*t)-20;
-				woman.l_ankle.tilt = 25*sin(2*t)-20;
+				woman.r_ankle.tilt = 20*sin(2*t)-20;
+				woman.l_ankle.tilt = 20*sin(2*t)-20;
 			}			
 
 		</script>

@@ -27,19 +27,19 @@
 				woman.l_arm.straddle = 15;
 				woman.r_arm.straddle = 15;
 
-			addLabel(man.l_fingers,'fingers.bend', -8,0.3,0, 2, 1);
-			addLabel(woman.r_fingers,'fingers.bend', 10,-0.3,0, 4, 3);
+			addLabel(man.l_fingers.tips,'fingers.tips.bend', -14,0.3,0, 2, 1);
+			addLabel(woman.r_fingers.tips,'fingers.tips.bend', 10,-0.3,0, 4, 3);
 			
 			function animate(t)
 			{
-				man.r_fingers.bend = 30*sin(2*t)+40;
-				man.l_fingers.bend = 30*sin(2*t+180)+40;
+				man.r_fingers.tips.bend = 30*sin(2*t)+40;
+				man.l_fingers.tips.bend = 30*sin(2*t+180)+40;
 				
-				child.r_fingers.bend = 50*sin(2*t+120)+50;
-				child.l_fingers.bend = 50*sin(2*t+300)+50;
+				child.r_fingers.tips.bend = 50*sin(2*t+120)+50;
+				child.l_fingers.tips.bend = 50*sin(2*t+300)+50;
 				
-				woman.r_fingers.bend = 30*sin(2*t+50)+40;
-				woman.l_fingers.bend = 30*sin(2*t+240)+40;
+				woman.r_fingers.tips.bend = 30*sin(2*t+50)+40;
+				woman.l_fingers.tips.bend = 30*sin(2*t+240)+40;
 
 			}			
 

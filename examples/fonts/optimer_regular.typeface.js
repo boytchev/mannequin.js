@@ -24,4 +24,6 @@ function addLabel(joint,text,y,z=0.5,x=0,rotY=1,rotZ=0,rotX=0)
 	label.castShadow = true;
 		
 	joint.attach(label);
+	
+	return label;
 }

@@ -13,24 +13,23 @@
 			createScene();
 			
 			var man = new Male();
-				man.position.x = -30;
+				man.position.x = -20;
 			
-				man.head.nod = 30;
-				man.head.turn = 45;
-				man.head.tiltRight = 20;
+				man.torso.bend += 45;
+				man.torso.turn += 90;
+				man.torso.tilt += 60;
 
 			var child = new Child();
-			
-				child.head.turn = 45;
-				child.head.tiltRight = 20;
-				child.head.nod = 30;
+				child.torso.tilt += 60;
+				child.torso.bend += 45;
+				child.torso.turn += 90;
 				
 			var woman = new Female();
-				woman.position.x = 30;
+				woman.position.x = 20;
 				
-				woman.head.tiltRight = 20;
-				woman.head.turn = 45;
-				woman.head.nod = 30;
+				woman.torso.turn += 90;
+				woman.torso.bend += 45;
+				woman.torso.tilt += 60;
 				
 			function animate(t)
 			{

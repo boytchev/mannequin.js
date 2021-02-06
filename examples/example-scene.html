@@ -16,25 +16,28 @@
 			man.position.set(-19,-17,0);
 			man.turn = 0;
 			man.bend = -40;
-			man.torso.bend = 70;
+			man.torso.bend = 72;
 
-			man.l_leg.raise = 67;
-			man.r_leg.raise = 67;
-			man.l_leg.straddle = 25;
-			man.r_leg.straddle = 25;
-			man.l_leg.turn = 30;
-			man.r_leg.turn = 30;
+			man.l_leg.raise = 60;
+			man.r_leg.raise = 60;
+			man.l_leg.straddle = 35;
+			man.r_leg.straddle = 35;
+			man.l_leg.raise += 15;
+			man.r_leg.raise += 15;
 			man.l_knee.bend = 115;
 			man.r_knee.bend = 115;
 
-			man.l_arm.raise = 55;
-			man.r_arm.raise = 55;
-			man.l_arm.straddle = 20;
-			man.r_arm.straddle = 20;
-			man.l_arm.turn = -40;
-			man.r_arm.turn = -40;
-			man.l_elbow.bend = 105;
-			man.r_elbow.bend = 105;
+			man.l_arm.raise = 40;
+			man.r_arm.raise = 40;
+			man.l_arm.straddle = 10;
+			man.r_arm.straddle = 10;
+			man.l_arm.turn = -20;
+			man.r_arm.turn = -20;
+			man.l_arm.raise -= 5;
+			man.r_arm.raise -= 5;
+
+			man.l_elbow.bend = 112;
+			man.r_elbow.bend = 112;
 			man.l_wrist.bend = -40;
 			man.r_wrist.bend = -40;
 			man.l_fingers.bend = 30;
@@ -47,30 +50,31 @@
 			woman.torso.bend = 20;
 			woman.torso.turn = 10;
 			woman.torso.tilt = -15;
-
-			woman.l_leg.raise = 65;
-			woman.l_leg.straddle = -30;
-			woman.l_knee.bend = 100;
-			woman.l_ankle.bend = -15;
 			
-			woman.r_leg.raise = 75;
-			woman.r_leg.turn = -25;
+			woman.l_leg.straddle = -30;
+			woman.l_leg.raise = 65;
+			woman.l_knee.bend = 100;
+			woman.l_ankle.bend = -10;
+			
 			woman.r_leg.straddle = -25;
+			woman.r_leg.turn = -25;
+			woman.r_leg.raise = 75;
 			woman.r_knee.bend = 100;
 			
-			woman.r_arm.raise = -15;
 			woman.r_arm.straddle = 9;
-			woman.r_elbow.bend = 35;
+			woman.r_arm.raise = -20;
+			woman.r_elbow.bend = 55;
 			woman.r_wrist.tilt = -30;
 			woman.r_wrist.bend = -30;
 			woman.r_fingers.bend = 50;
 
-			woman.l_arm.raise = 10;
-			woman.l_arm.turn = -50;
-			woman.l_elbow.bend = 40;
-			woman.l_wrist.bend = -40;
-			woman.l_fingers.bend = 10;
-			
+			woman.l_arm.raise = 0;
+			woman.l_arm.turn = -35;
+			woman.l_elbow.bend = 55;
+			woman.l_wrist.bend = -38;
+			woman.l_wrist.turn -= 15;
+			woman.l_fingers.bend = 15;
+
 			class Chair extends THREE.Group
 			{
 				constructor(x,angle)
@@ -179,11 +183,11 @@
 				man.head.turn = reading*(1-k);
 				man.head.nod = 15*(1-k)-k*looking;
 
-				man.l_ankle.bend = 5+10*Math.pow(sin(t),34);
-				man.r_ankle.bend = 5+10*Math.pow(sin(t+90),34);
+				man.l_ankle.bend = -5+10*Math.pow(sin(t),34);
+				man.r_ankle.bend = -5+10*Math.pow(sin(t+90),34);
 
 				k = Math.min(1.5,Math.pow(sin(0.37*t+10)*0.5016+0.5,100));
-				woman.r_leg.raise = 75+0.5*sin(3.4*t);
+				woman.r_leg.raise = 85+0.5*sin(3.4*t);
 				woman.r_knee.bend = (80+5*sin(2*1.7*t))*(1-k)+k*45;
 				woman.r_ankle.bend = -20-10*sin(2*1.7*t);
 

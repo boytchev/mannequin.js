@@ -16,7 +16,6 @@
 			var man = new Male();
 				man.position.x = -30;
 				man.l_arm.straddle = 10;
-				man.l_wrist.turn = 90;
 			
 			var child = new Child();
 				child.l_arm.straddle = 10;
@@ -24,19 +23,19 @@
 			
 			var woman = new Female();
 				woman.position.x = 30;
-				woman.r_arm.straddle = 10;
-				woman.r_wrist.turn = 90;
+				woman.r_arm.turn = 90;
+				woman.r_elbow.bend = 120;
 			
-			addLabel(man.l_wrist,'wrist.bend', -3+2,-0.1,0, 3, 1);
-			addLabel(child.l_wrist,'wrist.turn', -2+2,-0.12,0, 3, 1);
+			addLabel(man.l_wrist,'wrist.bend', -1,0.5,0, 2, 1);
+			addLabel(child.l_wrist,'wrist.turn', -1,0,1, 2, 1).scale.set(1.5,1.5,1.5);
 			addLabel(woman.r_wrist,'wrist.tilt', 10+2,0.15,0, 3, 3);
 			
 			function animate(t)
 			{
-				man.l_wrist.bend = 45*sin(2*t);
+				man.l_wrist.bend = 25*sin(2*t);
 				
-				child.r_wrist.turn = 60*sin(2*t)+90;
-				child.l_wrist.turn = 60*sin(2*t)+90;
+				child.r_wrist.turn = 60*sin(2*t);
+				child.l_wrist.turn = 60*sin(2*t);
 				
 				woman.r_wrist.tilt = 30*sin(2*t);
 			}			

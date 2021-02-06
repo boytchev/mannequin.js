@@ -3,197 +3,29 @@
 <html>
 
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="posture-editor.css">
+
 		<script src="three.min.js"></script>
 		<script src="OrbitControls.js"></script>
 		<script src="mannequin.js"></script>
-		
-		<style>
-		/* Toggle input based on https://codepen.io/avstorm/pen/jOEpBLW */
-		input[type=checkbox] {
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-			-webkit-tap-highlight-color: transparent;
-			outline: 0;
-		}
-
-/*https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/*/
-input[type=range] {
-  width: 15em;
-  margin: 7.9px 0;
-  background-color: transparent;
-  -webkit-appearance: none;
-}
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  background: rgba(48, 113, 169, 0);
-  border: 0.2px solid #010101;
-  border-radius: 24.9px;
-  width: 100%;
-  height: 9.2px;
-  cursor: pointer;
-}
-input[type=range]::-webkit-slider-thumb {
-  margin-top: -8.1px;
-  width: 25px;
-  height: 25px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 25px;
-  cursor: pointer;
-  -webkit-appearance: none;
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #438bc9;
-}
-input[type=range]::-moz-range-track {
-  background: rgba(48, 113, 169, 0);
-  border: 0.2px solid #010101;
-  border-radius: 24.9px;
-  width: 100%;
-  height: 9.2px;
-  cursor: pointer;
-}
-input[type=range]::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 25px;
-  cursor: pointer;
-}
-input[type=range]::-ms-track {
-  background: transparent;
-  border-color: transparent;
-  border-width: 7.9px 0;
-  color: transparent;
-  width: 100%;
-  height: 9.2px;
-  cursor: pointer;
-}
-input[type=range]::-ms-fill-lower {
-  background: #255681;
-  border: 0.2px solid #010101;
-  border-radius: 49.8px;
-}
-input[type=range]::-ms-fill-upper {
-  background: rgba(48, 113, 169, 0);
-  border: 0.2px solid #010101;
-  border-radius: 49.8px;
-}
-input[type=range]::-ms-thumb {
-  width: 25px;
-  height: 25px;
-  background: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 25px;
-  cursor: pointer;
-  margin-top: 0px;
-  /*Needed to keep the Edge thumb centred*/
-}
-input[type=range]:focus::-ms-fill-lower {
-  background: rgba(48, 113, 169, 0);
-}
-input[type=range]:focus::-ms-fill-upper {
-  background: #438bc9;
-}
-/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
-how to remove the virtical space around the range input in IE*/
-@supports (-ms-ime-align:auto) {
-  /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
-  input[type=range] {
-    margin: 0;
-    /*Edge starts the margin from the thumb, not the track as other browsers do*/
-  }
-}/***********************/
-		span.short { display:inline-block; width:2em; text-align: right;}
-
-		#panel {
-			padding: 1em 0 0 1em;
-			width:15em;
-			position:fixed;
-			top:0;
-			left:0;
-			z-index: 10;
-		}
-		
-		label {
-			cursor: pointer;
-			display: inline-block;
-			margin-bottom: 10px;
-			z-index: 10;
-			
-		}
-		
-		label span {
-			font-size: 10px;
-			font-family: Sans-serif;
-			display: inline-block;
-			margin-left: 5px;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-			vertical-align: middle;
-			color: gray;
-		}
-		
-		.toggle {
-			height: 24px;
-			width: 56px;
-			border-radius: 12px;
-			display: inline-block;
-			position: relative;
-			margin: 0;
-			padding: 0;
-			border: 1px solid gray;
-			background: rgba(0,0,0,3%);
-			vertical-align: middle;
-		}
-		.toggle:after {
-			content: "";
-			position: absolute;
-			top: 2px;
-			left: 2px;
-			width: 16px;
-			height: 16px;
-			border-radius: 50%;
-			background: rgba(0,0,0,10%);
-			border: solid 1px gray;
-		}
-		.toggle:checked {
-			#border-color: green;
-		}
-		.toggle:checked+span {
-			color: black;
-			font-weight: bold;
-		}
-		.toggle:checked:after {
-			border-color: darkgreen;
-			background: seagreen;
-			transform: translatex(32px);
-		}
-	  </style>
-	  
 	</head>
 	
 	<body>
 		<div id="panel">
-			<label><input id="ik" type="checkbox" class="toggle" checked><span>&nbsp;Inverse &nbsp;kinematics</span></label><br>
-			<label><input id="br" type="checkbox" class="toggle" checked><span>&nbsp;Biological &nbsp;restriction</span></label><br>
-			<br>
-			<label><span id="name"></span></label><br>
-			<label id="labelz" style="visibility:hidden;"><input id="m1" type="checkbox" class="toggle" checked><span id="namez"></span></label><br>
-			<label id="labelx" style="visibility:hidden;"><input id="m2" type="checkbox" class="toggle" ><span id="namex"></span></label><br>
-			<label id="labely" style="visibility:hidden;"><input id="m3" type="checkbox" class="toggle"><span id="namey"></span></label><br>
-			<div style="display:none;">
-			<label><span id="vx" class="short"></span></span><input type="range" id="rx" value="0" min="-180" max="180" step="5"><br>
-			<span id="vy" class="short"></span><input type="range" id="ry" value="0" min="-180" max="180" step="5"><br>
-			<span id="vz" class="short"></span><input type="range" id="rz" value="0" min="-180" max="180" step="5"><br></div>
+			<label><input id="ik" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
+			<label><input id="br" type="checkbox" class="toggle" checked><span>Biological<br>restriction</span></label><br><br>
+			<label id="labelz"><input id="m1" type="checkbox" class="toggle"><span id="namez">N/A</span></label><br>
+			<label id="labelx"><input id="m2" type="checkbox" class="toggle" ><span id="namex">N/A</span></label><br>
+			<label id="labely"><input id="m3" type="checkbox" class="toggle"><span id="namey">N/A</span></label><br>
+			<label id="labelm" style="display:none;"><input id="m4" type="checkbox" class="toggle"><span>Move</span></label>
 		</div>
 		
 		<script>
 			const EPS = 0.00001;
+			var mouseInterface = false;
+			var touchInterface = false;
 			
 			// create a scene with a better shadow
 			createScene();
@@ -205,11 +37,22 @@ how to remove the virtical space around the range input in IE*/
 				controls.update();
 
 			var model = new Male();
-
+			
 			model.l_tips = model.l_fingers.tips;
 			model.r_tips = model.r_fingers.tips;
 
-
+			var texture = generateTexture();
+			
+			var circle = new THREE.Mesh(
+				new THREE.CircleBufferGeometry(10,32,2*Math.PI,Math.PI),
+				new THREE.MeshPhongMaterial({
+					side: THREE.DoubleSide,
+					color: 'black',
+					transparent: true, 
+					alphaMap: texture
+				})
+			);
+			
 			var dragPoint = new THREE.Mesh(
 				new THREE.SphereBufferGeometry( 0.001 ),
 				new THREE.MeshBasicMaterial({color:0})
@@ -218,28 +61,28 @@ how to remove the virtical space around the range input in IE*/
 			var screenPoint = new THREE.Vector3();
 			
 			var names = [
-				['pelvis','tilt','turn','bend','body'],
-				['torso','tilt','turn','bend','torso'],
-				['neck','tilt','turn','nod','neck'],
-				['head','tilt','turn','nod','head'],
-				['l_leg','straddle','turn','raise','left leg'],
-				['l_knee','','','bend','left knee'],
-				['l_ankle','tilt','turn','bend','left ankle'],
-				['l_arm','straddle','turn','raise','left arm'],
-				['l_elbow','','','bend','left elbow'],
-				['l_wrist','tilt','turn','bend','left wrist'],
-				['l_fingers','','','bend','left fingers'],
-				['l_tips','','','bend','left finger tips'],
-				['r_leg','straddle','turn','raise','right leg'],
-				['r_knee','','','bend','right knee'],
-				['r_ankle','tilt','turn','bend','right ankle'],
-				['r_arm','straddle','turn','raise','right arm'],
-				['r_elbow','','','bend','right elbow'],
-				['r_wrist','tilt','turn','bend','right wrist'],
-				['r_fingers','','','bend','right fingers'],
-				['r_tips','','','bend','right finger tips']
+				['pelvis','tilt','turn','bend'],
+				['torso','tilt','turn','bend'],
+				['neck','tilt','turn','nod'],
+				['head','tilt','turn','nod'],
+				['l_leg','straddle','turn','raise'],
+				['l_knee','','','bend'],
+				['l_ankle','tilt','turn','bend'],
+				['l_arm','straddle','turn','raise'],
+				['l_elbow','','','bend'],
+				['l_wrist','tilt','turn','bend'],
+				['l_fingers','','','bend'],
+				['l_tips','','','bend'],
+				['r_leg','straddle','turn','raise'],
+				['r_knee','','','bend'],
+				['r_ankle','tilt','turn','bend'],
+				['r_arm','straddle','turn','raise'],
+				['r_elbow','','','bend'],
+				['r_wrist','tilt','turn','bend'],
+				['r_fingers','','','bend'],
+				['r_tips','','','bend']
 			];
-			var properties
+			
 			for( var nameData of names )
 			{
 				var name = nameData[0];
@@ -251,14 +94,14 @@ how to remove the virtical space around the range input in IE*/
 					for( var part of model[name].children[0].children[1].children )
 						part.name = name;
 				model[name].name = {x:nameData[1], y:nameData[2], z:nameData[3]};
-				model[name].fullName = nameData[4];
 			}
 			
 			var elemIK = document.getElementById( 'ik' ),
 				elemBR = document.getElementById( 'br' ),
 				elemM1 = document.getElementById( 'm1' ),
 				elemM2 = document.getElementById( 'm2' ),
-				elemM3 = document.getElementById( 'm3' );
+				elemM3 = document.getElementById( 'm3' ),
+				elemM4 = document.getElementById( 'm4' );
 			
 			var mouse = new THREE.Vector2(),
 				mouseButton = undefined,
@@ -267,24 +110,94 @@ how to remove the virtical space around the range input in IE*/
 			document.addEventListener( 'mousedown', onMouseDown );
 			document.addEventListener( 'mouseup', onMouseUp );
 			document.addEventListener( 'mousemove', onMouseMove );
+
+			document.addEventListener( 'touchstart', onMouseDown );
+			document.addEventListener( 'touchend', onMouseUp );
+			document.addEventListener( 'touchcancel', onMouseUp );
+			document.addEventListener( 'touchmove', onMouseMove );
 			
-			document.getElementById( 'rx' ).addEventListener( 'input', onChangedSlider );
-			document.getElementById( 'ry' ).addEventListener( 'input', onChangedSlider );
-			document.getElementById( 'rz' ).addEventListener( 'input', onChangedSlider );
+			elemM1.addEventListener( 'change', function(elem){if(elem.target.checked) elemM2.checked=elemM3.checked=elemM4.checked=false; updateValues(elemM1);} );
+			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM3.checked=elemM4.checked=false; updateValues(elemM2);} );
+			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=elemM4.checked=false; updateValues(elemM3);} );
+			elemM4.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=elemM3.checked=false; updateValues(elemM4);} );
+
+			controls.addEventListener( 'start', function(){renderer.setAnimationLoop(drawFrame);} );
+			controls.addEventListener( 'end', function(){renderer.setAnimationLoop(null);renderer.render(scene,camera);} );
+
+			function updateValues( elem )
+			{
+				if( elem && touchInterface ) elem.checked = true;
+				
+				if( !obj ) return;
+
+				if( elemM1.checked ) {obj.rotation.reorder('XYZ');}
+				if( elemM2.checked ) {obj.rotation.reorder('YZX');}
+				if( elemM3.checked ) {obj.rotation.reorder('ZXY');}
+			}
 			
-			elemM1.addEventListener( 'change', function(elem){if(elem.target.checked) elemM2.checked=elemM3.checked=false;} );
-			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM3.checked=false;} );
-			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=false;} );
-			 
 			var obj = undefined,
 				lastObj = undefined;
 			
+			function generateTexture( size=512 )
+			{
+				var canvas = document.createElement( 'canvas' );
+					canvas.width = size;
+					canvas.height = size;
+				var r = size/2.2;
+				
+				var ctx = canvas.getContext( '2d' );
+					ctx.fillStyle = 'black';
+					ctx.fillRect( 0, 0, size, size );	
+
+				var grd = ctx.createRadialGradient(size/2, size/2, size/6, size/2, size/2, r);
+					grd.addColorStop(1, "black");
+					grd.addColorStop(0.98, "gray");
+					grd.addColorStop(0.2, "black");
+
+					// Fill with gradient
+					ctx.fillStyle = grd;
+					ctx.fillRect( 1, 1, size-2, size-2 );	
+
+				var start = Math.PI,
+					end = 2*Math.PI;
+					
+				ctx.strokeStyle = 'white';
+				ctx.lineWidth = 5;
+				ctx.beginPath();
+					ctx.moveTo( size/2, size/2 );
+					ctx.lineTo( size/2, size/2-r );
+				ctx.stroke();
+				ctx.lineWidth = 10;
+				for( var rr=r; rr>0; rr-=50 )
+				{
+					ctx.beginPath();
+						ctx.arc( size/2, size/2, rr, start, end );
+					ctx.stroke();
+					ctx.lineWidth = 1;
+				}
+				for( var i=0; i<=6; i++ )
+				{
+				ctx.beginPath();
+					ctx.moveTo( size/2, size/2 );
+					var a = start + i/6*(end-start);
+					ctx.lineTo( size/2+r*Math.cos(a), size/2+r*Math.sin(a) );
+				ctx.stroke();
+				}
+				
+				var texture = new THREE.CanvasTexture(canvas, THREE.UVMapping );
+					texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+					texture.repeat.set( 1, 1 );
+					
+				return texture;
+			}
 			
 			function onMouseUp( event )
 			{
 				controls.enabled = true;
 				mouseButton = undefined;
 				deselect( );
+				renderer.setAnimationLoop(null);
+				renderer.render( scene, camera );
 			}
 
 			function select( object )
@@ -293,104 +206,115 @@ how to remove the virtical space around the range input in IE*/
 
 				lastObj = obj = object;
 				obj.select( true );
+				
+				if( obj instanceof Pelvis )
+				{
+					document.getElementById('labelm').style.display = 'block';
+				}
+				else
+				{
+					document.getElementById('labelm').style.display = 'none';
+					elemM4.checked = false;
+				}
 			}
 			
 			function deselect( )
 			{
 				if( !obj ) return;
 				
+				obj.remove( circle );
 				obj.select( false );
 				obj = undefined;
 			}
 			
 			function onMouseDown( event )
 			{
-//				event.preventDefault();
-				
-				mouseButton = event.buttons;
-				
-				mouse.x = event.clientX/window.innerWidth * 2 - 1;
-				mouse.y = -event.clientY/window.innerHeight * 2 + 1;
+				userInput( event );
 				
 				raycaster.setFromCamera( mouse, camera );
 				
+				circle.visible = false;
 				var intersects = raycaster.intersectObject( model, true );
+				circle.visible = true;
 
-				if( intersects.length )
+				if( intersects.length && intersects[0].object.name )
 				{
 					controls.enabled = false;
 					
 					var name = intersects[0].object.name;
+
 					select( model[name] );
 
-					document.getElementById('name').innerHTML = model[name].fullName;
-					document.getElementById('namex').innerHTML = model[name].name.x||'axis x';
-					document.getElementById('namey').innerHTML = model[name].name.y||'axis y';
-					document.getElementById('namez').innerHTML = model[name].name.z||'axis z';
+					document.getElementById('namex').innerHTML = model[name].name.x||'N/A';
+					document.getElementById('namey').innerHTML = model[name].name.y||'N/A';
+					document.getElementById('namez').innerHTML = model[name].name.z||'N/A';
 			
-					document.getElementById('labelx').style.visibility = (!elemBR.checked || model[name].name.x)?'visible':'hidden';
-					document.getElementById('labely').style.visibility = (!elemBR.checked || model[name].name.y)?'visible':'hidden';
-					document.getElementById('labelz').style.visibility = (!elemBR.checked || model[name].name.z)?'visible':'hidden';
-
 					dragPoint.position.copy( obj.worldToLocal(intersects[0].point) );
 					obj.add( dragPoint );
+					
+					obj.add( circle );
+					circle.position.y = (obj instanceof Ankle)?2:0;
+
+					updateValues();
 				}
+				renderer.setAnimationLoop(drawFrame);
 			}
 
 			function relativeTurn( joint, rotationalAngle, angle )
 			{
-				if( elemBR.checked )
+				if( !rotationalAngle )
 				{
-					var val = joint[rotationalAngle],
-						min = joint.minRot[rotationalAngle],
-						max = joint.maxRot[rotationalAngle];
-						
-					if( val<min-EPS && angle<0 ) return;
-					if( val>max+EPS && angle>0 ) return;
-					if( min == max ) return;
+					// it is translation, not rotation
+					joint.position.y += angle;
+					return;
 				}
-				joint[rotationalAngle] += angle;
-				joint.updateMatrix();
 				
-				document.getElementById("rx").value = joint.x;
-				document.getElementById("ry").value = joint.y;
-				document.getElementById("rz").value = joint.z;
-				document.getElementById("vx").innerHTML = joint.x.toFixed(0);
-				document.getElementById("vy").innerHTML = joint.y.toFixed(0);
-				document.getElementById("vz").innerHTML = joint.z.toFixed(0);
-/*			
-//console.log('from\t',joint.rotation.x.toFixed(3),joint.rotation.y.toFixed(3),joint.rotation.z.toFixed(3));
-				var oldRotation = joint[rotationalAngle];
-				joint[rotationalAngle] += angle;
-//console.log('\tvia\t',joint.rotation.x.toFixed(3),joint.rotation.y.toFixed(3),joint.rotation.z.toFixed(3));
-				if( elemBR.checked )
+				if( joint.biologicallyImpossibleLevel )
 				{
-					var val = joint[rotationalAngle],
-						min = joint.minRot[rotationalAngle],
-						max = joint.maxRot[rotationalAngle],
-						impossible;
-							
-					// normalize angle between 0 and 359
-					val = ((val%360)+360)%360;
-					if( min-EPS <= max+EPS )
+					if( elemBR.checked )
 					{
-						impossible = val<min-EPS || max+EPS<val;
+						// there is a dedicated function to check biological possibility of joint
+						var oldImpossibility = joint.biologicallyImpossibleLevel();
+						
+						joint[rotationalAngle] += angle;
+						joint.updateMatrix();
+						joint.updateWorldMatrix(true); // ! important, otherwise get's stuck
+						
+						var newImpossibility = joint.biologicallyImpossibleLevel();
+
+						if( newImpossibility>EPS && newImpossibility>=oldImpossibility-EPS )
+						{
+							// undo rotation
+							joint[rotationalAngle] -= angle;
+							return;
+						}
 					}
 					else
 					{
-						impossible = max-EPS<val && val<min+EPS;
+						joint.biologicallyImpossibleLevel();
+						joint[rotationalAngle] += angle;
 					}
-
-					if( impossible )
-					{
-						joint[rotationalAngle] = oldRotation;
-					}
+					// keep the rotation, it is either possible, or improves impossible situation
 				}
+				else
+				{
+					// there is no dedicated function, test with individual rotation range
+					
+					var val = joint[rotationalAngle]+angle,
+						min = joint.minRot[rotationalAngle],
+						max = joint.maxRot[rotationalAngle];
+						
+					if( elemBR.checked || min==max )
+					{
+						if( val<min-EPS && angle<0 ) return;
+						if( val>max+EPS && angle>0 ) return;
+						if( min == max ) return;
+					}
 
-//console.log(joint.rotation.x.toFixed(2),joint.rotation.y.toFixed(2),joint.rotation.z.toFixed(2));
+					joint[rotationalAngle] = val;
+				}
 				joint.updateMatrix();
-*/
-			}
+			} // relativeTurn
 			
 			function kinematic2D( joint, rotationalAngle, angle, ignoreIfPositive )
 			{
@@ -398,96 +322,100 @@ how to remove the virtical space around the range input in IE*/
 				
 				screenPoint.copy( dragPoint.position );
 				screenPoint = obj.localToWorld( screenPoint ).project( camera );
-				var distOriginal = mouse.distanceTo( screenPoint );
+				
+				var distOriginal = mouse.distanceTo( screenPoint ),
+					oldAngle = joint[rotationalAngle];
 				
 				relativeTurn( joint, rotationalAngle, angle );
 				joint.updateMatrixWorld( true );
 				
 				screenPoint.copy( dragPoint.position );
 				screenPoint = obj.localToWorld( screenPoint ).project( camera );
-				var distProposed = mouse.distanceTo( screenPoint );
-
-				var dist = distOriginal-distProposed;
+				
+				var distProposed = mouse.distanceTo( screenPoint ),
+					dist = distOriginal - distProposed;
 				
 				if( ignoreIfPositive && dist>0 ) return dist;
 				
-				relativeTurn( joint, rotationalAngle, -angle );
+				joint[rotationalAngle] = oldAngle;
 				joint.updateMatrixWorld( true );
 				
 				return dist;
 			}
 			
-			function inverseKinematics( joint, rotationalAngle )
+			function inverseKinematics( joint, rotationalAngle, step )
 			{
 				// try going in postive or negative direction
-				var kPos = kinematic2D(joint,rotationalAngle,0.1),
-					kNeg = kinematic2D(joint,rotationalAngle,-0.1);
+				var kPos = kinematic2D(joint,rotationalAngle,0.001),
+					kNeg = kinematic2D(joint,rotationalAngle,-0.001);
 
-				// if both make worse results, then exit
+				// if any of them improves closeness, then turn in this direction
 				if( kPos>0 || kNeg>0 )
 				{
-					var step = Math.sign( kPos-kNeg )/2;
-					while( Math.abs(step)>0.01 )
-					{
-						while( kinematic2D(joint,rotationalAngle,step,true)>0 );
-						step /= 2;
-					}
+					if( kPos < kNeg ) step = -step;
+					kinematic2D(joint,rotationalAngle,step,true);
 				}
 			}
 			
 			function animate( time )
 			{
 				// no selected object
-				if( !obj ) return;
+				if( !obj || !mouseButton ) return;
 
-				if( (mouseButton & 0x01) && !elemM2.checked && !elemM3.checked )
+				var elemNone = !elemM1.checked && !elemM2.checked && !elemM3.checked && !elemM4.checked,
+					spinA = (obj instanceof Ankle)?Math.PI/2:0;
+
+				circle.rotation.set(0,0,-spinA);
+				if( elemM2.checked || elemNone&&mouseButton&2 ) circle.rotation.set(0,Math.PI/2,2*spinA);
+				if( elemM3.checked || elemNone&&mouseButton&4 ) circle.rotation.set(Math.PI/2,0,-Math.PI/2);
+				
+				var joint = obj;
+				do
 				{
-					var joint = obj;
-					do
+					for( var step = 45; step>0.1; step *= 0.5 )
 					{
-						inverseKinematics( joint, 'z' );
-						joint = joint.parent;
+						if( elemM1.checked || elemNone&&mouseButton&1 )
+							inverseKinematics( joint, 'z', step );
+						if( elemM2.checked || elemNone&&mouseButton&2 )
+							inverseKinematics( joint, 'x', step );
+						if( elemM3.checked || elemNone&&mouseButton&4 )
+							inverseKinematics( joint, 'y', step );
+						if( elemM4.checked )
+							inverseKinematics( joint, '', step );
 					}
-					while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
+					joint = joint.parent;
 				}
-				else
-				if( mouseButton & 0x02 || elemM2.checked )
-				{
-					inverseKinematics( obj, 'x' );
-				}
-				else
-				if( mouseButton & 0x04 || elemM3.checked )
-				{
-					inverseKinematics( obj, 'y' );
-				}
-
+				while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
 			}
 			
 			function onMouseMove( event )
 			{
-				if( !obj ) return;
-				
-				event.preventDefault();
-				
-				mouse.x = event.clientX/window.innerWidth * 2 - 1;
-				mouse.y = -event.clientY/window.innerHeight * 2 + 1;
-	
-				mouseButton = event.buttons;
+				if( obj ) userInput( event );
 			}
-		
-			function onChangedSlider()
+
+			function userInput( event )
 			{
-				if( !lastObj ) return;
+				if( event instanceof MouseEvent )
+				{
+					event.preventDefault();
+					
+					mouseInterface = true;
+					mouseButton = event.buttons || 0x1;
+
+					mouse.x = event.clientX/window.innerWidth * 2 - 1;
+					mouse.y = -event.clientY/window.innerHeight * 2 + 1;
+				}
 				
-				lastObj.x = Number(document.getElementById("rx").value);
-				lastObj.y = Number(document.getElementById("ry").value);
-				lastObj.z = Number(document.getElementById("rz").value);
-				document.getElementById("vx").innerHTML = lastObj.x;
-				document.getElementById("vy").innerHTML = lastObj.y;
-				document.getElementById("vz").innerHTML = lastObj.z;
+				if( event instanceof TouchEvent && event.touches.length==1)
+				{
+					mouseButton = 0x1;
+
+					touchInterface = true;
+					mouse.x = event.touches[0].clientX/window.innerWidth * 2 - 1;
+					mouse.y = -event.touches[0].clientY/window.innerHeight * 2 + 1;
+				}
 			}
 			
 		</script>
-	</body>
-	
+	</body>	
 </html>
