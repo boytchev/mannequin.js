@@ -55,14 +55,14 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 ``` xml
 <!DOCTYPE html>
 <html>
-	<body>
-		<script src="../three.min.js"></script>
-		<script src="../mannequin.js"></script>
-		<script>
-			createScene();
-			man = new Male();
-		</script>
-	</body>
+  <body>
+    <script src="../three.min.js"></script>
+    <script src="../mannequin.js"></script>
+    <script>
+      createScene();
+      man = new Male();
+    </script>
+  </body>
 </html>
 ```
 
