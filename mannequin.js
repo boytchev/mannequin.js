@@ -421,10 +421,12 @@ class Pelvis extends Joint
 
 class Body extends Joint
 {
-	constructor(parentJoint)
+	constructor(feminine)
 	{
-		super(parentJoint,null,[1,1,1],THREE.Group);
+		super(null,null,[1,1,1],THREE.Group);
 
+		this.feminine = feminine;
+		
 		this.minRot = new THREE.Vector3(Number.NEGATIVE_INFINITY,Number.NEGATIVE_INFINITY,Number.NEGATIVE_INFINITY);
 		this.maxRot = new THREE.Vector3(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY);
 	} // Body.constructor
@@ -824,7 +826,7 @@ class Mannequin extends THREE.Group
 
 		this.feminine = feminine;
 
-		this.body = new Body(null);
+		this.body = new Body(feminine);
 	
 		this.pelvis = new Pelvis(this.body);
 			this.torso = new Torso(this.pelvis);
@@ -958,9 +960,9 @@ class Mannequin extends THREE.Group
 
 class Female extends Mannequin
 {
-	constructor()
+	constructor( height=0.95 )
 	{
-		super(true,0.95);
+		super( true, height );
 		this.position.y = 2.2;
 
 		this.l_leg.straddle -= 4;
@@ -974,9 +976,9 @@ class Female extends Mannequin
 
 class Male extends Mannequin
 {
-	constructor()
+	constructor( height=1 )
 	{
-		super(false);
+		super( false, height );
 		this.position.y = 3.8;
 
 		this.l_leg.straddle += 6;
@@ -993,9 +995,9 @@ class Male extends Mannequin
 
 class Child extends Mannequin
 {
-	constructor()
+	constructor( height=0.65 )
 	{
-		super(false,0.65);
+		super( false, height );
 		this.position.y = -7.7;
 
 		this.l_arm.straddle -= 2;

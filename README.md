@@ -38,7 +38,7 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
-Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.1** from January 2021.
+Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.3** from February 2021.
 
 Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
 
@@ -55,60 +55,76 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 ``` xml
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="three.min.js"></script>
-    <script src="mannequin.js"></script>
-  </head>
-  <body>
-    <script>
-      createScene();
-      var man = new Male();
-    </script>
-  </body>
+	<body>
+		<script src="../three.min.js"></script>
+		<script src="../mannequin.js"></script>
+		<script>
+			createScene();
+			man = new Male();
+		</script>
+	</body>
 </html>
 ```
 
-The helper function `createScene()` provides a default set-up of the scene and its elements, like lighting, camera, ground, etc. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the set-up is done with a custom function, then it should also manage the animation loop by itself.
+The helper function `createScene()` provides default scene, lighting, camera, ground, and so on. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the scene is created with a custom function, then it should also manage the animation loop by itself.
 
 ### Figure types
 
-Mannequin figures are created as instances of the classes `Male()`, `Female()` or `Child()` ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+Mannequin figures are created as instances of classes `Male(height)`, `Female(height)` or `Child(height)`, wherethe optional *height* is the relative size of the figure. By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height 0.65 ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
 ``` javascript
 var man = new Male();
     man.position.x = 20;
-	man.turnRight = 120;
+	man.turn = -120;
     :
 var woman = new Female();
 	woman.position.x = -20;
-	woman.turnRight = 60;
+	woman.turn = -60;
     :
 var kid = new Child();
-	kid.position.z = -5
-	kid.turnRight = 90;
+	kid.position.z = -7
     :
 ```
 
-These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean *feminine* defines whether the shape is feminine or masculine, and the number *height* is the relative height of the figure (a male has height 1).
+These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines whether the shape is feminine or masculine
+ ([live example](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
+
+[<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
+
+The difference between using differen figure classes is that `Mannequin` sets a default neutral posture of the figure, while `Male` and `Female` set a default male and female posture.
 
 
 # Body parts
 
-All types of figures have the same structure of joints. For example, the right arm of a figure is named `r_arm`. Left and right body parts are in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
+All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
 
 
 [<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
 
 
-Each body part has properties that define its rotation around a pivot point. The values of the rotation properties are angles of rotation in degrees,
+Each body part has properties that define its rotation around pivot points. The values of the rotation properties are angles of rotation in degrees,
 so 180 is half turn and 360 is full turn. Negative angles are allowed and
-they represent turning in the opposite direction. 
+they represent rotations in the opposite directions. 
+
+There are two ways of using the rotation properties &ndash; *absolute* and *relative*. When a rotation property is set to a specific value, this produces absolute rotation (which is considered by many people as counterintuitive). The following code will set the forward bend angle the torso to 45&deg;:
+
+``` javascript
+	man.torso.bend = 45;
+```
+
+In relative mode rotations are set in respect to the
+current rotation value of the property. The following code
+will bend the torso 45&deg; from its current position:
+
+``` javascript
+	man.torso.bend += 45;
+```
 
 ### Central body parts
 
-The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as a whole. To rotate the whole body use properties for *bending*, *turning* and *tilting* of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the body as *body*. To rotate the whole body use properties for *bending*, *turning* and *tilting* of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
 
 * `figure.bend = angle;`
 * `figure.turn = angle;`
