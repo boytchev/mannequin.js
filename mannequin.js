@@ -352,7 +352,7 @@ class Joint extends THREE.Group
 	{
 		var bumper = new THREE.Vector3(x,y,z);
 		this.image.localToWorld(bumper);
-		this.parent.image.worldToLocal(bumper);
+		this.parentJoint.image.worldToLocal(bumper);
 		return bumper;
 	}
 

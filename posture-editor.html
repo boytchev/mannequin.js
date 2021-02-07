@@ -15,7 +15,7 @@
 	<body>
 		<div id="panel">
 			<label><input id="ik" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
-			<label><input id="br" type="checkbox" class="toggle" checked><span>Biological<br>restriction</span></label><br><br>
+			<label><input id="br" type="checkbox" class="toggle"><span>Biological<br>restriction</span></label><br><br>
 			<label id="labelz"><input id="m1" type="checkbox" class="toggle"><span id="namez">N/A</span></label><br>
 			<label id="labelx"><input id="m2" type="checkbox" class="toggle" ><span id="namex">N/A</span></label><br>
 			<label id="labely"><input id="m3" type="checkbox" class="toggle"><span id="namey">N/A</span></label><br>
@@ -47,11 +47,29 @@
 				new THREE.CircleBufferGeometry(10,32,2*Math.PI,Math.PI),
 				new THREE.MeshPhongMaterial({
 					side: THREE.DoubleSide,
-					color: 'black',
+					color: 'navy',
 					transparent: true, 
 					alphaMap: texture
 				})
 			);
+			
+			circle.add( new THREE.Mesh(
+				new THREE.CylinderBufferGeometry(10,10,1/2,32,1,true,2.5*Math.PI,Math.PI).rotateX(Math.PI/2),
+				new THREE.MeshBasicMaterial({
+					side: THREE.DoubleSide,
+					color: 'black'
+				})
+			));
+			
+			circle.add( new THREE.Mesh(
+				new THREE.ConeBufferGeometry(0.5,-2,6).translate(9.75,-1.5,0),
+				new THREE.MeshBasicMaterial({color: 'black'})
+			));
+			
+			circle.add( new THREE.Mesh(
+				new THREE.ConeBufferGeometry(0.5,-2,6).translate(-9.75,-1.5,0),
+				new THREE.MeshBasicMaterial({color: 'black'})
+			));
 			
 			var dragPoint = new THREE.Mesh(
 				new THREE.SphereBufferGeometry( 0.001 ),
@@ -93,7 +111,7 @@
 				if( model[name].children[0].children[1] )
 					for( var part of model[name].children[0].children[1].children )
 						part.name = name;
-				model[name].name = {x:nameData[1], y:nameData[2], z:nameData[3]};
+				model[name].nameUI = {x:nameData[1], y:nameData[2], z:nameData[3]};
 			}
 			
 			var elemIK = document.getElementById( 'ik' ),
@@ -143,16 +161,16 @@
 				var canvas = document.createElement( 'canvas' );
 					canvas.width = size;
 					canvas.height = size;
-				var r = size/2.2;
+				var r = size/2;
 				
 				var ctx = canvas.getContext( '2d' );
 					ctx.fillStyle = 'black';
 					ctx.fillRect( 0, 0, size, size );	
 
-				var grd = ctx.createRadialGradient(size/2, size/2, size/6, size/2, size/2, r);
-					grd.addColorStop(1, "black");
-					grd.addColorStop(0.98, "gray");
-					grd.addColorStop(0.2, "black");
+				var grd = ctx.createRadialGradient(size/2, size/2, r/2, size/2, size/2, r);
+					grd.addColorStop(0, "black");
+					grd.addColorStop(0.8, "gray");
+					grd.addColorStop(1, "white");
 
 					// Fill with gradient
 					ctx.fillStyle = grd;
@@ -202,9 +220,12 @@
 
 			function select( object )
 			{
-				if( obj ) deselect( );
+				deselect( );
 
 				lastObj = obj = object;
+				
+				if( !obj ) return;
+				
 				obj.select( true );
 				
 				if( obj instanceof Pelvis )
@@ -220,9 +241,10 @@
 			
 			function deselect( )
 			{
+				circle.parent?.remove( circle );
+				
 				if( !obj ) return;
 				
-				obj.remove( circle );
 				obj.select( false );
 				obj = undefined;
 			}
@@ -231,28 +253,33 @@
 			{
 				userInput( event );
 				
+				circle.parent?.remove( circle );
+				dragPoint.parent?.remove( dragPoint );
+				
 				raycaster.setFromCamera( mouse, camera );
 				
-				circle.visible = false;
 				var intersects = raycaster.intersectObject( model, true );
-				circle.visible = true;
 
-				if( intersects.length && intersects[0].object.name )
+				//console.log(intersects, intersects[0]?.object?.name);
+
+				if( intersects.length && (intersects[0].object.name || intersects[0].object.parent.name) )
 				{
 					controls.enabled = false;
 					
-					var name = intersects[0].object.name;
+					var name = intersects[0].object.name || intersects[0].object.parent.name;
 
+					//console.log('name',name);
+					
 					select( model[name] );
 
-					document.getElementById('namex').innerHTML = model[name].name.x||'N/A';
-					document.getElementById('namey').innerHTML = model[name].name.y||'N/A';
-					document.getElementById('namez').innerHTML = model[name].name.z||'N/A';
+					document.getElementById('namex').innerHTML = model[name].nameUI.x||'N/A';
+					document.getElementById('namey').innerHTML = model[name].nameUI.y||'N/A';
+					document.getElementById('namez').innerHTML = model[name].nameUI.z||'N/A';
 			
 					dragPoint.position.copy( obj.worldToLocal(intersects[0].point) );
-					obj.add( dragPoint );
+					obj.imageWrapper.add( dragPoint );
 					
-					obj.add( circle );
+					obj.imageWrapper.add( circle );
 					circle.position.y = (obj instanceof Ankle)?2:0;
 
 					updateValues();
@@ -374,16 +401,16 @@
 				{
 					for( var step = 45; step>0.1; step *= 0.5 )
 					{
-						if( elemM1.checked || elemNone&&mouseButton&1 )
+						if( elemM1.checked || elemNone&&(mouseButton&0x1) )
 							inverseKinematics( joint, 'z', step );
-						if( elemM2.checked || elemNone&&mouseButton&2 )
+						if( elemM2.checked || elemNone&&(mouseButton&0x2) )
 							inverseKinematics( joint, 'x', step );
-						if( elemM3.checked || elemNone&&mouseButton&4 )
+						if( elemM3.checked || elemNone&&(mouseButton&0x4) )
 							inverseKinematics( joint, 'y', step );
 						if( elemM4.checked )
 							inverseKinematics( joint, '', step );
 					}
-					joint = joint.parent;
+					joint = joint.parentJoint;
 				}
 				while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
 			}
