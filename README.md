@@ -476,40 +476,38 @@ man.r_leg.attach(obj);
 
 ### Global position
 
-Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
+Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) and calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
 
 The following example creates a thread going through 5 points relative to body parts of a figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
 
 [<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 
 ``` javascript
-loop.geometry.vertices[0] = man.r_fingers.tips.point(0,1,0);
-loop.geometry.vertices[1] = man.head.point(2.5,0,0);
-loop.geometry.vertices[2] = man.l_fingers.tips.point(0,1,0);
-loop.geometry.vertices[3] = man.l_ankle.point(-1.5,5.5,0);
-loop.geometry.vertices[4] = man.r_ankle.point(-1.5,5.5,0);
-
-loop.geometry.verticesNeedUpdate = true;
+setLoopVertex( 0, man.r_fingers.tips.point(0,1,0) );
+setLoopVertex( 1, man.head.point(3,1.2,0) );
+setLoopVertex( 2, man.l_fingers.tips.point(0,1,0) );
+setLoopVertex( 3, man.l_ankle.point(6,2,0) );
+setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 ```
 
-Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and test their global position.
+Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and use their global position.
 
-The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left show are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
 [<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
 ``` javascript
 // get minimal vertical position of contact points
 var bottom = Math.min(
-    man.l_ankle.point(-2,2,2).y,
-    man.l_ankle.point(-2,2,-2).y,
-    man.l_ankle.point(-2.5,-1,0).y,
-    man.l_ankle.point(-2.1,6,0).y,
+	man.l_ankle.point(6,2,0).y,
+	man.l_ankle.point(-2,2.5,0).y,
+	man.l_ankle.point(2,2.5,2).y,
+	man.l_ankle.point(2,2.5,-2).y,
 
-    man.r_ankle.point(-2,2,2).y,
-    man.r_ankle.point(-2,2,-2).y,
-    man.r_ankle.point(-2.5,-1,0).y,
-    man.r_ankle.point(-2.1,6,0).y
+	man.r_ankle.point(6,2,0).y,
+	man.r_ankle.point(-2,2.5,0).y,
+	man.r_ankle.point(2,2.5,2).y,
+	man.r_ankle.point(2,2.5,-2).y
 );
 
 man.position.y += (-29.5-bottom);
@@ -521,14 +519,14 @@ Currently mannequin.js is used to support one of the homework assignments in the
 
 This is unordered list of possible future improvements:
 
-- Custom order of joint rotations
+- <del>Custom order of joint rotations</del> &ndash; February 2021
 - <del>Interpolations between postures</del> &ndash; December 2020, `blend`
 - Online posture and scene editor &ndash; under construction
 - Models for machines and animals
 - Compatibility with other models
-- <del>Export and import of animations</del> &ndash; December 2020, `posture`
-- <del>A rudimental inverse kinematics</del> &ndash; January 2021, implemented in the Posture Editor
-- Collisions & motion restriction
+- <del>Export and import of animations</del> &ndash; December 2020, `posture` & `postureString`
+- <del>A rudimental inverse kinematics</del> &ndash; January 2021, in the Posture Editor
+- Collisions & motion restriction &ndash; under construction
 
-January, 2021
+February, 2021
 
