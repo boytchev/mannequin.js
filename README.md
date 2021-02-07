@@ -202,29 +202,27 @@ figure.r_fingers.tips.bend = angle;
 
 The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
 
-Both **legs** support properties for *raising*, *straddling* and *turning* ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical if *directionless* properties are used.
+Both **legs** support properties `raise`, `straddle` and `turn` ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical.
 
-* `figure.r_leg.raise = angle;`
-* `figure.r_leg.straddle = angle;`
-* `figure.r_leg.straddleLeft = angle;`
-* `figure.r_leg.straddleRight = angle;`
-* `figure.r_leg.turn = angle;`
-* `figure.r_leg.turnLeft = angle;`
-* `figure.r_leg.turnRight = angle;`
+``` javascript
+figure.r_leg.raise = angle;
+figure.r_leg.straddle = angle;
+figure.r_leg.turn = angle;
+```
 
-The motion of the **knee** is only *bending* ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+The motion of the **knee** is only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
 
-* `figure.r_knee.bend = angle;`
+``` javascript
+figure.r_knee.bend = angle;
+```
 
-The **ankles** have the same properties as the wrists for *bending*, *turning* and *tilting* ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)), but similar to the legs, the directions are symmetrical, if *directionless* properties are used:
+The **ankles** have the same properties as the wrists: `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)):
 
-* `figure.r_ankle.bend = angle;`
-* `figure.r_ankle.turn = angle;`
-* `figure.r_ankle.turnLeft = angle;`
-* `figure.r_ankle.turnRight = angle;`
-* `figure.r_ankle.tilt = angle;`
-* `figure.r_ankle.tiltLeft = angle;`
-* `figure.r_ankle.tiltRight = angle;`
+``` javascript
+figure.r_ankle.bend = angle;
+figure.r_ankle.turn = angle;
+figure.r_ankle.tilt = angle;
+```
 
 
 # Body posture
