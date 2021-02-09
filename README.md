@@ -521,12 +521,12 @@ This is unordered list of possible future improvements:
 
 - <del>Custom order of joint rotations</del> &ndash; February 2021
 - <del>Interpolations between postures</del> &ndash; December 2020, `blend`
-- Online posture and scene editor &ndash; under construction
+- <del>Online posture and scene editor</del> &ndash; February 2021, `posture-editor.html`
 - Models for machines and animals
 - Compatibility with other models
 - <del>Export and import of animations</del> &ndash; December 2020, `posture` & `postureString`
 - <del>A rudimental inverse kinematics</del> &ndash; January 2021, in the Posture Editor
-- Collisions & motion restriction &ndash; under construction
+- <del>Collisions & motion restriction</del> &ndash; February 2021, motion restriction only
 
 February, 2021
 
