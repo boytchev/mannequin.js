@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<script src="../three.min.js"></script>
+		<script src="../libs/three.min.js"></script>
 		<script src="../mannequin.js"></script>
 	</head>
 	
@@ -61,19 +61,20 @@
 			woman.r_leg.raise = 75;
 			woman.r_knee.bend = 100;
 			
-			woman.r_arm.straddle = 5;
-			woman.r_arm.raise = -20;
+			woman.r_arm.straddle = 7;
+			woman.r_arm.raise = -25;
 			woman.r_elbow.bend = 55;
 			woman.r_wrist.tilt = -30;
 			woman.r_wrist.bend = -30;
+			woman.r_wrist.turn = -5;
 			woman.r_fingers.bend = 50;
 
 			woman.l_arm.raise = 0;
 			woman.l_arm.straddle = 2;
 			woman.l_arm.turn = -35;
 			woman.l_elbow.bend = 55;
-			woman.l_wrist.bend = -42;
-			woman.l_wrist.turn -= 20;
+			woman.l_wrist.bend = -55;
+			woman.l_wrist.turn -= 35;
 			woman.l_fingers.bend = 10;
 
 			class Chair extends THREE.Group

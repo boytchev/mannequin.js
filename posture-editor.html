@@ -7,21 +7,23 @@
 
 		<link rel="stylesheet" href="posture-editor.css">
 
-		<script src="three.min.js"></script>
-		<script src="OrbitControls.js"></script>
+		<script src="libs/three.min.js"></script>
+		<script src="libs/OrbitControls.js"></script>
 		<script src="mannequin.js"></script>
 	</head>
 	
 	<body>
 		<div id="panel">
-			<label><input id="ik" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
-			<label><input id="br" type="checkbox" class="toggle"><span>Biological<br>restriction</span></label><br><br>
+			<label><input id="ik" type="checkbox" class="toggle"><span>Relay<br>motion</span></label><br>
+			<label><input id="br" type="checkbox" class="toggle" checked><span>Limit<br>motion</span></label><hr>
 			<label id="labelz"><input id="m1" type="checkbox" class="toggle"><span id="namez">N/A</span></label><br>
 			<label id="labelx"><input id="m2" type="checkbox" class="toggle" ><span id="namex">N/A</span></label><br>
 			<label id="labely"><input id="m3" type="checkbox" class="toggle"><span id="namey">N/A</span></label><br>
-			<label id="labelm" style="display:none;"><input id="m4" type="checkbox" class="toggle"><span>Move</span></label>
+			<label id="labelm" style="display:none;"><input id="m4" type="checkbox" class="toggle"><span>Move</span></label><hr>
+			<button id="gp">Get posture</button><br>
+			<button id="sp">Set posture</button><br>
 		</div>
-		
+
 		<script>
 			const EPS = 0.00001;
 			var mouseInterface = false;
@@ -41,33 +43,32 @@
 			model.l_tips = model.l_fingers.tips;
 			model.r_tips = model.r_fingers.tips;
 
+
 			var texture = generateTexture();
 			
 			var circle = new THREE.Mesh(
 				new THREE.CircleBufferGeometry(10,32,2*Math.PI,Math.PI),
 				new THREE.MeshPhongMaterial({
 					side: THREE.DoubleSide,
-					color: 'navy',
+					color: 'blue',
 					transparent: true, 
+					opacity: 0.75,
 					alphaMap: texture
 				})
 			);
 			
 			circle.add( new THREE.Mesh(
-				new THREE.CylinderBufferGeometry(10,10,1/2,32,1,true,2.5*Math.PI,Math.PI).rotateX(Math.PI/2),
-				new THREE.MeshBasicMaterial({
-					side: THREE.DoubleSide,
-					color: 'black'
-				})
-			));
-			
-			circle.add( new THREE.Mesh(
-				new THREE.ConeBufferGeometry(0.5,-2,6).translate(9.75,-1.5,0),
+				new THREE.TorusBufferGeometry(10,0.1,8,32,Math.PI),
 				new THREE.MeshBasicMaterial({color: 'black'})
 			));
 			
 			circle.add( new THREE.Mesh(
-				new THREE.ConeBufferGeometry(0.5,-2,6).translate(-9.75,-1.5,0),
+				new THREE.ConeBufferGeometry(0.5,-2,6).translate(10,-1,0),
+				new THREE.MeshBasicMaterial({color: 'black'})
+			));
+			
+			circle.add( new THREE.Mesh(
+				new THREE.ConeBufferGeometry(0.5,-2,6).translate(-10,-1,0),
 				new THREE.MeshBasicMaterial({color: 'black'})
 			));
 			
@@ -79,6 +80,7 @@
 			var screenPoint = new THREE.Vector3();
 			
 			var names = [
+				['body','tilt','turn','bend'],
 				['pelvis','tilt','turn','bend'],
 				['torso','tilt','turn','bend'],
 				['neck','tilt','turn','nod'],
@@ -138,10 +140,14 @@
 			elemM2.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM3.checked=elemM4.checked=false; updateValues(elemM2);} );
 			elemM3.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=elemM4.checked=false; updateValues(elemM3);} );
 			elemM4.addEventListener( 'change', function(elem){if(elem.target.checked) elemM1.checked=elemM2.checked=elemM3.checked=false; updateValues(elemM4);} );
+			
+			document.getElementById( 'gp' ).addEventListener( 'click', getPosture );
+			document.getElementById( 'sp' ).addEventListener( 'click', setPosture );
 
 			controls.addEventListener( 'start', function(){renderer.setAnimationLoop(drawFrame);} );
 			controls.addEventListener( 'end', function(){renderer.setAnimationLoop(null);renderer.render(scene,camera);} );
 
+			
 			function updateValues( elem )
 			{
 				if( elem && touchInterface ) elem.checked = true;
@@ -220,6 +226,7 @@
 
 			function select( object )
 			{
+
 				deselect( );
 
 				lastObj = obj = object;
@@ -228,7 +235,7 @@
 				
 				obj.select( true );
 				
-				if( obj instanceof Pelvis )
+				if( obj instanceof Body )
 				{
 					document.getElementById('labelm').style.display = 'block';
 				}
@@ -268,6 +275,8 @@
 					
 					var name = intersects[0].object.name || intersects[0].object.parent.name;
 
+					if( name=='neck' ) name = 'head';
+					if( name=='pelvis' ) name = 'body';
 					//console.log('name',name);
 					
 					select( model[name] );
@@ -347,13 +356,32 @@
 			{
 				// returns >0 if this turn gets closer
 				
+				// swap Z<->X for wrist
+				if( joint instanceof Wrist )
+				{
+					if( rotationalAngle=='x' )
+						rotationalAngle = 'z';
+					else if( rotationalAngle=='z' )
+						rotationalAngle = 'x';
+				}
 				screenPoint.copy( dragPoint.position );
 				screenPoint = obj.localToWorld( screenPoint ).project( camera );
 				
 				var distOriginal = mouse.distanceTo( screenPoint ),
 					oldAngle = joint[rotationalAngle];
+					
 				
-				relativeTurn( joint, rotationalAngle, angle );
+				if( joint instanceof Head )
+				{	// head and neck
+					oldParentAngle = joint.parentJoint[rotationalAngle];
+					relativeTurn( joint, rotationalAngle, angle/2 );
+					relativeTurn( joint.parentJoint, rotationalAngle,angle/2 );
+					joint.parentJoint.updateMatrixWorld( true );
+				}
+				else
+				{
+					relativeTurn( joint, rotationalAngle, angle );
+				}
 				joint.updateMatrixWorld( true );
 				
 				screenPoint.copy( dragPoint.position );
@@ -365,6 +393,10 @@
 				if( ignoreIfPositive && dist>0 ) return dist;
 				
 				joint[rotationalAngle] = oldAngle;
+				if( joint instanceof Head )
+				{	// head and neck
+					joint.parentJoint[rotationalAngle] = oldParentAngle;
+				}
 				joint.updateMatrixWorld( true );
 				
 				return dist;
@@ -393,13 +425,13 @@
 					spinA = (obj instanceof Ankle)?Math.PI/2:0;
 
 				circle.rotation.set(0,0,-spinA);
-				if( elemM2.checked || elemNone&&mouseButton&2 ) circle.rotation.set(0,Math.PI/2,2*spinA);
-				if( elemM3.checked || elemNone&&mouseButton&4 ) circle.rotation.set(Math.PI/2,0,-Math.PI/2);
+				if( elemM2.checked || elemNone&&mouseButton&0x2 ) circle.rotation.set(0,Math.PI/2,2*spinA);
+				if( elemM3.checked || elemNone&&mouseButton&0x4 ) circle.rotation.set(Math.PI/2,0,-Math.PI/2);
 				
 				var joint = obj;
 				do
 				{
-					for( var step = 45; step>0.1; step *= 0.5 )
+					for( var step = 5; step>0.1; step *= 0.75 )
 					{
 						if( elemM1.checked || elemNone&&(mouseButton&0x1) )
 							inverseKinematics( joint, 'z', step );
@@ -410,6 +442,12 @@
 						if( elemM4.checked )
 							inverseKinematics( joint, '', step );
 					}
+/*					
+document.getElementById('debug').innerHTML = '' +
+						'z='+(joint.z).toFixed(0)+'<br>'+
+						'x='+(joint.x).toFixed(0)+'<br>'+
+						'y='+(joint.y).toFixed(0)+'<br>';
+*/					
 					joint = joint.parentJoint;
 				}
 				while( !(joint instanceof Mannequin) && !(joint instanceof Pelvis) && !(joint instanceof Torso) && elemIK.checked );
@@ -440,6 +478,36 @@
 					touchInterface = true;
 					mouse.x = event.touches[0].clientX/window.innerWidth * 2 - 1;
 					mouse.y = -event.touches[0].clientY/window.innerHeight * 2 + 1;
+				}
+			}
+		
+			function getPosture()
+			{
+				prompt( 'The current posture is:', model.postureString );
+			}
+			
+			function setPosture()
+			{
+				var string = prompt( 'Reset the posture to:', '{"version":6,"data":["0,[0,0,0],...]}' );
+
+				if( string )
+				{
+					var oldPosture = model.posture;
+					
+					try
+					{
+						model.postureString = string;
+					}
+					catch( error )
+					{
+						model.posture = oldPosture;
+						if( error instanceof MannequinPostureVersionError )
+							alert( error.message );
+						else
+							alert( 'The provided posture was either invalid or impossible to understand.' );
+						console.error(error);
+					}
+					renderer.render( scene, camera );
 				}
 			}
 			
