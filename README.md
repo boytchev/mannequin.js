@@ -31,7 +31,7 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
 
-You can try and build your own posturs with the online (Posture Editor](https://boytchev.github.io/mannequin.js/posture-editor.html)
+You can try and build your own posturs with the online (Posture Editor)(https://boytchev.github.io/mannequin.js/posture-editor.html)
 [<img src="examples/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/posture-editor.html)
 
 This is the fourth incarnation of the mannequin figure library. The first one was implemented
