@@ -12,6 +12,7 @@
     * [Static posture](#Static-posture)
     * [Dynamic posture](#Dynamic-posture)
     * [Working with postures](#Working-with-postures)
+	* [Posture editor](#Posture-editor)
 - [Other functions](#Other-functions)
 	* [Custom colors](#Custom-colors)
 	* [Hiding body parts](#Hiding-body-parts)
@@ -29,6 +30,9 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-custom-body-parts.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
+
+You can try and build your own posturs with the online (Posture Editor](https://boytchev.github.io/mannequin.js/posture-editor.html)
+[<img src="examples/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/posture-editor.html)
 
 This is the fourth incarnation of the mannequin figure library. The first one was implemented
 in Elica. The second one was implemented in C/C++ and OpenGL. The third one
@@ -340,6 +344,8 @@ The following example blends the posture of [one figure](https://boytchev.github
 
 [<img src="examples/snapshots/example-posture-blend.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)
 
+[<img src="examples/snapshots/example-posture-blend-2.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
+
 ``` javascript
 // two figures
 man = new Male();
@@ -355,6 +361,10 @@ man.posture = Mannequin.blend(A,B,0.5);
 // copy the posture to another figure
 woman.posture = man.posture;
 ```
+
+### Posture editor
+
+TBD
 
 
 # Other functions
