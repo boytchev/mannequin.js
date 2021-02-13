@@ -342,9 +342,7 @@ There is alternative `postureString` property to get or set the posture as a str
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
 The following example blends the posture of [one figure](https://boytchev.github.io/mannequin.js/examples/example-posture.html) and copies it to [another figure](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([live example 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) and [live example 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
 
-[<img src="examples/snapshots/example-posture-blend.jpg" width="300">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html)
-
-[<img src="examples/snapshots/example-posture-blend-2.jpg" width="300">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
+[<img src="examples/snapshots/example-posture-blend.jpg" width="300">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="300">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
 
 ``` javascript
 // two figures
