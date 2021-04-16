@@ -15,12 +15,12 @@
 		<div id="panel">
 			<label><input id="inverse-kinematics" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
 			<label><input id="biological-constraints" type="checkbox" class="toggle" checked><span>Biological<br>constraints</span></label><br><br>
-			
+
 			<label><input id="rot-z" type="checkbox" class="toggle" onchange="processCheckBoxes(event)"><span id="rot-z-name">N/A</span></label><br>
 			<label><input id="rot-x" type="checkbox" class="toggle" onchange="processCheckBoxes(event)"><span id="rot-x-name">N/A</span></label><br>
 			<label><input id="rot-y" type="checkbox" class="toggle" onchange="processCheckBoxes(event)"><span id="rot-y-name">N/A</span></label><br>
 			<label><input id="mov-y" type="checkbox" class="toggle" onchange="processCheckBoxes(event)"><span>Move</span></label><br>
-			
+
 			<button id="gp" onclick="getPosture()">Get posture</button><br>
 			<button id="sp" onclick="setPosture()">Set posture</button><br>
 		</div>
@@ -177,10 +177,10 @@
 						cbRotX.checked = cbRotY.checked = cbRotY.checked = cbRotZ.checked = cbMovY.checked = false;
 						event.target.checked = true;
 					}
-					
+
 					if( touchInterface ) event.target.checked = true;
 				}
-				
+
 				if( !obj ) return;
 
 				if( cbRotZ.checked ) {obj.rotation.reorder('XYZ');}
@@ -418,7 +418,7 @@
 					mouse.y = -event.clientY/window.innerHeight * 2 + 1;
 				}
 
-				if( event instanceof TouchEvent && event.touches.length==1)
+				if(window.TouchEvent && event instanceof TouchEvent && event.touches.length==1)
 				{
 					mouseButton = 0x1;
 
