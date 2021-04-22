@@ -126,7 +126,9 @@ var cbInverseKinematics = document.getElementById( 'inverse-kinematics' ),
 	cbRotZ = document.getElementById( 'rot-z' ),
 	cbRotX = document.getElementById( 'rot-x' ),
 	cbRotY = document.getElementById( 'rot-y' ),
-	cbMovY = document.getElementById( 'mov-y' );
+	cbMovY = document.getElementById( 'mov-y' ),
+	btnGetPosture = document.getElementById( 'gp' ),
+	btnSetPosture = document.getElementById( 'sp' );
 
 // set up event handlers
 document.addEventListener( 'mousedown', onMouseDown );
@@ -137,6 +139,14 @@ document.addEventListener( 'touchstart', onMouseDown );
 document.addEventListener( 'touchend', onMouseUp );
 document.addEventListener( 'touchcancel', onMouseUp );
 document.addEventListener( 'touchmove', onMouseMove );
+
+cbRotZ.addEventListener( 'click', processCheckBoxes );
+cbRotX.addEventListener( 'click', processCheckBoxes );
+cbRotY.addEventListener( 'click', processCheckBoxes );
+cbMovY.addEventListener( 'click', processCheckBoxes );
+
+btnGetPosture.addEventListener( 'click', getPosture );
+btnSetPosture.addEventListener( 'click', setPosture );
 
 controls.addEventListener( 'start', function(){renderer.setAnimationLoop(drawFrame);} );
 controls.addEventListener( 'end', function(){renderer.setAnimationLoop(null);renderer.render(scene,camera);} );
