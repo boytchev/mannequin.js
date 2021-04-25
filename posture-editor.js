@@ -6,8 +6,11 @@ var touchInterface = false;
 // create a scene with a better shadow
 createScene();
 var light = scene.children[0];
-	light.shadow.mapSize.width = 4*1024;
-	light.shadow.mapSize.height = 4*1024;
+	//light.shadow.mapSize.width = 4*1024;
+	//light.shadow.mapSize.height = 4*1024;
+	light.shadow.mapSize.width = 2*1024;
+	light.shadow.mapSize.height = 2*1024;
+	light.shadow.radius = 2;
 
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
