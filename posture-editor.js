@@ -5,12 +5,20 @@ var touchInterface = false;
 
 // create a scene with a better shadow
 createScene();
-var light = scene.children[0];
-	//light.shadow.mapSize.width = 2*1024;
-	//light.shadow.mapSize.height = 2*1024;
+
+scene.remove( light )
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+// PointLight and DirectionaLight make problems with older GPU
+var light = new THREE.SpotLight( 'white', 0.5 );
+	light.position.set( 0, 100, 50 );
+	light.penumbra = 1;
 	light.shadow.mapSize.width = Math.min( 4*1024, renderer.capabilities.maxTextureSize/2 );
 	light.shadow.mapSize.height = light.shadow.mapSize.width;
 	light.shadow.radius = 2;
+	light.castShadow = true;
+	scene.add( light );
+	
 
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 

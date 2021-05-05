@@ -50,7 +50,7 @@ function createScene()
 		camera.position.set(0,0,150);
 
 
-	var light = new THREE.PointLight('white',0.5);
+	light = new THREE.PointLight('white',0.5);
 		light.position.set(0,100,50);
 		light.shadow.mapSize.width = 1024;
 		light.shadow.mapSize.height = 1024;
