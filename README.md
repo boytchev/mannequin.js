@@ -18,7 +18,7 @@
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
 	* [Global position](#Global-position)
-	* [AR mode](#AR-mode) (under development)
+	* [AR mode](#ar-mode) (under development)
 
 # About
 **Mannequin.js** is a simple library of an articulated mannequin figure. The shape of the figure
