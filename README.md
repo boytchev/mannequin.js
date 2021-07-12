@@ -18,6 +18,7 @@
 	* [Hiding body parts](#Hiding-body-parts)
 	* [Custom body parts](#Custom-body-parts)
 	* [Global position](#Global-position)
+	* [AR mode](#AR-mode) (under development)
 
 # About
 **Mannequin.js** is a simple library of an articulated mannequin figure. The shape of the figure
@@ -520,6 +521,10 @@ var bottom = Math.min(
 man.position.y += (-29.5-bottom);
 ```			
 				
+### AR mode
+
+AR mode is under development. ([test example](https://boytchev.github.io/mannequin.js/examples/example-ar-blend.html)):
+
 ---
 
 February, 2021
