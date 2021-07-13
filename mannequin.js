@@ -122,7 +122,7 @@ function createSceneAR()
 	clock = new THREE.Clock();
 
 	buttonAR = document.createElement('button');
-	buttonAR.innerHTML = 'Start AR 4';
+	buttonAR.innerHTML = 'Start AR 5';
 	buttonAR.style = 'position:fixed; width:8em; left:calc(50% - 4em); top:40%; z-index:100; font-size: 1.5em;';
 	document.body.appendChild( buttonAR );
 	buttonAR.addEventListener( 'click', getVideoAR );
@@ -177,12 +177,12 @@ var deviceSpeedAR = new THREE.Vector3();
 function deviceMotionAR( event )
 {
 	var a = event.acceleration,
-		t = event.interval; // ms -> seconds
+		t = event.interval/1000; // ms -> seconds
 	
-	//deviceSpeedAR = deviceSpeedAR.addScaledVector( a, t );
+	deviceSpeedAR.y += a.y * t;
 	//camera.position.add( deviceSpeedAR );
 
-	var s = 'Y='+(a.y.toFixed(4))+'<br>T='+t;
+	var s = 'Y='+(deviceSpeedAR.y.toFixed(4))+'<br>T='+(t.toFixed(4));
 	document.getElementById('debug').innerHTML = s;
 	
 }
