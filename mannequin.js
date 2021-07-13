@@ -119,8 +119,6 @@ function createSceneAR()
 	onWindowResize();
 
 
-	window.addEventListener( "deviceorientation", deviceOrientationAR, true);
-	
 	clock = new THREE.Clock();
 
 	buttonAR = document.createElement('button');
@@ -146,6 +144,9 @@ function showVideoAR( stream )
 		document.body.appendChild( video );
 		
 	buttonAR.style.display = "none";
+
+	window.addEventListener( "deviceorientation", deviceOrientationAR, true);
+	window.addEventListener( "devicemotion", deviceMotionAR, true);
 }
 
 
@@ -168,6 +169,18 @@ function deviceOrientationAR( event )
 	gamma = THREE.Math.degToRad( gamma );
 	
 	camera.rotation.set( gamma, alpha, 0, 'YZX' );
+}
+
+
+var deviceSpeedAR = new THREE.Vector3();
+
+function deviceMotionAR( event )
+{
+	var a = event.acceleration,
+		t = event.interval/1000; // ms -> seconds
+
+	deviceSpeedAR.add( a );
+	camera.position.add( deviceSpeedAR );
 }
 
 
