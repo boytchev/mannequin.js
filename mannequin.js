@@ -179,11 +179,12 @@ function deviceMotionAR( event )
 	var a = event.acceleration,
 		t = event.interval/1000; // ms -> seconds
 	
-	var s = a.x.toFixed(3)+' '+a.y.toFixed(3)+' '+a.z.toFixed(3);
+	deviceSpeedAR.addScaled( a, t );
+	camera.position.add( deviceSpeedAR );
+
+	var s = deviceSpeedAR.x.toFixed(3)+' '+deviceSpeedAR.y.toFixed(3)+' '+deviceSpeedAR.z.toFixed(3);
 	document.getElementById('debug').innerHTML = s;
 	
-	deviceSpeedAR.add( a );
-	camera.position.add( deviceSpeedAR );
 }
 
 
