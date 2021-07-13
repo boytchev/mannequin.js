@@ -182,8 +182,8 @@ function deviceMotionAR( event )
 	deviceSpeedAR = deviceSpeedAR.addScaled( a, t );
 	camera.position.add( deviceSpeedAR );
 
-	var s = deviceSpeedAR.x.toFixed(3)+' '+deviceSpeedAR.y.toFixed(3)+' '+deviceSpeedAR.z.toFixed(3)+' t='+t.toFixed(3);
-	document.getElementById('debug').innerHTML = s;
+	var s = 'Y='+deviceSpeedAR.y+'<br>T='+t;
+	document.getElementById('debug').innerHTML = t;
 	
 }
 	document.getElementById('debug').innerHTML = 'v2';
