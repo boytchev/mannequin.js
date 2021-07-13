@@ -179,14 +179,14 @@ function deviceMotionAR( event )
 	var a = event.acceleration,
 		t = event.interval/1000; // ms -> seconds
 	
-	deviceSpeedAR.addScaled( a, t );
+	deviceSpeedAR = deviceSpeedAR.addScaled( a, t );
 	camera.position.add( deviceSpeedAR );
 
-	var s = deviceSpeedAR.x.toFixed(3)+' '+deviceSpeedAR.y.toFixed(3)+' '+deviceSpeedAR.z.toFixed(3);
+	var s = deviceSpeedAR.x.toFixed(3)+' '+deviceSpeedAR.y.toFixed(3)+' '+deviceSpeedAR.z.toFixed(3)+' t='+t.toFixed(3);
 	document.getElementById('debug').innerHTML = s;
 	
 }
-	document.getElementById('debug').innerHTML = 'v1';
+	document.getElementById('debug').innerHTML = 'v2';
 
 
 function drawFrame()
