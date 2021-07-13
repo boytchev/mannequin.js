@@ -523,7 +523,7 @@ man.position.y += (-29.5-bottom);
 				
 ### AR mode
 
-AR mode is under development. ([test example r1](https://boytchev.github.io/mannequin.js/examples/example-ar-blend.html)):
+AR mode is under development. ([test example](https://boytchev.github.io/mannequin.js/examples/example-ar-blend.html)):
 
 ---
 
