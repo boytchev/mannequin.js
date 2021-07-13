@@ -186,7 +186,6 @@ function deviceMotionAR( event )
 	document.getElementById('debug').innerHTML = t;
 	
 }
-	document.getElementById('debug').innerHTML = 'v2';
 
 
 function drawFrame()
