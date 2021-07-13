@@ -122,7 +122,7 @@ function createSceneAR()
 	clock = new THREE.Clock();
 
 	buttonAR = document.createElement('button');
-	buttonAR.innerHTML = 'Start AR';
+	buttonAR.innerHTML = 'Start AR 1';
 	buttonAR.style = 'position:fixed; width:8em; left:calc(50% - 4em); top:40%; z-index:100; font-size: 1.5em;';
 	document.body.appendChild( buttonAR );
 	buttonAR.addEventListener( 'click', getVideoAR );
