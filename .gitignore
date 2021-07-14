@@ -1,4 +1,7 @@
+# Node modules
+node_modules/
 
+# Private content
 *.bak
 examples/mongoose.conf
 examples/mongoose-free-5.6.exe
