@@ -79,17 +79,17 @@ Mannequin figures are created as instances of classes `Male(height)`, `Female(he
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
 ``` javascript
-var man = new Male();
-    man.position.x = 20;
-	man.turn = -120;
-    :
-var woman = new Female();
-	woman.position.x = -20;
-	woman.turn = -60;
-    :
-var kid = new Child();
-	kid.position.z = -7
-    :
+man = new Male();
+man.position.x = 20;
+man.turn = -120;
+:
+woman = new Female();
+woman.position.x = -20;
+woman.turn = -60;
+:
+kid = new Child();
+kid.position.z = -7
+:
 ```
 
 These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines whether the shape is feminine or masculine
@@ -113,22 +113,22 @@ Each body part has rotational properties that define its position. The values of
 Mannequin.js has two ways of setting rotations &ndash; *absolute* and *relative*. When a rotation property is set to a specific value, this produces absolute rotation. The following code will set the forward bend angle of the torso to 45&deg;:
 
 ``` javascript
-	man.torso.bend = 45;
+man.torso.bend = 45;
 ```
 
 **Absolute rotations** are considered by some people as counterintuitive. Some joints, like wrists, have three rotational properties (*triplets*). Due to the nature of rotations in 3D space, rotations in a triplet are interconnected &ndash; modifying one property in a triplet often affects the other two. The following code demonstrates how seeting the *turn* property modifies the *bend* property.
 
 ``` javascript
-	man.torso.bend = 45; /* bend=45 */
-	man.torso.turn = 45; /* turn=45, but now bend≈35.3 */
+man.torso.bend = 45; /* bend=45 */
+man.torso.turn = 45; /* turn=45, but now bend≈35.3 */
 ```
 
 
 **Relative rotations** are set in respect to the current rotation value of the property. Modifications are much safer, as they do not rely on fixed values. The following code will bend the torso 45&deg; from its current position, and then turn it 45&deg;:
 
 ``` javascript
-	man.torso.bend += 45;
-	man.torso.turn += 45;
+man.torso.bend += 45;
+man.torso.turn += 45;
 ```
 
 ### Central body parts
@@ -304,19 +304,19 @@ The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set
 ``` javascript
 function animate(t)
 {
-	var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
-		time2 = (sin(2*t-60)+cos(3*t-90)+cos(5*t-120))/3;
+    var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
+        time2 = (sin(2*t-60)+cos(3*t-90)+cos(5*t-120))/3;
 	
-	ball.position.x = -3*time1;
+    ball.position.x = -3*time1;
 	
-	child.position.x = -3*time1;
-	child.position.y = 4.2+cos(90*time1);
+    child.position.x = -3*time1;
+    child.position.y = 4.2+cos(90*time1);
 
-	child.turn = -90-20*time1+20*time2;
-	child.tilt = 10*time1;
-	:
+    child.turn = -90-20*time1+20*time2;
+    child.tilt = 10*time1;
+    :
 	
-	scene.rotation.y = time1/2;
+    scene.rotation.y = time1/2;
 }
 ```
 
@@ -392,7 +392,7 @@ The global color of joints and limbs refers to all joints and all limbs. Modific
 // global colors
 Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
 
-var man = new Male();
+man = new Male();
 :
 // individual colors
 man.l_elbow.recolor( 'yellow', 'black' );
@@ -506,16 +506,16 @@ The following example uses four contact points on each shoe (i.e. `man.r_ankle` 
 
 ``` javascript
 // get minimal vertical position of contact points
-var bottom = Math.min(
-	man.l_ankle.point(6,2,0).y,
-	man.l_ankle.point(-2,2.5,0).y,
-	man.l_ankle.point(2,2.5,2).y,
-	man.l_ankle.point(2,2.5,-2).y,
+bottom = Math.min(
+    man.l_ankle.point(6,2,0).y,
+    man.l_ankle.point(-2,2.5,0).y,
+    man.l_ankle.point(2,2.5,2).y,
+    man.l_ankle.point(2,2.5,-2).y,
 
-	man.r_ankle.point(6,2,0).y,
-	man.r_ankle.point(-2,2.5,0).y,
-	man.r_ankle.point(2,2.5,2).y,
-	man.r_ankle.point(2,2.5,-2).y
+    man.r_ankle.point(6,2,0).y,
+    man.r_ankle.point(-2,2.5,0).y,
+    man.r_ankle.point(2,2.5,2).y,
+    man.r_ankle.point(2,2.5,-2).y
 );
 
 man.position.y += (-29.5-bottom);
