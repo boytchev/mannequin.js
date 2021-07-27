@@ -42,14 +42,14 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
-Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.3** from February 2021.
+Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.41** from July 2021.
 
-Three.js is included in this repository to safeguard against incompatibilities with future versions. Three.js is not a part of mannequin.js.
+Three.js and OrbitControls.js are included in this repository to safeguard against incompatibilities with future versions. They are not a part of mannequin.js.
 
 
 # Initialization
 
-The **mannequin.js** library is provided as a JavaScript file that has to
+The **mannequin.js** library is provided as a single JavaScript file that has to
 be include along with three.js or three.min.js. 
 
 ### Minimal program
