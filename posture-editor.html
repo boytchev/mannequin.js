@@ -1,30 +1,23 @@
-﻿<!DOCTYPE html>
-
+﻿﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<link rel="stylesheet" href="posture-editor.css">
-
-		<script src="libs/three.min.js"></script>
-		<script src="libs/OrbitControls.min.js"></script>
-		<script src="mannequin.js"></script>
-	</head>
-
-	<body>
-		<div id="panel">
-			<label><input id="inverse-kinematics" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
-			<label><input id="biological-constraints" type="checkbox" class="toggle" checked><span>Biological<br>constraints</span></label><br><br>
-
-			<label><input id="rot-z" type="checkbox" class="toggle" checked><span id="rot-z-name">N/A</span></label><br>
-			<label><input id="rot-x" type="checkbox" class="toggle"><span id="rot-x-name">N/A</span></label><br>
-			<label><input id="rot-y" type="checkbox" class="toggle"><span id="rot-y-name">N/A</span></label><br>
-			<label><input id="mov-y" type="checkbox" class="toggle"><span>Move</span></label><br>
-
-			<button id="gp">Get posture</button><br>
-			<button id="sp">Set posture</button><br>
-		</div>
-
-		<script src="posture-editor.js"></script>
-	</body>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="posture-editor.css">
+      <script src="libs/three.min.js"></script>
+      <script src="libs/OrbitControls.min.js"></script>
+      <script src="mannequin.js"></script>
+   </head>
+   <body>
+      <div id="panel">
+         <label><input id="inverse-kinematics" type="checkbox" class="toggle"><span>Inverse<br>kinematics</span></label><br>
+         <label><input id="biological-constraints" type="checkbox" class="toggle" checked><span>Biological<br>constraints</span></label><br><br>
+         <label><input id="rot-z" type="checkbox" class="toggle" checked><span id="rot-z-name">N/A</span></label><br>
+         <label><input id="rot-x" type="checkbox" class="toggle"><span id="rot-x-name">N/A</span></label><br>
+         <label><input id="rot-y" type="checkbox" class="toggle"><span id="rot-y-name">N/A</span></label><br>
+         <label><input id="mov-y" type="checkbox" class="toggle"><span>Move</span></label><br>
+         <button id="gp">Get posture</button><br>
+         <button id="sp">Set posture</button><br>
+      </div>
+      <script src="posture-editor.js"></script>
+   </body>
 </html>
