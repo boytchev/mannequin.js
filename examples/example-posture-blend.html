@@ -11,53 +11,56 @@
 		<script>
 		
 			createScene();
-			
-			var man = new Male(),
-				woman = new Female();
-				
+
+			man = new Male();
 			man.position.x = -20;
+
+			woman = new Female();
 			woman.position.x = 20;
-			
+
 			// stick
-			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
-				material = new THREE.MeshPhongMaterial({color:'crimson'}),
-				stick = new THREE.Mesh(geometry,material);
-				stick.rotation.x = rad(90);
-				stick.position.set(-0.5,1,0);
-				stick.castShadow = true;
-				
+			var geometry = new THREE.CylinderBufferGeometry(0.4, 0.4, 80),
+				material = new THREE.MeshPhongMaterial({color: 'crimson'}),
+				stick = new THREE.Mesh(geometry, material);
+
+			stick.rotation.x = rad(90);
+			stick.position.set(-0.5, 1, 0);
+			stick.castShadow = true;
+
 			man.r_fingers.attach(stick);
 			woman.r_fingers.attach(stick.clone());
-			
+
 			// posture from example-posture.html
-			var A = {"version":6,"data":[-7.2,[90,-85,74.8],[16.1,-29.5,26.3],[3.5,-34.8,6.1],[14.1,-2.9,-19.8],[30],[-6,-6,-42.6],[14.6,-46.9,98.9],[90],[4.9,9,-15.4],[68.9,-34.7,-2.1],[155],[-20,0,0],[-10,-10],[-77,4.9,-1.1],[55],[15,-60,-20],[100,100]]};
-			
+			A = {"version": 6, "data": [-7.2, [90, -85, 74.8], [16.1, -29.5, 26.3], [3.5, -34.8, 6.1], [14.1, -2.9, -19.8], [30], [-6, -6, -42.6], [14.6, -46.9, 98.9], [90], [4.9, 9, -15.4], [68.9, -34.7, -2.1], [155], [-20, 0, 0], [-10, -10], [-77, 4.9, -1.1], [55], [15, -60, -20], [100, 100]]};
+
 			// posture from example-posture-standing.html
-			var B = {"version":6,"data":[2.8,[0,-90,0],[0,0,-2],[0,0,5],[16,0,0],[0],[-16.1,-5.8,-1.7],[-16,0,0],[0],[16.1,5.8,-1.7],[15.1,-11.3,-12],[30],[-15,0,0],[20,20],[-28.4,8.1,-18.3],[70],[15,35,26.3],[90,90]]};
-			
+			B = {"version": 6, "data": [2.8, [0, -90, 0], [0, 0, -2], [0, 0, 5], [16, 0, 0], [0], [-16.1, -5.8, -1.7], [-16, 0, 0], [0], [16.1, 5.8, -1.7], [15.1, -11.3, -12], [30], [-15, 0, 0], [20, 20], [-28.4, 8.1, -18.3], [70], [15, 35, 26.3], [90, 90]]};
+
 			man.posture = A;
 			woman.posture = A;
-		
+
 			function animate(t)
 			{
-				var k = THREE.Math.clamp( 0.5+sin(t), 0, 1 );
+				var k = THREE.Math.clamp(0.5 + sin(t), 0, 1);
 
 				// blend posture between A and B
-				man.posture = Mannequin.blend(A,B,k);
-				man.rotation.y = Math.PI/2;
-					
+				man.posture = Mannequin.blend(A, B, k);
+				man.rotation.y = Math.PI / 2;
+
 				// copy posture from one figure to another
 				woman.posture = man.posture;
-				woman.rotation.y = -Math.PI/2;
+				woman.rotation.y = -Math.PI / 2;
 
 				// get minimal vertical position of contact points
-				var bottom = man.r_ankle.point(-2,2.5,0).y;
-					man.position.y += (-29.5-bottom);
-				
-				var bottom = woman.r_ankle.point(-2,2.5,0).y;
-					woman.position.y += (-29.5-bottom);
+				var bottom;
 
-				scene.rotation.y = t/400;
+				bottom = man.r_ankle.point(-2, 2.5, 0).y;
+				man.position.y += (-29.5 - bottom);
+
+				bottom = woman.r_ankle.point(-2, 2.5, 0).y;
+				woman.position.y += (-29.5 - bottom);
+
+				scene.rotation.y = t / 400;
 			}
 			
 		</script>

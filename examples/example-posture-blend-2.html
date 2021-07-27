@@ -11,76 +11,80 @@
 		<script>
 		
 			createScene();
-			
-			var man0 = new Male(),
-				man1 = new Male(),
-				man  = new Male();
-				
+
+			man0 = new Male();
+			man1 = new Male();
+			man = new Male();
+
 			// stick
-			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
-				material = new THREE.MeshPhongMaterial({color:'crimson'}),
-				stick = new THREE.Mesh(geometry,material);
-				stick.rotation.x = rad(90);
-				stick.position.set(-0.5,1,0);
-				stick.castShadow = true;
-				
-			var stick01 = stick.clone();
-				stick01.material = material.clone();
-				
+			geometry = new THREE.CylinderBufferGeometry(0.4, 0.4, 80);
+			material = new THREE.MeshPhongMaterial({color: 'crimson'});
+			stick = new THREE.Mesh(geometry, material);
+			stick.rotation.x = rad(90);
+			stick.position.set(-0.5, 1, 0);
+			stick.castShadow = true;
+
+			// another stick
+			stick01 = stick.clone();
+			stick01.material = material.clone();
+
 			man.r_fingers.attach(stick);
 			man0.r_fingers.attach(stick01);
 			man1.r_fingers.attach(stick01.clone());
 
 			man0.position.x = -30;
 			man0.rotation.y = 2;
-			
+
 			man1.position.x = +30;
-			
+
 			// posture from example-posture.html
-			var A = {"version":6,"data":[-11.2349,[90,-85,74.8],[16.1,-29.5,26.3],[3.5,-34.8,6.1],[14.1,-2.9,-19.8],[30],[-6,-6,-42.6],[14.6,-46.9,98.9],[90],[4.9,9,-15.4],[68.9,-34.7,-2.1],[155],[-20,0,0],[-10,-10],[-77,4.9,-1.1],[55],[15,-60,-20],[100,100]]};
-			
-			// posture from example-posture-standing.html
-			var B = {"version":6,"data":[-0.8,[0,-90,0],[0,0,-2],[0,0,5],[16,0,0],[0],[-16.1,-5.8,-1.7],[-16,0,0],[0],[16.1,5.8,-1.7],[15.1,-11.3,-12],[30],[-15,0,0],[20,20],[-28.4,8.1,-18.3],[70],[15,35,26.3],[90,90]]};
-			
+			A = {"version": 6, "data": [-11.2349, [90, -85, 74.8], [16.1, -29.5, 26.3], [3.5, -34.8, 6.1], [14.1, -2.9, -19.8], [30], [-6, -6, -42.6], [14.6, -46.9, 98.9], [90], [4.9, 9, -15.4], [68.9, -34.7, -2.1], [155], [-20, 0, 0], [-10, -10], [-77, 4.9, -1.1], [55], [15, -60, -20], [100, 100]]};
+
+			// posture from example - posture - standing.html
+			B = {"version": 6, "data": [-0.8, [0, -90, 0], [0, 0, -2], [0, 0, 5], [16, 0, 0], [0], [-16.1, -5.8, -1.7], [-16, 0, 0], [0], [16.1, 5.8, -1.7], [15.1, -11.3, -12], [30], [-15, 0, 0], [20, 20], [-28.4, 8.1, -18.3], [70], [15, 35, 26.3], [90, 90]]};
+
 			man0.posture = A;
 			man1.posture = B;
-			
-			man0.traverse( function(o) {
-				if(o.material)
-				{
-					o.material.transparent = true;
-					o.material.opacity = 0.3;
-					o.material.depthWrite = false;
-				}
-			} );
-			man1.traverse( function(o) {
-				if(o.material)
-				{
-					o.material.transparent = true;
-					o.material.opacity = 0.3;
-					o.material.depthWrite = false;
-				}
-			} );
 
+			man0.traverse(function (o)
+			{
+				if (o.material)
+				{
+					o.material.transparent = true;
+					o.material.opacity = 0.3;
+					o.material.depthWrite = false;
+				}
+			});
+
+			man1.traverse(function (o)
+			{
+				if (o.material)
+				{
+					o.material.transparent = true;
+					o.material.opacity = 0.3;
+					o.material.depthWrite = false;
+				}
+			});
 
 			function animate(t)
 			{
-				var k = THREE.Math.clamp( 0.5+0.6*sin(t), 0, 1 );
+				var k = THREE.Math.clamp(0.5 + 0.6 * sin(t), 0, 1);
 
-				man.posture = Mannequin.blend(A,B,k);
-				man.position.x = THREE.Math.mapLinear(k,0,1,-30,30);
-				man.rotation.y = THREE.Math.mapLinear(k,0,1,2,0);
+				man.posture = Mannequin.blend(A, B, k);
+				man.position.x = THREE.Math.mapLinear(k, 0, 1, -30, 30);
+				man.rotation.y = THREE.Math.mapLinear(k, 0, 1, 2, 0);
 
 				var bottom = Math.min(
-					man.l_ankle.point(6,2,0).y,
-					man.l_ankle.point(-2,2.5,0).y,
-					man.l_ankle.point(2,2.5,2).y,
-					man.l_ankle.point(2,2.5,-2).y
+					man.l_ankle.point(6, 2, 0).y,
+					man.l_ankle.point(-2, 2.5, 0).y,
+					man.l_ankle.point(2, 2.5, 2).y,
+					man.l_ankle.point(2, 2.5, -2).y
 				);
-				man.position.y += (-29.5-bottom)
+				man.position.y += (-29.5 - bottom)
 
-				scene.rotation.y = sin(t/10);
+				scene.rotation.y = sin(t / 10);
 			}
+			
 		</script>
 	</body>
 	

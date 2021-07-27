@@ -11,30 +11,35 @@
 		<script>
 		
 			createScene();
-			
-			var man = new Male();
-				man.position.x = -20;
-			
-				man.torso.bend += 45;
-				man.torso.turn += 90;
-				man.torso.tilt += 60;
 
-			var child = new Child();
-				child.torso.tilt += 60;
-				child.torso.bend += 45;
-				child.torso.turn += 90;
-				
-			var woman = new Female();
-				woman.position.x = 20;
-				
-				woman.torso.turn += 90;
-				woman.torso.bend += 45;
-				woman.torso.tilt += 60;
-				
+			man = new Male();
+			man.position.x = -20;
+
+			man.torso.bend += 45;
+			man.torso.turn += 90;
+			man.torso.tilt += 60;
+
+			//
+
+			child = new Child();
+			child.torso.tilt += 60;
+			child.torso.bend += 45;
+			child.torso.turn += 90;
+
+			//
+
+			woman = new Female();
+			woman.position.x = 20;
+
+			woman.torso.turn += 90;
+			woman.torso.bend += 45;
+			woman.torso.tilt += 60;
+
 			function animate(t)
 			{
-				scene.rotation.y = t/100;
+				scene.rotation.y = t / 100;
 			}
+			
 		</script>
 	</body>
 	

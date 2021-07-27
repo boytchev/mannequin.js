@@ -10,95 +10,101 @@
 		<script>
 
 			createScene();
-			
+
 			man = new Male();
 
 			// adding bracelets
 			bracelet = new THREE.Mesh(
-					new THREE.CylinderGeometry(3,3,1,16),	
-					new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
+				new THREE.CylinderGeometry(3, 3, 1, 16),
+				new THREE.MeshPhongMaterial(
+				{
+					color: 'crimson',
+					shininess: 200
+				})
 			);
 			bracelet.castShadow = true;
 			bracelet.position.y = 6;
 			man.l_elbow.attach(bracelet);
-			
+
 			bracelet = bracelet.clone();
 			man.r_elbow.attach(bracelet);
-
 
 			// replacing the leg with other objects
 			man.r_leg.hide();
 
-			material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
-				obj.castShadow = true;
-				obj.position.y = 2;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(3,3,1, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 5.25;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(2.5,2.8,1, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 7.75;
-				man.r_leg.attach(obj);
-			
-			obj = new THREE.Mesh(new THREE.CylinderGeometry(1.5,2.5,3, 32),	material);
-				obj.castShadow = true;
-				obj.position.y = 11;
-				man.r_leg.attach(obj);
+			material = new THREE.MeshPhongMaterial(
+			{
+				color: 'crimson',
+				shininess: 200
+			});
 
+			obj = new THREE.Mesh(new THREE.CylinderGeometry(3, 2, 3, 32), material);
+			obj.castShadow = true;
+			obj.position.y = 2;
+			man.r_leg.attach(obj);
 
+			obj = new THREE.Mesh(new THREE.CylinderGeometry(3, 3, 1, 32), material);
+			obj.castShadow = true;
+			obj.position.y = 5.25;
+			man.r_leg.attach(obj);
+
+			obj = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.8, 1, 32), material);
+			obj.castShadow = true;
+			obj.position.y = 7.75;
+			man.r_leg.attach(obj);
+
+			obj = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 2.5, 3, 32), material);
+			obj.castShadow = true;
+			obj.position.y = 11;
+			man.r_leg.attach(obj);
 
 			function animate(t)
 			{
-				t=t/2;
-				
-				man.position.set(15*sin(0.4*t)*sin(0.58*t),0,0);
-				
-				man.turn = 30*sin(2*t)-90;
-				man.bend = 30*sin(t);
-				man.tilt = 40*cos(1.7*t);
-				
-				man.torso.bend = 30*sin(1.2*t)+20;
-				man.torso.turn = 40*sin(2.1*t);
-				
-				man.head.turn = 40*sin(1.9*t);
-				man.head.nod = 20*sin(2.3*t);
-				man.head.tilt = 10*sin(1.4*t);
-				
+				t = t / 2;
+
+				man.position.set(15 * sin(0.4 * t) * sin(0.58 * t), 0, 0);
+
+				man.turn = 30 * sin(2 * t) - 90;
+				man.bend = 30 * sin(t);
+				man.tilt = 40 * cos(1.7 * t);
+
+				man.torso.bend = 30 * sin(1.2 * t) + 20;
+				man.torso.turn = 40 * sin(2.1 * t);
+
+				man.head.turn = 40 * sin(1.9 * t);
+				man.head.nod = 20 * sin(2.3 * t);
+				man.head.tilt = 10 * sin(1.4 * t);
+
 				man.l_leg.reset();
 				man.r_leg.reset();
-				man.l_leg.straddle = 30*cos(2.2*t)+50;
-				man.r_leg.straddle = 30*sin(2.6*t)+50;
-				man.l_leg.raise = 40*sin(2.4*t)+30;
-				man.r_leg.raise = 40*cos(2.1*t)+30;
-				man.l_leg.turn = 30*cos(1.2*t)+20;
-				man.r_leg.turn = 30+sin(1.6*t)+20;
+				man.l_leg.straddle = 30 * cos(2.2 * t) + 50;
+				man.r_leg.straddle = 30 * sin(2.6 * t) + 50;
+				man.l_leg.raise = 40 * sin(2.4 * t) + 30;
+				man.r_leg.raise = 40 * cos(2.1 * t) + 30;
+				man.l_leg.turn = 30 * cos(1.2 * t) + 20;
+				man.r_leg.turn = 30 + sin(1.6 * t) + 20;
 
-				man.l_knee.bend = 40*sin(2.4*t)+40;
-				man.r_knee.bend = 40*sin(1.9*t)+40;
+				man.l_knee.bend = 40 * sin(2.4 * t) + 40;
+				man.r_knee.bend = 40 * sin(1.9 * t) + 40;
 
 				man.l_arm.reset();
 				man.r_arm.reset();
-				man.l_arm.raise = 50*sin(2.1*t)+40;
-				man.r_arm.raise = 50*cos(2.5*t)+40;
-				man.l_arm.straddle = 20*cos(2.3*t)+20;
-				man.r_arm.straddle = 20*sin(2.4*t)+20;
-				man.l_arm.turn = 30*cos(1.7*t)+40;
-				man.r_arm.turn = 30*sin(1.4*t)+40;
+				man.l_arm.raise = 50 * sin(2.1 * t) + 40;
+				man.r_arm.raise = 50 * cos(2.5 * t) + 40;
+				man.l_arm.straddle = 20 * cos(2.3 * t) + 20;
+				man.r_arm.straddle = 20 * sin(2.4 * t) + 20;
+				man.l_arm.turn = 30 * cos(1.7 * t) + 40;
+				man.r_arm.turn = 30 * sin(1.4 * t) + 40;
 
-				man.l_elbow.bend = 40*sin(1.9*t)+40;
-				man.r_elbow.bend = 40*sin(2.2*t)+40;
+				man.l_elbow.bend = 40 * sin(1.9 * t) + 40;
+				man.r_elbow.bend = 40 * sin(2.2 * t) + 40;
 
-				man.l_fingers.bend = 40*sin(4.9*t)+40;
-				man.r_fingers.bend = 40*cos(4.9*t)+40;
-	
-				scene.rotation.y = t/100;
+				man.l_fingers.bend = 40 * sin(4.9 * t) + 40;
+				man.r_fingers.bend = 40 * cos(4.9 * t) + 40;
+
+				scene.rotation.y = t / 100;
 			}
+			
 		</script>
 	</body>
 </html>

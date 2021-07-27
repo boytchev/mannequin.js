@@ -11,23 +11,26 @@
 		<script>
 		
 			createScene();
-			
-			var man = new Male();
+
+			man = new Male();
 
 			man.position.y -= 1;
-			
+
+			// left leg
 			man.l_leg.straddle = 16;
 			man.l_ankle.tilt = 16;
 
+			// right leg
 			man.r_leg.straddle = 16;
 			man.r_ankle.tilt = 16;
 
+			// left arm
 			man.l_arm.straddle = 16;
 			man.l_arm.turn = -10;
 			man.l_arm.raise = -15;
 			man.l_elbow.bend = 30;
 			man.l_fingers.bend = 20;
-			
+
 			// right arm
 			man.r_arm.raise = -20;
 			man.r_arm.straddle = 30;
@@ -37,20 +40,21 @@
 			man.r_fingers.bend = 90;
 
 			// stick
-			var geometry = new THREE.CylinderBufferGeometry(0.4,0.4,80),
-				material = new THREE.MeshPhongMaterial({color:'crimson'}),
-				stick = new THREE.Mesh(geometry,material);
-				stick.rotation.x = rad(90);
-				stick.position.set(-0.5,1,0);
-				stick.castShadow = true;
-				
+			var geometry = new THREE.CylinderBufferGeometry(0.4, 0.4, 80),
+				material = new THREE.MeshPhongMaterial({color: 'crimson'}),
+				stick = new THREE.Mesh(geometry, material);
+
+			stick.rotation.x = rad(90);
+			stick.position.set(-0.5, 1, 0);
+			stick.castShadow = true;
+
 			man.r_fingers.attach(stick);
-			
-			
+
 			function animate(t)
 			{
-				scene.rotation.y = t/400;
+				scene.rotation.y = t / 400;
 			}
+			
 		</script>
 	</body>
 	

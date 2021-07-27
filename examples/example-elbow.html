@@ -12,29 +12,29 @@
 		<script>
 		
 			createScene();
-			
-			var man = new Male();
-				man.position.x = -30;
-			
-			var child = new Child();
-			
-			var woman = new Female();
-				woman.position.x = 30;
-			
-			addLabel(man.l_elbow,'elbow.bend', 0,-0.1,0, 3, 1);
-			addLabel(woman.r_elbow,'elbow.bend', 17,0.1,0, 3, 3);
-			
+
+			man = new Male();
+			man.position.x = -30;
+
+			child = new Child();
+
+			woman = new Female();
+			woman.position.x = 30;
+
+			addLabel(man.l_elbow, 'elbow.bend', 0, -0.1, 0, 3, 1);
+			addLabel(woman.r_elbow, 'elbow.bend', 17, 0.1, 0, 3, 3);
+
 			function animate(t)
 			{
-				man.r_elbow.bend = 30*sin(2*t)+30;
-				man.l_elbow.bend = 30*sin(2*t+180)+30;
-				
-				child.r_elbow.bend = 30*sin(2*t+120)+30;
-				child.l_elbow.bend = 30*sin(2*t+300)+30;
-				
-				woman.r_elbow.bend = 30*sin(2*t+50)+30;
-				woman.l_elbow.bend = 30*sin(2*t+240)+30;
-			}			
+				man.r_elbow.bend = 30 * sin(2 * t) + 30;
+				man.l_elbow.bend = 30 * sin(2 * t + 180) + 30;
+
+				child.r_elbow.bend = 30 * sin(2 * t + 120) + 30;
+				child.l_elbow.bend = 30 * sin(2 * t + 300) + 30;
+
+				woman.r_elbow.bend = 30 * sin(2 * t + 50) + 30;
+				woman.l_elbow.bend = 30 * sin(2 * t + 240) + 30;
+			}
 
 		</script>
 	</body>
