@@ -12,7 +12,7 @@
 	4.1		converted from methods to virtual properties
 	4.2		support for truly local rotations in any order and interlacing
 	4.3		absolute and relative rotations + significant refactoring
-	4.4		added AR mode
+	4.4		added AR mode -- and then removed
 */
 
 const MANNEQUIN_VERSION = 4.4;
@@ -84,110 +84,6 @@ function createScene()
 
 
 } // createScene
-
-
-function createSceneAR()
-{
-	renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.setClearColor( 0, 0 );
-		renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0;';
-		renderer.setAnimationLoop(drawFrame);
-		document.body.appendChild( renderer.domElement );
-
-
-	scene = new THREE.Scene();
-
-
-	camera = new THREE.PerspectiveCamera( 30, window.innerWidth/window.innerHeight, 0.1, 2000 );
-		camera.position.set(0,0,150);
-
-
-	light = new THREE.PointLight('white',0.5);
-		light.position.set(0,100,50);
-		scene.add( light, new THREE.AmbientLight('white',0.5) );
-
-
-	function onWindowResize( event )
-	{
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-
-		renderer.setSize( window.innerWidth, window.innerHeight, true );
-	}
-	window.addEventListener( 'resize', onWindowResize, false );
-	onWindowResize();
-
-
-	clock = new THREE.Clock();
-
-	buttonAR = document.createElement('button');
-	buttonAR.innerHTML = 'Start AR 9';
-	buttonAR.style = 'position:fixed; width:8em; left:calc(50% - 4em); top:40%; z-index:100; font-size: 1.5em;';
-	document.body.appendChild( buttonAR );
-	buttonAR.addEventListener( 'click', getVideoAR );
-	
-} // createSceneAR
-
-
-function getVideoAR()
-{
-	navigator.mediaDevices.getUserMedia( {video:{facingMode:"environment"}} ).then(showVideoAR);
-}
-
-function showVideoAR( stream )
-{
-	var video = document.createElement('video');
-		video.srcObject = stream;
-		video.autoplay = true;
-		video.style = 'display:block; position:fixed; left:0; top:0; z-index:-100; width: 100%;';
-		document.body.appendChild( video );
-		
-	buttonAR.style.display = "none";
-
-	window.addEventListener( "deviceorientation", deviceOrientationAR, true);
-	window.addEventListener( "devicemotion", deviceMotionAR, true);
-}
-
-
-function deviceOrientationAR( event )
-{
-	var alpha = event.alpha,
-		gamma = event.gamma;
-
-	if( alpha === null ) return;
-	
-	if( gamma>=0 )
-		gamma = 90-gamma;
-	else
-	{
-		alpha = alpha+180;
-		gamma = -90-gamma;
-	}
-						
-	alpha = THREE.Math.degToRad( alpha );
-	gamma = THREE.Math.degToRad( gamma );
-	
-	camera.rotation.set( gamma, alpha, 0, 'YZX' );
-}
-
-
-var deviceAccelAR = new THREE.Vector3();
-var deviceSpeedAR = new THREE.Vector3();
-
-function deviceMotionAR( event )
-{
-	var a = event.acceleration,
-		t = event.interval/1000; // ms -> seconds
-	
-	camera.position.y += 0.5*a.y*t*t;
-
-	var s = 'A='+(a.y)+'<br>'+
-			'p='+(camera.position.y.toFixed(4))+'<br>'+
-			'T='+(t.toFixed(4));
-	document.getElementById('debug').innerHTML = s;
-	
-}
 
 
 function drawFrame()
