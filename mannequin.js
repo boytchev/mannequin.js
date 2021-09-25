@@ -431,12 +431,28 @@ class Joint extends THREE.Group
 		this.image.visible = false;
 	} // Joint.hide
 
+	show()
+	{
+		this.image.visible = true;
+	} // Joint.show
+	
 	// attach Object3D instance to the joint
 	attach(image)
 	{
 		this.imageWrapper.add(image);
 	} // Joint.attach
 
+	detach(image)
+	{
+		if (this.imageWrapper.children.includes(
+			this.imageWrapper.getObjectById(image.id)) )
+		{
+			this.imageWrapper.remove(
+				this.imageWrapper.getObjectById(image.id)
+			);
+		}
+	} // Joint.detach
+	
 	// calculate global coordinates of point with coordinates relative to the joint
 	point(x, y, z)
 	{
