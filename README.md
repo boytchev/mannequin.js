@@ -97,7 +97,7 @@ These three classes have a common predecessor &ndash; the class `Mannequin(femin
 
 [<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
 
-The difference between using differen figure classes is that `Mannequin` sets a default neutral posture of the figure, while `Male` and `Female` set a default male and female posture.
+The difference between using different figure classes is that `Mannequin` sets a default neutral posture of the figure, while `Male` and `Female` set a default male and female posture.
 
 
 # Body parts
