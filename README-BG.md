@@ -1,6 +1,8 @@
-Този документ е наличен и на [български език](README-BG.md)
+This document is also available in [English](README.md)
 
-# Table of contents
+# Съдържание
+
+(В момента се извършва превод)
 
 - [About](#about)
 - [Initialization](#initialization)
