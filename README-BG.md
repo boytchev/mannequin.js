@@ -4,8 +4,8 @@ This document is also available in [English](README.md)
 
 (В момента се извършва превод)
 
-- [About](#about)
-- [Initialization](#initialization)
+- [Обща информация](#обща-информация)
+- [Инициализация](#инициализация)
 	* [Minimal program](#minimal-program)
 	* [Figure types](#figure-types)
 - [Body parts](#body-parts)
@@ -24,10 +24,11 @@ This document is also available in [English](README.md)
 	* [Global position](#global-position)
 	* [VR mode](#vr-mode) (under development)
 
-# About
-**Mannequin.js** is a simple library of an articulated mannequin figure. The shape of the figure
-and its movements are done purely in JavaScript. The graphics is implemented in
-[Three.js](https://threejs.org). Click on an image to open a live demo.
+# Обща информация
+**Mannequin.js** е несложна библиотека от дижима фигура на манекен. Формата на фигурата
+и движенията ѝ се извършват изцяло в JavaScript. Изображението се генерира чрез
+[Three.js](https://threejs.org). Кликнете върху картинката, за да пуснете демонстрация на живо. 
+
 
 [<img src="examples/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 [<img src="examples/snapshots/example-figure-types.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
@@ -35,23 +36,26 @@ and its movements are done purely in JavaScript. The graphics is implemented in
 [<img src="examples/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 [<img src="examples/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-scene.html)
 
-You can try and build your own posturs with the online [Posture Editor](https://boytchev.github.io/mannequin.js/posture-editor.html)
+Може да се пробвате да създадете собствени пози с онлайн [Редактора на Пози](https://boytchev.github.io/mannequin.js/posture-editor.html)
 [<img src="examples/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/posture-editor.html)
 
-This is the fourth incarnation of the mannequin figure library. The first one was implemented
-in Elica. The second one was implemented in C/C++ and OpenGL. The third one
-was implemented in JS/Three.js and is a direct predecessor of the current mannequin.js.
-Since its first incarnation, mannequin.js is used in the course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate students from the
-[Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
-at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
+Това е четвъртата версия на библиотеката. Първата беше
+реализирана със софтуера Elica. Втората бе написана на
+C/C++ и OpenGL. Третата версия беше пренаписана на
+JavaScript и Three.js. Тя е прекият предшественик на
+текущата библиотека mannequin.js. Още от първата си
+версия mannequin.js се използва в курса *Основи на компютърната графика*
+за студенти от специалност Компютърни науки от
+[Факултет по Математика и Информатика](https://www.fmi.uni-sofia.bg/en)
+към [Софийски Университет](https://www.uni-sofia.bg/index.php/eng).
 
 
-Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.41** from July 2021.
+Mannequin.js е с лиценз **GPL-3.0**. Последната версия е **4.41** от юли 2021.
 
-Three.js and OrbitControls.js are included in this repository to safeguard against incompatibilities with future versions. They are not a part of mannequin.js.
+Three.js и OrbitControls.js са вбключени в това хранилище като предпазна мярка спрямо несъвместимост с бъдещи версии. Те не са част от mannequin.js.
 
 
-# Initialization
+# Инициализация
 
 The **mannequin.js** library is provided as a single JavaScript file that has to
 be include along with three.js or three.min.js. 
