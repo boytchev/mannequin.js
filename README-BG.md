@@ -6,7 +6,7 @@ This document is also available in [English](README.md)
 
 - [Обща информация](#обща-информация)
 - [Инициализация](#инициализация)
-	* [Minimal program](#minimal-program)
+	* [Минимална програма](#минимална-програма)
 	* [Figure types](#figure-types)
 - [Body parts](#body-parts)
     * [Central body parts](#central-body-parts)
@@ -25,7 +25,7 @@ This document is also available in [English](README.md)
 	* [VR mode](#vr-mode) (under development)
 
 # Обща информация
-**Mannequin.js** е несложна библиотека от дижима фигура на манекен. Формата на фигурата
+**Mannequin.js** е малка библиотека за правене движеща се фигура на манекен. Формата на фигурата
 и движенията ѝ се извършват изцяло в JavaScript. Изображението се генерира чрез
 [Three.js](https://threejs.org). Кликнете върху картинката, за да пуснете демонстрация на живо. 
 
@@ -52,17 +52,18 @@ JavaScript и Three.js. Тя е прекият предшественик на
 
 Mannequin.js е с лиценз **GPL-3.0**. Последната версия е **4.41** от юли 2021.
 
-Three.js и OrbitControls.js са вбключени в това хранилище като предпазна мярка спрямо несъвместимост с бъдещи версии. Те не са част от mannequin.js.
+Three.js и OrbitControls.js са включени като предпазна мярка спрямо
+несъвместимост с бъдещи версии. Те не са част от mannequin.js.
 
 
 # Инициализация
 
-The **mannequin.js** library is provided as a single JavaScript file that has to
-be include along with three.js or three.min.js. 
+Библиотеката **mannequin.js** се предоставя като самостоятелен JavaScript
+файл, който трябва да се използва съвместно с three.js или three.min.js. 
 
-### Minimal program
+### Минимална програма
 
-Here is a minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Това е най-късата програма, която създава мъжка фигура в браузър ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -78,7 +79,9 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 </html>
 ```
 
-The helper function `createScene()` provides default scene, lighting, camera, ground, and so on. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the scene is created with a custom function, then it should also manage the animation loop by itself.
+Помощната функция `createScene()` създава сцената, осветлението, камерата, земята и т.н.
+Другата помощна функция  `animate(t)` дефинира позата на фигурата в момент *t*. Ако сцената
+е създадена с друга функция, трябва да се добави и изрично управление на анимационния цикъл.
 
 ### Figure types
 
