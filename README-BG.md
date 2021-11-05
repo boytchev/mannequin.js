@@ -216,9 +216,9 @@ figure.torso.tilt = angle;
 Горните крайници са симетрични части на тялото: ръка *arm*, лакът *elbow*,
 китка *wrist*, пръсти *fingers* и върхове на пръсти *finger tips*.
 
-И двете ръца **arms**, `l_arm` и `r_arm`, поддържат свойства `raise`,
-`straddle` и `turn` ([пример на живо]](https://boytchev.github.io/mannequin.js/examples/example-arm.html)).
-Следващият списък от свойства използва дясната ръка, но същите са
+И двете ръце **arms**, `l_arm` и `r_arm`, поддържат свойства `raise`,
+`straddle` и `turn` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-arm.html)).
+Следващият код показва свойствата на дясната ръка, но същите са
 налични и за лявата ръка:
 
 ``` javascript
