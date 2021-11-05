@@ -11,7 +11,7 @@ This document is also available in [English](README.md)
 - [Части на тялото](#части-на-тялото)
     * [Централни части на тяло](#централни-части-на-тяло)
     * [Горни крайници](#горни-крайници)
-    * [Lower limbs](#lower-limbs)
+    * [Долни крайници](#долни-крайници)
 - [Body posture](#body-posture)
     * [Static posture](#static-posture)
     * [Dynamic posture](#dynamic-posture)
@@ -240,7 +240,7 @@ figure.r_elbow.bend = angle;
 
 Китките **wrists** имат същите свойства като торса: `bend`, `turn` 
 и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)),
-но подобно на ръцете, ротациите са симетринчи:
+но подобно на ръцете, ротациите са симетрични:
 
 ``` javascript
 figure.r_wrist.bend = angle;
@@ -261,11 +261,13 @@ figure.r_fingers.tips.bend = angle;
 ```
 
 
-### Lower limbs
+### Долни крайници
 
-The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
+Долните крайници са симетрични части на тялото: крак *leg*, коляно *knee*
+и глезен *ankle*.
 
-Both **legs** support properties `raise`, `straddle` and `turn` ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical.
+И двата крака **legs** поддържат свойствата `raise`, `straddle` и `turn`
+([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Разкрачването `straddle` и завъртането `turn` са симетрични.
 
 ``` javascript
 figure.r_leg.raise = angle;
@@ -273,13 +275,15 @@ figure.r_leg.straddle = angle;
 figure.r_leg.turn = angle;
 ```
 
-The motion of the **knee** is only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+Движението на коляното **knee** е само `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). 
+Отрицателни стойности на *angle* водят до неестествена поза на коляното.
 
 ``` javascript
 figure.r_knee.bend = angle;
 ```
 
-The **ankles** have the same properties as the wrists: `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)):
+Глезените **ankles** имат същите свойства като китките: `bend`, `turn`
+и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)):
 
 ``` javascript
 figure.r_ankle.bend = angle;
