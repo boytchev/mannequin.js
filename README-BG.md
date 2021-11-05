@@ -9,7 +9,7 @@ This document is also available in [English](README.md)
 	* [Минимална програма](#минимална-програма)
 	* [Видове фигури](#видове-фигури)
 - [Части на тялото](#части-на-тялото)
-    * [Central body parts](#central-body-parts)
+    * [Централни части на тяло](#централни-части-на-тяло)
     * [Upper limbs](#upper-limbs)
     * [Lower limbs](#lower-limbs)
 - [Body posture](#body-posture)
@@ -111,7 +111,7 @@ kid.position.z = -7
 ```
 
 Тези три класа има общ родиел &ndash; класът `Mannequin(feminine,height)`,
-в който булевият параметър *feminine* определя да формата е женствена
+в който булевият параметър *feminine* определя дали формата е женствена
 или мъжествена ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
 
 [<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
@@ -155,7 +155,7 @@ man.torso.bend = 45;
 
 ``` javascript
 man.torso.bend = 45; /* bend=45 */
-man.torso.turn = 45; /* turn=45, but now bend≈35.3 */
+man.torso.turn = 45; /* turn=45, но вече bend≈35.3 */
 ```
 
 **Относителните ротации** се задават по отношение на текущата стойност
@@ -169,9 +169,13 @@ man.torso.bend += 45;
 man.torso.turn += 45;
 ```
 
-### Central body parts
+### Централни части на тяло
 
-The central body parts are the ones which have single instances - *head*, *neck*, *torso*, *pelvis* and the whole body as *body*. To rotate the **whole body** use properties `bend`, `turn` and `tilt` of the figure's `body` or the figure itself ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+Централните части на тялото са тези, които са единични  &ndash; 
+*head* (глава), *neck* (врат), *torso* (торс), *pelvis* (таз) и
+цялото тяло като *body*. За да се завърти **цялото тяло** се
+използват свойствата `bend`, `turn` и `tilt` на елемента `body`
+на фигурата или самата фигура ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
 
 ``` javascript
 figure.body.bend = angle;
@@ -185,7 +189,7 @@ figure.tilt = angle;
 
 
 
-The **head** supports properties `nod`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
+Главата **head** поддържа свойствата `nod`, `turn` and `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
 
 ``` javascript
 figure.head.nod = angle;
@@ -193,7 +197,7 @@ figure.head.turn = angle;
 figure.head.tilt = angle;
 ```
 
-The **torso** has properties `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
+Торсът **torso** има свойства `bend`, `turn` и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
 
 ``` javascript
 figure.torso.bend = angle;
@@ -201,7 +205,10 @@ figure.torso.turn = angle;
 figure.torso.tilt = angle;
 ```
 
-Although the **neck** is a separate part of the body, it is not controlled individually. Instead, half of the head rotation is distributed over the neck. Similarly, the **pelvis** is not controlled individually. Instead, the whole body is controlled by bending, turning and tilting.
+Въпреки че вратът **neck** е отделна част от тялото, тя не се контролира
+индивидуално. Вместо това половината от въртенето на главата се разпределя
+върху врата. По същия начин тазът **pelvis** не се контролира индивидуално.
+Вместо това цялото тяло се контролира чрез навеждане, завъртане и накланяне. 
 
 
 ### Upper limbs
