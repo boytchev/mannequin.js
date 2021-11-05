@@ -7,7 +7,7 @@ This document is also available in [English](README.md)
 - [Обща информация](#обща-информация)
 - [Инициализация](#инициализация)
 	* [Минимална програма](#минимална-програма)
-	* [Figure types](#figure-types)
+	* [Видове фигури](#видове-фигури)
 - [Body parts](#body-parts)
     * [Central body parts](#central-body-parts)
     * [Upper limbs](#upper-limbs)
@@ -84,9 +84,12 @@ Three.js и OrbitControls.js са включени като предпазна �
 позата на фигурата в момент *t*. Ако сцената е създадена със собствена функция, трябва
 да се добави и изрично управление на анимационния цикъл.
 
-### Figure types
+### Видове фигури
 
-Mannequin figures are created as instances of classes `Male(height)`, `Female(height)` or `Child(height)`, wherethe optional *height* is the relative size of the figure. By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height 0.65 ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+Фигурите в библиотеката се създават като инстанции на класовете
+`Male(height)`, `Female(height)` или `Child(height)`, където незадължителният
+параметър *height* е относителният размер на фигурата. По подразбиране `Male`
+има височина 1.00, `Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
@@ -104,12 +107,15 @@ kid.position.z = -7
 :
 ```
 
-These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines whether the shape is feminine or masculine
+Тези три класа има общ родиел &ndash; класът `Mannequin(feminine,height)`,
+в който булеяиат параметър *feminine* определя да формата е женствена илимъжествена
  ([live example](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
 
 [<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
 
-The difference between using differen figure classes is that `Mannequin` sets a default neutral posture of the figure, while `Male` and `Female` set a default male and female posture.
+Разликата между използването на различните класове за фигури е в това, че
+`Mannequin` придава подразбираща се неутрална поза на фигурата, докато
+`Male` и `Female` придават мъжествена и женствена поза.
 
 
 # Body parts
