@@ -10,7 +10,7 @@ This document is also available in [English](README.md)
 	* [Видове фигури](#видове-фигури)
 - [Части на тялото](#части-на-тялото)
     * [Централни части на тяло](#централни-части-на-тяло)
-    * [Upper limbs](#upper-limbs)
+    * [Горни крайници](#горни-крайници)
     * [Lower limbs](#lower-limbs)
 - [Body posture](#body-posture)
     * [Static posture](#static-posture)
@@ -172,7 +172,7 @@ man.torso.turn += 45;
 ### Централни части на тяло
 
 Централните части на тялото са тези, които са единични  &ndash; 
-*head* (глава), *neck* (врат), *torso* (торс), *pelvis* (таз) и
+глава *head*, врат *neck*, торс *torso*, таз *pelvis* и
 цялото тяло като *body*. За да се завърти **цялото тяло** се
 използват свойствата `bend`, `turn` и `tilt` на елемента `body`
 на фигурата или самата фигура ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
@@ -211,11 +211,15 @@ figure.torso.tilt = angle;
 Вместо това цялото тяло се контролира чрез навеждане, завъртане и накланяне. 
 
 
-### Upper limbs
+### Горни крайници
 
-The upper limbs are symmetrical body parts: *arm*, *elbow*, *wrist*, *fingers* and *finger tips*.
+Горните крайници са симетрични части на тялото: ръка *arm*, лакът *elbow*,
+китка *wrist*, пръсти *fingers* и върхове на пръсти *finger tips*.
 
-Both **arms**, `l_arm` and `r_arm`, support properties `raise`, `straddle` and `turn` ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm.html)). The following list refers to the right arm, however, the same properties are available for the left arm:
+И двете ръца **arms**, `l_arm` и `r_arm`, поддържат свойства `raise`,
+`straddle` и `turn` ([пример на живо]](https://boytchev.github.io/mannequin.js/examples/example-arm.html)).
+Следващият списък от свойства използва дясната ръка, но същите са
+налични и за лявата ръка:
 
 ``` javascript
 figure.r_arm.raise = angle;
@@ -223,15 +227,20 @@ figure.r_arm.straddle = angle;
 figure.r_arm.turn = angle;
 ```
 
-Genrally, rotations of symmetrical body parts retain symmetry. For example, setting `straddle` to a positive relative angle straddles the left arm to the left, but the right arm &ndash; to the right.
+По принцип ротациите на симетричните части на тялото се стремят да
+запазят симетрията. Например, положителни относителни стойности на
+`straddle` завъртат лявата ръка наляво, а дясната &ndash; надясно.
 
-The motion of the **elbow** is only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
+Завъртането на лакътя **elbow** е само с `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)).
+Отрицателни стойности на *angle* водят до неестествена поза на лакътя.
 
 ``` javascript
 figure.r_elbow.bend = angle;
 ```
 
-The **wrists** have the same properties as the torso: `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, rotations are symmetrical:
+Китките **wrists** имат същите свойства като торса: `bend`, `turn` 
+и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)),
+но подобно на ръцете, ротациите са симетринчи:
 
 ``` javascript
 figure.r_wrist.bend = angle;
@@ -239,7 +248,12 @@ figure.r_wrist.turn = angle;
 figure.r_wrist.tilt = angle;
 ```
 
-The last body parts of the upper limbs are the **fingers** and their **tips**. They can only *bend*. Bending of fingers is automatically distributed to bending of their tips, so use `l_fingers` and `r_fingers` to bend fingers and tips ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)), but `l_fingers.tips` and `r_fingers.tips` to bend tips only ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers-tips.html)):
+Последните части на горните крайници са пръстите **fingers** и техните
+върхове **tips**. Те могат само да се свиват с *bend*. Свиването на
+пръстите автоматично свива и техните върхове, така че с `l_fingers`
+и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)),
+докато с `l_fingers.tips` и `r_fingers.tips` се свиват само върховете
+им ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers-tips.html)):
 
 ``` javascript
 figure.r_fingers.bend = angle;
