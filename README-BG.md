@@ -8,7 +8,7 @@ This document is also available in [English](README.md)
 - [Инициализация](#инициализация)
 	* [Минимална програма](#минимална-програма)
 	* [Видове фигури](#видове-фигури)
-- [Body parts](#body-parts)
+- [Части на тялото](#части-на-тялото)
     * [Central body parts](#central-body-parts)
     * [Upper limbs](#upper-limbs)
     * [Lower limbs](#lower-limbs)
@@ -25,9 +25,10 @@ This document is also available in [English](README.md)
 	* [VR mode](#vr-mode) (under development)
 
 # Обща информация
-**Mannequin.js** е малка библиотека за правене движеща се фигура на манекен. Формата на фигурата
-и движенията ѝ се извършват изцяло в JavaScript. Изображението се генерира чрез
-[Three.js](https://threejs.org). Кликнете върху картинката, за да пуснете демонстрация на живо. 
+**Mannequin.js** е малка библиотека за правене движеща се фигура на манекен.
+Формата на фигурата и движенията ѝ се извършват изцяло в JavaScript.
+Изображението се генерира чрез [Three.js](https://threejs.org). Кликнете
+върху картинката, за да пуснете демонстрация на живо. 
 
 
 [<img src="examples/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
@@ -79,17 +80,19 @@ Three.js и OrbitControls.js са включени като предпазна �
 </html>
 ```
 
-Помощната функция `createScene()` създава сцената, осветлението, камерата, земята и т.н.
-С друга помощна функция `animate(t)` (тя не е използвана в минималния пример) се дефинира
-позата на фигурата в момент *t*. Ако сцената е създадена със собствена функция, трябва
-да се добави и изрично управление на анимационния цикъл.
+Помощната функция `createScene()` създава сцената, осветлението, камерата,
+земята и т.н. С друга помощна функция `animate(t)` (тя не е използвана в
+минималния пример) се дефинира позата на фигурата в момент *t*. Ако сцената
+е създадена със собствена функция, трябва да се добави и изрично управление
+на анимационния цикъл.
 
 ### Видове фигури
 
 Фигурите в библиотеката се създават като инстанции на класовете
-`Male(height)`, `Female(height)` или `Child(height)`, където незадължителният
-параметър *height* е относителният размер на фигурата. По подразбиране `Male`
-има височина 1.00, `Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+`Male(height)`, `Female(height)` или `Child(height)`, където
+незадължителният параметър *height* е относителният размер на
+фигурата. По подразбиране `Male` има височина 1.00, `Female` има
+височина 0.95 и `Child` има височина 0.65 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
@@ -108,8 +111,8 @@ kid.position.z = -7
 ```
 
 Тези три класа има общ родиел &ndash; класът `Mannequin(feminine,height)`,
-в който булеяиат параметър *feminine* определя да формата е женствена илимъжествена
- ([live example](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
+в който булевият параметър *feminine* определя да формата е женствена
+или мъжествена ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
 
 [<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
 
@@ -118,31 +121,48 @@ kid.position.z = -7
 `Male` и `Female` придават мъжествена и женствена поза.
 
 
-# Body parts
+# Части на тялото
 
-All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
+Всички видове фигури имат една и съща структура. Например, дясната ръка
+в кръстена `r_arm`. За някои части на тялото mannequin.js използва името
+на ставата &ndash; напр. лявата предмишница е кръстена на лакъта `l_elbow`.
+Левите и десните части на тялото са винаги спрямо фигурата, а не спрямо
+потребителя ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
 
 
 [<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
 
 
-Each body part has rotational properties that define its position. The values of the rotation properties are angles of rotation in degrees, so 180 is half turn and 360 is full turn. Negative angles are allowed and they represent rotations in the opposite directions. 
+Всяка част от тялото има ротационни свойства, които определят нейната
+позиция. Стойностите им са ъгли на завъртане в градуси, така че 180 е
+завъртане на половин оборот, а 360 е пълен оборот. Отрицателни ъгли са
+разрешени и представляват завъртане в противоположни посоки.
 
-Mannequin.js has two ways of setting rotations &ndash; *absolute* and *relative*. When a rotation property is set to a specific value, this produces absolute rotation. The following code will set the forward bend angle of the torso to 45&deg;:
+Mannequin.js има два начина за настройка на въртене &ndash; *абсолютно*
+и *относително*. Когато свойството за ротация е зададено с конкретна
+стойност, това създава абсолютно завъртане. Следният код ще зададе ъгъла
+на огъване напред на торса на 45&deg;: 
 
 ``` javascript
 man.torso.bend = 45;
 ```
 
-**Absolute rotations** are considered by some people as counterintuitive. Some joints, like wrists, have three rotational properties (*triplets*). Due to the nature of rotations in 3D space, rotations in a triplet are interconnected &ndash; modifying one property in a triplet often affects the other two. The following code demonstrates how seeting the *turn* property modifies the *bend* property.
+**Абсолютните ротации** се считат от някои хора за неинтуитивни. Някои
+стави, като китките, имат ротации по три ъгъла. Поради естеството на
+ротациите в 3D пространство, трите ротации са взаимосвързани &ndash;
+промяната на една от тях често засяга другите две. Следващият код
+демонстрира как променянето на свойството *turn* променя свойството *bend*. 
 
 ``` javascript
 man.torso.bend = 45; /* bend=45 */
 man.torso.turn = 45; /* turn=45, but now bend≈35.3 */
 ```
 
+**Относителните ротации** се задават по отношение на текущата стойност
+на ротационно свойството. Модификациите са много по-безопасни, тъй като
+не разчитат на фиксирани стойности. Следният код ще наведе торса на 45&deg;
+от текущата му позиция и след това го завърти на 45&deg;: 
 
-**Relative rotations** are set in respect to the current rotation value of the property. Modifications are much safer, as they do not rely on fixed values. The following code will bend the torso 45&deg; from its current position, and then turn it 45&deg;:
 
 ``` javascript
 man.torso.bend += 45;

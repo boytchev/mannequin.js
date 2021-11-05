@@ -118,7 +118,7 @@ Mannequin.js has two ways of setting rotations &ndash; *absolute* and *relative*
 man.torso.bend = 45;
 ```
 
-**Absolute rotations** are considered by some people as counterintuitive. Some joints, like wrists, have three rotational properties (*triplets*). Due to the nature of rotations in 3D space, rotations in a triplet are interconnected &ndash; modifying one property in a triplet often affects the other two. The following code demonstrates how seeting the *turn* property modifies the *bend* property.
+**Absolute rotations** are considered by some people as counterintuitive. Some joints, like wrists, have three rotational properties (*triplets*). Due to the nature of rotations in 3D space, rotations in a triplet are interconnected &ndash; modifying one property in a triplet often affects the other two. The following code demonstrates how seting the *turn* property modifies the *bend* property.
 
 ``` javascript
 man.torso.bend = 45; /* bend=45 */
