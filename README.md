@@ -1,5 +1,6 @@
 Този документ е наличен и на [български език](README-BG.md).
 
+
 # Table of contents
 
 - [About](#about)
@@ -23,8 +24,10 @@
 	* [VR mode](#vr-mode) (under development)
 
 # About
-**Mannequin.js** is a simple library of an articulated mannequin figure. The shape of the figure
-and its movements are done purely in JavaScript. The graphics is implemented in
+[**Mannequin.js**](https://github.com/boytchev/mannequin.js)
+is a simple library of an articulated mannequin figure. The shape
+of the figure and its movements are done purely in JavaScript.
+The graphics is implemented in
 [Three.js](https://threejs.org). Click on an image to open a live demo.
 
 [<img src="examples/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
