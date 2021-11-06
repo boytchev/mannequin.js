@@ -12,9 +12,9 @@ This document is also available in [English](README.md)
     * [Централни части на тяло](#централни-части-на-тяло)
     * [Горни крайници](#горни-крайници)
     * [Долни крайници](#долни-крайници)
-- [Body posture](#body-posture)
-    * [Static posture](#static-posture)
-    * [Dynamic posture](#dynamic-posture)
+- [Поза на тялото](#поза-на-тялото)
+    * [Статична поза](#статична-поза)
+    * [Динамична поза](#динамична-поза)
     * [Working with postures](#working-with-postures)
 	* [Posture editor](#posture-editor)
 - [Other functions](#other-functions)
@@ -292,9 +292,18 @@ figure.r_ankle.tilt = angle;
 ```
 
 
-# Body posture
+# Поза на тялото
 
-The posture of a figure is defined by a setting the rotation properties of body parts. The order of rotations is important, i.e. changing the order of rotations produce different result. The next example applies bending 45&deg;, turning 90&deg; and tilting 60&deg; of three figures. As the order of rotations is different for each figure, the final position is also different ([live example](https://boytchev.github.io/mannequin.js/examples/example-order.html)):
+Позата на фигурата се определя чрез задаване на
+стойности на ротационните свойства на частите на
+тялото. Редът на завъртанията е важен, т.е.
+промяната на реда на завъртане води до различен
+резултат. Следващият пример показва навеждане на
+45&deg;, завъртане на 90&deg; и накланяне встрани
+на 60&deg; от три фигури. Тъй като редът на завъртане
+е различен за всяка фигура, крайните им пози също
+са различни
+([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-order.html)):
 
 ``` javascript
 man.torso.bend += 45;
@@ -310,13 +319,22 @@ woman.torso.bend += 45;
 woman.torso.tilt += 60;
 ```
 
-### Static posture
+### Статична поза
 
-The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. This version of mannequin.js does not provide posture editor, so all rotations has to be defined programmatically ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
+Статичната поза определя позицията на част от
+тялото, която не се променя. По подразбиране,
+когато се създава фигура частите на тялото ѝ
+заемат вградената поза по подразбиране. Ако не
+се изолзва редактор на поза, всички ротации
+трябва да бъдат дефинирани програмно 
+ ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
 
 [<img src="examples/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 
-Sometimes it is better to define the figure step by step. Tai Chi Chuan posture, shown above, could start by defining the whole body position:
+Понякога е по-добре да се дефинира фигура стъпка
+по стъпка. Позата на Тай Чи Чуан, показана по-горе,
+може да започне със задаване на позицията на цялото
+тяло: 
 
 ``` javascript
 // overall body position
@@ -328,7 +346,7 @@ man.torso.turn -= 30;
 man.head.turn -= 70;:
 ```
 
-Then the orientation of the legs can be set:
+След това може да се зададе ориентацията на краката:
 
 ``` javascript
 // right leg
@@ -343,7 +361,7 @@ man.l_ankle.bend = 42;
 :
 ```
 
-Finally, the arms are fixed:
+Накрая и ръцете се нагласяват:
 	
 ``` javascript
 // left arm
@@ -358,9 +376,19 @@ man.r_wrist.turn -= 60;
 :
 ```
 	
-### Dynamic posture
+### Динамична поза
 
-The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If `createScene` and `animate` are not used, then the animation loop should be managed manually.
+Динамичната поза &ndash; т.е. поза, която се променя
+с времето &ndash; е зададена със същите свойства,
+които се използват за статична поза. Mannequin.js
+дефинира празна функция `animate(t)`, която се извиква
+в цикъла на анимацията веднъж за всеки кадър. Всички
+промени в позата трябва да бъдат дефинирани в тази функция
+([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)).
+Параметърът *t* е времето, измерено в десети от секундата.
+Тази функция е дефинирана в `createScene()`. Ако не се
+ползват `createScene` и `animate`, тогава цикълът на
+анимацията трябва да се управлява ръчно. 
 
 [<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
 
@@ -383,8 +411,12 @@ function animate(t)
 }
 ```
 
-To make the animation loop faster, all constant rotations should be defined outside `animate`. Also, if a rotation is changing in the loop, there is no need to set it up outside the loop.
-			
+За да се направи цикъла на анимацията по-бърз, всички
+константни ротации трябва да бъдат дефинирани извън
+`animate`. Освен това, ако въртенето се променя в цикъла,
+няма нужда да го настройвате извън цикъла. 
+
+
 ### Working with postures
 
 A posture could be extracted from a figure with the `posture` property. It contains an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `posture` property can be used to push a posture to a figure. 
@@ -403,7 +435,7 @@ There is alternative `postureString` property to get or set the posture as a str
 
 
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
-The following example blends the posture of [one figure](https://boytchev.github.io/mannequin.js/examples/example-posture.html) and copies it to [another figure](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([live example 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) and [live example 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+The following example blends the posture of [one figure](https://boytchev.github.io/mannequin.js/examples/example-posture.html) and copies it to [another figure](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) and [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
 
 [<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
 
@@ -447,7 +479,7 @@ Mannequin.colors = [
 ];
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of each body part ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of each body part ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
@@ -478,7 +510,7 @@ Each body part could be hidden. This does not remove the body part and its graph
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([live example](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
+where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
 
 [<img src="examples/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/examples/example-hide.html)
 
@@ -492,7 +524,7 @@ man.r_arm.hide();
 
 ### Custom body parts
 
-Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
 
 [<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
 
@@ -514,7 +546,7 @@ Any custom `THREE.Object3D` could be attached to a body part. The attached objec
 figure.joint.attach(object);
 ```
 
-Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
 
 [<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 
@@ -549,7 +581,7 @@ man.r_leg.attach(obj);
 
 Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) and calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
 
-The following example creates a thread going through 5 points relative to body parts of a figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
+The following example creates a thread going through 5 points relative to body parts of a figure ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
 
 [<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 
@@ -563,7 +595,7 @@ setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 
 Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and use their global position.
 
-The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left show are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left show are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
 [<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
