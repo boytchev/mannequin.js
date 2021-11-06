@@ -15,8 +15,8 @@ This document is also available in [English](README.md).
 - [Поза на тялото](#поза-на-тялото)
     * [Статична поза](#статична-поза)
     * [Динамична поза](#динамична-поза)
-    * [Working with postures](#working-with-postures)
-	* [Posture editor](#posture-editor)
+    * [Работа с пози](#работа-с-пози)
+	* [Редактор на поза](#редактор-на-поза)
 - [Other functions](#other-functions)
 	* [Custom colors](#custom-colors)
 	* [Hiding body parts](#hiding-body-parts)
@@ -378,11 +378,12 @@ man.r_wrist.turn -= 60;
 ### Динамична поза
 
 Динамичната поза &ndash; т.е. поза, която се променя
-с времето &ndash; е зададена със същите свойства,
+с времето &ndash; се задава със същите свойства,
 които се използват за статична поза. Mannequin.js
 дефинира празна функция `animate(t)`, която се извиква
 в цикъла на анимацията веднъж за всеки кадър. Всички
-промени в позата трябва да бъдат дефинирани в тази функция
+промени в позата трябва да бъдат дефинирани в 
+предефиниция на тази функция
 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)).
 Параметърът *t* е времето, измерено в десети от секундата.
 Тази функция е дефинирана в `createScene()`. Ако не се
@@ -410,15 +411,19 @@ function animate(t)
 }
 ```
 
-За да се направи цикъла на анимацията по-бърз, всички
-константни ротации трябва да бъдат дефинирани извън
+За да се направи цикълът на анимацията по-бърз, всички
+фиксирани ротации трябва да бъдат дефинирани извън
 `animate`. Освен това, ако въртенето се променя в цикъла,
-няма нужда да го настройвате извън цикъла. 
+няма нужда да се дават първоначални стойности извън цикъла. 
 
 
-### Working with postures
+### Работа с пози
 
-A posture could be extracted from a figure with the `posture` property. It contains an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `posture` property can be used to push a posture to a figure. 
+Позата може да бъде извлечена от фигура чрез свойството
+`posture`. То съдържа обект с елементи `version` за
+версията на формата на данните за позата и `data` &ndash;
+вложен масив с ъгли на ставите. Свойството `posture` може
+да се използва и за задаване на поза към фигура.
 
 ``` javascript
 { "version":5,
@@ -430,31 +435,41 @@ A posture could be extracted from a figure with the `posture` property. It conta
 }
 ```
 
-There is alternative `postureString` property to get or set the posture as a string. Converting the posture to and from a string is done with `JSON.stringify` and `JSON.parse`.
+Има алтернативно свойство `postureString`, с което се
+извлича или задава поза като тестов низ. Преобразуването
+на позата към и от текстов низ се прави с `JSON.stringify`
+и `JSON.parse`.
 
 
-Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler angels). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&in;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
-The following example blends the posture of [one figure](https://boytchev.github.io/mannequin.js/examples/example-posture.html) and copies it to [another figure](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) and [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+Позите могат да бъдат сливани чрез ойлерова интерполация
+(т.е. линейна интерполация на ойлерови ъгли). Методът на
+класа `blend(posture0,posture1,k)` слива първоначалната
+поза *posture0* и крайната поза *posture1* с коефициент
+*k*&in;[0,1]. Когато *k*=0 резултатът е поза *posture0*,
+когато *k*=1 резултатът е поза *posture1*, когато *k* е
+между 0 и 1 резултатът е междинна поза между *posture0*
+и *posture1*.
+Следният пример смесва позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
 
 [<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
 
 ``` javascript
-// two figures
+// две фигури
 man = new Male();
 woman = new Female();
 
-// two postures
+// две пози
 A = {"version":5,"data":[[90,-85,74.8],...]};
 B = {"version":5,"data":[[0,-90,0],...]};
 
-// set an intermediate posture
+// задаване на междинна поза
 man.posture = Mannequin.blend(A,B,0.5);
 
-// copy the posture to another figure
+// копиране на позата в друга фигура
 woman.posture = man.posture;
 ```
 
-### Posture editor
+### Редактор на поза
 
 TBD
 
