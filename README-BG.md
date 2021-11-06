@@ -140,7 +140,7 @@ kid.position.z = -7
 
 Mannequin.js има два начина за настройка на въртене &ndash; *абсолютно*
 и *относително*. Когато свойството за ротация е зададено с конкретна
-стойност, това създава абсолютно завъртане. Следният код ще зададе ъгъла
+стойност, това създава абсолютно завъртане. Следващият код ще зададе ъгъла
 на огъване напред на торса на 45&deg;: 
 
 ``` javascript
@@ -160,7 +160,7 @@ man.torso.turn = 45; /* turn=45, но вече bend≈35.3 */
 
 **Относителните ротации** се задават по отношение на текущата стойност
 на ротационно свойството. Модификациите са много по-безопасни, тъй като
-не разчитат на фиксирани стойности. Следният код ще наведе торса на 45&deg;
+не разчитат на фиксирани стойности. Следващият код ще наведе торса на 45&deg;
 от текущата му позиция и след това го завърти на 45&deg;: 
 
 
@@ -449,7 +449,7 @@ function animate(t)
 когато *k*=1 резултатът е поза *posture1*, когато *k* е
 между 0 и 1 резултатът е междинна поза между *posture0*
 и *posture1*.
-Следният пример слива позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+Следващият пример слива позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
 
 [<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
 
@@ -537,7 +537,7 @@ man.r_knee.recolor( 'antiquewhite', 'black' );
 
 Всяка част от тялото може да бъде скрита. Това не
 премахва нея и нейния графичен образ от фигурата, а
-просто не я рисува. Методът за скриване на става е:
+просто не я рисува. Методът за скриване е:
 
 ``` javascript
 figure.joint.hide();
@@ -546,7 +546,7 @@ figure.joint.hide();
 където *joint* е името на частта от тялото, която
 да се скрие. Скритите части на тялото могат да се
 въртят и това се отразява на частите на тялото,
-прикрепени към тях. Следният пример скрива двете
+прикрепени към тях. Следващият пример скрива двете
 ръце и двата крака, но те все още същестуват и се
 използват от лактите и коленете ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
 
@@ -562,11 +562,11 @@ man.r_arm.hide();
 
 ### Собствени части на тяло
 
-Частите на тялото са наследници на класа [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) и поддържа
-неговите свойства и методи. Въпреки това, поради скелетната
-зависимост и свързването на ставите, мащабирането на част от
+Частите на тялото са наследници на класа [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) и поддържат
+неговите свойства и методи. Въпреки това, поради конструкцията
+на скелета и свързването на ставите, мащабирането на част от
 тялото трябва да е еднакво по всички оси, в противен случай
-позите трябва да бъдат ръчно коригирани ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+позате трябва да бъде ръчно коригирана ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
 
 [<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
 
@@ -584,7 +584,7 @@ man.r_wrist.scale.set(3,5,3);
 
 Всеки `THREE.Object3D` или негов наследник може да
 бъде прикрепен към част от тялото. Прикрепеният
-обект е включен в тялото и е обект на всяко движение,
+обект е включен в тялото и прави всяко движение,
 което тялото извършва:
 
 ``` javascript
