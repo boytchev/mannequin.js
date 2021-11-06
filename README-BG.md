@@ -1,4 +1,4 @@
-This document is also available in [English](README.md)
+This document is also available in [English](README.md).
 
 # Съдържание
 
@@ -300,7 +300,7 @@ figure.r_ankle.tilt = angle;
 промяната на реда на завъртане води до различен
 резултат. Следващият пример показва навеждане на
 45&deg;, завъртане на 90&deg; и накланяне встрани
-на 60&deg; от три фигури. Тъй като редът на завъртане
+на 60&deg; на три фигури. Тъй като редът на завъртане
 е различен за всяка фигура, крайните им пози също
 са различни
 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-order.html)):
@@ -322,26 +322,25 @@ woman.torso.tilt += 60;
 ### Статична поза
 
 Статичната поза определя позицията на част от
-тялото, която не се променя. По подразбиране,
-когато се създава фигура частите на тялото ѝ
-заемат вградената поза по подразбиране. Ако не
-се изолзва редактор на поза, всички ротации
-трябва да бъдат дефинирани програмно 
- ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
+тялото, която не се променя. Когато се създава
+фигура, частите на тялото ѝ заемат вградената
+поза по подразбиране. Ако не се изолзва редактор
+на поза, всички ротации трябва да бъдат дефинирани
+програмно ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
 
 [<img src="examples/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
 
 Понякога е по-добре да се дефинира фигура стъпка
-по стъпка. Позата на Тай Чи Чуан, показана по-горе,
+по стъпка. Позата "Тай Чи Чуан", показана по-горе,
 може да започне със задаване на позицията на цялото
 тяло: 
 
 ``` javascript
-// overall body position
+// обща поза на тялото
 man.position.y -= 11;
 man.body.tilt = -5;
 :
-// torso and head
+// торс и глава
 man.torso.turn -= 30;
 man.head.turn -= 70;:
 ```
@@ -349,12 +348,12 @@ man.head.turn -= 70;:
 След това може да се зададе ориентацията на краката:
 
 ``` javascript
-// right leg
+// десен крак
 man.r_leg.turn = 50;
 man.r_knee.bend = 90;
 man.r_ankle.bend = 15;
 :
-// left leg
+// ляв крак
 man.l_leg.raise = -20;
 man.l_knee.bend = 30;
 man.l_ankle.bend = 42;
@@ -364,12 +363,12 @@ man.l_ankle.bend = 42;
 Накрая и ръцете се нагласяват:
 	
 ``` javascript
-// left arm
+// лява ръка
 man.l_arm.straddle = 70;
 man.l_elbow.bend = 155;
 man.l_wrist.bend = -20;
 :
-// right arm
+// дясна ръка
 man.r_arm.straddle += 70;
 man.r_elbow.bend += 40;
 man.r_wrist.turn -= 60;
