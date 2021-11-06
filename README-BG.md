@@ -17,8 +17,8 @@ This document is also available in [English](README.md).
     * [Динамична поза](#динамична-поза)
     * [Работа с пози](#работа-с-пози)
 	* [Редактор на поза](#редактор-на-поза)
-- [Other functions](#other-functions)
-	* [Custom colors](#custom-colors)
+- [Други функционалности](#други-функционалности)
+	* [Собствени цветове](#собствени-цветове)
 	* [Hiding body parts](#hiding-body-parts)
 	* [Custom body parts](#custom-body-parts)
 	* [Global position](#global-position)
@@ -449,7 +449,7 @@ function animate(t)
 когато *k*=1 резултатът е поза *posture1*, когато *k* е
 между 0 и 1 резултатът е междинна поза между *posture0*
 и *posture1*.
-Следният пример смесва позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+Следният пример слива позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
 
 [<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
 
@@ -471,39 +471,52 @@ woman.posture = man.posture;
 
 ### Редактор на поза
 
-TBD
+Предстои да бъде описан.
 
 
-# Other functions
+# Други функционалности
 
-Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
+Освен за движение на части на тялото, текущата версия на
+mannequin.js предоставя основна функционалност за допълнителни
+промени по фигурата.
 
-### Custom colors
+### Собствени цветове
 
-By default, all figures use a predefined set of global colors for body parts. Global colors are stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) in specific order &ndash; *head*, *shoes*, *pelvis*, *joints*, *limbs* and *torso*:
+По подразбиране всички фигури използват предварително
+дефиниран набор от глобални цветове за частите на тялото.
+Глобалните цветове се съхраняват в масива `Mannequin.colors`
+като шест [Three.js цвята](https://threejs.org/docs/#api/en/math/Color)
+или [HTML/CSS имена на цветове](https ://www.w3schools.com/colors/colors_names.asp) в определен
+ред &ndash; *глава*, *обувки*, *таз*, *стави*, *крайници* и *торс*:
+
 
 ``` javascript
 Mannequin.colors = [
-    'antiquewhite',	// head
-    'gray',		// shoes
-    'antiquewhite',	// pelvis
-    'burlywood',	// joints
-    'antiquewhite',	// limbs
-    'bisque'		// torso
+    'antiquewhite',	// глава
+    'gray',		// обувки
+    'antiquewhite',	// таз
+    'burlywood',	// стави
+    'antiquewhite',	// крайници
+    'bisque'		// торс
 ];
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of each body part ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+Глобалният цвят на ставите и крайниците се отнася до
+всички стави и всички крайници. Промяната на глобалните
+цветове в `Mannequin.colors` има ефект, ако е направена
+преди създаването на фигури. Отделните цветове на части
+от тялото могат да се променят индивидуално чрез метода
+`recolor` на всяка част от тялото ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
 ``` javascript
-// global colors
+// глобални цветове
 Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
 
 man = new Male();
 :
-// individual colors
+// индивидуални цветове
 man.l_elbow.recolor( 'yellow', 'black' );
 man.l_wrist.recolor( 'orange' );
 man.l_fingers.recolor( 'coral' );
@@ -511,9 +524,13 @@ man.l_fingers.tips.recolor( 'maroon' );
 man.r_knee.recolor( 'antiquewhite', 'black' );
 ```
 
-The first parameter of `recolor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
+Първият параметър на `recolor` е цветът на основната
+част на частта от тялото. Вторият параметър е цветът
+на сферичната секция (ако има такава).
 
-The tips of the fingers are accessed via `l_fingers.tips` and `r_fingers.tips`.
+Достъпът до върховете на пръстите се осъществява чрез
+`l_fingers.tips` и `r_fingers.tips`.
+
 
 
 ### Hiding body parts
