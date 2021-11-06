@@ -19,10 +19,10 @@ This document is also available in [English](README.md).
 	* [Редактор на поза](#редактор-на-поза)
 - [Други функционалности](#други-функционалности)
 	* [Собствени цветове](#собствени-цветове)
-	* [Hiding body parts](#hiding-body-parts)
-	* [Custom body parts](#custom-body-parts)
-	* [Global position](#global-position)
-	* [VR mode](#vr-mode) (under development)
+	* [Скриване на части от тялото](#скриване-на-части-от-тялото)
+	* [Собствени части на тяло](#собствени-части-на-тяло)
+	* [Глобална позиция](#глобална-позиция)
+	* [VR режим](#vr-режим) (в процес на разработка)
 
 # Обща информация
 **Mannequin.js** е малка библиотека за правене движеща се фигура на манекен.
@@ -504,9 +504,9 @@ Mannequin.colors = [
 Глобалният цвят на ставите и крайниците се отнася до
 всички стави и всички крайници. Промяната на глобалните
 цветове в `Mannequin.colors` има ефект, ако е направена
-преди създаването на фигури. Отделните цветове на части
+преди създаването на фигури. Цветовете на частите
 от тялото могат да се променят индивидуално чрез метода
-`recolor` на всяка част от тялото ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+`recolor` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
 
 [<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
 
@@ -524,24 +524,31 @@ man.l_fingers.tips.recolor( 'maroon' );
 man.r_knee.recolor( 'antiquewhite', 'black' );
 ```
 
-Първият параметър на `recolor` е цветът на основната
-част на частта от тялото. Вторият параметър е цветът
-на сферичната секция (ако има такава).
+Първият параметър на `recolor` е цветът на основния
+елемент на частта от тялото. Вторият параметър е цветът
+на сферичния елемент (ако има такъв).
 
 Достъпът до върховете на пръстите се осъществява чрез
 `l_fingers.tips` и `r_fingers.tips`.
 
 
 
-### Hiding body parts
+### Скриване на части от тялото
 
-Each body part could be hidden. This does not remove the body part and its graphical object from the figure, instead it is just not rendered in the frame. The method to hide a joint from a figure is:
+Всяка част от тялото може да бъде скрита. Това не
+премахва нея и нейния графичен образ от фигурата, а
+просто не я рисува. Методът за скриване на става е:
 
 ``` javascript
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
+където *joint* е името на частта от тялото, която
+да се скрие. Скритите части на тялото могат да се
+въртят и това се отразява на частите на тялото,
+прикрепени към тях. Следният пример скрива двете
+ръце и двата крака, но те все още същестуват и се
+използват от лактите и коленете ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
 
 [<img src="examples/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/examples/example-hide.html)
 
@@ -553,9 +560,13 @@ man.r_arm.hide();
 ```
 
 
-### Custom body parts
+### Собствени части на тяло
 
-Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+Частите на тялото са наследници на класа [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) и поддържа
+неговите свойства и методи. Въпреки това, поради скелетната
+зависимост и свързването на ставите, мащабирането на част от
+тялото трябва да е еднакво по всички оси, в противен случай
+позите трябва да бъдат ръчно коригирани ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
 
 [<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
 
@@ -571,20 +582,26 @@ man.l_wrist.scale.set(3,5,3);
 man.r_wrist.scale.set(3,5,3);
 ```
 
-Any custom `THREE.Object3D` could be attached to a body part. The attached object is included in the body and is subject to any motion the body is doing:
+Всеки `THREE.Object3D` или негов наследник може да
+бъде прикрепен към част от тялото. Прикрепеният
+обект е включен в тялото и е обект на всяко движение,
+което тялото извършва:
 
 ``` javascript
 figure.joint.attach(object);
 ```
 
-Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+Обектите могат да бъдат прикрепени към скрити части
+на тялото, но те не се скриват автоматично. Този
+подход се използва за замяна на част от тялото с
+изцяло собствен потребителски обект ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
 
 [<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
 
 ``` javascript
 man = new Male();
 
-// adding bracelets
+// добавяне на гривни
 bracelet = new THREE.Mesh(
     new THREE.CylinderGeometry(3,3,1,16),	
     new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
@@ -597,7 +614,7 @@ bracelet = bracelet.clone();
 man.r_elbow.attach(bracelet);
 
 
-// replacing the leg with other objects
+// замяна на крака с други обекти
 man.r_leg.hide();
 
 material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
@@ -608,11 +625,17 @@ obj.position.y = 2;
 man.r_leg.attach(obj);
 ```
 
-### Global position
+### Глобална позиция
 
-Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) and calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
+Не всяко взаимодействие на фигури с други обекти може
+да се осъществи чрез прикачване. Mannequin.js предоставя
+метод `point(x,y,z)` за всяка част от тялото. Този метод
+прилага [права кинематика](https://en.wikipedia.org/wiki/Forward_kinematics) и изчислява глобалните координати на точката *(x,y,z)*,
+дефинирана в локалната координатна система на частта
+от тялото.
 
-The following example creates a thread going through 5 points relative to body parts of a figure ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
+Следващият пример създава въже, преминаващо през 5 точки
+от частите на тялото на фигура ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
 
 [<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
 
@@ -624,14 +647,22 @@ setLoopVertex( 3, man.l_ankle.point(6,2,0) );
 setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 ```
 
-Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and use their global position.
+Глобалните позиции могат да се използват за поставяне
+на фигури към земята. Въпреки това, mannequin.js не съдържа
+никаква функционалност за докосване, така че потребителят
+трябва да избере точки на контакт и да използва
+техните глобални позиции.
 
-The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left show are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+Следващият пример използва четири контактни точки на всяка
+обувка (т.е. `man.r_ankle` и `man.l_ankle`). Контактните точки
+на лявата обувка са показани като червени точки. Минималното
+вертикално положение на осемте контактни точки се използва за
+регулиране на вертикалното положение на фигурата ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
 
 [<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
 
 ``` javascript
-// get minimal vertical position of contact points
+// изчисляване на минималното вертикално отклонение на контактните точки
 bottom = Math.min(
     man.l_ankle.point(6,2,0).y,
     man.l_ankle.point(-2,2.5,0).y,
@@ -647,11 +678,11 @@ bottom = Math.min(
 man.position.y += (-29.5-bottom);
 ```			
 				
-### VR mode
+### VR режим
 
-VR mode is under development. 
+VR режимът е в процес на разработка. 
 
 ---
 
-July, 2021
+Ноември, 2021
 
