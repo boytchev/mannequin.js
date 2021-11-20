@@ -535,9 +535,9 @@ VR mode is under development.
 
 # Community
 
-List of sites that use mannequin.js
+List of sites that use mannequin.js:
 
-* [setpose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
+* [SetPose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
 
 
 ---
