@@ -22,6 +22,7 @@
 	* [Custom body parts](#custom-body-parts)
 	* [Global position](#global-position)
 	* [VR mode](#vr-mode) (under development)
+- [Community](#community)
 
 # About
 [**Mannequin.js**](https://github.com/boytchev/mannequin.js)
@@ -529,6 +530,15 @@ man.position.y += (-29.5-bottom);
 ### VR mode
 
 VR mode is under development. 
+
+
+
+# Community
+
+List of sites that use mannequin.js
+
+* [setpose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
+
 
 ---
 
