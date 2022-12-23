@@ -99,7 +99,7 @@
 					backrest.rotation.set(0, 0, rad(20));
 
 					var cussion = new THREE.Mesh(
-						new THREE.SphereBufferGeometry(6.8, 20, 10, 0, 2 * Math.PI, 0, Math.PI / 2),
+						new THREE.SphereGeometry(6.8, 20, 10, 0, 2 * Math.PI, 0, Math.PI / 2),
 						new THREE.MeshPhongMaterial({color: 'black'}));
 					cussion.scale.set(1, 0.25, 1);
 					cussion.position.set(0, 4, 0);
@@ -120,7 +120,7 @@
 
 					var geometry, material, mask, thread;
 
-					geometry = new THREE.CylinderBufferGeometry(3, 3, 2.4, 6, 1, true, rad(45), rad(90));
+					geometry = new THREE.CylinderGeometry(3, 3, 2.4, 6, 1, true, rad(45), rad(90));
 					material = new THREE.MeshBasicMaterial({color: color});
 					mask = new THREE.Mesh(geometry, material);
 
@@ -130,7 +130,7 @@
 					mask.position.y = 2;
 					mask.rotation.z = rad(-25);
 
-					geometry = new THREE.CylinderBufferGeometry(3, 3, 0.1, 26, 1, true);
+					geometry = new THREE.CylinderGeometry(3, 3, 0.1, 26, 1, true);
 					thread = new THREE.Mesh(geometry, material);
 					thread.scale.x = 0.65;
 					thread.scale.z = 1.1 * zScale;
