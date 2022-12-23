@@ -41,7 +41,7 @@
 
 			function animate(t)
 			{
-				var k = THREE.Math.clamp(0.5 + sin(t), 0, 1);
+				var k = THREE.MathUtils.clamp(0.5 + sin(t), 0, 1);
 
 				// blend posture between A and B
 				man.posture = Mannequin.blend(A, B, k);

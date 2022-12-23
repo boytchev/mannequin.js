@@ -15,7 +15,7 @@
 			for (var i = 0, pos = 0; i < n; i++)
 			{
 				var feminine = Math.random() > 0.5,
-					height = THREE.Math.randFloat(0.5, 1),
+					height = THREE.MathUtils.randFloat(0.5, 1),
 					person = new Mannequin(feminine, height);
 					
 				person.position.x = 50 * cos(i / n * 360);

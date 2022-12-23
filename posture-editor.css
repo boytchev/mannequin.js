@@ -80,7 +80,7 @@ button {
 
 button:hover {
 	cursor: pointer;
-	sbackground: seagreen;
+	background: seagreen;
 }
 
 .toggle:after {
@@ -95,9 +95,11 @@ button:hover {
 	border: solid 1px gray;
 }
 
+/*
 .toggle:checked {
-	#border-color: green;
+	border-color: green;
 }
+*/
 
 :checked+span,
 :checked+span+span,
