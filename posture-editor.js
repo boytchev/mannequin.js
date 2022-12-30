@@ -145,11 +145,11 @@ function addModel( )
 			z: nameData[3]
 		};
 	}
-
-	renderer.render(scene, camera);
 }
 
 addModel( );
+addModel( );
+model.position.x = 20;
 
 
 
@@ -171,8 +171,6 @@ var cbInverseKinematics = document.getElementById('inverse-kinematics'),
 	btnGetPosture = document.getElementById('gp'),
 	btnSetPosture = document.getElementById('sp');
 	btnExportPosture = document.getElementById('ep');
-	btnAddModel = document.getElementById('am');
-	btnRemoveModel = document.getElementById('rm');
 
 
 // set up event handlers
@@ -189,8 +187,6 @@ cbMovY.addEventListener('click', processCheckBoxes);
 btnGetPosture.addEventListener('click', getPosture);
 btnSetPosture.addEventListener('click', setPosture);
 btnExportPosture.addEventListener('click', exportPosture);
-btnAddModel.addEventListener('click', addModel);
-btnRemoveModel.addEventListener('click', removeModel);
 
 
 controls.addEventListener('start', function ()
@@ -489,16 +485,12 @@ function userInput(event)
 
 function getPosture()
 {
-	if( !model ) return;
-	
 	prompt('The current posture is shown below. Copy it to the clipboard.', model.postureString);
 }
 
 
 function setPosture()
 {
-	if( !model ) return;
-	
 	var string = prompt('Reset the posture to:', '{"version":6,"data":["0,[0,0,0],...]}');
 
 	if (string)
@@ -525,23 +517,5 @@ function setPosture()
 
 function exportPosture()
 {
-	if( !model ) return;
-	
 	model.exportGLTF( 'mannequin.glb' );
-}
-
-
-
-function removeModel()
-{
-	if( !model ) return;
-	scene.remove( model );
-	models = models.filter( x => x!=model );
-	
-	if( models.length > 0 )
-		model = models[0];
-	else
-		model = null;
-
-	renderer.render(scene, camera);
 }
