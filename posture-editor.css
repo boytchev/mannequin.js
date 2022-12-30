@@ -14,13 +14,12 @@ span.short {
 	text-align: right;
 }
 
-#panel {
+.panel {
 	margin: 0.3em;
 	padding: 0.3em;
 	width: 12em;
 	position: fixed;
 	top: 0;
-	left: 0;
 	z-index: 10;
 	border-radius: 1em;
 	background: rgba(0, 0, 0, 0.01);
@@ -33,7 +32,7 @@ hr {
 	margin-bottom: 1em;
 	border: 0;
 	height: 1px;
-	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
 }
 
 label {
@@ -44,7 +43,8 @@ label {
 }
 
 button,
-label span {
+label span,
+.button-group {
 	font-size: 0.75em;
 	font-family: Sans-serif;
 	font-weight: bold;
@@ -55,6 +55,10 @@ label span {
 	vertical-align: middle;
 	color: white;
 	text-shadow: 0 0 0.2em gray;
+}
+
+.button-group {
+	width: 100%;
 }
 
 button,
@@ -76,11 +80,16 @@ button {
 	width: 100%;
 	color: black;
 	margin: 0.5em 0;
+	font-size: 1em;
 }
 
 button:hover {
 	cursor: pointer;
 	background: seagreen;
+}
+
+.button-group:hover {
+	color: black;
 }
 
 .toggle:after {
