@@ -157,7 +157,6 @@ var cbInverseKinematics = document.getElementById('inverse-kinematics'),
 	cbMovY = document.getElementById('mov-y'),
 	btnGetPosture = document.getElementById('gp'),
 	btnSetPosture = document.getElementById('sp');
-	btnExportPosture = document.getElementById('ep');
 
 
 // set up event handlers
@@ -179,7 +178,6 @@ cbMovY.addEventListener('click', processCheckBoxes);
 
 btnGetPosture.addEventListener('click', getPosture);
 btnSetPosture.addEventListener('click', setPosture);
-btnExportPosture.addEventListener('click', exportPosture);
 
 
 controls.addEventListener('start', function ()
@@ -511,10 +509,4 @@ function setPosture()
 		}
 		renderer.render(scene, camera);
 	}
-}
-
-
-function exportPosture()
-{
-	model.exportGLTF( 'mannequin.glb' );
 }
