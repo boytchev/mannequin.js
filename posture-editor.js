@@ -167,7 +167,9 @@ var cbInverseKinematics = document.getElementById('inverse-kinematics'),
 	cbRotZ = document.getElementById('rot-z'),
 	cbRotX = document.getElementById('rot-x'),
 	cbRotY = document.getElementById('rot-y'),
+	cbMovX = document.getElementById('mov-x'),
 	cbMovY = document.getElementById('mov-y'),
+	cbMovZ = document.getElementById('mov-z'),
 	btnGetPosture = document.getElementById('gp'),
 	btnSetPosture = document.getElementById('sp');
 	btnExportPosture = document.getElementById('ep');
@@ -183,7 +185,9 @@ document.addEventListener('pointermove', onPointerMove);
 cbRotZ.addEventListener('click', processCheckBoxes);
 cbRotX.addEventListener('click', processCheckBoxes);
 cbRotY.addEventListener('click', processCheckBoxes);
+cbMovX.addEventListener('click', processCheckBoxes);
 cbMovY.addEventListener('click', processCheckBoxes);
+cbMovZ.addEventListener('click', processCheckBoxes);
 
 
 btnGetPosture.addEventListener('click', getPosture);
@@ -218,11 +222,9 @@ function processCheckBoxes(event)
 	{
 		if (event.target.checked)
 		{
-			cbRotX.checked = cbRotY.checked = cbRotY.checked = cbRotZ.checked = cbMovY.checked = false;
+			cbRotX.checked = cbRotY.checked = cbRotY.checked = cbRotZ.checked = cbMovX.checked = cbMovY.checked = cbMovZ.checked = false;
 			event.target.checked = true;
 		}
-
-		//if (touchInterface) event.target.checked = true;
 	}
 
 	if (!obj) return;
@@ -306,7 +308,7 @@ function onPointerDown(event)
 		dragPoint.position.copy(obj.worldToLocal(intersects[0].point));
 		obj.imageWrapper.add(dragPoint);
 
-		if (!cbMovY.checked) obj.imageWrapper.add(gauge);
+		if (!cbMovX.checked && !cbMovY.checked && !cbMovZ.checked) obj.imageWrapper.add(gauge);
 		gauge.position.y = (obj instanceof Ankle) ? 2 : 0;
 
 		processCheckBoxes();
@@ -317,10 +319,11 @@ function onPointerDown(event)
 
 function relativeTurn(joint, rotationalAngle, angle)
 {
-	if (!rotationalAngle)
+	if ( rotationalAngle.startsWith( 'position.' ) )
 	{
 		// it is translation, not rotation
-		joint.position.y += angle;
+		rotationalAngle = rotationalAngle.split('.').pop();
+		joint.position[rotationalAngle] += angle;
 		return;
 	}
 
@@ -443,14 +446,14 @@ function animate(time)
 	// no selected object
 	if (!obj || !mouseButton) return;
 
-	var elemNone = !cbRotZ.checked && !cbRotX.checked && !cbRotY.checked && !cbMovY.checked,
+	var elemNone = !cbRotZ.checked && !cbRotX.checked && !cbRotY.checked && !cbMovX.checked && !cbMovY.checked && !cbMovZ.checked,
 		spinA = (obj instanceof Ankle) ? Math.PI / 2 : 0;
 
 	gauge.rotation.set(0, 0, -spinA);
 	if (cbRotX.checked || elemNone && mouseButton & 0x2) gauge.rotation.set(0, Math.PI / 2, 2 * spinA);
 	if (cbRotY.checked || elemNone && mouseButton & 0x4) gauge.rotation.set(Math.PI / 2, 0, -Math.PI / 2);
 
-	var joint = cbMovY.checked ? model.body : obj;
+var joint = (cbMovX.checked || cbMovY.checked || cbMovZ.checked) ? model.body : obj;
 	do {
 		for (var step = 5; step > 0.1; step *= 0.75)
 		{
@@ -460,8 +463,12 @@ function animate(time)
 				inverseKinematics(joint, 'x', step);
 			if (cbRotY.checked || elemNone && (mouseButton & 0x4))
 				inverseKinematics(joint, 'y', step);
+			if (cbMovX.checked)
+				inverseKinematics(joint, 'position.x', step);
 			if (cbMovY.checked)
-				inverseKinematics(joint, '', step);
+				inverseKinematics(joint, 'position.y', step);
+			if (cbMovZ.checked)
+				inverseKinematics(joint, 'position.z', step);
 		}
 
 		joint = joint.parentJoint;
@@ -527,7 +534,7 @@ function exportPosture()
 {
 	if( !model ) return;
 	
-	model.exportGLTF( 'mannequin.glb' );
+	model.exportGLTF( 'mannequin.glb', models );
 }
 
 

@@ -1338,7 +1338,7 @@ class Mannequin extends THREE.Group
 	}
 
 
-	exportGLTF( fileName )
+	exportGLTF( fileName, objects = this )
 	{
 		var exporter = new THREE.GLTFExporter();
 		
@@ -1362,7 +1362,7 @@ class Mannequin extends THREE.Group
 
 			
 			exporter.parse(
-				this, // objects to export
+				objects, // objects to export
 				(gltf) => {
 							var type = binary ? 'application/octet-stream' : 'text/plain;charset=utf-8',
 								data = binary ? gltf : JSON.stringify( gltf ),
