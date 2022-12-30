@@ -1,8 +1,8 @@
 const EPS = 0.00001;
 
 
-//var mouseInterface = false;
-//var touchInterface = false;
+var mouseInterface = false;
+var touchInterface = false;
 
 
 // create a scene with a better shadow
@@ -25,6 +25,11 @@ scene.add(light);
 
 
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+
+var model = new Male();
+model.l_tips = model.l_fingers.tips;
+model.r_tips = model.r_fingers.tips;
 
 
 // create gauge indicator
@@ -119,40 +124,22 @@ var names = [
 ];
 
 
-var models = [];
-var model = null;
-
-function addModel( )
+for (var nameData of names)
 {
-	model = new Male();
-	models.push( model );
-	model.l_tips = model.l_fingers.tips;
-	model.r_tips = model.r_fingers.tips;
-	
-	for (var nameData of names)
-	{
-		var name = nameData[0];
-		for (var part of model[name].children[0].children)
+	var name = nameData[0];
+	for (var part of model[name].children[0].children)
+		part.name = name;
+	for (var part of model[name].children[0].children[0].children)
+		part.name = name;
+	if (model[name].children[0].children[1])
+		for (var part of model[name].children[0].children[1].children)
 			part.name = name;
-		for (var part of model[name].children[0].children[0].children)
-			part.name = name;
-		if (model[name].children[0].children[1])
-			for (var part of model[name].children[0].children[1].children)
-				part.name = name;
-		model[name].nameUI = {
-			x: nameData[1],
-			y: nameData[2],
-			z: nameData[3]
-		};
-	}
+	model[name].nameUI = {
+		x: nameData[1],
+		y: nameData[2],
+		z: nameData[3]
+	};
 }
-
-addModel( );
-addModel( );
-model.position.x = 20;
-
-
-
 
 
 var mouse = new THREE.Vector2(), // mouse 3D position
@@ -174,9 +161,15 @@ var cbInverseKinematics = document.getElementById('inverse-kinematics'),
 
 
 // set up event handlers
-document.addEventListener('pointerdown', onPointerDown);
-document.addEventListener('pointerup', onPointerUp);
-document.addEventListener('pointermove', onPointerMove);
+document.addEventListener('mousedown', onMouseDown);
+document.addEventListener('mouseup', onMouseUp);
+document.addEventListener('mousemove', onMouseMove);
+
+document.addEventListener('touchstart', onMouseDown);
+document.addEventListener('touchend', onMouseUp);
+document.addEventListener('touchcancel', onMouseUp);
+document.addEventListener('touchmove', onMouseMove);
+
 
 cbRotZ.addEventListener('click', processCheckBoxes);
 cbRotX.addEventListener('click', processCheckBoxes);
@@ -218,7 +211,7 @@ function processCheckBoxes(event)
 			event.target.checked = true;
 		}
 
-		//if (touchInterface) event.target.checked = true;
+		if (touchInterface) event.target.checked = true;
 	}
 
 	if (!obj) return;
@@ -240,7 +233,7 @@ function processCheckBoxes(event)
 }
 
 
-function onPointerUp(event)
+function onMouseUp(event)
 {
 	controls.enabled = true;
 	mouseButton = undefined;
@@ -266,7 +259,7 @@ function deselect()
 }
 
 
-function onPointerDown(event)
+function onMouseDown(event)
 {
 	userInput(event);
 
@@ -275,18 +268,11 @@ function onPointerDown(event)
 
 	raycaster.setFromCamera(mouse, camera);
 
-	var intersects = raycaster.intersectObjects(models, true);
+	var intersects = raycaster.intersectObject(model, true);
 
 	if (intersects.length && (intersects[0].object.name || intersects[0].object.parent.name))
 	{
 		controls.enabled = false;
-
-		var scanObj;
-		for( scanObj=intersects[0].object; !(scanObj instanceof Mannequin) && !(scanObj instanceof THREE.Scene); scanObj = scanObj?.parent )
-		{
-		}
-		
-		if( scanObj instanceof Mannequin ) model = scanObj;
 
 		var name = intersects[0].object.name || intersects[0].object.parent.name;
 
@@ -466,7 +452,7 @@ function animate(time)
 }
 
 
-function onPointerMove(event)
+function onMouseMove(event)
 {
 	if (obj) userInput(event);
 }
@@ -474,12 +460,25 @@ function onPointerMove(event)
 
 function userInput(event)
 {
-	event.preventDefault();
+	if (event instanceof MouseEvent)
+	{
+		event.preventDefault();
 
-	mouseButton = event.buttons || 0x1;
+		mouseInterface = true;
+		mouseButton = event.buttons || 0x1;
 
-	mouse.x = event.clientX / window.innerWidth * 2 - 1;
-	mouse.y = -event.clientY / window.innerHeight * 2 + 1;
+		mouse.x = event.clientX / window.innerWidth * 2 - 1;
+		mouse.y = -event.clientY / window.innerHeight * 2 + 1;
+	}
+
+	if (window.TouchEvent && event instanceof TouchEvent && event.touches.length == 1)
+	{
+		mouseButton = 0x1;
+
+		touchInterface = true;
+		mouse.x = event.touches[0].clientX / window.innerWidth * 2 - 1;
+		mouse.y = -event.touches[0].clientY / window.innerHeight * 2 + 1;
+	}
 }
 
 
