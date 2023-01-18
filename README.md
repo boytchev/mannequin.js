@@ -3,26 +3,12 @@
 
 # Table of contents
 
-- [About](#about)
-- [Initialization](#initialization)
-	* [Minimal program](#minimal-program)
-	* [Figure types](#figure-types)
-- [Body parts](#body-parts)
-    * [Central body parts](#central-body-parts)
-    * [Upper limbs](#upper-limbs)
-    * [Lower limbs](#lower-limbs)
-- [Body posture](#body-posture)
-    * [Static posture](#static-posture)
-    * [Dynamic posture](#dynamic-posture)
-    * [Working with postures](#working-with-postures)
-	* [Posture editor](#posture-editor)
-- [Other functions](#other-functions)
-	* [Custom colors](#custom-colors)
-	* [Hiding body parts](#hiding-body-parts)
-	* [Custom body parts](#custom-body-parts)
-	* [Global position](#global-position)
-	* [VR mode](#vr-mode) (under development)
-- [Community](#community)
+- **[About](#about)**
+- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>)
+- **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
+- **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures) | [Posture editor](#posture-editor)</small>)
+- **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
+- **[Community](#community)**
 
 # About
 [**Mannequin.js**](https://github.com/boytchev/mannequin.js)
@@ -48,7 +34,7 @@ Since its first incarnation, mannequin.js is used in the course *Fundamentals of
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 
-Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.41** from July 2021.
+Mannequin.js is licensed under **GPL-3.0**. Latest version is **4.5** from January 2023.
 
 Three.js and OrbitControls.js are included in this repository to safeguard against incompatibilities with future versions. They are not a part of mannequin.js.
 
@@ -526,11 +512,6 @@ bottom = Math.min(
 man.position.y += (-29.5-bottom);
 ```			
 				
-### VR mode
-
-VR mode is under development. 
-
-
 
 # Community
 
@@ -541,5 +522,5 @@ List of sites that use mannequin.js:
 
 ---
 
-November, 2021
+January, 2023
 

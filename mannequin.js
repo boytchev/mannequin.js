@@ -15,10 +15,11 @@
 	4.3		absolute and relative rotations + significant refactoring
 	4.4		added AR mode -- and then removed
 	4.41	beautified by www.freeformatter.com
+	4.5		added individual fingers
 */
 
 
-const MANNEQUIN_VERSION = 4.41;
+const MANNEQUIN_VERSION = 4.5;
 const MANNEQUIN_POSTURE_VERSION = 7;
 
 
