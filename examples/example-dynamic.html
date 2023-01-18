@@ -13,7 +13,6 @@
 			createScene();
 
 			child = new Child();
-			child.position.y = 5.5;
 
 			child.r_leg.straddle = 5;
 			child.l_leg.straddle = 5;
@@ -23,7 +22,7 @@
 			child.l_knee.bend = 15;
 
 			// ball
-			geometry = new THREE.IcosahedronGeometry(7, 3);
+			geometry = new THREE.IcosahedronGeometry(7, 6);
 			material = new THREE.MeshPhongMaterial({color: 'crimson'});
 
 			ball = new THREE.Mesh(geometry, material);
@@ -41,7 +40,7 @@
 				ball.position.x = -3 * time1;
 
 				child.position.x = -3 * time1;
-				child.position.y = 4.2 + cos(90 * time1);
+				child.position.y = 12 + cos(90 * time1);
 
 				child.bend = 0;
 				child.turn = -90 - 20 * time1 + 20 * time2;
@@ -66,8 +65,8 @@
 				child.l_elbow.bend = 60 - 60 * time1;
 				child.r_elbow.bend = 60 + 60 * time1;
 
-				child.l_fingers.bend = 90 - 90 * time2;
-				child.r_fingers.bend = 90 + 90 * time2;
+				child.l_fingers.bend = 45 - 60 * time2;
+				child.r_fingers.bend = 45 + 60 * time2;
 
 				scene.rotation.y = time1 / 2;
 			}

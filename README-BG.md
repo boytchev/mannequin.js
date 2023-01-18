@@ -252,13 +252,10 @@ figure.r_wrist.tilt = angle;
 Последните части на горните крайници са пръстите **fingers** и техните
 върхове **tips**. Те могат само да се свиват с *bend*. Свиването на
 пръстите автоматично свива и техните върхове, така че с `l_fingers`
-и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)),
-докато с `l_fingers.tips` и `r_fingers.tips` се свиват само върховете
-им ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers-tips.html)):
+и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
 
 ``` javascript
 figure.r_fingers.bend = angle;
-figure.r_fingers.tips.bend = angle;
 ```
 
 

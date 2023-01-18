@@ -54,7 +54,12 @@
 			man.r_elbow.bend += 40;
 			man.r_wrist.turn -= 60;
 			man.r_wrist.tilt -= 20;
-			man.r_fingers.bend += 90;
+			man.r_fingers.bend += 60;
+
+			man.r_finger_0.straddle = 0;
+			man.r_finger_0.turn = 180;
+			man.r_finger_0.bend = -50;
+			man.r_finger_0.mid.bend = 50;
 
 			// stick
 			var geometry = new THREE.CylinderGeometry(0.4, 0.4, 80),
@@ -62,7 +67,7 @@
 				stick = new THREE.Mesh(geometry, material);
 
 			stick.rotation.x = rad(90);
-			stick.position.set(-0.5, 1, 0);
+			stick.position.set(-1, 0.25, 0);
 			stick.castShadow = true;
 
 			man.r_fingers.attach(stick);

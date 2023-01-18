@@ -106,16 +106,42 @@ var names = [
 	['l_arm', 'straddle', 'turn', 'raise'],
 	['l_elbow', '', '', 'bend'],
 	['l_wrist', 'tilt', 'turn', 'bend'],
-	['l_fingers', '', '', 'bend'],
-	['l_tips', '', '', 'bend'],
+	['l_finger_0', 'straddle', 'turn', 'bend'],
+	['l_finger_1', 'straddle', '', 'bend'],
+	['l_finger_2', 'straddle', '', 'bend'],
+	['l_finger_3', 'straddle', '', 'bend'],
+	['l_finger_4', 'straddle', '', 'bend'],
+	['l_mid_0', '', '', 'bend'],
+	['l_mid_1', '', '', 'bend'],
+	['l_mid_2', '', '', 'bend'],
+	['l_mid_3', '', '', 'bend'],
+	['l_mid_4', '', '', 'bend'],
+	['l_tip_0', '', '', 'bend'],
+	['l_tip_1', '', '', 'bend'],
+	['l_tip_2', '', '', 'bend'],
+	['l_tip_3', '', '', 'bend'],
+	['l_tip_4', '', '', 'bend'],
 	['r_leg', 'straddle', 'turn', 'raise'],
 	['r_knee', '', '', 'bend'],
 	['r_ankle', 'tilt', 'turn', 'bend'],
 	['r_arm', 'straddle', 'turn', 'raise'],
 	['r_elbow', '', '', 'bend'],
 	['r_wrist', 'tilt', 'turn', 'bend'],
-	['r_fingers', '', '', 'bend'],
-	['r_tips', '', '', 'bend']
+	['r_finger_0', 'straddle', 'turn', 'bend'],
+	['r_finger_1', 'straddle', '', 'bend'],
+	['r_finger_2', 'straddle', '', 'bend'],
+	['r_finger_3', 'straddle', '', 'bend'],
+	['r_finger_4', 'straddle', '', 'bend'],
+	['r_mid_0', '', '', 'bend'],
+	['r_mid_1', '', '', 'bend'],
+	['r_mid_2', '', '', 'bend'],
+	['r_mid_3', '', '', 'bend'],
+	['r_mid_4', '', '', 'bend'],
+	['r_tip_0', '', '', 'bend'],
+	['r_tip_1', '', '', 'bend'],
+	['r_tip_2', '', '', 'bend'],
+	['r_tip_3', '', '', 'bend'],
+	['r_tip_4', '', '', 'bend'],
 ];
 
 
@@ -126,8 +152,30 @@ function addModel( )
 {
 	model = new Male();
 	models.push( model );
-	model.l_tips = model.l_fingers.tips;
-	model.r_tips = model.r_fingers.tips;
+	
+	model.l_mid_0 = model.l_finger_0.mid;
+	model.l_mid_1 = model.l_finger_1.mid;
+	model.l_mid_2 = model.l_finger_2.mid;
+	model.l_mid_3 = model.l_finger_3.mid;
+	model.l_mid_4 = model.l_finger_4.mid;
+	
+	model.r_mid_0 = model.r_finger_0.mid;
+	model.r_mid_1 = model.r_finger_1.mid;
+	model.r_mid_2 = model.r_finger_2.mid;
+	model.r_mid_3 = model.r_finger_3.mid;
+	model.r_mid_4 = model.r_finger_4.mid;
+	
+	model.l_tip_0 = model.l_finger_0.tip;
+	model.l_tip_1 = model.l_finger_1.tip;
+	model.l_tip_2 = model.l_finger_2.tip;
+	model.l_tip_3 = model.l_finger_3.tip;
+	model.l_tip_4 = model.l_finger_4.tip;
+	
+	model.r_tip_0 = model.r_finger_0.tip;
+	model.r_tip_1 = model.r_finger_1.tip;
+	model.r_tip_2 = model.r_finger_2.tip;
+	model.r_tip_3 = model.r_finger_3.tip;
+	model.r_tip_4 = model.r_finger_4.tip;
 	
 	for (var nameData of names)
 	{
@@ -453,7 +501,8 @@ function animate(time)
 	if (cbRotX.checked || elemNone && mouseButton & 0x2) gauge.rotation.set(0, Math.PI / 2, 2 * spinA);
 	if (cbRotY.checked || elemNone && mouseButton & 0x4) gauge.rotation.set(Math.PI / 2, 0, -Math.PI / 2);
 
-var joint = (cbMovX.checked || cbMovY.checked || cbMovZ.checked) ? model.body : obj;
+	var joint = (cbMovX.checked || cbMovY.checked || cbMovZ.checked) ? model.body : obj;
+	
 	do {
 		for (var step = 5; step > 0.1; step *= 0.75)
 		{
@@ -463,6 +512,7 @@ var joint = (cbMovX.checked || cbMovY.checked || cbMovZ.checked) ? model.body : 
 				inverseKinematics(joint, 'x', step);
 			if (cbRotY.checked || elemNone && (mouseButton & 0x4))
 				inverseKinematics(joint, 'y', step);
+
 			if (cbMovX.checked)
 				inverseKinematics(joint, 'position.x', step);
 			if (cbMovY.checked)
@@ -506,7 +556,7 @@ function setPosture()
 {
 	if( !model ) return;
 	
-	var string = prompt('Reset the posture to:', '{"version":6,"data":["0,[0,0,0],...]}');
+	var string = prompt('Reset the posture to:', '{"version":7,"data":["0,[0,0,0],...]}');
 
 	if (string)
 	{
@@ -534,6 +584,7 @@ function exportPosture()
 {
 	if( !model ) return;
 	
+	console.log(models)
 	model.exportGLTF( 'mannequin.glb', models );
 }
 

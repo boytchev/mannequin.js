@@ -18,7 +18,7 @@
 	</head>
 	
 	<body>
-		<button id="attach" onclick="attachStick()">Attach stick</button>
+		<button id="attach" onclick="attachStick()">Attach sticks</button>
 		
 		<script>
 
@@ -32,8 +32,13 @@
 								  new THREE.CylinderGeometry(0.5, 0.5, 30, 16),
 								  new THREE.MeshPhongMaterial({color: 'crimson', shininess: 200})
 						  );
+				stick.rotation.x = rad(90);
+				stick.position.set(-1, 0.25, 0);
 				stick.castShadow = true;  
 				man.l_fingers.attach( stick );
+				
+				stick = stick.clone();
+				man.r_fingers.attach( stick );
 			}
 			
 			

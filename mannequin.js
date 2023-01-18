@@ -1,3 +1,4 @@
+
 // mannequin.js
 //
 // a libary for human figure
@@ -18,7 +19,7 @@
 
 
 const MANNEQUIN_VERSION = 4.41;
-const MANNEQUIN_POSTURE_VERSION = 6;
+const MANNEQUIN_POSTURE_VERSION = 7;
 
 
 const AXIS = {
@@ -460,7 +461,11 @@ class Joint extends THREE.Group
 		super();
 		var yVal = params[1];
 
-		this.image = new shape(parentJoint ? parentJoint.feminine : false, params);
+		if( shape )
+			this.image = new shape(parentJoint ? parentJoint.feminine : false, params);
+		else
+			this.image = new THREE.Group();
+		
 		this.image.castShadow = true;
 		if (shape != PelvisShape && shape != ShoeShape) this.image.position.set(0, yVal / 2, 0);
 
@@ -476,7 +481,7 @@ class Joint extends THREE.Group
 
 		if (parentJoint)
 		{ // attaching to parent joint
-			this.position.set(0, parentJoint.yVal, 0);
+			this.position.set(0, shape?parentJoint.yVal:parentJoint.yVal/4, 0);
 			parentJoint.imageWrapper.add(this);
 			this.feminine = parentJoint.feminine;
 		}
@@ -1031,7 +1036,7 @@ class Wrist extends Joint
 {
 	constructor(parentJoint)
 	{
-		super(parentJoint, null, [1.2, 2, 3.5, -90, 45, 0.5, 0.3, 1 / 2], LimbShape);
+		super(parentJoint, null, [1, 2.2, 2.5, -90, 120, 0.5, 0.3, 1 / 2], LimbShape);
 		this.leftOrRight = parentJoint.parentJoint.leftOrRight;
 
 		this.imageWrapper.rotation.set(0, -this.leftOrRight * Math.PI / 2, 0);
@@ -1110,12 +1115,33 @@ class Wrist extends Joint
 
 class Phalange extends Joint
 {
-	constructor(parentJoint, params)
+	constructor(parentJoint, params, nailSize)
 	{
 		super(parentJoint, null, params, LimbShape);
 
 		this.minRot = new THREE.Vector3(0, 0, -10);
 		this.maxRot = new THREE.Vector3(0, 0, 100);
+
+		if( nailSize > 0 )
+		{
+			this.nail = Mannequin.sphereTemplate.clone();
+			this.nail.material = new THREE.MeshStandardMaterial(
+				{
+					color: Mannequin.colors[6],
+				});
+			this.nail.scale.set(0.05, 0.2*nailSize, 0.1*nailSize);
+			this.nail.position.set(params[0]/4, params[1]*0.7, 0);
+			this.nail.rotation.set(0,0,0.2);
+			this.nail.recolor = function(color)
+			{
+				if (typeof color === 'string')
+					color = new THREE.Color(color);
+
+				this.parent.nail.material.color = color;
+			}
+
+			this.add(this.nail);
+		}
 
 	} // Phalange.constructor
 
@@ -1131,18 +1157,45 @@ class Phalange extends Joint
 } // Phalange
 
 
-class Fingers extends Phalange
+// size-x, size-y, size-z, alpha, dAlpha, offset, scale, rad
+class Finger extends Phalange
 {
-	constructor(parentJoint)
+	constructor(parentJoint, leftOrRight, number)
 	{
-		super(parentJoint, [1.2, 1.5, 3.5, 0, 45, 0.3, 0.4, 0.2]);
+		var thumb = (number==0);
+		
+		var sca = [1.1,0.95,1,0.95,0.8][number];
+		var fat = [1.0,0.95,1,0.95,0.8][number];
+		var fat2 = [1.5,1,1,1,1][number];
+		
+		// var minX = [ 0, -25, -10, -15, -35][number] * leftOrRight;
+		// var maxX = [60,  25,  10,   5,  10][number] * leftOrRight;
+		
+		var minX = [ 0, -20, -15, -25, -35][number] * leftOrRight;
+		var maxX = [ 50, 35, 15, 15,  20][number] * leftOrRight;
+		
+		super(parentJoint, [0.8*fat, 0.8*sca*(thumb?1.4:1), 0.8*fat2, 0, 45, 0.3, 0.4, 0.25], 0);
 
-		this.tips = new Phalange(this, [1.2, 1, 3.5, 45, 45, 0.3, 0.4, 0.2]);
+		this.position.x = [-0.3,0.0,0.15,0.15,0.03][ number];
+		this.position.y = [0.5,2.2,2.3,2.2,2.1][ number ];
+		this.position.z = [0.8,0.7,0.225,-0.25,-0.7][ number ] * leftOrRight;
+	
+		this.mid = new Phalange(this, [0.6*fat, 0.7*sca*(thumb?1.1:1), 0.6*fat2, 0, 60, 0.3, 0.4, 0.15], 0);
+		this.tip = new Phalange(this.mid, [0.5*fat, 0.6*sca*(thumb?1.1:1), 0.5*fat2, 0, 60, 0.3, 0.4, 0.1], fat2);
 
-		this.minRot = new THREE.Vector3(0, 0, -10);
-		this.maxRot = new THREE.Vector3(0, 0, 120);
+		this.leftOrRight = leftOrRight;
+		
+		this.y = thumb ? -this.leftOrRight * 90 : 0;
 
-	} // Fingers.constructor
+		this.minRot = new THREE.Vector3( Math.min(minX,maxX), Math.min(this.y,2*this.y), thumb?-90:-10);
+		this.maxRot = new THREE.Vector3( Math.max(minX,maxX), Math.max(this.y,2*this.y), thumb?45:120);
+
+		this.mid.minRot = new THREE.Vector3(0, 0, 0);
+		this.mid.maxRot = new THREE.Vector3(0, 0, thumb?90:120);
+
+		this.tip.minRot = new THREE.Vector3(0, 0, 0);
+		this.tip.maxRot = new THREE.Vector3(0, 0, thumb?90:120);
+	} // Finger.constructor
 
 	get bend()
 	{
@@ -1151,22 +1204,154 @@ class Fingers extends Phalange
 	
 	set bend(angle)
 	{
-		this.z = this.tips.z = angle;
+		this.z = angle;
 	}
+
+	get straddle()
+	{
+		return -this.leftOrRight * this.x;
+	}
+	
+	set straddle(angle)
+	{
+		this.x = -this.leftOrRight * angle;
+	}
+
+
+	get turn()
+	{
+		return -this.leftOrRight * this.y;
+	}
+	
+	set turn(angle)
+	{
+		this.y = -this.leftOrRight * angle;
+	}
+
 
 	get posture()
 	{
 		this.rotation.reorder('XYZ');
-		this.tips.rotation.reorder('XYZ');
-		return [grad(this.rotation.z), grad(this.tips.rotation.z)];
+		this.mid.rotation.reorder('XYZ');
+		this.tip.rotation.reorder('XYZ');
+		return [
+			grad(this.rotation.x),
+			grad(this.rotation.y),
+			grad(this.rotation.z),
+			
+			grad(this.mid.rotation.x),
+			grad(this.mid.rotation.z),
+			
+			grad(this.tip.rotation.x),
+			grad(this.tip.rotation.z),
+		];
 	}
 	
 	set posture(pos)
 	{
-		this.rotation.set(0, 0, rad(pos[0]), 'XYZ');
-		this.tips.rotation.set(0, 0, rad(pos[1]), 'XYZ');
+		this.rotation.reorder('XYZ');
+		this.rotation.x = rad(pos[0]);
+		this.rotation.y = rad(pos[1]);
+		this.rotation.z = rad(pos[2]);
+		this.mid.rotation.set(rad(pos[3]), 0, rad(pos[4]), 'XYZ');
+		this.tip.rotation.set(rad(pos[5]), 0, rad(pos[6]), 'XYZ');
 	}
+} // Finger
+
+
+class Fingers extends Joint
+{
+	// pseudo-object to allow mass control on fingers
+	constructor( finger_0, finger_1, finger_2, finger_3, finger_4 )
+	{
+		super(null, null, {}, null);
+
+		this.finger_0 = finger_0;
+		this.finger_1 = finger_1;
+		this.finger_2 = finger_2;
+		this.finger_3 = finger_3;
+		this.finger_4 = finger_4;
+
+		this.imageWrapper = this.finger_2.imageWrapper;
+	}
+	
+	get bend()
+	{
+		return this.finger_1.bend;
+	}
+	
+	set bend(angle)
+	{
+		this.finger_0.bend = angle/2;
+		this.finger_1.bend = angle;
+		this.finger_2.bend = angle;
+		this.finger_3.bend = angle;
+		this.finger_4.bend = angle;
+
+		this.finger_0.mid.bend = angle/2;
+		this.finger_1.mid.bend = angle;
+		this.finger_2.mid.bend = angle;
+		this.finger_3.mid.bend = angle;
+		this.finger_4.mid.bend = angle;
+		
+		this.finger_0.tip.bend = angle/2;
+		this.finger_1.tip.bend = angle;
+		this.finger_2.tip.bend = angle;
+		this.finger_3.tip.bend = angle;
+		this.finger_4.tip.bend = angle;
+	}
+	
+	// change the colour of the joint
+	recolor(color, secondaryColor = color)
+	{
+		this.finger_0.recolor( color, secondaryColor );
+		this.finger_1.recolor( color, secondaryColor );
+		this.finger_2.recolor( color, secondaryColor );
+		this.finger_3.recolor( color, secondaryColor );
+		this.finger_4.recolor( color, secondaryColor );
+
+		this.finger_0.mid.recolor( color, secondaryColor );
+		this.finger_1.mid.recolor( color, secondaryColor );
+		this.finger_2.mid.recolor( color, secondaryColor );
+		this.finger_3.mid.recolor( color, secondaryColor );
+		this.finger_4.mid.recolor( color, secondaryColor );
+
+		this.finger_0.tip.recolor( color, secondaryColor );
+		this.finger_1.tip.recolor( color, secondaryColor );
+		this.finger_2.tip.recolor( color, secondaryColor );
+		this.finger_3.tip.recolor( color, secondaryColor );
+		this.finger_4.tip.recolor( color, secondaryColor );
+	}
+	
 } // Fingers
+
+
+
+class Nails extends Joint
+{
+	// pseudo-object to allow mass recolor of nails
+	constructor( finger_0, finger_1, finger_2, finger_3, finger_4 )
+	{
+		super(null, null, {}, null);
+
+		this.nail_0 = finger_0.tip.nail;
+		this.nail_1 = finger_1.tip.nail;
+		this.nail_2 = finger_2.tip.nail;
+		this.nail_3 = finger_3.tip.nail;
+		this.nail_4 = finger_4.tip.nail;
+	}
+	
+	// change the colour of the nail
+	recolor(color)
+	{
+		this.nail_0.recolor( color );
+		this.nail_1.recolor( color );
+		this.nail_2.recolor( color );
+		this.nail_3.recolor( color );
+		this.nail_4.recolor( color );
+	}
+	
+} // Nails
 
 
 class Mannequin extends THREE.Group
@@ -1200,13 +1385,27 @@ class Mannequin extends THREE.Group
 		this.l_arm = new Arm(this.torso, LEFT);
 		this.l_elbow = new Elbow(this.l_arm);
 		this.l_wrist = new Wrist(this.l_elbow);
-		this.l_fingers = new Fingers(this.l_wrist);
+		this.l_finger_0 = new Finger(this.l_wrist, LEFT, 0);
+		this.l_finger_1 = new Finger(this.l_wrist, LEFT, 1);
+		this.l_finger_2 = new Finger(this.l_wrist, LEFT, 2);
+		this.l_finger_3 = new Finger(this.l_wrist, LEFT, 3);
+		this.l_finger_4 = new Finger(this.l_wrist, LEFT, 4);
+
+		this.l_fingers = new Fingers( this.l_finger_0, this.l_finger_1, this.l_finger_2, this.l_finger_3, this.l_finger_4 );
+		this.l_nails = new Nails( this.l_finger_0, this.l_finger_1, this.l_finger_2, this.l_finger_3, this.l_finger_4 );
 
 		this.r_arm = new Arm(this.torso, RIGHT);
 		this.r_elbow = new Elbow(this.r_arm);
 		this.r_wrist = new Wrist(this.r_elbow);
-		this.r_fingers = new Fingers(this.r_wrist);
+		this.r_finger_0 = new Finger(this.r_wrist, RIGHT, 0);
+		this.r_finger_1 = new Finger(this.r_wrist, RIGHT, 1);
+		this.r_finger_2 = new Finger(this.r_wrist, RIGHT, 2);
+		this.r_finger_3 = new Finger(this.r_wrist, RIGHT, 3);
+		this.r_finger_4 = new Finger(this.r_wrist, RIGHT, 4);
 
+		this.r_fingers = new Fingers( this.r_finger_0, this.r_finger_1, this.r_finger_2, this.r_finger_3, this.r_finger_4 );
+		this.r_nails = new Nails( this.r_finger_0, this.r_finger_1, this.r_finger_2, this.r_finger_3, this.r_finger_4 );
+		
 		this.add(this.body);
 
 		var s = 1.5 / (0.5 + height);
@@ -1234,11 +1433,47 @@ class Mannequin extends THREE.Group
 		this.l_elbow.bend = 15;
 		this.r_elbow.bend = 15;
 
-		this.l_wrist.bend = -15;
-		this.r_wrist.bend = -15;
+		this.l_wrist.bend = 5;
+		this.r_wrist.bend = 5;
 
-		this.l_fingers.bend = 10;
-		this.r_fingers.bend = 10;
+		this.l_finger_0.straddle = -20;
+		this.r_finger_0.straddle = -20;
+
+		this.l_finger_0.bend = -15;
+		this.l_finger_1.bend = 10;
+		this.l_finger_2.bend = 10;
+		this.l_finger_3.bend = 10;
+		this.l_finger_4.bend = 10;
+
+		this.l_finger_0.mid.bend = 10;
+		this.l_finger_1.mid.bend = 10;
+		this.l_finger_2.mid.bend = 10;
+		this.l_finger_3.mid.bend = 10;
+		this.l_finger_4.mid.bend = 10;
+		
+		this.l_finger_0.tip.bend = 10;
+		this.l_finger_1.tip.bend = 10;
+		this.l_finger_2.tip.bend = 10;
+		this.l_finger_3.tip.bend = 10;
+		this.l_finger_4.tip.bend = 10;
+
+		this.r_finger_0.bend = -15;
+		this.r_finger_1.bend = 10;
+		this.r_finger_2.bend = 10;
+		this.r_finger_3.bend = 10;
+		this.r_finger_4.bend = 10;
+
+		this.r_finger_0.mid.bend = 10;
+		this.r_finger_1.mid.bend = 10;
+		this.r_finger_2.mid.bend = 10;
+		this.r_finger_3.mid.bend = 10;
+		this.r_finger_4.mid.bend = 10;
+		
+		this.r_finger_0.tip.bend = 10;
+		this.r_finger_1.tip.bend = 10;
+		this.r_finger_2.tip.bend = 10;
+		this.r_finger_3.tip.bend = 10;
+		this.r_finger_4.tip.bend = 10;
 
 	} // Mannequin.constructor
 
@@ -1275,7 +1510,11 @@ class Mannequin extends THREE.Group
 	get posture()
 	{
 		var posture = [
-			Number((this.body.position.y + this.position.y).toFixed(1)),
+			[
+				Number((this.body.position.x /*+ this.position.x*/).toFixed(1)),
+				Number((this.body.position.y /*+ this.position.y*/).toFixed(1)),
+				Number((this.body.position.z /*+ this.position.z*/).toFixed(1)),
+			],
 			this.body.posture,
 			this.torso.posture,
 			this.head.posture,
@@ -1288,11 +1527,19 @@ class Mannequin extends THREE.Group
 			this.l_arm.posture,
 			this.l_elbow.posture,
 			this.l_wrist.posture,
-			this.l_fingers.posture,
+			this.l_finger_0.posture,
+			this.l_finger_1.posture,
+			this.l_finger_2.posture,
+			this.l_finger_3.posture,
+			this.l_finger_4.posture,
 			this.r_arm.posture,
 			this.r_elbow.posture,
 			this.r_wrist.posture,
-			this.r_fingers.posture
+			this.r_finger_0.posture,
+			this.r_finger_1.posture,
+			this.r_finger_2.posture,
+			this.r_finger_3.posture,
+			this.r_finger_4.posture,
 		];
 		return {
 			version: MANNEQUIN_POSTURE_VERSION,
@@ -1307,24 +1554,37 @@ class Mannequin extends THREE.Group
 
 		var i = 0;
 
-		this.body.position.y = posture.data[i++];
+		this.body.position.set( ...posture.data[i++] );
+		
 		this.body.posture = posture.data[i++];
 		this.torso.posture = posture.data[i++];
 		this.head.posture = posture.data[i++];
+		
 		this.l_leg.posture = posture.data[i++];
 		this.l_knee.posture = posture.data[i++];
 		this.l_ankle.posture = posture.data[i++];
+		
 		this.r_leg.posture = posture.data[i++];
 		this.r_knee.posture = posture.data[i++];
 		this.r_ankle.posture = posture.data[i++];
+		
 		this.l_arm.posture = posture.data[i++];
 		this.l_elbow.posture = posture.data[i++];
 		this.l_wrist.posture = posture.data[i++];
-		this.l_fingers.posture = posture.data[i++];
+		this.l_finger_0.posture = posture.data[i++];
+		this.l_finger_1.posture = posture.data[i++];
+		this.l_finger_2.posture = posture.data[i++];
+		this.l_finger_3.posture = posture.data[i++];
+		this.l_finger_4.posture = posture.data[i++];
+		
 		this.r_arm.posture = posture.data[i++];
 		this.r_elbow.posture = posture.data[i++];
 		this.r_wrist.posture = posture.data[i++];
-		this.r_fingers.posture = posture.data[i++];
+		this.r_finger_0.posture = posture.data[i++];
+		this.r_finger_1.posture = posture.data[i++];
+		this.r_finger_2.posture = posture.data[i++];
+		this.r_finger_3.posture = posture.data[i++];
+		this.r_finger_4.posture = posture.data[i++];
 	} // Mannequin.posture
 
 	get postureString()
@@ -1387,7 +1647,7 @@ class Female extends Mannequin
 	constructor(height = 0.95)
 	{
 		super(true, height);
-		this.position.y = 2.2;
+		this.body.position.y = 2.2;
 
 		this.l_leg.straddle -= 4;
 		this.r_leg.straddle -= 4;
@@ -1403,7 +1663,7 @@ class Male extends Mannequin
 	constructor(height = 1)
 	{
 		super(false, height);
-		this.position.y = 3.8;
+		this.body.position.y = 3.8;
 
 		this.l_leg.straddle += 6;
 		this.r_leg.straddle += 6;
@@ -1422,7 +1682,7 @@ class Child extends Mannequin
 	constructor(height = 0.65)
 	{
 		super(false, height);
-		this.position.y = -7.7;
+		this.body.position.y = -12;
 
 		this.l_arm.straddle -= 2;
 		this.r_arm.straddle -= 2;
@@ -1437,7 +1697,8 @@ Mannequin.colors = [
 	'antiquewhite', // pelvis
 	'burlywood', // joints
 	'antiquewhite', // limbs
-	'bisque' // torso
+	'bisque', // torso
+	'burlywood', // nails
 ];
 
 
@@ -1505,3 +1766,55 @@ Mannequin.blend = function (posture0, posture1, k)
 		data: lerp(posture0.data, posture1.data, k)
 	};
 } // Mannequin.blend
+
+
+Mannequin.convert6to7 = function( posture )
+{
+	// 0:y 1:body 2:torso 3:head
+	// 4:l_leg 5:l_knee 6:l_ankle 
+	// 7:r_leg 8:r_knee 9:r_ankle
+	// 10:l_arm 11:l_elbow 12:l_wrist 13:l_fingers
+	// 14:r_arm 15:r_elbow 16:r_wrist 17:r_fingers
+	
+	// {"version": 6, "data": [
+	//		0, [1,1,1], [2,2,2], [3,3,3],
+	//		[4,4,4], [5], [6,6,6],
+	//		[7,7,7], [8], [9,9,9],
+	//		[10,10,10], [11], [12,12,12], [13,13],
+	//		[14,14,14], [15], [16,16,16], [17,17]
+	// ]}
+	//	
+	// {"version":7, "data": [
+	//		0, [1,1,1], [2,2,2], [3,3,3],
+	//		[4,4,4], [5], [6,6,6],
+	//		[7,7,7], [8], [9,9,9],
+	//		[10,10,10],[11],[12,12,12],[-90,75,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10],
+	//		[-7,0.6,-5],[15],[-5,0,0],[90,75,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10],[0,10,0,10,0,10]
+	// ]}
+	
+	var data = [];
+
+	// 0..12
+	for( var i=0; i<=12; i++ )
+		data.push( posture.data[i] );
+	
+	// 13
+	var a = posture.data[13][0],
+		b = posture.data[13][1];
+		
+	for( var i=0; i<5; i++ )
+		data.push( [0,a,0,b/2,0,b/2] );
+	
+	// 14..16
+	for( var i=14; i<=16; i++ )
+		data.push( posture.data[i] );
+	
+	// 17
+	a = posture.data[17][0],
+	b = posture.data[17][1];
+		
+	for( var i=0; i<5; i++ )
+		data.push( [0,a,0,b/2,0,b/2] );
+	
+	return {version:7, data:data};
+}

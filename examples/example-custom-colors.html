@@ -12,7 +12,7 @@
 			createScene();
 
 			// gobal colours
-			Mannequin.colors = ['lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
+			Mannequin.colors = ['lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray', 'yellow'];
 
 			man = new Male();
 
@@ -32,20 +32,20 @@
 			man.r_leg.raise = 30;
 			man.r_knee.bend = 60;
 
-			man.l_ankle.tilt = 33;
+			man.l_ankle.tilt = 38;
 			man.l_ankle.bend = 25;
 
-			man.r_ankle.tilt = 33;
+			man.r_ankle.tilt = 38;
 			man.r_ankle.bend = 25;
 
-			man.position.y -= 7;
+			man.position.y -= 7.2;
 
 			// individual colours
 			man.l_elbow.recolor('yellow', 'black');
 			man.l_wrist.recolor('orange');
 			man.l_fingers.recolor('coral');
-			man.l_fingers.tips.recolor('maroon');
 			man.r_knee.recolor('antiquewhite', 'black');
+			man.l_nails.recolor( 'black' );
 
 			function animate(t)
 			{
