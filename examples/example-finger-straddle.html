@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<script src="../libs/three.min.js"></script>
+		<script src="../libs/TextGeometry.js"></script>
+		<script src="../libs/FontLoader.js"></script>
+		<script src="../libs/label.min.js"></script>
+		<script src="../mannequin.js"></script>
+	</head>
+	
+	<body>
+		<script>
+		
+			createScene();
+
+			man = new Male();
+			man.scale.set(3,3,3);
+			
+			man.position.y = -60;
+			man.l_arm.raise = 25;
+			man.l_arm.straddle = 25;
+			man.l_arm.turn = -45;
+			man.l_elbow.bend = 120;
+			man.l_wrist.turn = 45;
+			
+			man.r_arm.straddle = 15;
+
+			addLabel(man.l_finger_1.tip, 'finger_1.straddle', 5.6, 0.005, 0,    1, 0, 3).scale.set(0.2, 0.2, 0.2);
+			addLabel(man.l_finger_2.tip, 'finger_2.straddle', 5.6, 0.005, 0,    1, 0, 3).scale.set(0.2, 0.2, 0.2);
+			addLabel(man.l_finger_3.tip, 'finger_3.straddle', 5.6, 0.005, 0,    1, 0, 3).scale.set(0.2, 0.2, 0.2);
+			addLabel(man.l_finger_4.tip, 'finger_4.straddle', 5.6, 0.005, 0,    1, 0, 3).scale.set(0.2, 0.2, 0.2);
+
+			function animate(t)
+			{
+				man.l_finger_1.straddle = 15 * sin(t) - 25;
+				man.l_finger_2.straddle = 5 * sin(t) - 7.5;
+				man.l_finger_3.straddle = -5 * sin(t) + 7.5;
+				man.l_finger_4.straddle = -15 * sin(t) + 25;
+			}
+
+		</script>
+	</body>
+	
+</html>

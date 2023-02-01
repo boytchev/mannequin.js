@@ -201,7 +201,7 @@ figure.torso.tilt = angle;
 ### Горни крайници
 
 Горните крайници са симетрични части на тялото: ръка *arm*, лакът *elbow*,
-китка *wrist*, пръсти *fingers* и върхове на пръсти *finger tips*.
+китка *wrist*, пръсти *fingers* и индивидуални пръсти върхове на пръсти *finger_0* до *finger_4* с техните средни фаланги (*finger_0.mid* до *finger_4.mid*) и върхове (*finger_0.tip* до *finger_4.tip*).
 
 И двете ръце **arms**, `l_arm` и `r_arm`, поддържат свойства `raise`,
 `straddle` и `turn` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-arm.html)).
@@ -235,15 +235,23 @@ figure.r_wrist.turn = angle;
 figure.r_wrist.tilt = angle;
 ```
 
-Последните части на горните крайници са пръстите **fingers** и техните
-върхове **tips**. Те могат само да се свиват с *bend*. Свиването на
-пръстите автоматично свива и техните върхове, така че с `l_fingers`
+Последните части на горните крайници са пръстите **fingers**.  Те са дефинирани като множества (`l_fingers` и `r_fingers`) от отделни пръсти (`l_fingers_0` до `l_fingers_4` и `r_fingers_0` до `r_fingers_0`).
+
+Множествата могат само да се свиват с *bend*. Свиването на пръстите автоматично свива и техните средни фаланги и върхове, така че с `l_fingers`
 и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
 
 ``` javascript
 figure.r_fingers.bend = angle;
 ```
 
+Отделните пръсти са номерирани от **палец** (0) до **кутре** (4). Пръстите поддържат свойствата `bend`, `straddle` и `turn`. Средната фаланга на пръст е `mid`, а крайната фаланга, върхът на пръста, е `tip`. Свойствата `mid` и `tip` на пръст поддтржат само `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-bend.html) и [пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-straddle.html)).
+
+``` javascript
+figure.r_fingers_1.straddle = alpha;
+figure.r_fingers_1.bend = beta1;
+figure.r_fingers_1.mid.bend = beta2;
+figure.r_fingers_1.tip.bend = beta3;
+```
 
 ### Долни крайници
 
