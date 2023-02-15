@@ -22,7 +22,6 @@
 const MANNEQUIN_VERSION = 4.5;
 const MANNEQUIN_POSTURE_VERSION = 7;
 
-
 const AXIS = {
 	x: new THREE.Vector3(1, 0, 0),
 	y: new THREE.Vector3(0, 1, 0),
@@ -75,10 +74,9 @@ function createScene()
 
 	var ground = new THREE.Mesh(
 		new THREE.PlaneGeometry(1000, 1000),
-		new THREE.MeshStandardMaterial(
+		new THREE.MeshLambertMaterial(
 		{
 			color: 'antiquewhite',
-//			shininess: 1
 		})
 	);
 	ground.receiveShadow = true;
@@ -271,12 +269,13 @@ class ParametricShape extends THREE.Group
 
 	addSphere(r, y, x = 0, z = 0)
 	{
-		var s = Mannequin.sphereTemplate.clone();
-		s.material = new THREE.MeshStandardMaterial(
+		var s = new THREE.Mesh( Mannequin.sphereGeometry,
+			new THREE.MeshLambertMaterial(
 		{
 			color: Mannequin.colors[3],
-//			shininess: 1
-		});
+		}));
+		s.castShadow = true;
+		s.receiveShadow = true;
 		s.scale.set(r, r, r);
 		s.position.set(x, y, z);
 		this.add(s);
@@ -290,6 +289,7 @@ class HeadShape extends ParametricShape
 {
 	constructor(feminine, params)
 	{
+
 		super(Mannequin.texHead, Mannequin.colors[0], function (u, v, target)
 		{
 			var r = Mannequin.cossers(u, v, [
@@ -309,9 +309,9 @@ class HeadShape extends ParametricShape
 			v = 180 * v - 90;
 			var k = (1 + (feminine ? 1 : 2) * sin(u) * cos(v)) / 4;
 			target.set(
-				r * params[0] * cos(u) * cos(v),
-				r * params[1] * sin(u) * cos(v),
-				(r + k) * params[2] * sin(v));
+				r * params.sx * cos(u) * cos(v),
+				r * params.sy * sin(u) * cos(v),
+				(r + k) * params.sz * sin(v));
 		}, 32, 32);
 	} // HeadShape.constructor
 } // HeadShape
@@ -333,9 +333,9 @@ class ShoeShape extends THREE.Group
 			u = 360 * u;
 			v = 180 * v - 90;
 			target.set(
-				(3 * r - 2) * params[0] * (cos(u) * cos(v) + (feminine ? (Math.pow(sin(u + 180), 2) * cos(v) - 1) : 0)) - (feminine ? 0 : 2),
-				params[1] * sin(u) * cos(v) + 2,
-				params[2] * sin(v));
+				(3 * r - 2) * params.sx * (cos(u) * cos(v) + (feminine ? (Math.pow(sin(u + 180), 2) * cos(v) - 1) : 0)) - (feminine ? 0 : 2),
+				params.sy * sin(u) * cos(v) + 2,
+				params.sz * sin(v));
 		}, 24, 12));
 
 		if (feminine)
@@ -348,9 +348,9 @@ class ShoeShape extends THREE.Group
 				u = 360 * u;
 				v = 180 * v - 90;
 				target.set(
-					0.3 * (3 * r - 2) * params[0] * (cos(u) * cos(v)),
-					0.8 * params[1] * sin(u) * cos(v) + 2,
-					0.6 * params[2] * sin(v));
+					0.3 * (3 * r - 2) * params.sx * (cos(u) * cos(v)),
+					0.8 * params.sy * sin(u) * cos(v) + 2,
+					0.6 * params.sz * sin(v));
 			}, 12, 12));
 
 			this.children[0].rotation.set(0, 0, 0.4);
@@ -460,7 +460,7 @@ class Joint extends THREE.Group
 	constructor(parentJoint, pos, params, shape)
 	{
 		super();
-		var yVal = params[1];
+		var yVal = params.sy || params[1];
 
 		if( shape )
 			this.image = new shape(parentJoint ? parentJoint.feminine : false, params);
@@ -733,9 +733,11 @@ class Neck extends Joint
 
 class Head extends Joint
 {
+	static SIZE = {sx:3,sy:4,sz:2.5};
+	
 	constructor(parentJoint)
 	{
-		super(parentJoint, [1, 3, 0], [3, 4, 2.5], HeadShape);
+		super(parentJoint, [1, 3, 0], Head.SIZE, HeadShape);
 
 		this.minRot = new THREE.Vector3(-45 / 2, -90 / 2, -60 / 2);
 		this.maxRot = new THREE.Vector3(45 / 2, 90 / 2, 50 / 2);
@@ -888,9 +890,11 @@ class Knee extends Joint
 
 class Ankle extends Joint
 {
+	static SIZE = {sx:1, sy:4, sz:2};
+	
 	constructor(parentJoint)
 	{
-		super(parentJoint, null, [1, 4, 2], ShoeShape);
+		super(parentJoint, null, Ankle.SIZE, ShoeShape);
 		this.leftOrRight = parentJoint.parentJoint.leftOrRight; // i.e. leg
 
 		this.minRot = new THREE.Vector3(-25, -30, -70);
@@ -1125,11 +1129,13 @@ class Phalange extends Joint
 
 		if( nailSize > 0 )
 		{
-			this.nail = Mannequin.sphereTemplate.clone();
-			this.nail.material = new THREE.MeshStandardMaterial(
+			this.nail = new THREE.Mesh( Mannequin.sphereGeometry,
+				new THREE.MeshLambertMaterial(
 				{
 					color: Mannequin.colors[6],
-				});
+				}));
+			this.nail.castShadow = true;
+			this.nail.receiveShadow = true;
 			this.nail.scale.set(0.05, 0.2*nailSize, 0.1*nailSize);
 			this.nail.position.set(params[0]/4, params[1]*0.7, 0);
 			this.nail.rotation.set(0,0,0.2);
@@ -1712,16 +1718,7 @@ Mannequin.texLimb = new THREE.TextureLoader().load("data:image/png;base64,iVBORw
 
 
 // joint object-template
-Mannequin.sphereTemplate = new THREE.Mesh(
-	new THREE.SphereGeometry(1, 16, 8),
-	new THREE.MeshStandardMaterial(
-	{
-		color: Mannequin.colors[3],
-//		shininess: 1
-	})
-);
-Mannequin.sphereTemplate.castShadow = true;
-Mannequin.sphereTemplate.receiveShadow = true;
+Mannequin.sphereGeometry = new THREE.IcosahedronGeometry(1, 3);
 
 
 // calculate 2cosine-based lump
