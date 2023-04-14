@@ -529,9 +529,10 @@ man.position.y += (-29.5-bottom);
 List of sites that use mannequin.js:
 
 * [SetPose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
+* [ControlnNet 3D Pose](https://huggingface.co/spaces/diffusers/controlnet-3d-pose) &ndash; pose in 3D and render with ControlNet (SD-1.5) 
 
 
 ---
 
-January, 2023
+April, 2023
 
