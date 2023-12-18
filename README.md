@@ -186,7 +186,7 @@ figure.r_wrist.turn = angle;
 figure.r_wrist.tilt = angle;
 ```
 
-The last body parts of the upper limbs are the **fingers**. They are defined as sets (`l_fingers` and `r_fingers`) of individual fingers (`l_fingers_0` to `l_fingers_4` and `r_fingers_0` to `r_fingers_0`).
+The last body parts of the upper limbs are the **fingers**. They are defined as sets (`l_fingers` and `r_fingers`) of individual fingers (`l_finger_0` to `l_finger_4` and `r_finger_0` to `r_finger_0`).
 
 The sets can only *bend*. Bending of fingers is automatically distributed to bending of their middle phalanges and tips, so use `l_fingers` and `r_fingers` to bend the fingers of a hand altogether ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
 
@@ -197,10 +197,10 @@ figure.r_fingers.bend = angle;
 The individual fingers are numbered from the **thumb** (0) to the **little finger** (4). Fingers support properties `bend`, `straddle` and `turn`. The middle phalange of a finger is in its `mid` property, and the tip is in its `tip` property. Finger's `mid` and `tip` support only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-finger-bend.html) and [live example](https://boytchev.github.io/mannequin.js/examples/example-finger-straddle.html)).
 
 ``` javascript
-figure.r_fingers_1.straddle = alpha;
-figure.r_fingers_1.bend = beta1;
-figure.r_fingers_1.mid.bend = beta2;
-figure.r_fingers_1.tip.bend = beta3;
+figure.r_finger_1.straddle = alpha;
+figure.r_finger_1.bend = beta1;
+figure.r_finger_1.mid.bend = beta2;
+figure.r_finger_1.tip.bend = beta3;
 ```
 
 

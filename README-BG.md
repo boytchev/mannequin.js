@@ -235,7 +235,7 @@ figure.r_wrist.turn = angle;
 figure.r_wrist.tilt = angle;
 ```
 
-Последните части на горните крайници са пръстите **fingers**.  Те са дефинирани като множества (`l_fingers` и `r_fingers`) от отделни пръсти (`l_fingers_0` до `l_fingers_4` и `r_fingers_0` до `r_fingers_0`).
+Последните части на горните крайници са пръстите **fingers**.  Те са дефинирани като множества (`l_fingers` и `r_fingers`) от отделни пръсти (`l_finger_0` до `l_finger_4` и `r_finger_0` до `r_finger_0`).
 
 Множествата могат само да се свиват с *bend*. Свиването на пръстите автоматично свива и техните средни фаланги и върхове, така че с `l_fingers`
 и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
@@ -247,10 +247,10 @@ figure.r_fingers.bend = angle;
 Отделните пръсти са номерирани от **палец** (0) до **кутре** (4). Пръстите поддържат свойствата `bend`, `straddle` и `turn`. Средната фаланга на пръст е `mid`, а крайната фаланга, върхът на пръста, е `tip`. Свойствата `mid` и `tip` на пръст поддтржат само `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-bend.html) и [пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-straddle.html)).
 
 ``` javascript
-figure.r_fingers_1.straddle = alpha;
-figure.r_fingers_1.bend = beta1;
-figure.r_fingers_1.mid.bend = beta2;
-figure.r_fingers_1.tip.bend = beta3;
+figure.r_finger_1.straddle = alpha;
+figure.r_finger_1.bend = beta1;
+figure.r_finger_1.mid.bend = beta2;
+figure.r_finger_1.tip.bend = beta3;
 ```
 
 ### Долни крайници
