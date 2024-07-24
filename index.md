@@ -9,7 +9,7 @@ for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
 at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
-Click on an image to open a live demo.
+### Demos
 
 <div class="gallery">
 
@@ -43,10 +43,8 @@ You can try and build your own posturs with the online [Posture Editor](https://
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/src/editor/posture-editor.html)
 
 
-Mannequin.js is licensed under **GPL-3.0**.
-
-
-
 <div class="footnote">
+	<a href="docs/cookies.html">Cookies</a> &middot; 
+	<a href="docs/licence.html">Licence</a> &middot; 
 	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
 </div>

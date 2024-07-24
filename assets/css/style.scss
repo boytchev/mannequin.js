@@ -90,7 +90,7 @@ h1:not([id])+p {
 
 .gallery {
 	display: block;
-	text-align: center;
+	text-align: justify;
 }
 
 .style-block {
@@ -99,10 +99,11 @@ h1:not([id])+p {
 	text-align: center;
 	cursor: pointer;
 	text-decoration: none;
+	margin: 0.2em;
 }
 
 .style-block img {
-	border: gray 1px dotted;
+	border: light 1px solid;
 	padding: 2px;
 }
 
