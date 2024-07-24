@@ -89,11 +89,24 @@ h1:not([id])+p {
 
 
 .gallery {
-	text-align: jutify;
+	display: block;
+	text-align: center;
 }
 
-.gallery img {
+.style-block {
+	display: inline-block;
+	width: 18%;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.style-block img {
 	width: 18%;
 	border: gray 1px dotted;
 	padding: 2px;
+}
+
+.style-block:hover img {
+	border: black 1px solid;
 }
