@@ -86,3 +86,14 @@ h1:not([id])+p {
 .footer {
 	display: none;
 }
+
+
+.gallery {
+	text-align: jutify;
+}
+
+.gallery img {
+	width: 18%;
+	border: gray 1px dotted;
+	padding: 2px;
+}
