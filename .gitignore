@@ -1,13 +1,8 @@
 
 *.bak
-examples/mongoose.conf
-examples/mongoose-free-5.6.exe
-mongoose-free-5.6.exe
-mongoose.conf
-examples/video/posture-editor-ik-wave.mp4
-examples/video/posture-editor-ik.mp4
-examples/video/posture-editor-preview.mp4
+docs/video
 private/13-585a.pdf
 private/STRETCHING AND FLEXIBILITY - Normal Ranges of Joint Motion.html
 private/STRETCHING AND FLEXIBILITY - Normal Ranges of Joint Motion_files/bg_lines.gif
-libs/old
+misc
+node_modules

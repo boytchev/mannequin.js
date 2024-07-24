@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+
+	createScene( animate );
+
+	var man = new Male();
+	var woman = new Female();
+
+	function animate( t ) {
+
+		man.position.x = 45 * sin( t );
+		woman.position.z = 45 * cos( t );
+
+	}
+
+	</script>
+</body>
+
+</html>

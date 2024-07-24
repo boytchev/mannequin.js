@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+	import "./fonts/label.js";
+
+	createScene( animate );
+
+	var man = new Male();
+	man.position.x = -30;
+
+	var child = new Child();
+
+	var woman = new Female();
+	woman.position.x = 30;
+
+	addLabel( man.torso, 'torso.bend', 10, 0.5, 4 );
+	addLabel( child.torso, 'torso.turn', 10, 0.75, 4 ).scale.set( 1.5, 1.5, 1.5 );
+	addLabel( woman.torso, 'torso.tilt', 10, 0.5, 4.5 );
+
+	function animate( t ) {
+
+		man.torso.bend = 60 * sin( 2 * t );
+		child.torso.turn = 60 * sin( 2 * t );
+		woman.torso.tilt = 15 * sin( 2 * t );
+
+	}
+
+	</script>
+</body>
+
+</html>

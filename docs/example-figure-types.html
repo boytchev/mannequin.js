@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+
+	createScene( );
+
+	var man = new Male();
+	man.position.x = 23;
+
+	man.turn = -120;
+
+	man.head.nod = 40;
+	man.head.turn = -50;
+
+	man.l_ankle.turn = 20;
+	man.r_ankle.turn = 20;
+
+	man.l_arm.straddle = 15;
+	man.l_arm.raise = -15;
+	man.l_elbow.bend = 35;
+	man.l_fingers.bend = 40;
+
+	man.r_arm.raise = 1;
+	man.r_arm.straddle = 18;
+	man.r_arm.turn = 6;
+	man.r_elbow.bend = 26;
+	man.r_wrist.bend = -45;
+	man.r_wrist.turn = -135;
+	man.r_wrist.tilt = 30;
+	man.r_fingers.bend = 60;
+
+	//
+
+	var woman = new Female();
+	woman.position.x = -24;
+
+	woman.turn = -60;
+
+	woman.head.nod = 40;
+	woman.head.turn = 50;
+
+	woman.l_arm.raise = 15;
+	woman.l_arm.straddle = 25;
+	woman.l_elbow.bend = 10;
+	woman.l_wrist.bend = -15;
+	woman.l_wrist.turn = -80;
+	woman.l_wrist.tilt = -30;
+	woman.l_fingers.bend = 110;
+
+	woman.r_arm.straddle = 15;
+	woman.r_arm.turn = -45;
+	woman.r_elbow.bend = 10;
+	woman.r_wrist.bend = -45;
+
+	//
+
+	var kid = new Child();
+	kid.position.z = -7;
+
+	kid.l_arm.turn = 55;
+	kid.l_arm.straddle = 10;
+	kid.l_elbow.bend = 115;
+	kid.l_wrist.turn = 90;
+	kid.l_wrist.bend = -20;
+	kid.l_fingers.bend = 50;
+
+	kid.r_arm.turn = 41;
+	kid.r_arm.straddle = 10;
+	kid.r_arm.raise += 5;
+	kid.r_elbow.bend = 110;
+	kid.r_wrist.turn = -90;
+	kid.r_wrist.bend = -20;
+	kid.r_fingers.bend = 50;
+
+	</script>
+</body>
+</html>

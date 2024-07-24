@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+	import "./fonts/label.js";
+
+	createScene( animate );
+
+	var man = new Male();
+	man.position.x = -30;
+	man.l_leg.raise = 20;
+	man.r_leg.raise = 20;
+
+	var child = new Child();
+	child.l_leg.raise = 40;
+	child.r_leg.raise = 40;
+
+	var woman = new Female();
+	woman.position.x = 30;
+	woman.l_leg.raise = 20;
+	woman.r_leg.raise = 20;
+
+	addLabel( man.l_knee, 'knee.bend', 0, 0.15, 0, 1, 1 );
+	addLabel( woman.r_knee, 'knee.bend', 15, -0.15, 0, 1, 3 );
+
+	function animate( t ) {
+
+		man.r_knee.bend = 40 * sin( 2 * t ) + 40;
+		man.l_knee.bend = 40 * sin( 2 * t + 180 ) + 40;
+
+		child.r_knee.bend = 60 * sin( 2 * t + 120 ) + 60;
+		child.l_knee.bend = 60 * sin( 2 * t + 300 ) + 60;
+
+		woman.r_knee.bend = 40 * sin( 2 * t + 50 ) + 40;
+		woman.l_knee.bend = 40 * sin( 2 * t + 240 ) + 40;
+
+	}
+
+	</script>
+</body>
+
+</html>

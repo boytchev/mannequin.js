@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+	import "./fonts/label.js";
+
+	createScene( animate );
+
+	var man = new Male();
+	man.turnRight = 90;
+	man.position.x = -30;
+
+	var child = new Child();
+	child.turnRight = 90;
+
+	var woman = new Female();
+	woman.turnRight = 90;
+	woman.position.x = 30;
+
+	addLabel( man.head, 'head.nod', 8, 0.5 );
+	addLabel( child.head, 'head.turn', 8, 0.5 );
+	addLabel( woman.head, 'head.tilt', 8, 0.5 );
+
+	function animate( t ) {
+
+		man.head.nod = 60 * sin( 2 * t );
+		child.head.turn = 60 * sin( 2 * t );
+		woman.head.tilt = 45 * sin( 2 * t );
+
+	}
+
+	</script>
+</body>
+
+</html>
