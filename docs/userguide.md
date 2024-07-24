@@ -1,9 +1,9 @@
 <img class="logo" src="../assets/logo/logo.png">
 
 
-# Mannequin.js
+# Mannequin.js<br>User Guide and API
 
-## User Guide and API<br><small>Този документ е наличен и на [български език](userguide-bg.md)</small>
+## <small><small>Този документ е наличен и на [български език](userguide-bg.md)</small></small>
 
 - **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
@@ -15,14 +15,13 @@
 
 # Initialization
 
-The **mannequin.js** library is provided as a JavaScript module that uses
-Three.js. 
+The **mannequin.js** library is provided as a set of JavaScript modules. 
 
 
 
 ### Minimal program
 
-Here is a reasonably minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Here is a reasonably minimal program that creates a male figure in the browser ([live example](example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -84,7 +83,7 @@ male and female posture.
 All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](example-body-parts.html)):
 
 
-[<img src="snapshots/example-body-parts.jpg">](hexample-body-parts.html)
+[<img src="snapshots/example-body-parts.jpg">](example-body-parts.html)
 
 
 Each body part has rotational properties that define its position. The values of the rotation properties are angles of rotation in degrees, so 180 is half turn and 360 is full turn. Negative angles are allowed and they represent rotations in the opposite directions. 
@@ -98,8 +97,8 @@ man.torso.bend = 45;
 **Absolute rotations** are considered by some people as counterintuitive. Some joints, like wrists, have three rotational properties (*triplets*). Due to the nature of rotations in 3D space, rotations in a triplet are interconnected &ndash; modifying one property in a triplet often affects the other two. The following code demonstrates how seting the *turn* property modifies the *bend* property.
 
 ``` javascript
-man.torso.bend = 45; /* bend=45 */
-man.torso.turn = 45; /* turn=45, but now bend≈35.3 */
+man.torso.bend = 45; // bend=45
+man.torso.turn = 45; // turn=45, but now bend≈35.3
 ```
 
 
@@ -221,7 +220,7 @@ figure.r_ankle.tilt = angle;
 
 # Body posture
 
-The posture of a figure is defined by a setting the rotation properties of body parts. The order of rotations is important, i.e. changing the order of rotations produce different result. The next example applies bending 45&deg;, turning 90&deg; and tilting 60&deg; of three figures. As the order of rotations is different for each figure, the final position is also different ([live example](https://boytchev.github.io/mannequin.js/examples/example-order.html)):
+The posture of a figure is defined by a setting the rotation properties of body parts. The order of rotations is important, i.e. changing the order of rotations produce different result. The next example applies bending 45&deg;, turning 90&deg; and tilting 60&deg; of three figures. As the order of rotations is different for each figure, the final position is also different ([live example](example-order.html)):
 
 ``` javascript
 man.torso.bend += 45;
@@ -239,9 +238,9 @@ woman.torso.tilt += 60;
 
 ### Static posture
 
-The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. If the posture editor is not used, all rotations has to be defined programmatically ([live example](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
+The static posture defines the position of body part that do not change. By default, when a figure is created, its body parts are set to the default posture. If the posture editor is not used, all rotations has to be defined programmatically ([live example](example-posture.html)):
 
-[<img src="examples/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
+[<img src="snapshots/example-posture.jpg">](example-posture.html)
 
 Sometimes it is better to define the figure step by step. Tai Chi Chuan posture, shown above, could start by defining the whole body position:
 
@@ -287,11 +286,17 @@ man.r_wrist.turn -= 60;
 	
 ### Dynamic posture
 
-The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines an empty function `animate(t)`, which is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds. This function is set up in `createScene()`. If `createScene` and `animate` are not used, then the animation loop should be managed manually.
+The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines the
+function `animateFrame`, which sets a user-defined function for animation. This
+user-defined function is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds.
 
-[<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
+The user-defined function can be passes as an argument to `createScene()`.
+
+[<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
+animateFrame( animate );
+
 function animate(t)
 {
     var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
@@ -305,12 +310,11 @@ function animate(t)
     child.turn = -90-20*time1+20*time2;
     child.tilt = 10*time1;
     :
-	
-    scene.rotation.y = time1/2;
 }
 ```
 
-To make the animation loop faster, all constant rotations should be defined outside `animate`. Also, if a rotation is changing in the loop, there is no need to set it up outside the loop.
+To make the animation loop faster, all constant rotations should be defined outside `animate`. 
+			
 			
 ### Working with postures
 
@@ -330,18 +334,18 @@ There is alternative `postureString` property to get or set the posture as a str
 
 
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler anglеs). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&isin;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
-The following example blends the posture of [one figure](https://boytchev.github.io/mannequin.js/examples/example-posture.html) and copies it to [another figure](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([live example 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) and [live example 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+The following example blends the posture of [one figure](example-posture.html) and copies it to [another figure](example-posture-standing.html) ([live example 1](example-posture-blend.html) and [live example 2](example-posture-blend-2.html)):
 
-[<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="350">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="350">](example-posture-blend-2.html)
 
 ``` javascript
 // two figures
-man = new Male();
-woman = new Female();
+var man = new Male();
+var woman = new Female();
 
 // two postures
-A = {"version":5,"data":[[90,-85,74.8],...]};
-B = {"version":5,"data":[[0,-90,0],...]};
+var A = {"version":5,"data":[[90,-85,74.8],...]};
+var B = {"version":5,"data":[[0,-90,0],...]};
 
 // set an intermediate posture
 man.posture = Mannequin.blend(A,B,0.5);

@@ -1,9 +1,9 @@
 <img class="logo" src="../assets/logo/logo.png">
 
 
-# Mannequin.js
+# Mannequin.js<br>Потребителска документация
 
-## Потребителска докуменнтация<br><small>This document is also available in [English](userguide.md)</small>
+## <small><small>This document is also available in [English](userguide.md)</small></small>
 
 
 - **[Инициализация](#инициализация)** (<small>[Минимална програма](#минимална-програма) | [Видове фигури](#видове-фигури)</small>)
@@ -16,14 +16,13 @@
 
 # Инициализация
 
-Библиотеката **mannequin.js** се предоставя като JavaScript модул, който използва
-библиотеката Three.js.
+Библиотеката **mannequin.js** се предоставя като комплект от JavaScript модули.
 
 
 
 ### Минимална програма
 
-Това е относително минимална програма, която създава мъжка фигура в браузър ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Това е относително минимална програма, която създава мъжка фигура в браузър ([пример на живо](example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
@@ -114,8 +113,8 @@ man.torso.bend = 45;
 демонстрира как променянето на свойството *turn* променя свойството *bend*. 
 
 ``` javascript
-man.torso.bend = 45; /* bend=45 */
-man.torso.turn = 45; /* turn=45, но вече bend≈35.3 */
+man.torso.bend = 45; // bend=45
+man.torso.turn = 45; // turn=45, но вече bend≈35.3
 ```
 
 **Относителните ротации** се задават по отношение на текущата стойност
@@ -260,16 +259,12 @@ figure.r_ankle.tilt = angle;
 
 # Поза на тялото
 
-Позата на фигурата се определя чрез задаване на
-стойности на ротационните свойства на частите на
-тялото. Редът на завъртанията е важен, т.е.
-промяната на реда на завъртане води до различен
-резултат. Следващият пример показва навеждане на
-45&deg;, завъртане на 90&deg; и накланяне встрани
-на 60&deg; на три фигури. Тъй като редът на завъртане
-е различен за всяка фигура, крайните им пози също
-са различни
-([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-order.html)):
+Позата на фигурата се определя чрез задаване на стойности на ротационните
+свойства на частите на тялото. Редът на завъртанията е важен, т.е. промяната
+на реда на завъртане води до различен резултат. Следващият пример показва
+навеждане на 45&deg;, завъртане на 90&deg; и накланяне встрани на 60&deg; на
+три фигури. Тъй като редът на завъртане е различен за всяка фигура, крайните
+им пози също са различни ([пример на живо](example-order.html)):
 
 ``` javascript
 man.torso.bend += 45;
@@ -292,9 +287,9 @@ woman.torso.tilt += 60;
 фигура, частите на тялото ѝ заемат вградената
 поза по подразбиране. Ако не се изолзва редактор
 на поза, всички ротации трябва да бъдат дефинирани
-програмно ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-posture.html)):
+програмно ([пример на живо](example-posture.html)):
 
-[<img src="examples/snapshots/example-posture.jpg">](https://boytchev.github.io/mannequin.js/examples/example-posture.html)
+[<img src="snapshots/example-posture.jpg">](example-posture.html)
 
 Понякога е по-добре да се дефинира фигура стъпка
 по стъпка. Позата "Тай Чи Чуан", показана по-горе,
@@ -343,22 +338,21 @@ man.r_wrist.turn -= 60;
 	
 ### Динамична поза
 
-Динамичната поза &ndash; т.е. поза, която се променя
-с времето &ndash; се задава със същите свойства,
-които се използват за статична поза. Mannequin.js
-дефинира празна функция `animate(t)`, която се извиква
-в цикъла на анимацията веднъж за всеки кадър. Всички
-промени в позата трябва да бъдат дефинирани в 
-предефиниция на тази функция
-([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)).
-Параметърът *t* е времето, измерено в десети от секундата.
-Тази функция е дефинирана в `createScene()`. Ако не се
-ползват `createScene` и `animate`, тогава цикълът на
-анимацията трябва да се управлява ръчно. 
+Динамичната поза &ndash; т.е. поза, която се променя с времето &ndash; се задава
+със същите свойства, които се използват за статична поза. Mannequin.js дефинира
+функция `animateFrame`, която определя потребителска функция за анимация. Тази
+потребителска функция се извиква в цикъла на анимацията веднъж за всеки кадър.
+Всички промени в позата трябва да бъдат дефинирани в функция
+([пример на живо](example-dynamic.html)). Параметърът *t* е времето, измерено в
+десети от секундата. 
 
-[<img src="examples/snapshots/example-dynamic.jpg">](https://boytchev.github.io/mannequin.js/examples/example-dynamic.html)
+Потребителската функция може да се подаде и като параметър на `createScene()`.
+
+[<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
+animateFrame( animate );
+
 function animate(t)
 {
     var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
@@ -372,24 +366,20 @@ function animate(t)
     child.turn = -90-20*time1+20*time2;
     child.tilt = 10*time1;
     :
-	
-    scene.rotation.y = time1/2;
 }
 ```
 
 За да се направи цикълът на анимацията по-бърз, всички
 фиксирани ротации трябва да бъдат дефинирани извън
-`animate`. Освен това, ако въртенето се променя в цикъла,
-няма нужда да се дават първоначални стойности извън цикъла. 
+`animate`. 
 
 
 ### Работа с пози
 
-Позата може да бъде извлечена от фигура чрез свойството
-`posture`. То съдържа обект с елементи `version` за
-версията на формата на данните за позата и `data` &ndash;
-вложен масив с ъглите на завъртане на ставите. Свойството
-`posture` може да се използва и за задаване на поза на фигура.
+Позата може да бъде извлечена от фигура чрез свойството `posture`. То съдържа
+обект с елементи `version` за версията на формата на данните за позата и `data`
+&ndash; вложен масив с ъглите на завъртане на ставите. Свойството `posture` може
+да се използва и за задаване на поза на фигура.
 
 ``` javascript
 { "version":5,
@@ -401,32 +391,29 @@ function animate(t)
 }
 ```
 
-Има алтернативно свойство `postureString`, с което се
-извлича или задава поза като текстов низ. Преобразуването
-на позата към и от текстов низ се прави с `JSON.stringify`
-и `JSON.parse`.
+Има алтернативно свойство `postureString`, с което се извлича или задава поза
+като текстов низ. Преобразуването на позата към и от текстов низ се прави с
+`JSON.stringify` и `JSON.parse`.
 
 
-Позите могат да бъдат сливани чрез ойлерова интерполация
-(т.е. линейна интерполация на ойлерови ъгли). Методът на
-класа `blend(posture0,posture1,k)` слива първоначалната
-поза *posture0* и крайната поза *posture1* с коефициент
-*k*&isin;[0,1]. Когато *k*=0 резултатът е поза *posture0*,
-когато *k*=1 резултатът е поза *posture1*, когато *k* е
-между 0 и 1 резултатът е междинна поза между *posture0*
-и *posture1*.
-Следващият пример слива позата на [една фигура](https://boytchev.github.io/mannequin.js/examples/example-posture.html) и я копира в [друга фигура](https://boytchev.github.io/mannequin.js/examples/example-posture-standing.html) ([пример на живо 1](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) и [пример на живо 2](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)):
+Позите могат да бъдат сливани чрез ойлерова интерполация (т.е. линейна интерполация
+на ойлерови ъгли). Методът на класа `blend(posture0,posture1,k)` слива 
+първоначалната поза *posture0* и крайната поза *posture1* с коефициент
+*k*&isin;[0,1]. Когато *k*=0 резултатът е поза *posture0*, когато *k*=1
+резултатът е поза *posture1*, когато *k* е между 0 и 1 резултатът е междинна
+поза между *posture0* и *posture1*.
+Следващият пример слива позата на [една фигура](example-posture.html) и я копира в [друга фигура](example-posture-standing.html) ([пример на живо 1](example-posture-blend.html) и [пример на живо 2](example-posture-blend-2.html)):
 
-[<img src="examples/snapshots/example-posture-blend.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend.html) [<img src="examples/snapshots/example-posture-blend-2.jpg" width="350">](https://boytchev.github.io/mannequin.js/examples/example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="350">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="350">](example-posture-blend-2.html)
 
 ``` javascript
 // две фигури
-man = new Male();
-woman = new Female();
+var man = new Male();
+var woman = new Female();
 
 // две пози
-A = {"version":5,"data":[[90,-85,74.8],...]};
-B = {"version":5,"data":[[0,-90,0],...]};
+var A = {"version":5,"data":[[90,-85,74.8],...]};
+var B = {"version":5,"data":[[0,-90,0],...]};
 
 // задаване на междинна поза
 man.posture = Mannequin.blend(A,B,0.5);
