@@ -1,9 +1,10 @@
 <img class="logo" src="../assets/logo/logo.png">
 
-## This document is also available in [English](userguide.md).
 
+# Mannequin.js
 
-# Съдържание
+## Потребителска докуменнтация<br><small>This document is also available in [English](userguide.md)</small>
+
 
 - **[Инициализация](#инициализация)** (<small>[Минимална програма](#минимална-програма) | [Видове фигури](#видове-фигури)</small>)
 - **[Части на тялото](#части-на-тялото)** (<small>[Централни части на тяло](#централни-части-на-тяло) | [Горни крайници](#горни-крайници) | [Долни крайници](#долни-крайници)</small>)

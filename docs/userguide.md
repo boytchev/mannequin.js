@@ -1,11 +1,11 @@
 <img class="logo" src="../assets/logo/logo.png">
 
-## Този документ е наличен и на [български език](userguide-bg.md).
 
+# Mannequin.js
 
-# Table of contents
+## User Guide and API<br><small>Този документ е наличен и на [български език](userguide-bg.md)</small>
 
-- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>)
+- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
 - **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures) | [Posture editor](#posture-editor)</small>)
 - **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
