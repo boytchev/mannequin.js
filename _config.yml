@@ -1,0 +1,38 @@
+include: [ 'licence.md' ]
+# remote_theme: just-the-docs/just-the-docs
+
+# search_enabled: true
+
+# search:
+  # heading_level: 2
+  # previews: 3
+  # preview_words_before: 5
+  # preview_words_after: 10
+  # tokenizer_separator: /[\s/]+/
+  # rel_url: true
+  # button: false
+  
+# aux_links:
+  # "Suica on GitHub":
+    # - "//github.com/boytchev/suica"
+ 
+# last_edit_timestamp: true
+# last_edit_time_format: "%B, %Y"
+
+# gh_edit_link: true
+# gh_edit_link_text: "Edit this page on GitHub."
+# gh_edit_repository: "https://github.com/boytchev/suica" # the github URL for your repo
+# gh_edit_branch: "main" # the branch that your docs is served from
+##gh_edit_source: docs # the source that your files originate from
+# gh_edit_view_mode: "edit" # "tree" or "edit" if you want the user to jump into the editor immediately
+
+# defaults:
+  # -
+    # scope:
+      # path: "" # an empty string here means all files in the project
+    # values:
+      # layout: "default"
+      # nav_order: 1
+      # has_children: false
+      # has_toc: false
+
