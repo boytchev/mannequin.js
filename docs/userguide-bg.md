@@ -27,16 +27,16 @@
 ``` xml
 <!DOCTYPE html>
 <html>
-  <head>
-     <script src="../src/importmap.js"></script>
-  </head>
-  <body>
-    <script type="module">
-      import "mannequin";
-      createScene( );
-      new Male();
-    </script>
-  </body>
+    <head>
+        <script src="../src/importmap.js"></script>
+    </head>
+    <body>
+        <script type="module">
+            import "mannequin";
+            createScene( );
+            new Male();
+        </script>
+    </body>
 </html>
 ```
 
@@ -50,7 +50,7 @@
 Фигурите в библиотеката се създават като инстанции на класовете `Male(height)`,
 `Female(height)` или `Child(height)`, където незадължителният параметър *height*
 е относителният размер на фигурата. По подразбиране `Male` има височина 1.00,
-`Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+`Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](example-figure-types.html)):
 
 [<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
@@ -86,10 +86,10 @@ var kid = new Child();
 в кръстена `r_arm`. За някои части на тялото mannequin.js използва името
 на ставата &ndash; напр. лявата предмишница е кръстена на лакъта `l_elbow`.
 Левите и десните части на тялото са винаги спрямо фигурата, а не спрямо
-потребителя ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
+потребителя ([пример на живо](example-body-parts.html)):
 
 
-[<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
+[<img src="snapshots/example-body-parts.jpg">](example-body-parts.html)
 
 
 Всяка част от тялото има ротационни свойства, които определят нейната
@@ -134,7 +134,7 @@ man.torso.turn += 45;
 глава *head*, врат *neck*, торс *torso*, таз *pelvis* и
 цялото тяло като *body*. За да се завърти **цялото тяло** се
 използват свойствата `bend`, `turn` и `tilt` на елемента `body`
-на фигурата или самата фигура ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+на фигурата или самата фигура ([пример на живо](example-body.html)):
 
 ``` javascript
 figure.body.bend = angle;
@@ -148,7 +148,7 @@ figure.tilt = angle;
 
 
 
-Главата **head** поддържа свойствата `nod`, `turn` and `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
+Главата **head** поддържа свойствата `nod`, `turn` and `tilt` ([пример на живо](example-head.html)):
 
 ``` javascript
 figure.head.nod = angle;
@@ -156,7 +156,7 @@ figure.head.turn = angle;
 figure.head.tilt = angle;
 ```
 
-Торсът **torso** има свойства `bend`, `turn` и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
+Торсът **torso** има свойства `bend`, `turn` и `tilt` ([пример на живо](example-torso.html)):
 
 ``` javascript
 figure.torso.bend = angle;
@@ -176,7 +176,7 @@ figure.torso.tilt = angle;
 китка *wrist*, пръсти *fingers* и индивидуални пръсти върхове на пръсти *finger_0* до *finger_4* с техните средни фаланги (*finger_0.mid* до *finger_4.mid*) и върхове (*finger_0.tip* до *finger_4.tip*).
 
 И двете ръце **arms**, `l_arm` и `r_arm`, поддържат свойства `raise`,
-`straddle` и `turn` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-arm.html)).
+`straddle` и `turn` ([пример на живо](example-arm.html)).
 Следващият код показва свойствата на дясната ръка, но същите са
 налични и за лявата ръка:
 
@@ -190,7 +190,7 @@ figure.r_arm.turn = angle;
 запазят симетрията. Например, положителни относителни стойности на
 `straddle` завъртат лявата ръка наляво, а дясната &ndash; надясно.
 
-Завъртането на лакътя **elbow** е само с `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)).
+Завъртането на лакътя **elbow** е само с `bend` ([пример на живо](example-elbow.html)).
 Отрицателни стойности на *angle* водят до неестествена поза на лакътя.
 
 ``` javascript
@@ -198,7 +198,7 @@ figure.r_elbow.bend = angle;
 ```
 
 Китките **wrists** имат същите свойства като торса: `bend`, `turn` 
-и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)),
+и `tilt` ([пример на живо](example-wrist.html)),
 но подобно на ръцете, ротациите са симетрични:
 
 ``` javascript
@@ -210,13 +210,13 @@ figure.r_wrist.tilt = angle;
 Последните части на горните крайници са пръстите **fingers**.  Те са дефинирани като множества (`l_fingers` и `r_fingers`) от отделни пръсти (`l_finger_0` до `l_finger_4` и `r_finger_0` до `r_finger_0`).
 
 Множествата могат само да се свиват с *bend*. Свиването на пръстите автоматично свива и техните средни фаланги и върхове, така че с `l_fingers`
-и `r_fingers` могат да се свият целите пръсти ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
+и `r_fingers` могат да се свият целите пръсти ([пример на живо](example-fingers.html)):
 
 ``` javascript
 figure.r_fingers.bend = angle;
 ```
 
-Отделните пръсти са номерирани от **палец** (0) до **кутре** (4). Пръстите поддържат свойствата `bend`, `straddle` и `turn`. Средната фаланга на пръст е `mid`, а крайната фаланга, върхът на пръста, е `tip`. Свойствата `mid` и `tip` на пръст поддтржат само `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-bend.html) и [пример на живо](https://boytchev.github.io/mannequin.js/examples/example-finger-straddle.html)).
+Отделните пръсти са номерирани от **палец** (0) до **кутре** (4). Пръстите поддържат свойствата `bend`, `straddle` и `turn`. Средната фаланга на пръст е `mid`, а крайната фаланга, върхът на пръста, е `tip`. Свойствата `mid` и `tip` на пръст поддтржат само `bend` ([пример на живо](example-finger-bend.html) и [пример на живо](example-finger-straddle.html)).
 
 ``` javascript
 figure.r_finger_1.straddle = alpha;
@@ -231,7 +231,7 @@ figure.r_finger_1.tip.bend = beta3;
 и глезен *ankle*.
 
 И двата крака **legs** поддържат свойствата `raise`, `straddle` и `turn`
-([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Разкрачването `straddle` и завъртането `turn` са симетрични.
+([пример на живо](example-leg.html)). Разкрачването `straddle` и завъртането `turn` са симетрични.
 
 ``` javascript
 figure.r_leg.raise = angle;
@@ -239,7 +239,7 @@ figure.r_leg.straddle = angle;
 figure.r_leg.turn = angle;
 ```
 
-Движението на коляното **knee** е само `bend` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). 
+Движението на коляното **knee** е само `bend` ([пример на живо](example-knee.html)). 
 Отрицателни стойности на *angle* водят до неестествена поза на коляното.
 
 ``` javascript
@@ -247,13 +247,14 @@ figure.r_knee.bend = angle;
 ```
 
 Глезените **ankles** имат същите свойства като китките: `bend`, `turn`
-и `tilt` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)):
+и `tilt` ([пример на живо](example-ankle.html)):
 
 ``` javascript
 figure.r_ankle.bend = angle;
 figure.r_ankle.turn = angle;
 figure.r_ankle.tilt = angle;
 ```
+
 
 
 # Поза на тялото

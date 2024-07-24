@@ -27,16 +27,16 @@ Here is a reasonably minimal program that creates a male figure in the browser (
 ``` xml
 <!DOCTYPE html>
 <html>
-  <head>
-     <script src="../src/importmap.js"></script>
-  </head>
-  <body>
-    <script type="module">
-      import "mannequin";
-      createScene( );
-      new Male();
-    </script>
-  </body>
+    <head>
+        <script src="../src/importmap.js"></script>
+    </head>
+    <body>
+        <script type="module">
+            import "mannequin";
+            createScene( );
+            new Male();
+        </script>
+    </body>
 </html>
 ```
 
@@ -50,7 +50,7 @@ ground, and so on. `Male` constructs a male figure.
 Mannequin figures are created as instances of classes `Male(height)`, `Female(height)`
 or `Child(height)`, where the optional *height* is the relative size of the figure.
 By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height
-0.65 ([live example] (example-figure-types.html)):
+0.65 ([live example](example-figure-types.html)):
 
 [<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
@@ -81,10 +81,10 @@ male and female posture.
 
 # Body parts
 
-All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)):
+All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](example-body-parts.html)):
 
 
-[<img src="examples/snapshots/example-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-body-parts.html)
+[<img src="snapshots/example-body-parts.jpg">](hexample-body-parts.html)
 
 
 Each body part has rotational properties that define its position. The values of the rotation properties are angles of rotation in degrees, so 180 is half turn and 360 is full turn. Negative angles are allowed and they represent rotations in the opposite directions. 
@@ -112,7 +112,7 @@ man.torso.turn += 45;
 
 ### Central body parts
 
-The central body parts are the ones which have single instances &ndash; *head*, *neck*, *torso*, *pelvis* and the whole body as *body*. To rotate the **whole body** use properties `bend`, `turn` and `tilt` of the figure's `body` or the figure itself ([live example](https://boytchev.github.io/mannequin.js/examples/example-body.html)):
+The central body parts are the ones which have single instances &ndash; *head*, *neck*, *torso*, *pelvis* and the whole body as *body*. To rotate the **whole body** use properties `bend`, `turn` and `tilt` of the figure's `body` or the figure itself ([live example](example-body.html)):
 
 ``` javascript
 figure.body.bend = angle;
@@ -126,7 +126,7 @@ figure.tilt = angle;
 
 
 
-The **head** supports properties `nod`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-head.html)):
+The **head** supports properties `nod`, `turn` and `tilt` ([live example](example-head.html)):
 
 ``` javascript
 figure.head.nod = angle;
@@ -134,7 +134,7 @@ figure.head.turn = angle;
 figure.head.tilt = angle;
 ```
 
-The **torso** has properties `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-torso.html)):
+The **torso** has properties `bend`, `turn` and `tilt` ([live example](example-torso.html)):
 
 ``` javascript
 figure.torso.bend = angle;
@@ -149,7 +149,7 @@ Although the **neck** is a separate part of the body, it is not controlled indiv
 
 The upper limbs are symmetrical body parts: *arm*, *elbow*, *wrist*, *fingers* and individual fingers *finger_0* to *finger_4* with their middle phalanges (*finger_0.mid* to *finger_4.mid*) and tips (*finger_0.tip* to *finger_4.tip*).
 
-Both **arms**, `l_arm` and `r_arm`, support properties `raise`, `straddle` and `turn` ([live example](https://boytchev.github.io/mannequin.js/examples/example-arm.html)). The following list refers to the right arm, however, the same properties are available for the left arm:
+Both **arms**, `l_arm` and `r_arm`, support properties `raise`, `straddle` and `turn` ([live example](example-arm.html)). The following list refers to the right arm, however, the same properties are available for the left arm:
 
 ``` javascript
 figure.r_arm.raise = angle;
@@ -159,13 +159,13 @@ figure.r_arm.turn = angle;
 
 Genrally, rotations of symmetrical body parts retain symmetry. For example, setting `straddle` to a positive relative angle straddles the left arm to the left, but the right arm &ndash; to the right.
 
-The motion of the **elbow** is only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
+The motion of the **elbow** is only `bend` ([live example](example-elbow.html)). Negative values for *angle* result in unnatural elbow position.
 
 ``` javascript
 figure.r_elbow.bend = angle;
 ```
 
-The **wrists** have the same properties as the torso: `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-wrist.html)), but similar to the arms, rotations are symmetrical:
+The **wrists** have the same properties as the torso: `bend`, `turn` and `tilt` ([live example](example-wrist.html)), but similar to the arms, rotations are symmetrical:
 
 ``` javascript
 figure.r_wrist.bend = angle;
@@ -175,13 +175,13 @@ figure.r_wrist.tilt = angle;
 
 The last body parts of the upper limbs are the **fingers**. They are defined as sets (`l_fingers` and `r_fingers`) of individual fingers (`l_finger_0` to `l_finger_4` and `r_finger_0` to `r_finger_0`).
 
-The sets can only *bend*. Bending of fingers is automatically distributed to bending of their middle phalanges and tips, so use `l_fingers` and `r_fingers` to bend the fingers of a hand altogether ([live example](https://boytchev.github.io/mannequin.js/examples/example-fingers.html)):
+The sets can only *bend*. Bending of fingers is automatically distributed to bending of their middle phalanges and tips, so use `l_fingers` and `r_fingers` to bend the fingers of a hand altogether ([live example](example-fingers.html)):
 
 ``` javascript
 figure.r_fingers.bend = angle;
 ```
 
-The individual fingers are numbered from the **thumb** (0) to the **little finger** (4). Fingers support properties `bend`, `straddle` and `turn`. The middle phalange of a finger is in its `mid` property, and the tip is in its `tip` property. Finger's `mid` and `tip` support only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-finger-bend.html) and [live example](https://boytchev.github.io/mannequin.js/examples/example-finger-straddle.html)).
+The individual fingers are numbered from the **thumb** (0) to the **little finger** (4). Fingers support properties `bend`, `straddle` and `turn`. The middle phalange of a finger is in its `mid` property, and the tip is in its `tip` property. Finger's `mid` and `tip` support only `bend` ([live example](example-finger-bend.html) and [live example](example-finger-straddle.html)).
 
 ``` javascript
 figure.r_finger_1.straddle = alpha;
@@ -195,7 +195,7 @@ figure.r_finger_1.tip.bend = beta3;
 
 The lower limbs are symmetrical body parts: *leg*, *knee* and *ankle*.
 
-Both **legs** support properties `raise`, `straddle` and `turn` ([live example](https://boytchev.github.io/mannequin.js/examples/example-leg.html)). Straddling and turning are symmetrical.
+Both **legs** support properties `raise`, `straddle` and `turn` ([live example](example-leg.html)). Straddling and turning are symmetrical.
 
 ``` javascript
 figure.r_leg.raise = angle;
@@ -203,19 +203,20 @@ figure.r_leg.straddle = angle;
 figure.r_leg.turn = angle;
 ```
 
-The motion of the **knee** is only `bend` ([live example](https://boytchev.github.io/mannequin.js/examples/example-knee.html)). Negative values for *angle* result in unnatural knee position.
+The motion of the **knee** is only `bend` ([live example](example-knee.html)). Negative values for *angle* result in unnatural knee position.
 
 ``` javascript
 figure.r_knee.bend = angle;
 ```
 
-The **ankles** have the same properties as the wrists: `bend`, `turn` and `tilt` ([live example](https://boytchev.github.io/mannequin.js/examples/example-ankle.html)):
+The **ankles** have the same properties as the wrists: `bend`, `turn` and `tilt` ([live example](example-ankle.html)):
 
 ``` javascript
 figure.r_ankle.bend = angle;
 figure.r_ankle.turn = angle;
 figure.r_ankle.tilt = angle;
 ```
+
 
 
 # Body posture
