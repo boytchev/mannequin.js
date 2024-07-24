@@ -60,6 +60,12 @@ p {
 }
 
 
+ul, li {
+	font-size: 1.1em;
+	font-weight: 300;
+	line-height: 1.25em;
+}
+
 
 h1:not([id])+p {
 	margin-bottom: 0 !important;

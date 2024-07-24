@@ -3,7 +3,7 @@
 # Mannequin.js
 
 
-## Posture Licence
+## Figure Licence
 	
 	
 You can use this software to generate 3D figures. You are allowed:
