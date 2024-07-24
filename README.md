@@ -17,8 +17,8 @@ Click on an image to open a live demo.
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-point.html)
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-scene.html)
 
-* [API documentation](https://boytchev.github.io/mannequin.js/docs/api.md) (in English)
-* [АПИ документация](https://boytchev.github.io/mannequin.js/docs/api-bg.md) (на български)
+* [API documentation](https://boytchev.github.io/mannequin.js/docs/api.html) (in English)
+* [АПИ документация](https://boytchev.github.io/mannequin.js/docs/api-bg.html) (на български)
 
 
 ### Posture Editor
