@@ -289,7 +289,6 @@ man.r_wrist.turn -= 60;
 The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines the
 function `animateFrame`, which sets a user-defined function for animation. This
 user-defined function is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds.
-
 The user-defined function can be passes as an argument to `createScene()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
@@ -336,7 +335,7 @@ There is alternative `postureString` property to get or set the posture as a str
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler anglеs). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&isin;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
 The following example blends the posture of [one figure](example-posture.html) and copies it to [another figure](example-posture-standing.html) ([live example 1](example-posture-blend.html) and [live example 2](example-posture-blend-2.html)):
 
-[<img src="snapshots/example-posture-blend.jpg" width="350">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="350">](example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="300">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="300">](example-posture-blend-2.html)
 
 ``` javascript
 // two figures

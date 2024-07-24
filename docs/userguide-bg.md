@@ -342,11 +342,9 @@ man.r_wrist.turn -= 60;
 със същите свойства, които се използват за статична поза. Mannequin.js дефинира
 функция `animateFrame`, която определя потребителска функция за анимация. Тази
 потребителска функция се извиква в цикъла на анимацията веднъж за всеки кадър.
-Всички промени в позата трябва да бъдат дефинирани в функция
+Всички промени в позата трябва да бъдат дефинирани във функцията
 ([пример на живо](example-dynamic.html)). Параметърът *t* е времето, измерено в
-десети от секундата. 
-
-Потребителската функция може да се подаде и като параметър на `createScene()`.
+десети от секундата. Потребителската функция може да се подаде и като параметър на `createScene()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
@@ -404,7 +402,7 @@ function animate(t)
 поза между *posture0* и *posture1*.
 Следващият пример слива позата на [една фигура](example-posture.html) и я копира в [друга фигура](example-posture-standing.html) ([пример на живо 1](example-posture-blend.html) и [пример на живо 2](example-posture-blend-2.html)):
 
-[<img src="snapshots/example-posture-blend.jpg" width="350">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="350">](example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="300">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="300">](example-posture-blend-2.html)
 
 ``` javascript
 // две фигури
