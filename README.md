@@ -1,3 +1,5 @@
+<img class="logo" src="assets/logo/logo.png">
+
 # Mannequin.js
 
 ### About

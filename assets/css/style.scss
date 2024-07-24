@@ -1,0 +1,88 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+
+h1:not([id]) {
+	display: none;
+}
+
+body {
+	max-width: 55em;
+	margin: auto;
+	padding: 1em 2em;
+	font-family: Cordana, Calibri, sans-serif !important;
+}
+
+div.markdown-body {
+	font-family: Cordana, Calibri, sans-serif !important;
+}
+
+img.logo {
+	display: block;
+	width: 5em;
+	margin: 0 auto;
+	padding: 0;
+}
+
+h1, h2 {
+	left: 0;
+	margin: 0 !important;
+	
+	text-align: center;
+	width: 100%;
+	
+	font-size: 2em;
+	font-weight: bold !important;
+	font-family: Cordana, Calibri, sans-serif !important;
+	border-bottom: none !important;
+}
+
+.markdown-body h2 {
+	margin-top: 1.5em !important;
+	margin-bottom: 0.65em !important;
+	font-weight: normal !important;
+	font-size: 1.5em;
+}
+
+.markdown-body h3 {
+	margin-top: 1.5em !important;
+	margin-bottom: 0.5em !important;
+	font-weight: normal !important;
+	font-size: 1.5em;
+	border-bottom: dotted lightgray 1px;
+}
+
+p {
+	font-size: 1.2em !important;
+	text-align: justify;
+}
+
+
+
+h1:not([id])+p {
+	margin-bottom: 0 !important;
+}
+
+.footnote {
+	margin-top: 2em;
+	border-top: solid whitesmoke 1px;
+	text-align: center;
+	font-size: 1em;
+	font-weight: 300;
+}
+
+.footnote a, .footnote a:visited {
+	text-decoration: none;
+	padding: 0 0.5em;
+	color: gray;
+}
+
+.footnote a:hover {
+	color: black;
+}
+
+.footer {
+	display: none;
+}
