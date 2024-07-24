@@ -1,47 +1,22 @@
-Този документ е наличен и на [български език](mannequin-bg.md).
+Този документ е наличен и на [български език](userguide-bg.md).
 
 
 # Table of contents
 
-- **[About](#about)**
 - **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>)
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
 - **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures) | [Posture editor](#posture-editor)</small>)
 - **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
 - **[Community](#community)**
 
-# About
-[**Mannequin.js**](https://github.com/boytchev/mannequin.js)
-is a simple library of an articulated mannequin figure. The shape
-of the figure and its movements are done purely in JavaScript.
-The graphics is implemented in
-[Three.js](https://threejs.org). Click on an image to open a live demo.
-
-[<img src="snapshots/example-posture.jpg" width="150">](example-posture.html)
-[<img src="snapshots/example-figure-types.jpg" width="150">](example-figure-types.html)
-[<img src="snapshots/example-custom-body-parts.jpg" width="150">](example-custom-body-parts.html)
-[<img src="snapshots/example-point.jpg" width="150">](example-point.html)
-[<img src="snapshots/example-scene.jpg" width="150">](example-scene.html)
-
-You can try and build your own posturs with the online [Posture Editor](../src/editor/posture-editor.html)
-[<img src="snapshots/example-posture-editor.jpg">](../src/editor/posture-editor.html)
-
-This is the fifth incarnation of the mannequin figure library. The first one was
-implemented in Elica. The second one was implemented in C/C++ and OpenGL. The
-third and fourth ones were implemented in ES5 JS/Three.js. The fifth version
-uses ES6 modules. Since its first incarnation, mannequin.js is used in the
-course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate
-students from the [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en) at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
-
-
-Mannequin.js is licensed under **GPL-3.0**. Latest version is **5.0** from
-July 2024.
 
 
 # Initialization
 
-The **mannequin.js** library is provided as a single JavaScript file that has to
-be include along with three.js or three.min.js. 
+The **mannequin.js** library is provided as a JavaScript modulefile that uses
+Three.js. 
+
+
 
 ### Minimal program
 
@@ -50,45 +25,57 @@ Here is a minimal program that creates a male figure in the browser ([live examp
 ``` xml
 <!DOCTYPE html>
 <html>
-   <body>
-      <script src="../three.min.js"></script>
-      <script src="../mannequin.js"></script>
-      <script>
-         createScene();
-         man = new Male();
-      </script>
-   </body>
+	<head>
+		<script src="../src/importmap.js"></script>
+	</head>
+	<body>
+		<script type="module">
+			import "mannequin";
+			createScene( );
+			new Male();
+		</script>
+	</body>
 </html>
 ```
 
-The helper function `createScene()` provides default scene, lighting, camera, ground, and so on. Another helper function, `animate(t)` is responsible for defining figures' postures at moment *t*. If the scene is created with a custom function, then it should also manage the animation loop by itself.
+The helper function `createScene()` provides default scene, lighting, camera,
+ground, and so on. `Male` constructs a male figure.
+
+
 
 ### Figure types
 
-Mannequin figures are created as instances of classes `Male(height)`, `Female(height)` or `Child(height)`, wherethe optional *height* is the relative size of the figure. By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height 0.65 ([live example](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+Mannequin figures are created as instances of classes `Male(height)`, `Female(height)`
+or `Child(height)`, where the optional *height* is the relative size of the figure.
+By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height
+0.65 ([live example (https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
 [<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
 
 ``` javascript
-man = new Male();
+var man = new Male();
 man.position.x = 20;
 man.turn = -120;
 :
-woman = new Female();
+var woman = new Female();
 woman.position.x = -20;
 woman.turn = -60;
 :
-kid = new Child();
+var kid = new Child();
 kid.position.z = -7
 :
 ```
 
-These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines whether the shape is feminine or masculine
+These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines
+whether the shape is feminine or masculine
  ([live example](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
 
 [<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
 
-The difference between using different figure classes is that `Mannequin` sets a default neutral posture of the figure, while `Male` and `Female` set a default male and female posture.
+The difference between using different figure classes is that `Mannequin` sets
+a default neutral posture of the figure, while `Male` and `Female` set a default
+male and female posture.
+
 
 
 # Body parts

@@ -10,7 +10,7 @@ The shape and the motion of the figures are done in JavaScript.
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-scene.html)
 
 * [Mannequin Home](https://boytchev.github.io/mannequin.js/index.html)
-* [API documentation](https://boytchev.github.io/mannequin.js/docs/api.html)
+* [User guide](https://boytchev.github.io/mannequin.js/docs/userguide.html)
 * [Posture editor](https://boytchev.github.io/mannequin.js/src/editor/posture-editor.html)
 
 Mannequin.js is licensed under **GPL-3.0**.
