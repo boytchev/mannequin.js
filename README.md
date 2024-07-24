@@ -4,6 +4,12 @@
 
 **Mannequin.js** is a simple library of an articulated mannequin figure.
 The shape of the figure and its movements are done purely in JavaScript.
+
+The library is used in the course *Fundamentals of Computer Graphics*
+for Computer Sciences undergraduate students from the
+[Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
+at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
+
 Click on an image to open a live demo.
 
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-posture.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-posture.html)
@@ -22,14 +28,6 @@ You can try and build your own posturs with the online [Posture Editor](https://
 
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/src/editor/posture-editor.html)
 
-### Usage
-
-This is the fifth incarnation of the mannequin figure library. The first one was
-implemented in Elica. The second one was implemented in C/C++ and OpenGL. The
-third and fourth ones were implemented in ES5 JS/Three.js. The fifth version
-uses ES6 modules. Since its first incarnation, mannequin.js is used in the
-course *Fundamentals of Computer Graphics* for Computer Sciences undergraduate
-students from the [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en) at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 ### License
 
