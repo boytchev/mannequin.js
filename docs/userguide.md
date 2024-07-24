@@ -1,4 +1,6 @@
-Този документ е наличен и на [български език](userguide-bg.md).
+<img class="logo" src="assets/logo/logo.png">
+
+## Този документ е наличен и на [български език](userguide-bg.md).
 
 
 # Table of contents

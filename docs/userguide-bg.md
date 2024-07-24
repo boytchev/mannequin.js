@@ -1,4 +1,6 @@
-This document is also available in [English](userguide.md).
+<img class="logo" src="assets/logo/logo.png">
+
+## This document is also available in [English](userguide.md).
 
 
 # Съдържание
