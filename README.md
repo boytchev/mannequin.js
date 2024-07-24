@@ -4,7 +4,6 @@
 
 **Mannequin.js** is a simple library of an articulated mannequin figure.
 The shape of the figure and its movements are done purely in JavaScript.
-
 The library is used in the course *Fundamentals of Computer Graphics*
 for Computer Sciences undergraduate students from the
 [Faculty of Mathematics and Informatics](https://www.fmi.uni-sofia.bg/en)
@@ -18,8 +17,8 @@ Click on an image to open a live demo.
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-point.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-point.html)
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-scene.jpg" width="150">](https://boytchev.github.io/mannequin.js/docs/example-scene.html)
 
-* [API documentation](docs/api.md) (in English)
-* [АПИ документация](docs/api-bg.md) (на български)
+* [API documentation](https://boytchev.github.io/mannequin.js/docs/api.md) (in English)
+* [АПИ документация](https://boytchev.github.io/mannequin.js/docs/api-bg.md) (на български)
 
 
 ### Posture Editor
