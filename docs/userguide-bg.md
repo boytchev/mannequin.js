@@ -1,4 +1,4 @@
-<img class="logo" src="assets/logo/logo.png">
+<img class="logo" src="../assets/logo/logo.png">
 
 ## This document is also available in [English](userguide.md).
 
@@ -22,21 +22,21 @@
 
 ### Минимална програма
 
-Това е най-късата програма, която създава мъжка фигура в браузър ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Това е относително минимална програма, която създава мъжка фигура в браузър ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="../src/importmap.js"></script>
-	</head>
-	<body>
-		<script type="module">
-			import "mannequin";
-			createScene( );
-			new Male();
-		</script>
-	</body>
+  <head>
+     <script src="../src/importmap.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      import "mannequin";
+      createScene( );
+      new Male();
+    </script>
+  </body>
 </html>
 ```
 
@@ -52,27 +52,27 @@
 е относителният размер на фигурата. По подразбиране `Male` има височина 1.00,
 `Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
 
-[<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
+[<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
 ``` javascript
 var man = new Male();
-man.position.x = 20;
-man.turn = -120;
+    man.position.x = 20;
+    man.turn = -120;
 :
 var woman = new Female();
-woman.position.x = -20;
-woman.turn = -60;
+    woman.position.x = -20;
+    woman.turn = -60;
 :
 var kid = new Child();
-kid.position.z = -7
+    kid.position.z = -7;
 :
 ```
 
-Тези три класа има общ родиел &ndash; класът `Mannequin(feminine,height)`,
+Тези три класа има общ родител &ndash; `Mannequin(feminine,height)`,
 в който булевият параметър *feminine* определя дали формата е женствена
-или мъжествена ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
+или мъжествена ([пример на живо](example-height.html)):
 
-[<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
+[<img src="snapshots/example-height.jpg">](example-height.html)
 
 Разликата между използването на различните класове за фигури е в това, че
 `Mannequin` придава подразбираща се неутрална поза на фигурата, докато

@@ -1,4 +1,4 @@
-<img class="logo" src="assets/logo/logo.png">
+<img class="logo" src="../assets/logo/logo.png">
 
 ## Този документ е наличен и на [български език](userguide-bg.md).
 
@@ -15,28 +15,28 @@
 
 # Initialization
 
-The **mannequin.js** library is provided as a JavaScript modulefile that uses
+The **mannequin.js** library is provided as a JavaScript module that uses
 Three.js. 
 
 
 
 ### Minimal program
 
-Here is a minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
+Here is a reasonably minimal program that creates a male figure in the browser ([live example](https://boytchev.github.io/mannequin.js/examples/example-minimal.html)):
 
 ``` xml
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="../src/importmap.js"></script>
-	</head>
-	<body>
-		<script type="module">
-			import "mannequin";
-			createScene( );
-			new Male();
-		</script>
-	</body>
+  <head>
+     <script src="../src/importmap.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      import "mannequin";
+      createScene( );
+      new Male();
+    </script>
+  </body>
 </html>
 ```
 
@@ -50,29 +50,28 @@ ground, and so on. `Male` constructs a male figure.
 Mannequin figures are created as instances of classes `Male(height)`, `Female(height)`
 or `Child(height)`, where the optional *height* is the relative size of the figure.
 By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height
-0.65 ([live example (https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)):
+0.65 ([live example] (example-figure-types.html)):
 
-[<img src="examples/snapshots/example-figure-types.jpg">](https://boytchev.github.io/mannequin.js/examples/example-figure-types.html)
+[<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
 ``` javascript
 var man = new Male();
-man.position.x = 20;
-man.turn = -120;
+    man.position.x = 20;
+    man.turn = -120;
 :
 var woman = new Female();
-woman.position.x = -20;
-woman.turn = -60;
+    woman.position.x = -20;
+    woman.turn = -60;
 :
 var kid = new Child();
-kid.position.z = -7
+    kid.position.z = -7;
 :
 ```
 
-These three classes have a common predecessor &ndash; the class `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines
-whether the shape is feminine or masculine
- ([live example](https://boytchev.github.io/mannequin.js/examples/example-height.html)):
+These three classes have a common predecessor &ndash; `Mannequin(feminine,height)`, where the boolean paremeter *feminine* defines whether the shape is feminine or masculine
+ ([live example](example-height.html)):
 
-[<img src="examples/snapshots/example-height.jpg">](https://boytchev.github.io/mannequin.js/examples/example-height.html)
+[<img src="snapshots/example-height.jpg">](example-height.html)
 
 The difference between using different figure classes is that `Mannequin` sets
 a default neutral posture of the figure, while `Male` and `Female` set a default
