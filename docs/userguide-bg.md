@@ -10,7 +10,6 @@
 - **[Части на тялото](#части-на-тялото)** (<small>[Централни части на тяло](#централни-части-на-тяло) | [Горни крайници](#горни-крайници) | [Долни крайници](#долни-крайници)</small>)
 - **[Поза на тялото](#поза-на-тялото)** (<small>[Статична поза](#статична-поза) | [Динамична поза](#динамична-поза) | [Работа с пози](#работа-с-пози)</small>)
 - **[Други функционалности](#други-функционалности)** (<small>[Собствени цветове](#собствени-цветове) | [Скриване на части от тялото](#скриване-на-части-от-тялото) | [Собствени части на тяло](#собствени-части-на-тяло) | [Глобална позиция](#глобална-позиция)</small>)
-- **[Общност](#общност)**
 
 
 
@@ -490,9 +489,9 @@ figure.joint.hide();
 въртят и това се отразява на частите на тялото,
 прикрепени към тях. Следващият пример скрива двете
 ръце и двата крака, но те все още същестуват и се
-използват от лактите и коленете ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
+използват от лактите и коленете ([пример на живо](example-hide.html)):
 
-[<img src="examples/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/examples/example-hide.html)
+[<img src="snapshots/example-hide.jpg">](example-hide.html)
 
 ``` javascript
 man.l_leg.hide();
@@ -510,10 +509,10 @@ man.r_arm.hide();
 тялото трябва да е еднакво по всички оси, в противен случай
 позате трябва да бъде ръчно коригирана ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
 
-[<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
+[<img src="snapshots/example-custom-sizes.jpg">](example-custom-sizes.html)
 
 ``` javascript
-man = new Male();
+var man = new Male();
 
 man.head.scale.set(3,3,3);
 
@@ -536,15 +535,15 @@ figure.joint.attach(object);
 Обектите могат да бъдат прикрепени към скрити части
 на тялото, но те не се скриват автоматично. Този
 подход се използва за замяна на част от тялото с
-изцяло собствен потребителски обект ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+изцяло собствен потребителски обект ([пример на живо](example-custom-body-parts.html)):
 
-[<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
+[<img src="snapshots/example-custom-body-parts.jpg">](example-custom-body-parts.html)
 
 ``` javascript
-man = new Male();
+var man = new Male();
 
 // добавяне на гривни
-bracelet = new THREE.Mesh(
+var bracelet = new THREE.Mesh(
     new THREE.CylinderGeometry(3,3,1,16),	
     new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
 );
@@ -559,9 +558,9 @@ man.r_elbow.attach(bracelet);
 // замяна на крака с други обекти
 man.r_leg.hide();
 
-material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
+var material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
 
-obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
+var obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
 obj.castShadow = true;
 obj.position.y = 2;
 man.r_leg.attach(obj);
@@ -577,9 +576,9 @@ man.r_leg.attach(obj);
 от тялото.
 
 Следващият пример създава въже, преминаващо през 5 точки
-от частите на тялото на фигура ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
+от частите на тялото на фигура ([пример на живо](example-point.html)):
 
-[<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
+[<img src="snapshots/example-point.jpg">](example-point.html)
 
 ``` javascript
 setLoopVertex( 0, man.r_fingers.tips.point(0,1,0) );
@@ -599,13 +598,13 @@ setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 обувка (т.е. `man.r_ankle` и `man.l_ankle`). Контактните точки
 на лявата обувка са показани като червени точки. Минималното
 вертикално положение на осемте контактни точки се използва за
-регулиране на вертикалното положение на фигурата ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+регулиране на вертикалното положение на фигурата ([пример на живо](example-touch-ground.html)):
 
-[<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
+[<img src="snapshots/example-touch-ground.jpg">](example-touch-ground.html)
 
 ``` javascript
 // изчисляване на минималното вертикално отклонение на контактните точки
-bottom = Math.min(
+var bottom = Math.min(
     man.l_ankle.point(6,2,0).y,
     man.l_ankle.point(-2,2.5,0).y,
     man.l_ankle.point(2,2.5,2).y,
@@ -621,13 +620,8 @@ man.position.y += (-29.5-bottom);
 ```			
 
 
-# Общност
-
-Списък от сайтове, които използват mannequin.js:
-
-* [SetPose.com](https://setpose.com/) &ndash; безплатен интерактивен референтен 3D модел за рисуване на фигури, динамични пози и други онлайн модели 
-
----
-
-Януари, 2023
-
+		
+<div class="footnote">
+	<a href="../">Home</a> &middot;
+	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
+</div>

@@ -9,7 +9,6 @@
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
 - **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
 - **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
-- **[Community](#community)**
 
 
 
@@ -404,9 +403,9 @@ Each body part could be hidden. This does not remove the body part and its graph
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([live example](https://boytchev.github.io/mannequin.js/examples/example-hide.html)):
+where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([live example](example-hide.html)):
 
-[<img src="examples/snapshots/example-hide.jpg">](https://boytchev.github.io/mannequin.js/examples/example-hide.html)
+[<img src="snapshots/example-hide.jpg">](example-hide.html)
 
 ``` javascript
 man.l_leg.hide();
@@ -418,12 +417,12 @@ man.r_arm.hide();
 
 ### Custom body parts
 
-Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](example-custom-sizes.html)):
 
-[<img src="examples/snapshots/example-custom-sizes.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)
+[<img src="snapshots/example-custom-sizes.jpg">](example-custom-sizes.html)
 
 ``` javascript
-man = new Male();
+var man = new Male();
 
 man.head.scale.set(3,3,3);
 
@@ -440,15 +439,15 @@ Any custom `THREE.Object3D` could be attached to a body part. The attached objec
 figure.joint.attach(object);
 ```
 
-Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)):
+Objects can be attached to hidden body parts, but they are not automatically hidden. This approach is used to replace a body part with entirely custom user object ([live example](example-custom-body-parts.html)):
 
-[<img src="examples/snapshots/example-custom-body-parts.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-body-parts.html)
+[<img src="snapshots/example-custom-body-parts.jpg">](example-custom-body-parts.html)
 
 ``` javascript
-man = new Male();
+var man = new Male();
 
 // adding bracelets
-bracelet = new THREE.Mesh(
+var bracelet = new THREE.Mesh(
     new THREE.CylinderGeometry(3,3,1,16),	
     new THREE.MeshPhongMaterial({color:'crimson',shininess:200})
 );
@@ -463,9 +462,9 @@ man.r_elbow.attach(bracelet);
 // replacing the leg with other objects
 man.r_leg.hide();
 
-material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
+var material = new THREE.MeshPhongMaterial({color:'crimson',shininess:200});
 
-obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
+var obj = new THREE.Mesh(new THREE.CylinderGeometry(3,2,3,32), material);
 obj.castShadow = true;
 obj.position.y = 2;
 man.r_leg.attach(obj);
@@ -475,9 +474,9 @@ man.r_leg.attach(obj);
 
 Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) and calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
 
-The following example creates a thread going through 5 points relative to body parts of a figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-point.html)):
+The following example creates a thread going through 5 points relative to body parts of a figure ([live example](example-point.html)):
 
-[<img src="examples/snapshots/example-point.jpg">](https://boytchev.github.io/mannequin.js/examples/example-point.html)
+[<img src="snapshots/example-point.jpg">](example-point.html)
 
 ``` javascript
 setLoopVertex( 0, man.r_fingers.tips.point(0,1,0) );
@@ -489,13 +488,13 @@ setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 
 Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and use their global position.
 
-The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left shoe are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)):
+The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left shoe are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](example-touch-ground.html)):
 
-[<img src="examples/snapshots/example-touch-ground.jpg">](https://boytchev.github.io/mannequin.js/examples/example-touch-ground.html)
+[<img src="snapshots/example-touch-ground.jpg">](example-touch-ground.html)
 
 ``` javascript
 // get minimal vertical position of contact points
-bottom = Math.min(
+var bottom = Math.min(
     man.l_ankle.point(6,2,0).y,
     man.l_ankle.point(-2,2.5,0).y,
     man.l_ankle.point(2,2.5,2).y,
@@ -509,17 +508,10 @@ bottom = Math.min(
 
 man.position.y += (-29.5-bottom);
 ```			
-				
-
-# Community
-
-List of sites that use mannequin.js:
-
-* [SetPose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
-* [ControlnNet 3D Pose](https://huggingface.co/spaces/diffusers/controlnet-3d-pose) &ndash; pose in 3D and render with ControlNet (SD-1.5) 
 
 
----
-
-April, 2023
-
+		
+<div class="footnote">
+	<a href="../">Home</a> &middot;
+	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
+</div>

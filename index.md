@@ -46,8 +46,19 @@ at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 [<img src="https://boytchev.github.io/mannequin.js/docs/snapshots/example-posture-editor.jpg">](https://boytchev.github.io/mannequin.js/src/editor/posture-editor.html)
 
 
+### Community
+
+List of sites that use mannequin.js:
+
+* [SetPose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
+* [ControlnNet 3D Pose](https://huggingface.co/spaces/diffusers/controlnet-3d-pose) &ndash; pose in 3D and render with ControlNet (SD-1.5) 
+
+
+
 <div class="footnote">
 	<a href="docs/cookies.html">Cookies</a> &middot; 
 	<a href="docs/licence.html">Licence</a> &middot; 
 	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
 </div>
+
+
