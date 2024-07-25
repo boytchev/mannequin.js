@@ -1,19 +1,11 @@
 import "mannequin";
-import { camera, controls, drawFrame, light, renderer } from "mannequin/globals.js";
-import { Body } from "../organs/Body.js";
+import { camera, controls, drawFrame, renderer } from "mannequin/globals.js";
 import { Torso } from "../organs/Torso.js";
-import { Neck } from "../organs/Neck.js";
 import { Head } from "../organs/Head.js";
-import { Leg } from "../organs/Leg.js";
-import { Knee } from "../organs/Knee.js";
 import { Pelvis } from "../organs/Pelvis.js";
 import { Ankle } from "../organs/Ankle.js";
-import { Arm } from "../organs/Arm.js";
-import { Elbow } from "../organs/Elbow.js";
 import { Wrist } from "../organs/Wrist.js";
-import { Finger } from "../organs/Finger.js";
-import { Fingers } from "../organs/Fingers.js";
-import { Nails } from "../organs/Nails.js";
+import { MannequinPostureVersionError } from "../bodies/Mannequin.js";
 
 
 const EPS = 0.00001;
@@ -309,7 +301,7 @@ function processCheckBoxes( event ) {
 }
 
 
-function onPointerUp( event ) {
+function onPointerUp( /*event*/ ) {
 
 	controls.enabled = true;
 	mouseButton = undefined;
@@ -524,7 +516,7 @@ function inverseKinematics( joint, rotationalAngle, step ) {
 }
 
 
-function animate( time ) {
+function animate( /*time*/ ) {
 
 	// no selected object
 	if ( !obj || !mouseButton ) return;

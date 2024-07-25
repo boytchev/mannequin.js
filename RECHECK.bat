@@ -8,7 +8,7 @@ call npx eslint src\organs\*.js
 call npx eslint src\bodies\*.js
 call npx eslint src\editor\*.js
 
-call npx eslint examples\*.html
+call npx eslint docs\*.html
 call npx eslint --fix src\editor\*.html
 
 pause

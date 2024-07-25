@@ -43,15 +43,17 @@ class ParametricShape extends THREE.Group {
 
 	} // ParametricShape.addSphere
 
-	recolor( color, secondaryColor = color )
-	{
-		this.children[0].material.color.set( color );
-		if( this.children.length>1 )
-		{
-			this.children[1].material.color.set( secondaryColor );
+	recolor( color, secondaryColor = color ) {
+
+		this.children[ 0 ].material.color.set( color );
+		if ( this.children.length>1 ) {
+
+			this.children[ 1 ].material.color.set( secondaryColor );
+
 		}
+
 	}
-	
+
 } // ParametricShape
 
 

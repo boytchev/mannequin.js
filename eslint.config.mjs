@@ -20,8 +20,7 @@ export default [
 				sin: "readonly",
 				cos: "readonly",
 				rad: "readonly",
-				defaultColors: "readonly",
-				setDefaultColors: "readonly",
+				setColors: "readonly",
 				scene: "readonly",
 			}
 		},
