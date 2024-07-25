@@ -345,4 +345,4 @@ class Mannequin extends THREE.Group {
 
 
 
-export { Mannequin };
+export { Mannequin, MannequinPostureVersionError };
