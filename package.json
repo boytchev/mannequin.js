@@ -1,5 +1,5 @@
 {
-  "name": "mannequin-3d",
+  "name": "mannequin-js",
   "version": "5.0.0",
   "description": "A simple model of articulated human figure",
   "main": "mannequin.js",
