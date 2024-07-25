@@ -48,12 +48,10 @@ at [Sofia University](https://www.uni-sofia.bg/index.php/eng).
 
 ### Community
 
-List of sites that use mannequin.js:
+List of sites that use mannequin.js or alternatives:
 
 * [SetPose.com](https://setpose.com/) &ndash; free interactive 3D model reference for drawing figures, dynamic poses, and more online drawing mannequin
-* [ControlnNet 3D Pose](https://huggingface.co/spaces/diffusers/controlnet-3d-pose) &ndash; pose in 3D and render with ControlNet (SD-1.5) 
-
-
+* [Marionettes](https://roipoussiere.frama.io/marionettes/) &ndash; a client-side library used to edit and preview 3d-model postures
 
 <div class="footnote">
 	<a href="docs/cookies.html">Cookies</a> &middot; 
