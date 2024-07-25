@@ -507,7 +507,7 @@ man.r_arm.hide();
 неговите свойства и методи. Въпреки това, поради конструкцията
 на скелета и свързването на ставите, мащабирането на част от
 тялото трябва да е еднакво по всички оси, в противен случай
-позате трябва да бъде ръчно коригирана ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-sizes.html)):
+позате трябва да бъде ръчно коригирана ([пример на живо](example-custom-sizes.html)):
 
 [<img src="snapshots/example-custom-sizes.jpg">](example-custom-sizes.html)
 
