@@ -8,7 +8,7 @@
 
 - **[Инициализация](#инициализация)** (<small>[Минимална програма](#минимална-програма) | [Видове фигури](#видове-фигури)</small>)
 - **[Части на тялото](#части-на-тялото)** (<small>[Централни части на тяло](#централни-части-на-тяло) | [Горни крайници](#горни-крайници) | [Долни крайници](#долни-крайници)</small>)
-- **[Поза на тялото](#поза-на-тялото)** (<small>[Статична поза](#статична-поза) | [Динамична поза](#динамична-поза) | [Работа с пози](#работа-с-пози) | [Редактор на поза](#редактор-на-поза)</small>)
+- **[Поза на тялото](#поза-на-тялото)** (<small>[Статична поза](#статична-поза) | [Динамична поза](#динамична-поза) | [Работа с пози](#работа-с-пози)</small>)
 - **[Други функционалности](#други-функционалности)** (<small>[Собствени цветове](#собствени-цветове) | [Скриване на части от тялото](#скриване-на-части-от-тялото) | [Собствени части на тяло](#собствени-части-на-тяло) | [Глобална позиция](#глобална-позиция)</small>)
 - **[Общност](#общност)**
 
@@ -402,7 +402,7 @@ function animate(t)
 поза между *posture0* и *posture1*.
 Следващият пример слива позата на [една фигура](example-posture.html) и я копира в [друга фигура](example-posture-standing.html) ([пример на живо 1](example-posture-blend.html) и [пример на живо 2](example-posture-blend-2.html)):
 
-[<img src="snapshots/example-posture-blend.jpg" width="300">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="300">](example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="250">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="250">](example-posture-blend-2.html)
 
 ``` javascript
 // две фигури
@@ -420,11 +420,6 @@ man.posture = Mannequin.blend(A,B,0.5);
 woman.posture = man.posture;
 ```
 
-### Редактор на поза
-
-Предстои да бъде описан.
-
-
 # Други функционалности
 
 Освен за движение на части на тялото, текущата версия на
@@ -433,49 +428,45 @@ mannequin.js предоставя основна функционалност з
 
 ### Собствени цветове
 
-По подразбиране всички фигури използват предварително
-дефиниран набор от глобални цветове за частите на тялото.
-Глобалните цветове се съхраняват в масива `Mannequin.colors`
-като шест [Three.js цвята](https://threejs.org/docs/#api/en/math/Color)
-или [HTML/CSS имена на цветове](https ://www.w3schools.com/colors/colors_names.asp) в определен
-ред &ndash; *глава*, *обувки*, *таз*, *стави*, *крайници* и *торс*:
+По подразбиране всички фигури използват предварително дефиниран набор от
+глобални цветове за частите на тялото. Глобалните цветове се задават с `setColors` със седем като шест [Three.js цвята](https://threejs.org/docs/#api/en/math/Color)
+или [HTML/CSS имена на цветове](https ://www.w3schools.com/colors/colors_names.asp)
+параметъра за цвят на *глава*, *обувки*, *таз*, *стави*, *крайници*, *торс* и *нокти*:
 
 
 ``` javascript
-Mannequin.colors = [
-    'antiquewhite',	// глава
-    'gray',		// обувки
-    'antiquewhite',	// таз
-    'burlywood',	// стави
-    'antiquewhite',	// крайници
-    'bisque'		// торс
-];
+setColors(
+    'antiquewhite',	// head
+    'gray',		// shoes
+    'antiquewhite',	// pelvis
+    'burlywood',	// joints
+    'antiquewhite',	// limbs
+    'bisque'		// torso
+);
 ```
 
-Глобалният цвят на ставите и крайниците се отнася до
-всички стави и всички крайници. Промяната на глобалните
-цветове в `Mannequin.colors` има ефект, ако е направена
-преди създаването на фигури. Цветовете на частите
-от тялото могат да се променят индивидуално чрез метода
-`recolor` ([пример на живо](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+Глобалният цвят на ставите и крайниците се отнася до всички стави и всички
+крайници. Промяната на глобалните цветове има ефект, ако
+е направена преди създаването на фигури. Цветовете на частите от тялото могат
+да се променят индивидуално чрез метода `setColor` ([пример на живо](example-custom-colors.html)):
 
-[<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
+[<img src="snapshots/example-custom-colors.jpg">](example-custom-colors.html)
 
 ``` javascript
 // глобални цветове
-Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
+setColors('lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray');
 
-man = new Male();
+var man = new Male();
 :
 // индивидуални цветове
-man.l_elbow.recolor( 'yellow', 'black' );
-man.l_wrist.recolor( 'orange' );
-man.l_fingers.recolor( 'coral' );
-man.l_fingers.tips.recolor( 'maroon' );
-man.r_knee.recolor( 'antiquewhite', 'black' );
+man.l_elbow.setColor( 'yellow', 'black' );
+man.l_wrist.setColor( 'orange' );
+man.l_fingers.setColor( 'coral' );
+man.l_fingers.tips.setColor( 'maroon' );
+man.r_knee.setColor( 'antiquewhite', 'black' );
 ```
 
-Първият параметър на `recolor` е цветът на основния
+Първият параметър на `setColor` е цветът на основния
 елемент на частта от тялото. Вторият параметър е цветът
 на сферичния елемент (ако има такъв).
 

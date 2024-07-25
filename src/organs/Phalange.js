@@ -25,7 +25,7 @@ class Phalange extends Joint {
 			this.nail.scale.set( 0.05, 0.2*nailSize, 0.1*nailSize );
 			this.nail.position.set( params[ 0 ]/4, params[ 1 ]*0.7, 0 );
 			this.nail.rotation.set( 0, 0, 0.2 );
-			this.nail.recolor = function ( color ) {
+			this.nail.setColor = function ( color ) {
 
 				if ( typeof color === 'string' )
 					color = new THREE.Color( color );

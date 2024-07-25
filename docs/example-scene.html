@@ -93,11 +93,11 @@
 			this.position.set( x, -25, 0 );
 			this.rotation.y = rad( angle );
 
-			defaultColors[ 4 ] = 'darksalmon';
-
 			var seat = new LimbShape( false, [ 16, 10, 16, 0, 270, 1, 0.2, 0 ], 20, 20 );
+			seat.recolor( 'darksalmon' );
 
 			var backrest = new LimbShape( false, [ 3, 30, 6, -90, 270, 1, 0.5, 0 ], 50, 10 );
+			backrest.recolor( 'darksalmon' );
 			backrest.position.set( -9, 16, 0 );
 			backrest.rotation.set( 0, 0, rad( 20 ) );
 
@@ -167,13 +167,12 @@
 
 			super();
 
-			defaultColors[ 4 ] = 'dimgray';
 
 			var body = new LimbShape( false, [ 1 / 2, 3.5, 6, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
-
-			defaultColors[ 4 ] = 'white';
+			body.recolor( 'dimgray' );
 
 			var screen = new LimbShape( false, [ 0.47, 3, 5.5, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
+			screen.recolor( 'white' );
 			screen.position.x = -0.02;
 
 			this.add( body, screen );

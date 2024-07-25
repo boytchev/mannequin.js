@@ -7,7 +7,7 @@
 
 - **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Figure types](#figure-types)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
-- **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures) | [Posture editor](#posture-editor)</small>)
+- **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
 - **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
 - **[Community](#community)**
 
@@ -335,7 +335,7 @@ There is alternative `postureString` property to get or set the posture as a str
 Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler anglеs). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&isin;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
 The following example blends the posture of [one figure](example-posture.html) and copies it to [another figure](example-posture-standing.html) ([live example 1](example-posture-blend.html) and [live example 2](example-posture-blend-2.html)):
 
-[<img src="snapshots/example-posture-blend.jpg" width="300">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="300">](example-posture-blend-2.html)
+[<img src="snapshots/example-posture-blend.jpg" width="250">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="250">](example-posture-blend-2.html)
 
 ``` javascript
 // two figures
@@ -353,49 +353,45 @@ man.posture = Mannequin.blend(A,B,0.5);
 woman.posture = man.posture;
 ```
 
-### Posture editor
-
-TBD
-
-
 # Other functions
 
 Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
 
 ### Custom colors
 
-By default, all figures use a predefined set of global colors for body parts. Global colors are stored in `Mannequin.colors` array as six [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or lowercase [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) in specific order &ndash; *head*, *shoes*, *pelvis*, *joints*, *limbs* and *torso*:
+By default, all figures use a predefined set of global colors for body parts. Global colors can be set with `setColors` with 7 [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) parameters for the colors of
+*head*, *shoes*, *pelvis*, *joints*, *limbs*, *torso* and *nails*:
 
 ``` javascript
-Mannequin.colors = [
+setColors(
     'antiquewhite',	// head
     'gray',		// shoes
     'antiquewhite',	// pelvis
     'burlywood',	// joints
     'antiquewhite',	// limbs
     'bisque'		// torso
-];
+);
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors in `Mannequin.colors` has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `recolor` method of each body part ([live example](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)):
+The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `setColor` method of each body part ([live example](example-custom-colors.html)):
 
-[<img src="examples/snapshots/example-custom-colors.jpg">](https://boytchev.github.io/mannequin.js/examples/example-custom-colors.html)
+[<img src="snapshots/example-custom-colors.jpg">](example-custom-colors.html)
 
 ``` javascript
 // global colors
-Mannequin.colors = [ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray'];
+setColors('lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray');
 
-man = new Male();
+var man = new Male();
 :
 // individual colors
-man.l_elbow.recolor( 'yellow', 'black' );
-man.l_wrist.recolor( 'orange' );
-man.l_fingers.recolor( 'coral' );
-man.l_fingers.tips.recolor( 'maroon' );
-man.r_knee.recolor( 'antiquewhite', 'black' );
+man.l_elbow.setColor( 'yellow', 'black' );
+man.l_wrist.setColor( 'orange' );
+man.l_fingers.setColor( 'coral' );
+man.l_fingers.tips.setColor( 'maroon' );
+man.r_knee.setColor( 'antiquewhite', 'black' );
 ```
 
-The first parameter of `recolor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
+The first parameter of `setColor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
 
 The tips of the fingers are accessed via `l_fingers.tips` and `r_fingers.tips`.
 

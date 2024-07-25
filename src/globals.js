@@ -20,9 +20,15 @@ var defaultColors = [
 ];
 
 
-function setDefaultColors( colors ) {
+function setColors( head, shoes, pelvis, joints, limbs, torso, nails ) {
 
-	defaultColors = colors;
+	defaultColors[0] = head ?? defaultColors[0];
+	defaultColors[1] = shoes ?? defaultColors[1];
+	defaultColors[2] = pelvis ?? defaultColors[2];
+	defaultColors[3] = joints ?? defaultColors[3];
+	defaultColors[4] = limbs ?? defaultColors[4];
+	defaultColors[5] = torso ?? defaultColors[5];
+	defaultColors[6] = nails ?? defaultColors[6];
 
 }
 
@@ -208,4 +214,4 @@ function animateFrame( a ) {
 
 }
 
-export { defaultColors, setDefaultColors, jointGeometry, cossers, rad, grad, sin, cos, limbTexture, createScene, scene, animateFrame, MANNEQUIN_VERSION, MANNEQUIN_POSTURE_VERSION, renderer, camera, light, controls, drawFrame };
+export { defaultColors, setColors, jointGeometry, cossers, rad, grad, sin, cos, limbTexture, createScene, scene, animateFrame, MANNEQUIN_VERSION, MANNEQUIN_POSTURE_VERSION, renderer, camera, light, controls, drawFrame };

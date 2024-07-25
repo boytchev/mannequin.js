@@ -14,7 +14,7 @@
 	createScene( animate );
 
 	// gobal colours
-	setDefaultColors([ 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray', 'yellow' ]);
+	setColors('lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray', 'yellow');
 
 	var man = new Male();
 
@@ -43,11 +43,11 @@
 	man.position.y -= 7.2;
 
 	// individual colours
-	man.l_elbow.recolor( 'yellow', 'black' );
-	man.l_wrist.recolor( 'orange' );
-	man.l_fingers.recolor( 'coral' );
-	man.r_knee.recolor( 'antiquewhite', 'black' );
-	man.l_nails.recolor( 'black' );
+	man.l_elbow.setColor( 'yellow', 'black' );
+	man.l_wrist.setColor( 'orange' );
+	man.l_fingers.setColor( 'coral' );
+	man.r_knee.setColor( 'antiquewhite', 'black' );
+	man.l_nails.setColor( 'black' );
 
 	function animate( t ) {
 

@@ -2,7 +2,7 @@
 
 
 import * as THREE from 'three';
-import { cos, createScene, defaultColors, rad, scene, setDefaultColors, sin } from './globals.js';
+import { cos, createScene, defaultColors, rad, scene, setColors, sin } from './globals.js';
 import { Mannequin } from './bodies/Mannequin.js';
 import { Female } from './bodies/Female.js';
 import { Male } from './bodies/Male.js';
@@ -131,8 +131,7 @@ window.cos = cos;
 window.rad = rad;
 window.THREE = THREE;
 window.scene = scene;
-window.defaultColors = defaultColors;
-window.setDefaultColors = setDefaultColors;
+window.setColors = setColors;
 
 export { createScene, Female, Male, Child, Mannequin };
-export { scene, rad, sin, cos, grad, animateFrame, defaultColors, setDefaultColors } from './globals.js';
+export { scene, rad, sin, cos, grad, animateFrame, setColors } from './globals.js';
