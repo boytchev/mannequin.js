@@ -623,5 +623,6 @@ man.position.y += (-29.5-bottom);
 		
 <div class="footnote">
 	<a href="../">Home</a> &middot;
-	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
+	<a href="https://github.com/boytchev/mannequin.js">GitHub</a> &middot; 
+	<a href="https://www.npmjs.com/package/mannequin-js">NPM</a>
 </div>

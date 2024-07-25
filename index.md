@@ -56,7 +56,8 @@ List of sites that use mannequin.js or alternatives:
 <div class="footnote">
 	<a href="docs/cookies.html">Cookies</a> &middot; 
 	<a href="docs/licence.html">Licence</a> &middot; 
-	<a href="https://github.com/boytchev/mannequin.js">GitHub</a>
+	<a href="https://github.com/boytchev/mannequin.js">GitHub</a> &middot; 
+	<a href="https://www.npmjs.com/package/mannequin-js">NPM</a>
 </div>
 
 
