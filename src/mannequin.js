@@ -18,7 +18,7 @@
 
 import * as THREE from 'three';
 import { cos, GROUND_LEVEL, rad, setColors, sin } from './globals.js';
-import { createScene, scene } from './scene.js';
+import { createScene, scene, renderer } from './scene.js';
 import { Mannequin } from './bodies/Mannequin.js';
 import { Female } from './bodies/Female.js';
 import { Male } from './bodies/Male.js';
@@ -115,11 +115,12 @@ window.sin = sin;
 window.cos = cos;
 window.rad = rad;
 window.THREE = THREE;
-window.scene = scene;
+window.scene = scene; // reset in scene.js
+window.renderer = renderer; // reset in scene.js
 window.createScene = createScene;
 window.setColors = setColors;
 window.GROUND_LEVEL = GROUND_LEVEL;
 
 export { createScene, Female, Male, Child, Mannequin };
 export { rad, sin, cos, grad, setColors, GROUND_LEVEL } from './globals.js';
-export { scene, animateFrame } from './scene.js';
+export { scene, animateFrame, renderer } from './scene.js';

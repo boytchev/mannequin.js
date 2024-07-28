@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+	<script src="../src/importmap.js"></script>
+</head>
+
+<body>
+	<script type="module">
+
+	import "mannequin";
+	import "./fonts/label.js";
+	import { VRButton } from 'three/addons/webxr/VRButton.js';
+
+	createScene( animate );
+	
+	document.body.appendChild( VRButton.createButton( renderer ) );
+	console.log(renderer)
+	renderer.xr.enabled = true;
+
+	var man = new Male();
+	man.position.x = -1;
+
+	var woman = new Female();
+	woman.position.x = 1;
+
+	// stick
+	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 72 ),
+		material = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
+		stick = new THREE.Mesh( geometry, material );
+
+	stick.rotation.x = rad( 90 );
+	stick.position.set( -1, 0.25, 0 );
+	stick.castShadow = true;
+
+	man.r_fingers.attach( stick );
+	woman.r_fingers.attach( stick.clone() );
+
+	// posture from example-posture.html
+	var A = { "version": 7, "data": [[ 0, -7.2, 0 ], [ 90, -85, 74.8 ], [ 16.1, -29.5, 26.3 ], [ 3.5, -34.8, 6.1 ], [ 14.1, -2.9, -19.8 ], [ 30 ], [ -6, -6, -42.6 ], [ 14.6, -46.9, 98.9 ], [ 90 ], [ 4.9, 9, -15.4 ], [ 68.9, -34.7, -2.1 ], [ 155 ], [ -20, 0, 0 ], [ -90, 70, 85, 0, -5, 0, -5 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ -77, 4.9, -1.1 ], [ 55 ], [ -5, -60, -20 ], [ 148.7, -4.4, 127.3, 0, 50, 0, 35 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ]] };
+
+	// posture from example-posture-standing.html
+	var B = { "version": 7, "data": [[ 0, 2.8, 0 ], [ 0, -90, 0 ], [ 0, 0, -2 ], [ 0, 0, 5 ], [ 16, 0, 0 ], [ 0 ], [ -16.1, -5.8, -1.7 ], [ -16, 0, 0 ], [ 0 ], [ 16.1, 5.8, -1.7 ], [ 15.1, -11.3, -12 ], [ 30 ], [ 5, 0, 0 ], [ -90, 70, 100, 0, 10, 0, 10 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ -28.4, 8.1, -18.3 ], [ 70 ], [ -5, 28, 37.4 ], [ 148.7, -4.4, 127.3, 0, 50, 0, 35 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ]] };
+
+	man.posture = A;
+	woman.posture = A;
+
+	function animate( t ) {
+
+		var k = THREE.MathUtils.clamp( 0.5 + sin( t ), 0, 1 );
+
+		// blend posture between A and B
+		man.posture = Mannequin.blend( A, B, k );
+		man.rotation.y = Math.PI / 2;
+
+		// copy posture from one figure to another
+		woman.posture = man.posture;
+		woman.rotation.y = -Math.PI / 2;
+	
+		man.stepOnGround( );
+		woman.stepOnGround( );
+
+	}
+
+	</script>
+</body>
+
+</html>
