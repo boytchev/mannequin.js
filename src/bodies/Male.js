@@ -3,10 +3,9 @@ import { Mannequin } from './Mannequin.js';
 
 class Male extends Mannequin {
 
-	constructor( height = 1 ) {
+	constructor( height = 1.8 ) {
 
 		super( false, height );
-		this.body.position.y = 3.8;
 
 		this.l_leg.straddle += 6;
 		this.r_leg.straddle += 6;
@@ -16,6 +15,8 @@ class Male extends Mannequin {
 
 		this.l_ankle.tilt += 6;
 		this.r_ankle.tilt += 6;
+
+		this.stepOnGround( );
 
 	} // Male.constructor
 

@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 
-import { MANNEQUIN_POSTURE_VERSION, scene } from "../globals.js";
+import { GROUND_LEVEL, MANNEQUIN_POSTURE_VERSION } from "../globals.js";
+import { scene } from "../scene.js";
 import { Body } from "../organs/Body.js";
 import { Torso } from "../organs/Torso.js";
 import { Neck } from "../organs/Neck.js";
@@ -16,6 +16,8 @@ import { Wrist } from "../organs/Wrist.js";
 import { Finger } from "../organs/Finger.js";
 import { Fingers } from "../organs/Fingers.js";
 import { Nails } from "../organs/Nails.js";
+
+var box = new THREE.Box3();
 
 
 class MannequinPostureVersionError extends Error {
@@ -39,8 +41,7 @@ class Mannequin extends THREE.Group {
 
 		const LEFT = -1;
 		const RIGHT = 1;
-
-		this.scale.set( height, height, height );
+		this.rawHeight = 1;
 
 		this.feminine = feminine;
 
@@ -152,7 +153,12 @@ class Mannequin extends THREE.Group {
 		this.r_finger_3.tip.bend = 10;
 		this.r_finger_4.tip.bend = 10;
 
-		this.updateMatrixWorld();
+		this.updateMatrixWorld( true );
+		this.stepOnGround();
+
+		this.scale.setScalar( height/this.rawHeight );
+
+		this.stepOnGround();
 
 	} // Mannequin.constructor
 
@@ -287,58 +293,17 @@ class Mannequin extends THREE.Group {
 	}
 
 
-	exportGLTF( fileName, objects = this ) {
+	stepOnGround( ) {
 
-		var exporter = new GLTFExporter();
+		this.position.y = 0;
+		this.updateMatrixWorld( true );
+		box.setFromObject( this, true );
+		this.position.y = -box.min.y + GROUND_LEVEL - 0.01;
+		this.rawHeight = box.max.y-box.min.y;
+		this.updateMatrixWorld( true );
 
-		if ( !fileName ) {
+	}
 
-			// if no fileName, return GLTF text
-			exporter.parse(
-				objects,
-				( gltf ) => prompt( 'GLTF text', JSON.stringify( gltf ) ),
-				( error ) => {
-
-					throw error;
-
-				},
-				{ binary: false }
-			);
-
-		} else {
-
-			// there is fileName, check file extension
-			var fileExt = fileName.split( '.' ).pop().toUpperCase(),
-				binary = fileExt=='GLB';
-
-			if ( fileExt!='GLB' && fileExt!='GLTF' ) fileName += '.gltf';
-
-
-			exporter.parse(
-				objects, // objects to export
-				( gltf ) => {
-
-					var type = binary ? 'application/octet-stream' : 'text/plain;charset=utf-8',
-						data = binary ? gltf : JSON.stringify( gltf ),
-						blob = new Blob([ data ], { type: type } );
-
-					var link = document.createElement( 'a' );
-					link.href = URL.createObjectURL( blob );
-					link.download = fileName;
-					link.click();
-
-				},
-				( error ) => {
-
-					throw error;
-
-				},
-				{ binary: binary }
-			);
-
-		}
-
-	} // Mannequin.exportGLTF
 
 } // Mannequin
 

@@ -15,13 +15,13 @@
 	createScene( animate );
 
 	var man = new Male();
-	man.position.x = -20;
+	man.position.x = -1;
 
 	var woman = new Female();
-	woman.position.x = 20;
+	woman.position.x = 1;
 
 	// stick
-	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 80 ),
+	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 72 ),
 		material = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
 		stick = new THREE.Mesh( geometry, material );
 
@@ -52,15 +52,9 @@
 		// copy posture from one figure to another
 		woman.posture = man.posture;
 		woman.rotation.y = -Math.PI / 2;
-
-		// get minimal vertical position of contact points
-		var bottom;
-
-		bottom = man.r_ankle.point( -2, 2.5, 0 ).y;
-		man.position.y += ( -29.5 - bottom );
-
-		bottom = woman.r_ankle.point( -2, 2.5, 0 ).y;
-		woman.position.y += ( -29.5 - bottom );
+	
+		man.stepOnGround( );
+		woman.stepOnGround( );
 
 	}
 

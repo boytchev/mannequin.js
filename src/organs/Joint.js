@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { PelvisShape } from "../shapes/PelvisShape.js";
 import { ShoeShape } from "../shapes/ShoeShape.js";
-import { grad, rad, scene } from "../globals.js";
+import { grad, rad } from "../globals.js";
+
+var localScene = new THREE.Scene();
 
 // flexible joint
 class Joint extends THREE.Group {
@@ -157,7 +159,7 @@ class Joint extends THREE.Group {
 	// calculate global coordinates of point with coordinates relative to the joint
 	point( x, y, z ) {
 
-		return scene.worldToLocal( this.localToWorld( new THREE.Vector3( x, y, z ) ) );
+		return ( window.scene??localScene ).worldToLocal( this.localToWorld( new THREE.Vector3( x, y, z ) ) );
 
 	} // Joint.point
 

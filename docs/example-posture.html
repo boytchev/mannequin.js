@@ -16,7 +16,6 @@
 	var man = new Male();
 
 	// overall body position
-	man.position.y -= 11;
 	man.body.tilt = -5;
 	man.body.bend = 15.2;
 
@@ -71,6 +70,8 @@
 	stick.castShadow = true;
 
 	man.r_fingers.attach( stick );
+	
+	man.stepOnGround();
 
 	</script>
 </body>

@@ -1,43 +1,28 @@
-
-
-
-import * as THREE from 'three';
-import { cos, createScene, rad, scene, setColors, sin } from './globals.js';
-import { Mannequin } from './bodies/Mannequin.js';
-import { Female } from './bodies/Female.js';
-import { Male } from './bodies/Male.js';
-import { Child } from './bodies/Child.js';
-
 // mannequin.js
 //
 // a libary for human figure
 //
-
-/*
-	Change log
-
-	4.04	added Joint.select(...)
-	4.1		converted from methods to virtual properties
-	4.2		support for truly local rotations in any order and interlacing
-	4.3		absolute and relative rotations + significant refactoring
-	4.4		added AR mode -- and then removed
-	4.41	beautified by www.freeformatter.com
-	4.5		added individual fingers
-	5.0		converted to ES6
-*/
-
-
-/* used?
-const AXIS = {
-	x: new THREE.Vector3( 1, 0, 0 ),
-	y: new THREE.Vector3( 0, 1, 0 ),
-	z: new THREE.Vector3( 0, 0, 1 )
-};
-*/
+// ver	description
+// ---	----------------------------------------------------
+// 1.0	written in Elica and OpenGL
+// 2.0	written in C/C++ and OpenGL
+// 3.0	written in JS and Three.js
+// 4.0	improved and wit posture editor
+// 5.0	converted to JS package
 
 
 
 
+
+
+
+import * as THREE from 'three';
+import { cos, GROUND_LEVEL, rad, setColors, sin } from './globals.js';
+import { createScene, scene } from './scene.js';
+import { Mannequin } from './bodies/Mannequin.js';
+import { Female } from './bodies/Female.js';
+import { Male } from './bodies/Male.js';
+import { Child } from './bodies/Child.js';
 
 Mannequin.blend = function ( posture0, posture1, k ) {
 
@@ -121,7 +106,7 @@ Mannequin.convert6to7 = function ( posture ) {
 
 };
 
-window.createScene = createScene;
+//window.createScene = createScene;
 window.Mannequin = Mannequin;
 window.Male = Male;
 window.Female = Female;
@@ -131,7 +116,10 @@ window.cos = cos;
 window.rad = rad;
 window.THREE = THREE;
 window.scene = scene;
+window.createScene = createScene;
 window.setColors = setColors;
+window.GROUND_LEVEL = GROUND_LEVEL;
 
 export { createScene, Female, Male, Child, Mannequin };
-export { scene, rad, sin, cos, grad, animateFrame, setColors } from './globals.js';
+export { rad, sin, cos, grad, setColors, GROUND_LEVEL } from './globals.js';
+export { scene, animateFrame } from './scene.js';

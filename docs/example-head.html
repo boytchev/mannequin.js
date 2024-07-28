@@ -16,18 +16,18 @@
 
 	var man = new Male();
 	man.turnRight = 90;
-	man.position.x = -30;
+	man.position.x = -1;
 
 	var child = new Child();
 	child.turnRight = 90;
 
 	var woman = new Female();
 	woman.turnRight = 90;
-	woman.position.x = 30;
+	woman.position.x = 1;
 
-	addLabel( man.head, 'head.nod', 8, 0.5 );
-	addLabel( child.head, 'head.turn', 8, 0.5 );
-	addLabel( woman.head, 'head.tilt', 8, 0.5 );
+	addLabel( man.head, 'head.nod', 12, 0.5 );
+	addLabel( child.head, 'head.turn', 12, 0.5 );
+	addLabel( woman.head, 'head.tilt', 12, 0.5 );
 
 	function animate( t ) {
 

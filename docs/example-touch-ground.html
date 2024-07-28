@@ -15,7 +15,7 @@
 
 	var man = new Male();
 
-	var geometry = new THREE.SphereGeometry( 0.5 );
+	var geometry = new THREE.SphereGeometry( 0.01 );
 	var material = new THREE.MeshBasicMaterial( { color: 'crimson' } );
 
 	var s1 = new THREE.Mesh( geometry, material );
@@ -29,7 +29,7 @@
 
 		t = t / 2;
 
-		man.position.x = 15 * sin( 0.4 * t ) * sin( 0.58 * t );
+		man.position.x = 0.15 * sin( 0.4 * t ) * sin( 0.58 * t );
 
 		man.turn = 30 * sin( 2 * t ) - 90;
 		man.bend = 30 * sin( t );
@@ -81,14 +81,9 @@
 			man.l_ankle.point( -2, 2.5, 0 ).y,
 			man.l_ankle.point( 2, 2.5, 2 ).y,
 			man.l_ankle.point( 2, 2.5, -2 ).y,
-
-			man.r_ankle.point( 6, 2, 0 ).y,
-			man.r_ankle.point( -2, 2.5, 0 ).y,
-			man.r_ankle.point( 2, 2.5, 2 ).y,
-			man.r_ankle.point( 2, 2.5, -2 ).y
 		);
 
-		man.position.y += ( -29.5 - bottom );
+		man.position.y += ( GROUND_LEVEL - bottom );
 
 	}
 

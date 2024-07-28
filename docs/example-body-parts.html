@@ -9,14 +9,13 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import { createScene, Male } from "mannequin";
 	import "./fonts/label.js";
 
 	createScene( animate );
 
 	var man = new Male();
-	man.position.y -= 4;
-
+	
 	man.turnRight = 90;
 
 	man.l_fingers.bend = 20;
@@ -28,8 +27,10 @@
 	man.l_ankle.tilt = 30;
 	man.r_ankle.tilt = 30;
 
+	man.stepOnGround();
+	
 	addLabel( man.body, 'body', -27, 1.5, 0 ).scale.set( 3, 3, 3 );
-	addLabel( man.head, 'head', 8 );
+	addLabel( man.head, 'head', 12 );
 	addLabel( man.neck, 'neck', 0, 0.5, 3 );
 	addLabel( man.torso, 'torso', 7, 0.5, 3 );
 	addLabel( man.pelvis, 'pelvis', 0, 0.5, 2 );

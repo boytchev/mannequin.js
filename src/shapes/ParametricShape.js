@@ -13,7 +13,7 @@ class ParametricShape extends THREE.Group {
 		super();
 		var obj = new THREE.Mesh(
 			new ParametricGeometry( func, uDivisions, vDivisions ),
-			new THREE.MeshPhysicalMaterial(
+			new THREE.MeshStandardMaterial(
 				{
 					color: color,
 					map: texture,
@@ -30,7 +30,7 @@ class ParametricShape extends THREE.Group {
 	addSphere( radius, y, x = 0, z = 0 ) {
 
 		var s = new THREE.Mesh( jointGeometry,
-			new THREE.MeshLambertMaterial(
+			new THREE.MeshStandardMaterial(
 				{
 					color: defaultColors[ 3 ],
 				} ) );

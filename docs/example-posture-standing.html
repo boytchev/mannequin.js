@@ -15,8 +15,6 @@
 
 	var man = new Male();
 
-	man.position.y -= 1;
-
 	// left leg
 	man.l_leg.straddle = 16;
 	man.l_ankle.tilt = 16;
@@ -45,8 +43,9 @@
 	man.r_finger_0.bend = -50;
 	man.r_finger_0.mid.bend = 50;
 
+	
 	// stick
-	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 80 ),
+	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 72 ),
 		material = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
 		stick = new THREE.Mesh( geometry, material );
 
@@ -55,6 +54,8 @@
 	stick.castShadow = true;
 
 	man.r_fingers.attach( stick );
+	
+	man.stepOnGround();
 
 	</script>
 </body>

@@ -18,7 +18,7 @@
 	var man = new Male();
 
 	// stick
-	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 80 );
+	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 71 );
 	var material = new THREE.MeshPhongMaterial( { color: 'crimson' } );
 	var stick = new THREE.Mesh( geometry, material );
 	stick.rotation.x = rad( 90 );
@@ -44,12 +44,13 @@
 	var B = { "version": 7, "data": [[ 0, 2.8, 0 ], [ 0, -90, 0 ], [ 0, 0, -2 ], [ 0, 0, 5 ], [ 16, 0, 0 ], [ 0 ], [ -16.1, -5.8, -1.7 ], [ -16, 0, 0 ], [ 0 ], [ 16.1, 5.8, -1.7 ], [ 15.1, -11.3, -12 ], [ 30 ], [ 5, 0, 0 ], [ -90, 70, 100, 0, 10, 0, 10 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ 0, 0, 20, 0, 20, 0, 20 ], [ -28.4, 8.1, -18.3 ], [ 70 ], [ -5, 28, 37.4 ], [ 148.7, -4.4, 127.3, 0, 50, 0, 35 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ]] };
 
 	man0.posture = A;
-	man0.position.x = -30;
-	man0.position.y = -0.455;
+	man0.position.x = -1;
 	man0.rotation.y = 2;
+	man0.stepOnGround();
 
 	man1.posture = B;
-	man1.position.x = 30;
+	man1.position.x = 1;
+	man1.stepOnGround();
 
 	man0.traverse( function ( o ) {
 
@@ -80,16 +81,10 @@
 		var k = THREE.MathUtils.clamp( 0.5 + 0.6 * sin( t ), 0, 1 );
 
 		man.posture = Mannequin.blend( A, B, k );
-		man.position.x = THREE.MathUtils.mapLinear( k, 0, 1, -30, 30 );
+		man.position.x = THREE.MathUtils.mapLinear( k, 0, 1, -1, 1 );
 		man.rotation.y = THREE.MathUtils.mapLinear( k, 0, 1, 2, 0 );
 
-		var bottom = Math.min(
-			man.l_ankle.point( 6, 2, 0 ).y,
-			man.l_ankle.point( -2, 2.5, 0 ).y,
-			man.l_ankle.point( 2, 2.5, 2 ).y,
-			man.l_ankle.point( 2, 2.5, -2 ).y
-		);
-		man.position.y += ( -29.5 - bottom );
+		man.stepOnGround();
 
 	}
 

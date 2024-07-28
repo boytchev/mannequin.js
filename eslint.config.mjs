@@ -22,6 +22,7 @@ export default [
 				rad: "readonly",
 				setColors: "readonly",
 				scene: "readonly",
+				GROUND_LEVEL: "readonly",
 			}
 		},
 			

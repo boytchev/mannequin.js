@@ -5,7 +5,7 @@ import { grad, rad } from "../globals.js";
 
 class Head extends Joint {
 
-	static SIZE = { sx: 3, sy: 4, sz: 2.5 };
+	static SIZE = { sx: 3*1.5, sy: 4*1.5, sz: 2.5*1.5 };
 
 	constructor( parentJoint ) {
 

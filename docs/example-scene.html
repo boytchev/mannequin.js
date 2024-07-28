@@ -16,7 +16,7 @@
 
 	var man = new Male();
 
-	man.position.set( -19, -21, 0 );
+	man.position.x = -0.6;
 	man.turn = 0;
 	man.bend = -40;
 	man.torso.bend = 72;
@@ -46,10 +46,14 @@
 	man.l_fingers.bend = 30;
 	man.r_fingers.bend = 30;
 
+	man.stepOnGround();
+	
 	//
 
 	var woman = new Female();
-	woman.position.set( 19, -18.7, -1 );
+	
+	woman.position.x = 0.6;
+	
 	woman.turn = 165;
 	woman.bend = -40;
 	woman.torso.bend = 20;
@@ -82,6 +86,8 @@
 	woman.l_wrist.turn -= 35;
 	woman.l_fingers.bend = 10;
 
+	woman.stepOnGround();
+	
 	//
 
 	class Chair extends THREE.Group {
@@ -90,22 +96,22 @@
 
 			super();
 
-			this.position.set( x, -25, 0 );
+			this.position.set( x, -0.6, 0 );
 			this.rotation.y = rad( angle );
 
-			var seat = new LimbShape( false, [ 16, 10, 16, 0, 270, 1, 0.2, 0 ], 20, 20 );
+			var seat = new LimbShape( false, [ 0.4, 0.27, 0.4, 0, 270, 1, 0.2, 0 ], 20, 60 );
 			seat.recolor( 'darksalmon' );
 
-			var backrest = new LimbShape( false, [ 3, 30, 6, -90, 270, 1, 0.5, 0 ], 50, 10 );
+			var backrest = new LimbShape( false, [ 0.05, 1.0, 0.15, -90, 270, 1, 0.5, 0 ], 50, 10 );
 			backrest.recolor( 'darksalmon' );
-			backrest.position.set( -9, 16, 0 );
+			backrest.position.set( -0.27, 0.55, 0 );
 			backrest.rotation.set( 0, 0, rad( 20 ) );
 
 			var cussion = new THREE.Mesh(
-				new THREE.SphereGeometry( 6.8, 20, 10, 0, 2 * Math.PI, 0, Math.PI / 2 ),
+				new THREE.SphereGeometry( 0.17, 40, 10, 0, 2 * Math.PI, 0, Math.PI ),
 				new THREE.MeshPhongMaterial( { color: 'black' } ) );
-			cussion.scale.set( 1, 0.25, 1 );
-			cussion.position.set( 0, 4, 0 );
+			cussion.scale.set( 1, 0.2, 1 );
+			cussion.position.set( 0, 0.13, 0 );
 
 			this.add( seat, cussion, backrest );
 
@@ -113,51 +119,7 @@
 
 	}
 
-	scene.add( new Chair( -20, 0 ), new Chair( 20, 180 ) );
-
-	//
-
-	class Mask extends THREE.Group {
-
-		constructor( zScale = 1, color = 'lightgray' ) {
-
-			super();
-
-			var geometry, material, mask, thread;
-
-			geometry = new THREE.CylinderGeometry( 3, 3, 2.4, 6, 1, true, rad( 45 ), rad( 90 ) );
-			material = new THREE.MeshBasicMaterial( { color: color } );
-			mask = new THREE.Mesh( geometry, material );
-
-			mask.scale.x = 1.25;
-			mask.scale.z = 0.85;
-			mask.position.x = -0.5;
-			mask.position.y = 2;
-			mask.rotation.z = rad( -25 );
-
-			geometry = new THREE.CylinderGeometry( 3, 3, 0.1, 26, 1, true );
-			thread = new THREE.Mesh( geometry, material );
-			thread.scale.x = 0.65;
-			thread.scale.z = 1.1 * zScale;
-			thread.position.x = ( 3 - 3 * thread.scale.x ) / 2;
-			thread.position.y = -1.2;
-			mask.add( thread );
-
-			thread = new THREE.Mesh( geometry, material );
-			thread.scale.x = 0.9;
-			thread.scale.z = 1.2;
-			thread.position.x = ( 3 - 3 * thread.scale.x ) / 2;
-			thread.position.y = 1.2;
-			mask.add( thread );
-
-			this.add( mask );
-
-		}
-
-	}
-
-	man.head.attach( new Mask() );
-	woman.head.attach( new Mask( 1.1 ) );
+	scene.add( new Chair( -0.6, 0 ), new Chair( 0.6, 180 ) );
 
 	//
 
@@ -168,12 +130,12 @@
 			super();
 
 
-			var body = new LimbShape( false, [ 1 / 2, 3.5, 6, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
+			var body = new LimbShape( false, [ 0.012, 0.09, 0.17, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
 			body.recolor( 'dimgray' );
 
-			var screen = new LimbShape( false, [ 0.47, 3, 5.5, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
+			var screen = new LimbShape( false, [ 0.011, 0.08, 0.16, -1, 1, 1, 0.2, 0.001 ], 8, 8 );
 			screen.recolor( 'white' );
-			screen.position.x = -0.02;
+			screen.position.x = -0.001;
 
 			this.add( body, screen );
 
@@ -184,7 +146,7 @@
 	//
 
 	var smartphone = new Smartphone();
-	smartphone.position.set( -5, -8.3, 0 );
+	smartphone.position.set( -0.2, -0.11, 0 );
 	smartphone.rotation.set( 0, 0, -1 );
 	scene.add( smartphone );
 

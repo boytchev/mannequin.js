@@ -6,6 +6,7 @@ import { Pelvis } from "../organs/Pelvis.js";
 import { Ankle } from "../organs/Ankle.js";
 import { Wrist } from "../organs/Wrist.js";
 import { MannequinPostureVersionError } from "../bodies/Mannequin.js";
+import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 
 
 const EPS = 0.00001;
@@ -622,10 +623,29 @@ function exportPosture() {
 
 	if ( !model ) return;
 
-	console.log( models );
-	model.exportGLTF( 'mannequin.glb', models );
+	var exporter = new GLTFExporter();
 
-}
+	exporter.parse(
+		models, // objects to export
+		( gltf ) => {
+
+			var blob = new Blob([ gltf ], { type: 'application/octet-stream' } );
+			var link = document.createElement( 'a' );
+			link.href = URL.createObjectURL( blob );
+			link.download = 'mannequin.glb';
+			link.click();
+
+		},
+		( error ) => {
+
+			throw error;
+
+		},
+		{ binary: true }
+	);
+
+
+} // exportPosture
 
 
 

@@ -16,7 +16,7 @@ class Phalange extends Joint {
 		if ( nailSize > 0 ) {
 
 			this.nail = new THREE.Mesh( jointGeometry,
-				new THREE.MeshLambertMaterial(
+				new THREE.MeshStandardMaterial(
 					{
 						color: defaultColors[ 6 ],
 					} ) );

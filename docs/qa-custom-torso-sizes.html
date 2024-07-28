@@ -17,7 +17,6 @@
 	var man = new Male();
 
 
-
 	function animate( t ) {
 
 		t = t / 2;
@@ -29,7 +28,7 @@
 		man.r_arm.scale.set( 1/s, 1/s, 1/s );
 		man.neck.scale.set( 1/s, 1/s, 1/s );
 
-		man.position.set( 15 * sin( 0.4 * t ) * sin( 0.58 * t )-20, 0, 0 );
+		man.position.x = 0.15 * sin( 0.4 * t ) * sin( 0.58 * t );
 
 		man.turn = 30 * sin( 2 * t ) - 90;
 		man.bend = 30 * sin( t );

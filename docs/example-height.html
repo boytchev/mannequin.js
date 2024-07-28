@@ -20,13 +20,12 @@
 	for ( var i = 0; i < n; i++ ) {
 
 		var feminine = Math.random() > 0.5,
-			height = THREE.MathUtils.randFloat( 0.5, 1 ),
+			height = THREE.MathUtils.randFloat( 0.5, 1.7 ),
 			person = new Mannequin( feminine, height );
 
-		person.position.x = 50 * cos( i / n * 360 );
-		person.position.z = 50 * sin( i / n * 360 );
+		person.position.x = 1.5 * cos( i / n * 360 );
+		person.position.z = 1.5 * sin( i / n * 360 );
 		person.turn = 180 - i / n * 360;
-
 		people.push( person );
 
 	}
@@ -36,16 +35,17 @@
 
 		for ( var i = 0; i < people.length; i++ ) {
 
-			people[ i ].position.y += ( -29.5 - people[ i ].l_ankle.point( 2, 2.5, 2 ).y );
-
 			people[ i ].head.turn = -45 * sin( t + 80 * i );
 			people[ i ].torso.turn = -45 * sin( t + 90 * i );
 			people[ i ].l_elbow.bend = 30 + 30 * sin( t / 2 + 50 * i );
 			people[ i ].r_elbow.bend = 30 + 30 * sin( t / 2 + 150 * i );
+	
+			people[ i ].l_ankle.bend = -30 + 30 * sin( 2.5*t + 150 * i );
+			people[ i ].r_ankle.bend = -30 + 30 * sin( 2.5*t + 150 * i );
+
+			people[ i ].stepOnGround();
 
 		}
-
-		//scene.rotation.y = t / 200;
 
 	}
 

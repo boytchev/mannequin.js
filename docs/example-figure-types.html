@@ -14,7 +14,7 @@
 	createScene( );
 
 	var man = new Male();
-	man.position.x = 23;
+	man.position.x = 0.6;
 
 	man.turn = -120;
 
@@ -41,7 +41,7 @@
 	//
 
 	var woman = new Female();
-	woman.position.x = -24;
+	woman.position.x = -0.65;
 
 	woman.turn = -60;
 
@@ -64,11 +64,11 @@
 	//
 
 	var kid = new Child();
-	kid.position.z = -7;
+	kid.position.z = -0.18;
 
-	kid.l_arm.turn = 55;
-	kid.l_arm.straddle = 10;
-	kid.l_elbow.bend = 115;
+	kid.l_arm.turn = 55+10;
+	kid.l_arm.straddle = 15;
+	kid.l_elbow.bend = 115+20;
 	kid.l_wrist.turn = 90;
 	kid.l_wrist.bend = -20;
 	kid.l_fingers.bend = 50;

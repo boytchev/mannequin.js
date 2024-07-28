@@ -15,7 +15,6 @@
 
 	var man = new Male( 0.5 );
 
-
 	man.head.image.attach( new THREE.BoxHelper( man.head.image, 'crimson' ) );
 	man.l_leg.image.attach( new THREE.BoxHelper( man.l_leg.image, 'crimson' ) );
 	man.r_arm.image.attach( new THREE.BoxHelper( man.r_arm.image, 'crimson' ) );
@@ -25,7 +24,7 @@
 
 		t = t / 2;
 
-		man.position.set( 15 * sin( 0.4 * t ) * sin( 0.58 * t ), 5, 0 );
+		man.position.x = 0.15 * sin( 0.4 * t ) * sin( 0.58 * t );
 
 		man.turn = 30 * sin( 2 * t ) - 90;
 		man.bend = 30 * sin( t );

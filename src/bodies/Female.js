@@ -3,16 +3,17 @@ import { Mannequin } from './Mannequin.js';
 
 class Female extends Mannequin {
 
-	constructor( height = 0.95 ) {
+	constructor( height = 1.65 ) {
 
 		super( true, height );
-		this.body.position.y = 2.2;
 
 		this.l_leg.straddle -= 4;
 		this.r_leg.straddle -= 4;
 
 		this.l_ankle.tilt -= 4;
 		this.r_ankle.tilt -= 4;
+
+		this.stepOnGround( );
 
 	} // Female.constructor
 

@@ -15,16 +15,16 @@
 	createScene( animate );
 
 	var man = new Male();
-	man.position.x = -30;
+	man.position.x = -1;
 
 	var child = new Child();
 
 	var woman = new Female();
-	woman.position.x = 30;
+	woman.position.x = 1;
 
-	addLabel( man.head, 'body.bend', 8, 0.5 );
-	addLabel( child.head, 'body.turn', 8, 0.5 );
-	addLabel( woman.head, 'body.tilt', 8, 0.5 );
+	addLabel( man.head, 'body.bend', 12, 0.5 );
+	addLabel( child.head, 'body.turn', 12, 0.5 );
+	addLabel( woman.head, 'body.tilt', 12, 0.5 );
 
 	function animate( t ) {
 

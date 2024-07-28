@@ -23,11 +23,13 @@
 	child.l_knee.bend = 15;
 
 	// ball
-	var geometry = new THREE.IcosahedronGeometry( 7, 6 );
+	const BALL_SIZE = 0.25;
+	
+	var geometry = new THREE.IcosahedronGeometry( BALL_SIZE, 6 );
 	var material = new THREE.MeshPhongMaterial( { color: 'crimson' } );
 
 	var ball = new THREE.Mesh( geometry, material );
-	ball.position.set( 0, -29.5 + 7, 0 );
+	ball.position.set( 0, GROUND_LEVEL+BALL_SIZE, 0 );
 	ball.receiveShadow = true;
 	ball.castShadow = true;
 
@@ -38,10 +40,9 @@
 		var time1 = ( sin( 2 * t ) + cos( 3 * t ) + cos( 5 * t ) ) / 3,
 			time2 = ( sin( 2 * t - 60 ) + cos( 3 * t - 90 ) + cos( 5 * t - 120 ) ) / 3;
 
-		ball.position.x = -3 * time1;
+		ball.position.x = 0.06 * time1;
 
-		child.position.x = -3 * time1;
-		child.position.y = 12 + cos( 90 * time1 );
+		child.position.y = 0.31 + 0.05*cos( 90 * time1 );
 
 		child.bend = 0;
 		child.turn = -90 - 20 * time1 + 20 * time2;

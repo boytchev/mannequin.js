@@ -13,17 +13,15 @@
 
 	createScene( animate );
 
-	var man = new Male();
+	var man = new Male( 1.2 );
 
-	man.scale.set( 0.7, 0.7, 0.7 );
-
-	man.head.scale.set( 3, 3, 3 );
+	man.head.scale.set( 2, 3, 3 );
 
 	man.l_arm.scale.set( 1 / 2, 1 / 2, 1 / 2 );
 	man.r_arm.scale.set( 1 / 2, 1 / 2, 1 / 2 );
 
-	man.l_wrist.scale.set( 3, 5, 3 );
-	man.r_wrist.scale.set( 3, 5, 3 );
+	man.l_wrist.scale.set( 8, 8, 8 );
+	man.r_wrist.scale.set( 8, 8, 8 );
 
 	man.l_leg.scale.set( 1 / 2, 1 / 2, 1 / 2 );
 	man.r_leg.scale.set( 1 / 2, 1 / 2, 1 / 2 );
@@ -31,14 +29,14 @@
 	man.l_knee.scale.set( 3, 3, 3 );
 	man.r_knee.scale.set( 3, 3, 3 );
 
-	man.l_ankle.scale.set( 1 / 2, 1.5, 1 );
-	man.r_ankle.scale.set( 1 / 2, 1.5, 1 );
+	man.l_ankle.scale.set( 4 / 2, 1.5, 1 );
+	man.r_ankle.scale.set( 4 / 2, 1.5, 1 );
 
 	function animate( t ) {
 
 		t = t / 2;
 
-		man.position.set( 15 * sin( 0.4 * t ) * sin( 0.58 * t ), 0, 0 );
+		man.position.set( 0.15 * sin( 0.4 * t ) * sin( 0.58 * t ), 0, 0 );
 
 		man.turn = 30 * sin( 2 * t ) - 90;
 		man.bend = 30 * sin( t );

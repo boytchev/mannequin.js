@@ -40,7 +40,7 @@
 	man.r_ankle.tilt = 38;
 	man.r_ankle.bend = 25;
 
-	man.position.y -= 7.2;
+	man.stepOnGround();
 
 	// individual colours
 	man.l_elbow.setColor( 'yellow', 'black' );
@@ -52,7 +52,7 @@
 	function animate( t ) {
 
 		man.head.turn = -60 * sin( t / 2 );
-		scene.rotation.y = sin( t / 2 );
+		man.rotation.y = sin( t / 2 );
 
 	}
 
