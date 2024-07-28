@@ -1,6 +1,6 @@
 {
   "name": "mannequin-js",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "A simple model of articulated human figure",
   "main": "mannequin.js",
   "directories": {
@@ -14,8 +14,8 @@
     "url": "git+https://github.com/boytchev/mannequin.js.git"
   },
   "plugins": [
-        "html"
-    ],
+    "html"
+  ],
   "keywords": [
     "mannequin",
     "model",
