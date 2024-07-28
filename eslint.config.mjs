@@ -21,6 +21,7 @@ export default [
 				cos: "readonly",
 				rad: "readonly",
 				setColors: "readonly",
+				renderer: "readonly",
 				scene: "readonly",
 				GROUND_LEVEL: "readonly",
 			}

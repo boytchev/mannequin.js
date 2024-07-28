@@ -18,7 +18,7 @@
 
 import * as THREE from 'three';
 import { cos, GROUND_LEVEL, rad, setColors, sin } from './globals.js';
-import { createScene, scene, renderer } from './scene.js';
+import { createScene, renderer, scene } from './scene.js';
 import { Mannequin } from './bodies/Mannequin.js';
 import { Female } from './bodies/Female.js';
 import { Male } from './bodies/Male.js';
