@@ -17,6 +17,7 @@ class ParametricShape extends THREE.Group {
 				{
 					color: color,
 					map: texture,
+					side: THREE.DoubleSide,
 					roughness: 1,
 					metalness: 0,
 				} )

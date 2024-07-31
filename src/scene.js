@@ -25,8 +25,8 @@ function createScene( animateFunction ) {
 	renderer.outputColorSpace = THREE.SRGBColorSpace;
 	renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0;';
 	renderer.shadowMap.enabled = true;
-	//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-	renderer.shadowMap.type = THREE.VSMShadowMap;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+	//renderer.shadowMap.type = THREE.VSMShadowMap; // too slow in Firefox
 	renderer.setAnimationLoop( drawFrame );
 	document.body.appendChild( renderer.domElement );
 
@@ -37,15 +37,6 @@ function createScene( animateFunction ) {
 
 	camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.1, 2000 );
 	camera.position.set( 0, 0, 5 );
-
-	/*
-	var box = new THREE.Mesh(
-		new THREE.BoxGeometry(1,1,1),
-		new THREE.MeshNormalMaterial({transparent:true,opacity:0.4,side:THREE.DoubleSide})
-	);
-	box.position.z = 0;
-	scene.add(box);
-	*/
 
 	light = new THREE.DirectionalLight( 'white', 2.75 );
 	light.decay = 0;
@@ -60,9 +51,7 @@ function createScene( animateFunction ) {
 	light.shadow.camera.right = 5;
 	light.shadow.camera.top = 5;
 	light.shadow.camera.bottom = -5;
-	light.shadow.radius = 1.5;
-	light.shadow.blurSamples = 5;
-	light.shadow.bias = -0.001;
+	light.shadow.normalBias = 0.005;
 	light.autoUpdate = false;
 	light.castShadow = true;
 	scene.add( light, new THREE.AmbientLight( 'white', 0.5 ) );
