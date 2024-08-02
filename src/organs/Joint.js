@@ -14,9 +14,15 @@ class Joint extends THREE.Group {
 		var yVal = params.sy || params[ 1 ];
 
 		if ( shape )
+		{
 			this.image = new shape( parentJoint ? parentJoint.feminine : false, params );
+			if( shape == THREE.Group ) this.image.name = 'Joint.image';
+		}
 		else
+		{
 			this.image = new THREE.Group();
+			this.image.name = 'Joint.imageWrapper.image';
+		}
 
 		this.image.castShadow = true;
  		if ( shape != PelvisShape && shape != ShoeShape ) {
@@ -28,6 +34,7 @@ class Joint extends THREE.Group {
 		this.imageWrapper = new THREE.Group();
 		this.imageWrapper.add( this.image );
 		this.imageWrapper.castShadow = true;
+		this.imageWrapper.name = 'Joint.imageWrapper';
 
 		this.add( this.imageWrapper );
 
@@ -52,6 +59,8 @@ class Joint extends THREE.Group {
 		this.minRot = new THREE.Vector3();
 		this.maxRot = new THREE.Vector3();
 
+		this.name = 'Joint';
+		
 	} // Joint.constructor
 
 	get z() {

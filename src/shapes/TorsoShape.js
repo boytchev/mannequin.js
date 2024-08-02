@@ -31,13 +31,13 @@ class TorsoShape extends ParametricShape {
 			var k = Math.pow( Math.abs( 2 * u - 1 ), 16 ),
 				kx = Math.pow( Math.abs( 2 * u - 1 ), 2 );
 			if ( x2 < 0 ) kx = k;
-			target.set( x1 * ( 1 - kx ) + kx * x2, y1 * ( 1 - k ) + k * y2, z1 * ( 1 - k ) + k * z2 );
+			target.set( x1 * ( 1 - kx ) + kx * x2, y1 * ( 1 - k ) + k * y2 - y/2, z1 * ( 1 - k ) + k * z2 );
 
 		}, 30, 20 );
 
-		this.children[ 0 ].position.set( 0, -y / 2, 0 );
-
-		this.addSphere( 2, -y / 2 );
+			this.addSphere( 2, -y / 2 );
+		
+		this.name = 'TorsoShape';
 
 	} // TorsoShape.constructor
 

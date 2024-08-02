@@ -13,6 +13,8 @@ class Leg extends Joint {
 
 		//		this.image.addSphere(0.4, 0,5,0);
 
+		this.name = 'Arm';
+		
 	} // Leg.constructor
 
 	biologicallyImpossibleLevel() {

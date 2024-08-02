@@ -26,12 +26,15 @@ class LimbShape extends ParametricShape {
 				y * ( 1 / 2 + sin( 180 * u - 90 ) / 2 ),
 				z * sin( v ) * cos( 180 * u - 90 ) / 2 );
 			target = target.lerp( w, Math.pow( Math.abs( 2 * u - 1 ), 16 ) );
-
+			target.y += -y/2;
 		}, nU, nV );
-		this.children[ 0 ].position.set( 0, -y / 2, 0 );
+
+//		this.children[ 0 ].position.set( 0, -y / 2, 0 );
 
 		if ( rad ) this.addSphere( rad ? rad : z / 2, -y / 2 );
 
+		this.name = 'LimbShape';
+		
 	} // LimbShape.constructor
 
 } // LimbShape

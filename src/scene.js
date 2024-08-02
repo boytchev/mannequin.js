@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { GROUND_LEVEL } from "./globals.js";
 
 
@@ -106,6 +107,19 @@ function createScene( animateFunction ) {
 
 	animateFrame( animateFunction );
 
+
+/*
+	const loader = new GLTFLoader();
+	loader.load( 'https://threejs.org/examples/models/gltf/Soldier.glb', function ( gltf ) {
+
+		const model = gltf.scene;
+		
+var		rightArm = model.getObjectByName( 'mixamorigRightArm' );
+console.log(model)
+		scene.add( model );
+
+	} );
+*/
 } // createScene
 
 
@@ -127,5 +141,9 @@ function animateFrame( a ) {
 	animate = a;
 
 }
+
+
+
+
 
 export { createScene, scene, animateFrame, renderer, camera, light, controls, drawFrame, ground };

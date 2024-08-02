@@ -12,6 +12,8 @@ class Neck extends Joint {
 		this.minRot = new THREE.Vector3( -45 / 2, -90 / 2, -60 );
 		this.maxRot = new THREE.Vector3( 45 / 2, 90 / 2, 50 / 2 );
 
+		this.name = 'Neck';
+		
 	} // Neck.constructor
 
 } // Neck

@@ -20,6 +20,7 @@ class Phalange extends Joint {
 					{
 						color: defaultColors[ 6 ],
 					} ) );
+			this.nail.name = 'nail';
 			this.nail.castShadow = true;
 			this.nail.receiveShadow = true;
 			this.nail.scale.set( 0.05, 0.2*nailSize, 0.1*nailSize );
@@ -38,6 +39,8 @@ class Phalange extends Joint {
 
 		}
 
+		this.name = 'Phalange';
+		
 	} // Phalange.constructor
 
 	get bend() {

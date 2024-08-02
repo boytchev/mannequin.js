@@ -15,6 +15,8 @@ class Ankle extends Joint {
 		this.minRot = new THREE.Vector3( -25, -30, -70 );
 		this.maxRot = new THREE.Vector3( 25, 30, 80 );
 
+		this.name = 'Ankle';
+		
 	} // Ankle.constructor
 
 	get bend() {

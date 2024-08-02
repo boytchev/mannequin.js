@@ -12,6 +12,8 @@ class Elbow extends Joint {
 		this.minRot = new THREE.Vector3( 0, 0, 0 );
 		this.maxRot = new THREE.Vector3( 0, 0, 150 );
 
+		this.name = 'Elbow';
+		
 	} // Elbow.constructor
 
 	get bend() {

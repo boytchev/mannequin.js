@@ -39,6 +39,8 @@ class Mannequin extends THREE.Group {
 
 		super();
 
+		this.name = 'Mannequin';
+		
 		const LEFT = -1;
 		const RIGHT = 1;
 		this.rawHeight = 1;

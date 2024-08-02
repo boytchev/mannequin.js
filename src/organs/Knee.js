@@ -13,6 +13,8 @@ class Knee extends Joint {
 		this.minRot = new THREE.Vector3( 0, 0, 0 );
 		this.maxRot = new THREE.Vector3( 0, 0, 150 );
 
+		this.name = 'Knee';
+		
 	} // Knee.constructor
 
 	get bend() {

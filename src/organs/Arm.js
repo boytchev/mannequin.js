@@ -9,10 +9,13 @@ class Arm extends Joint {
 		super( parentJoint, [ 0, 14, leftOrRight * ( parentJoint.feminine ? 5 : 6 ) ], [ 3.5, 11, 2.5, -90, 360, 0.9, 0.2, 1.5 ], LimbShape );
 		this.leftOrRight = leftOrRight;
 
-		this.imageWrapper.rotation.set( Math.PI, Math.PI, 0 );
+		this.imageWrapper.rotation.set( 0, 0, Math.PI ); // 240802
+		//this.imageWrapper.rotation.set( Math.PI, Math.PI, 0 );
 
 		//this.image.addSphere(2,15,0,0);
 
+		this.name = 'Arm';
+		
 	} // Arm.constructor
 
 	biologicallyImpossibleLevel() {

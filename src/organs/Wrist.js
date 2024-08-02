@@ -26,6 +26,8 @@ class Wrist extends Joint {
 
 		//this.image.addSphere( 1, 0,5,0 );
 
+		this.name = 'Wrist';
+		
 	} // Wrist.constructor
 
 	biologicallyImpossibleLevel() {

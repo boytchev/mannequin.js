@@ -1,5 +1,5 @@
 import "mannequin";
-import { camera, controls, drawFrame, renderer } from "mannequin/globals.js";
+import { camera, controls, drawFrame, renderer } from "mannequin/scene.js";
 import { Torso } from "../organs/Torso.js";
 import { Head } from "../organs/Head.js";
 import { Pelvis } from "../organs/Pelvis.js";
