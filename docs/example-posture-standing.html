@@ -9,7 +9,8 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import * as THREE from 'three';
+	import { createScene, Male } from 'mannequin';
 
 	createScene( );
 
@@ -49,7 +50,7 @@
 		material = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
 		stick = new THREE.Mesh( geometry, material );
 
-	stick.rotation.x = rad( 90 );
+	stick.rotation.x = Math.PI/2;
 	stick.position.set( -1, 0.25, 0 );
 	stick.castShadow = true;
 

@@ -14,7 +14,7 @@ class Body extends Joint {
 		this.maxRot = new THREE.Vector3( Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY );
 
 		this.name = 'Body';
-		
+
 	} // Body.constructor
 
 	get bend() {

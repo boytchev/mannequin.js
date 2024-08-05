@@ -13,7 +13,7 @@ class Torso extends Joint {
 		this.maxRot = new THREE.Vector3( 25, 50, 25 );
 
 		this.name = 'Torso';
-		
+
 	} // Torso.constructor
 
 	get bend() {

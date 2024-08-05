@@ -9,8 +9,7 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
-	import "./fonts/label.js";
+	import { addLabel, Child, createScene, Female, Male } from 'mannequin';
 
 	createScene( animate );
 
@@ -28,14 +27,14 @@
 
 	function animate( t ) {
 
-		man.r_ankle.bend = 50 * sin( 2 * t ) - 10;
-		man.l_ankle.bend = 50 * sin( 2 * t ) - 10;
+		man.r_ankle.bend = 50 * Math.sin( 3*t ) - 10;
+		man.l_ankle.bend = 50 * Math.sin( 3*t ) - 10;
 
-		child.r_ankle.turn = 30 * sin( 2 * t ) - 5;
-		child.l_ankle.turn = 30 * sin( 2 * t ) - 5;
+		child.r_ankle.turn = 30 * Math.sin( 3*t ) - 5;
+		child.l_ankle.turn = 30 * Math.sin( 3*t ) - 5;
 
-		woman.r_ankle.tilt = 20 * sin( 2 * t ) - 20;
-		woman.l_ankle.tilt = 20 * sin( 2 * t ) - 20;
+		woman.r_ankle.tilt = 20 * Math.sin( 3*t ) - 20;
+		woman.l_ankle.tilt = 20 * Math.sin( 3*t ) - 20;
 	
 		man.stepOnGround( );
 

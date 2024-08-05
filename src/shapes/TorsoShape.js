@@ -35,8 +35,8 @@ class TorsoShape extends ParametricShape {
 
 		}, 30, 20 );
 
-			this.addSphere( 2, -y / 2 );
-		
+		this.addSphere( 2, -y / 2 );
+
 		this.name = 'TorsoShape';
 
 	} // TorsoShape.constructor

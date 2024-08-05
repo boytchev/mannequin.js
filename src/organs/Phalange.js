@@ -40,7 +40,7 @@ class Phalange extends Joint {
 		}
 
 		this.name = 'Phalange';
-		
+
 	} // Phalange.constructor
 
 	get bend() {

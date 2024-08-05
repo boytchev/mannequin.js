@@ -9,7 +9,8 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import * as THREE from 'three';
+	import { Child, createScene, GROUND_LEVEL, scene } from 'mannequin';
 
 	createScene( animate );
 
@@ -26,7 +27,7 @@
 	const BALL_SIZE = 0.25;
 	
 	var geometry = new THREE.IcosahedronGeometry( BALL_SIZE, 6 );
-	var material = new THREE.MeshPhongMaterial( { color: 'crimson' } );
+	var material = new THREE.MeshPhongMaterial( { color: 'crimson', side: THREE.DoubleSide } );
 
 	var ball = new THREE.Mesh( geometry, material );
 	ball.position.set( 0, GROUND_LEVEL+BALL_SIZE, 0 );
@@ -37,12 +38,12 @@
 
 	function animate( t ) {
 
-		var time1 = ( sin( 2 * t ) + cos( 3 * t ) + cos( 5 * t ) ) / 3,
-			time2 = ( sin( 2 * t - 60 ) + cos( 3 * t - 90 ) + cos( 5 * t - 120 ) ) / 3;
+		var time1 = ( Math.sin( 2 * t ) + Math.cos( 3 * t ) + Math.cos( 5 * t ) ) / 3,
+			time2 = ( Math.sin( 2 * t - 60 ) + Math.cos( 3 * t - 90 ) + Math.cos( 5 * t - 120 ) ) / 3;
 
 		ball.position.x = 0.06 * time1;
 
-		child.position.y = 0.31 + 0.05*cos( 90 * time1 );
+		child.position.y = 0.31 + 0.05*Math.cos( time1 * Math.PI/2 );
 
 		child.bend = 0;
 		child.turn = -90 - 20 * time1 + 20 * time2;

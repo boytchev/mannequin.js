@@ -13,15 +13,16 @@ class Joint extends THREE.Group {
 		super();
 		var yVal = params.sy || params[ 1 ];
 
-		if ( shape )
-		{
+		if ( shape ) {
+
 			this.image = new shape( parentJoint ? parentJoint.feminine : false, params );
-			if( shape == THREE.Group ) this.image.name = 'Joint.image';
-		}
-		else
-		{
+			if ( shape == THREE.Group ) this.image.name = 'Joint.image';
+
+		} else {
+
 			this.image = new THREE.Group();
 			this.image.name = 'Joint.imageWrapper.image';
+
 		}
 
 		this.image.castShadow = true;
@@ -60,7 +61,7 @@ class Joint extends THREE.Group {
 		this.maxRot = new THREE.Vector3();
 
 		this.name = 'Joint';
-		
+
 	} // Joint.constructor
 
 	get z() {

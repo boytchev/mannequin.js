@@ -17,7 +17,7 @@ class Fingers extends Joint {
 		this.imageWrapper = this.finger_2.imageWrapper;
 
 		this.name = 'Fingers';
-		
+
 	}
 
 	get bend() {

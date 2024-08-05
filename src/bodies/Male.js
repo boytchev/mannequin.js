@@ -8,7 +8,7 @@ class Male extends Mannequin {
 		super( false, height );
 
 		this.name = 'Mannequin';
-		
+
 		this.l_leg.straddle += 6;
 		this.r_leg.straddle += 6;
 

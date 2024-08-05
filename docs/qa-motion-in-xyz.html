@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import { createScene, Female, Male } from 'mannequin';
 
 	createScene( animate );
 
@@ -18,8 +18,8 @@
 
 	function animate( t ) {
 
-		man.position.x = 1.5 * sin( t );
-		woman.position.z = 1.5 * cos( t );
+		man.position.x = 1.5 * Math.sin( 2*t );
+		woman.position.z = 1.5 * Math.cos( 2*t );
 
 	}
 

@@ -12,7 +12,7 @@ class ShoeShape extends THREE.Group {
 		super();
 
 		this.name = 'ShoeShape';
-		
+
 		this.add( new ParametricShape( limbTexture, defaultColors[ 1 ], function ( u, v, target ) {
 
 			var r = cossers( u, v, [

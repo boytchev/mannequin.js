@@ -86,4 +86,37 @@ function cossers( u, v, params ) {
 
 
 
-export { defaultColors, setColors, jointGeometry, cossers, rad, grad, sin, cos, limbTexture, MANNEQUIN_VERSION, MANNEQUIN_POSTURE_VERSION, GROUND_LEVEL };
+
+function blend( posture0, posture1, k ) {
+
+	if ( posture0.version != posture1.version )
+		throw 'Incompatibe posture blending.';
+
+	function lerp( data0, data1, k ) {
+
+		if ( data0 instanceof Array ) {
+
+			var result = [];
+			for ( var i in data0 )
+				result.push( lerp( data0[ i ], data1[ i ], k ) );
+			return result;
+
+		} else {
+
+			return data0 * ( 1 - k ) + k * data1;
+
+		}
+
+	}
+
+	return {
+		version: posture1.version,
+		data: lerp( posture0.data, posture1.data, k )
+	};
+
+} // blend
+
+
+
+
+export { defaultColors, setColors, jointGeometry, cossers, rad, grad, sin, cos, blend, limbTexture, MANNEQUIN_VERSION, MANNEQUIN_POSTURE_VERSION, GROUND_LEVEL };

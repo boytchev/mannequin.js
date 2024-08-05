@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import { createScene, Male, setColors } from 'mannequin';
 
 	createScene( animate );
 
@@ -51,8 +51,8 @@
 
 	function animate( t ) {
 
-		man.head.turn = -60 * sin( t / 2 );
-		man.rotation.y = sin( t / 2 );
+		man.head.turn = -60 * Math.sin( t );
+		man.rotation.y = Math.sin( t );
 
 	}
 

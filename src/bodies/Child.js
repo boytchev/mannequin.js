@@ -8,7 +8,7 @@ class Child extends Mannequin {
 		super( false, height );
 
 		this.name = 'Child';
-		
+
 		this.l_arm.straddle -= 2;
 		this.r_arm.straddle -= 2;
 

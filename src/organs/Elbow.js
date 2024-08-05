@@ -13,7 +13,7 @@ class Elbow extends Joint {
 		this.maxRot = new THREE.Vector3( 0, 0, 150 );
 
 		this.name = 'Elbow';
-		
+
 	} // Elbow.constructor
 
 	get bend() {

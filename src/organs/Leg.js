@@ -11,10 +11,8 @@ class Leg extends Joint {
 
 		this.imageWrapper.rotation.set( Math.PI, 0, 0 );
 
-		//		this.image.addSphere(0.4, 0,5,0);
-
 		this.name = 'Arm';
-		
+
 	} // Leg.constructor
 
 	biologicallyImpossibleLevel() {

@@ -40,7 +40,7 @@ class HeadShape extends ParametricShape {
 		}, 32, 32 );
 
 		this.name = 'HeadShape';
-		
+
 	} // HeadShape.constructor
 
 } // HeadShape

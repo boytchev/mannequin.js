@@ -24,7 +24,7 @@ class PelvisShape extends ParametricShape {
 		}, 20, 10 );
 
 		this.name = 'PelvisShape';
-		
+
 	} // PelvisShape.constructor
 
 } // PelvisShape

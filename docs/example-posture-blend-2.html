@@ -9,7 +9,8 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import * as THREE from 'three';
+	import { blend, createScene, Male } from 'mannequin';
 
 	createScene( animate );
 
@@ -21,7 +22,7 @@
 	var geometry = new THREE.CylinderGeometry( 0.4, 0.4, 71 );
 	var material = new THREE.MeshPhongMaterial( { color: 'crimson' } );
 	var stick = new THREE.Mesh( geometry, material );
-	stick.rotation.x = rad( 90 );
+	stick.rotation.x = Math.PI/2;
 	stick.position.set( -1, 0.25, 0 );
 	stick.castShadow = true;
 	// another stick
@@ -78,9 +79,9 @@
 
 	function animate( t ) {
 
-		var k = THREE.MathUtils.clamp( 0.5 + 0.6 * sin( t ), 0, 1 );
+		var k = THREE.MathUtils.clamp( 0.5 + 0.6 * Math.sin( t ), 0, 1 );
 
-		man.posture = Mannequin.blend( A, B, k );
+		man.posture = blend( A, B, k );
 		man.position.x = THREE.MathUtils.mapLinear( k, 0, 1, -1, 1 );
 		man.rotation.y = THREE.MathUtils.mapLinear( k, 0, 1, 2, 0 );
 

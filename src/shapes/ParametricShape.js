@@ -6,7 +6,7 @@ import { defaultColors, jointGeometry } from "../globals.js";
 
 
 // parametric surface
-class ParametricShape extends THREE.Mesh {//THREE.Group {
+class ParametricShape extends THREE.Mesh {
 
 	constructor( texture, color, func, uDivisions = 3, vDivisions = 3 ) {
 
@@ -24,27 +24,7 @@ class ParametricShape extends THREE.Mesh {//THREE.Group {
 		this.name = 'ParametricShape';
 		this.receiveShadow = true;
 		this.castShadow = true;
-/*
-		super();
 
-		this.name = 'ParametricShape';
-		
-		var obj = new THREE.Mesh(
-			new ParametricGeometry( func, uDivisions, vDivisions ),
-			new THREE.MeshStandardMaterial(
-				{
-					color: color,
-					map: texture,
-					side: THREE.DoubleSide,
-					roughness: 1,
-					metalness: 0,
-				} )
-		);
-		obj.name = 'ParametricShape.Mesh';
-		obj.receiveShadow = true;
-		obj.castShadow = true;
-		this.add( obj );
-*/
 	} // ParametricShape.constructor
 
 	addSphere( radius, y, x = 0, z = 0 ) {
@@ -66,14 +46,6 @@ class ParametricShape extends THREE.Mesh {//THREE.Group {
 
 	recolor( color, secondaryColor = color ) {
 
-/* 240802
-		this.children[ 0 ].material.color.set( color );
-		if ( this.children.length>1 ) {
-
-			this.children[ 1 ].material.color.set( secondaryColor );
-
-		}
-*/
 		this.material.color.set( color );
 		if ( this.children.length>0 ) {
 

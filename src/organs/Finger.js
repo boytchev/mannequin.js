@@ -42,7 +42,7 @@ class Finger extends Phalange {
 		this.tip.maxRot = new THREE.Vector3( 0, 0, thumb?90:120 );
 
 		this.name = 'Finger';
-		
+
 	} // Finger.constructor
 
 	get bend() {

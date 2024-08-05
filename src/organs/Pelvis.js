@@ -13,7 +13,7 @@ class Pelvis extends Joint {
 		this.maxRot = new THREE.Vector3( Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY );
 
 		this.name = 'Pelvis';
-		
+
 	} // Pelvis.constructor
 
 } // Pelvis

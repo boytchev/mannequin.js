@@ -9,7 +9,8 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
+	import * as THREE from 'three';
+	import { createScene, Female, Male } from 'mannequin';
 	import { LimbShape } from "mannequin/shapes/LimbShape.js";
 
 	createScene( animate );
@@ -97,7 +98,7 @@
 			super();
 
 			this.position.set( x, -0.6, 0 );
-			this.rotation.y = rad( angle );
+			this.rotation.y = angle;
 
 			var seat = new LimbShape( false, [ 0.4, 0.27, 0.4, 0, 270, 1, 0.2, 0 ], 20, 60 );
 			seat.recolor( 'darksalmon' );
@@ -105,7 +106,7 @@
 			var backrest = new LimbShape( false, [ 0.05, 1.0, 0.15, -90, 270, 1, 0.5, 0 ], 50, 10 );
 			backrest.recolor( 'darksalmon' );
 			backrest.position.set( -0.27, 0.55, 0 );
-			backrest.rotation.set( 0, 0, rad( 20 ) );
+			backrest.rotation.set( 0, 0, 0.35 );
 
 			var cussion = new THREE.Mesh(
 				new THREE.SphereGeometry( 0.17, 40, 10, 0, 2 * Math.PI, 0, Math.PI ),
@@ -119,7 +120,7 @@
 
 	}
 
-	scene.add( new Chair( -0.6, 0 ), new Chair( 0.6, 180 ) );
+	scene.add( new Chair( -0.6, 0 ), new Chair( 0.6, Math.PI ) );
 
 	//
 
@@ -154,23 +155,23 @@
 
 	function animate( t ) {
 
-		var looking = 15 * sin( t ),
-			reading = 25 * cos( 1.2 * t ) * sin( 0.7 * t ),
-			k = Math.min( 1.5, Math.pow( sin( 0.37 * t ) * 0.5016 + 0.5, 300 ) );
+		var looking = 15 * Math.sin( t ),
+			reading = 25 * Math.cos( 1.2 * t ) * Math.sin( 0.7 * t ),
+			k = Math.min( 1.5, Math.pow( Math.sin( 0.37 * t ) * 0.5016 + 0.5, 300 ) );
 
 		man.head.turn = reading * ( 1 - k );
 		man.head.nod = 15 * ( 1 - k ) - k * looking;
 
-		man.l_ankle.bend = -5 + 10 * Math.pow( sin( t ), 34 );
-		man.r_ankle.bend = -5 + 10 * Math.pow( sin( t + 90 ), 34 );
+		man.l_ankle.bend = -5 + 10 * Math.pow( Math.sin( t ), 34 );
+		man.r_ankle.bend = -5 + 10 * Math.pow( Math.sin( t + 90 ), 34 );
 
-		k = Math.min( 1.5, Math.pow( sin( 0.37 * t + 10 ) * 0.5016 + 0.5, 100 ) );
-		woman.r_leg.raise = 85 + 0.5 * sin( 3.4 * t );
-		woman.r_knee.bend = ( 80 + 5 * sin( 2 * 1.7 * t ) ) * ( 1 - k ) + k * 45;
-		woman.r_ankle.bend = -20 - 10 * sin( 2 * 1.7 * t );
+		k = Math.min( 1.5, Math.pow( Math.sin( 0.37 * t + 10 ) * 0.5016 + 0.5, 100 ) );
+		woman.r_leg.raise = 85 + 0.5 * Math.sin( 3.4 * t );
+		woman.r_knee.bend = ( 80 + 5 * Math.sin( 3.4 * t ) ) * ( 1 - k ) + k * 45;
+		woman.r_ankle.bend = -20 - 10 * Math.sin( 3.4 * t );
 
-		woman.head.turn = 25 * cos( 0.7 * t );
-		woman.head.nod = 35 + 5 * cos( 0.8 * t );
+		woman.head.turn = 25 * Math.cos( 0.7 * t );
+		woman.head.nod = 35 + 5 * Math.cos( 0.8 * t );
 
 	}
 

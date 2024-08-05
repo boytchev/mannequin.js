@@ -37,7 +37,7 @@ TODO
     </head>
     <body>
         <script type="module">
-            import "mannequin";
+            import { createScene, Male } from "mannequin";
             createScene( );
             new Male();
         </script>
@@ -54,22 +54,22 @@ TODO
 
 Фигурите в библиотеката се създават като инстанции на класовете `Male(height)`,
 `Female(height)` или `Child(height)`, където незадължителният параметър *height*
-е относителният размер на фигурата. По подразбиране `Male` има височина 1.00,
-`Female` има височина 0.95 и `Child` има височина 0.65 ([пример на живо](example-figure-types.html)):
+е размер на височината е метри. По подразбиране `Male` има височина 1.80,
+`Female` има височина 1.65 и `Child` има височина 1.15 ([пример на живо](example-figure-types.html)):
 
 [<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
 ``` javascript
 var man = new Male();
-    man.position.x = 20;
+    man.position.x = 0.6;
     man.turn = -120;
 :
 var woman = new Female();
-    woman.position.x = -20;
+    woman.position.x = -0.65;
     woman.turn = -60;
 :
 var kid = new Child();
-    kid.position.z = -7;
+    kid.position.z = -0.18;
 :
 ```
 
@@ -303,8 +303,8 @@ woman.torso.tilt += 60;
 
 ``` javascript
 // обща поза на тялото
-man.position.y -= 11;
 man.body.tilt = -5;
+man.body.bend = 15.2;
 :
 // торс и глава
 man.torso.turn -= 30;
@@ -344,27 +344,27 @@ man.r_wrist.turn -= 60;
 ### Динамична поза
 
 Динамичната поза &ndash; т.е. поза, която се променя с времето &ndash; се задава
-със същите свойства, които се използват за статична поза. Mannequin.js дефинира
-функция `animateFrame`, която определя потребителска функция за анимация. Тази
-потребителска функция се извиква в цикъла на анимацията веднъж за всеки кадър.
-Всички промени в позата трябва да бъдат дефинирани във функцията
-([пример на живо](example-dynamic.html)). Параметърът *t* е времето, измерено в
-десети от секундата. Потребителската функция може да се подаде и като параметър на `createScene()`.
+със същите свойства, които се използват за статична поза. Mannequin.js управлява
+динамичните пози чрез потребителска функция за анимация. Тази потребителска функция
+се извиква в цикъла на анимацията веднъж за всеки кадър. Всички промени в позата
+трябва да бъдат дефинирани във функцията ([пример на живо](example-dynamic.html)).
+Параметърът *t* е времето, измерено в секунди от стартирането на библиотеката.
+Името на потребителската функция се подава като параметър на `createScene()`
+или `animateFrame()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
-animateFrame( animate );
+createScene( animate );
 
 function animate(t)
 {
-    var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
-        time2 = (sin(2*t-60)+cos(3*t-90)+cos(5*t-120))/3;
+    var time1 = Math.sin( 2*t ),
+        time2 = Math.sin( 2*t-60 );
 	
-    ball.position.x = -3*time1;
+    ball.position.x = 0.06*time1;
 	
-    child.position.x = -3*time1;
-    child.position.y = 4.2+cos(90*time1);
+    child.position.y = 0.31 + 0.05*Math.cos(time1 * Math.PI/2);
 
     child.turn = -90-20*time1+20*time2;
     child.tilt = 10*time1;
@@ -385,12 +385,8 @@ function animate(t)
 да се използва и за задаване на поза на фигура.
 
 ``` javascript
-{ "version":5,
-  "data": [ [90,-85,74.8], [16.1,-29.5,26.3], [3.5,-34.8,6.1],
-            [14.1,-2.9,-19.8], [30], [-6,-6,-42.6], [14.6,-46.9,98.9],
-			[90], [4.9,9,-15.4], [68.9,-34.7,-2.1], [155], [-20,0,0],
-			[-10,-10], [-77,4.9,-1.1], [55], [15,-60,-20], [100,100]
-		  ]
+{ "version": 7,
+  "data": [ [0,0,0], [90,-85,74.8], [16.1,-29.5,26.3], [3.5,-34.8,6.1], ... ]
 }
 ```
 
@@ -400,7 +396,7 @@ function animate(t)
 
 
 Позите могат да бъдат сливани чрез ойлерова интерполация (т.е. линейна интерполация
-на ойлерови ъгли). Методът на класа `blend(posture0,posture1,k)` слива 
+на ойлерови ъгли). Функцията `blend(posture0,posture1,k)` слива 
 първоначалната поза *posture0* и крайната поза *posture1* с коефициент
 *k*&isin;[0,1]. Когато *k*=0 резултатът е поза *posture0*, когато *k*=1
 резултатът е поза *posture1*, когато *k* е между 0 и 1 резултатът е междинна
@@ -415,15 +411,17 @@ var man = new Male();
 var woman = new Female();
 
 // две пози
-var A = {"version":5,"data":[[90,-85,74.8],...]};
-var B = {"version":5,"data":[[0,-90,0],...]};
+var A = {"version": 7, "data": [[ 0, -7.2, 0 ],...]};
+var B = {"version": 7, "data": [[ 0, 2.8, 0 ],...]};
 
 // задаване на междинна поза
-man.posture = Mannequin.blend(A,B,0.5);
+man.posture = blend(A,B,0.5);
 
 // копиране на позата в друга фигура
 woman.posture = man.posture;
 ```
+
+
 
 # Други функционалности
 
@@ -441,12 +439,13 @@ mannequin.js предоставя основна функционалност з
 
 ``` javascript
 setColors(
-    'antiquewhite',	// head
-    'gray',		// shoes
-    'antiquewhite',	// pelvis
-    'burlywood',	// joints
-    'antiquewhite',	// limbs
-    'bisque'		// torso
+    'antiquewhite',	// глава
+    'gray',		    // обувки
+    'antiquewhite',	// таз
+    'burlywood',	// стави
+    'antiquewhite',	// крайници
+    'bisque',		// тяло
+	'burlywood'     // нокти
 );
 ```
 
@@ -459,7 +458,8 @@ setColors(
 
 ``` javascript
 // глобални цветове
-setColors('lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray');
+setColors( 'lightgreen', 'black', 'black', 'white',
+           'darkolivegreen', 'darkslategray', 'yellow' );
 
 var man = new Male();
 :
@@ -467,8 +467,8 @@ var man = new Male();
 man.l_elbow.setColor( 'yellow', 'black' );
 man.l_wrist.setColor( 'orange' );
 man.l_fingers.setColor( 'coral' );
-man.l_fingers.tips.setColor( 'maroon' );
 man.r_knee.setColor( 'antiquewhite', 'black' );
+man.l_nails.setColor( 'black' );
 ```
 
 Първият параметър на `setColor` е цветът на основния
@@ -600,11 +600,11 @@ setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 трябва да избере точки на контакт и да използва
 техните глобални позиции.
 
-Следващият пример използва четири контактни точки на всяка
-обувка (т.е. `man.r_ankle` и `man.l_ankle`). Контактните точки
-на лявата обувка са показани като червени точки. Минималното
-вертикално положение на осемте контактни точки се използва за
-регулиране на вертикалното положение на фигурата ([пример на живо](example-touch-ground.html)):
+Следващият пример използва четири контактни точки на лявата
+обувка (т.е. `man.l_ankle`). Контактните точки са показани
+като червени точки. Минималното вертикално положение на 
+контактни точки се използва за регулиране на вертикалното
+положение на фигурата ([пример на живо](example-touch-ground.html)):
 
 [<img src="snapshots/example-touch-ground.jpg">](example-touch-ground.html)
 
@@ -622,10 +622,20 @@ var bottom = Math.min(
     man.r_ankle.point(2,2.5,-2).y
 );
 
-man.position.y += (-29.5-bottom);
+man.position.y += (GROUND_LEVEL-bottom);
 ```			
 
+Стойността на `GROUND_LEVEL` е дефинирана от mannequin.js при използването на
+`createScene()`. Съдържа вертикалното отместване на нивото на земята.
 
+Фигура може да използва функцията  `stepOnGround()`, за да се придвижи вертикалнно,
+така че най-ниската ѝ точка да докосва земята.
+
+``` javascript
+man.stepOnTheGround();
+```	
+		
+		
 		
 <div class="footnote">
 	<a href="../">Home</a> &middot;

@@ -15,7 +15,7 @@ class Nails extends Joint {
 		this.nail_4 = finger_4.tip.nail;
 
 		this.name = 'Nails';
-		
+
 	} // Nails.constructor
 
 	// change the colour of the nail

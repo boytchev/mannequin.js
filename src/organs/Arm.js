@@ -12,10 +12,8 @@ class Arm extends Joint {
 		this.imageWrapper.rotation.set( 0, 0, Math.PI ); // 240802
 		//this.imageWrapper.rotation.set( Math.PI, Math.PI, 0 );
 
-		//this.image.addSphere(2,15,0,0);
-
 		this.name = 'Arm';
-		
+
 	} // Arm.constructor
 
 	biologicallyImpossibleLevel() {

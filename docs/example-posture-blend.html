@@ -9,8 +9,8 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
-	import "./fonts/label.js";
+	import { blend, createScene, Female, Male } from 'mannequin';
+	import * as THREE from 'three';
 
 	createScene( animate );
 
@@ -25,7 +25,7 @@
 		material = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
 		stick = new THREE.Mesh( geometry, material );
 
-	stick.rotation.x = rad( 90 );
+	stick.rotation.x = Math.PI/2;
 	stick.position.set( -1, 0.25, 0 );
 	stick.castShadow = true;
 
@@ -43,10 +43,10 @@
 
 	function animate( t ) {
 
-		var k = THREE.MathUtils.clamp( 0.5 + sin( t ), 0, 1 );
+		var k = THREE.MathUtils.clamp( 0.5 + Math.sin( t ), 0, 1 );
 
 		// blend posture between A and B
-		man.posture = Mannequin.blend( A, B, k );
+		man.posture = blend( A, B, k );
 		man.rotation.y = Math.PI / 2;
 
 		// copy posture from one figure to another

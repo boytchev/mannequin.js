@@ -30,7 +30,7 @@ Here is a reasonably minimal program that creates a male figure in the browser (
     </head>
     <body>
         <script type="module">
-            import "mannequin";
+            import { createScene, Male } from "mannequin";
             createScene( );
             new Male();
         </script>
@@ -52,23 +52,23 @@ TODO
 ### Figure types
 
 Mannequin figures are created as instances of classes `Male(height)`, `Female(height)`
-or `Child(height)`, where the optional *height* is the relative size of the figure.
-By default `Male` has height 1.00, `Female` has height 0.95 and `Child` has height
-0.65 ([live example](example-figure-types.html)):
+or `Child(height)`, where the optional *height* is the size of the figure in meters.
+By default `Male` has height 1.80, `Female` has height 1.65 and `Child` has height
+1.15 ([live example](example-figure-types.html)):
 
 [<img src="snapshots/example-figure-types.jpg">](example-figure-types.html)
 
 ``` javascript
 var man = new Male();
-    man.position.x = 20;
+    man.position.x = 0.6;
     man.turn = -120;
 :
 var woman = new Female();
-    woman.position.x = -20;
+    woman.position.x = -0.65;
     woman.turn = -60;
 :
 var kid = new Child();
-    kid.position.z = -7;
+    kid.position.z = -0.18;
 :
 ```
 
@@ -251,12 +251,12 @@ Sometimes it is better to define the figure step by step. Tai Chi Chuan posture,
 
 ``` javascript
 // overall body position
-man.position.y -= 11;
 man.body.tilt = -5;
+man.body.bend = 15.2;
 :
 // torso and head
 man.torso.turn -= 30;
-man.head.turn -= 70;:
+man.head.turn -= 70;
 ```
 
 Then the orientation of the legs can be set:
@@ -291,25 +291,27 @@ man.r_wrist.turn -= 60;
 	
 ### Dynamic posture
 
-The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set with the same properties that are used for static posture. Mannequin.js defines the
-function `animateFrame`, which sets a user-defined function for animation. This
-user-defined function is called in the animation loop once for each frame. All changes of a posture should be defined inside this function ([live example](example-dynamic.html)). The parameter *t* is the time, measured in tenths of seconds.
-The user-defined function can be passes as an argument to `createScene()`.
+The dynamic posture &ndash; i.e. a posture that changes over time &ndash; is set
+with the same properties that are used for static posture. Mannequin.js manages
+dynamic posture by a user-defined function called in the animation loop once for
+each frame. All changes of a posture should be defined inside this function
+([live example](example-dynamic.html)). The parameter *t* is the time, measured
+in seconds since the start of the library. The name of the user-defined function
+is passed as an argument to `createScene()` or `animateFrame()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
-animateFrame( animate );
+createScene( animate );
 
 function animate(t)
 {
-    var time1 = (sin(2*t)+cos(3*t)+cos(5*t))/3,
-        time2 = (sin(2*t-60)+cos(3*t-90)+cos(5*t-120))/3;
+    var time1 = Math.sin( 2*t ),
+		time2 = Math.sin( 2*t-60 );
 	
-    ball.position.x = -3*time1;
+    ball.position.x = 0.06*time1;
 	
-    child.position.x = -3*time1;
-    child.position.y = 4.2+cos(90*time1);
+    child.position.y = 0.31 + 0.05*Math.cos(time1 * Math.PI/2);
 
     child.turn = -90-20*time1+20*time2;
     child.tilt = 10*time1;
@@ -325,20 +327,22 @@ To make the animation loop faster, all constant rotations should be defined outs
 A posture could be extracted from a figure with the `posture` property. It contains an object with fields `version` for the posture data format version, and `data` &ndash; a nested array for joint angles. The `posture` property can be used to push a posture to a figure. 
 
 ``` javascript
-{ "version":5,
-  "data": [ [90,-85,74.8], [16.1,-29.5,26.3], [3.5,-34.8,6.1],
-            [14.1,-2.9,-19.8], [30], [-6,-6,-42.6], [14.6,-46.9,98.9],
-			[90], [4.9,9,-15.4], [68.9,-34.7,-2.1], [155], [-20,0,0],
-			[-10,-10], [-77,4.9,-1.1], [55], [15,-60,-20], [100,100]
-		  ]
+{ "version": 7,
+  "data": [ [0,0,0], [90,-85,74.8], [16.1,-29.5,26.3], [3.5,-34.8,6.1], ... ]
 }
 ```
 
 There is alternative `postureString` property to get or set the posture as a string. Converting the posture to and from a string is done with `JSON.stringify` and `JSON.parse`.
 
 
-Postures could be blended via Euler interpolation (i.e. linear interpolation of Euler anglеs). The class method `blend(posture0,posture1,k)` mixes the initial *posture0* and the final *posture1* with a coefficient *k*&isin;[0,1]. When *k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k* is between 0 and 1 the result is a posture between *posture0* and *posture1*.
-The following example blends the posture of [one figure](example-posture.html) and copies it to [another figure](example-posture-standing.html) ([live example 1](example-posture-blend.html) and [live example 2](example-posture-blend-2.html)):
+Postures could be blended via Euler interpolation (i.e. linear interpolation of
+Euler anglеs). The function `blend(posture0,posture1,k)` mixes the initial
+*posture0* and the final *posture1* with a coefficient *k*&isin;[0,1]. When
+*k*=0 the result is *posture0*, when *k*=1 the result is *posture1*, when *k*
+is between 0 and 1 the result is a posture between *posture0* and *posture1*.
+The following example blends the posture of [one figure](example-posture.html)
+and copies it to [another figure](example-posture-standing.html)
+([live example 1](example-posture-blend.html) and [live example 2](example-posture-blend-2.html)):
 
 [<img src="snapshots/example-posture-blend.jpg" width="250">](example-posture-blend.html) [<img src="snapshots/example-posture-blend-2.jpg" width="250">](example-posture-blend-2.html)
 
@@ -348,11 +352,11 @@ var man = new Male();
 var woman = new Female();
 
 // two postures
-var A = {"version":5,"data":[[90,-85,74.8],...]};
-var B = {"version":5,"data":[[0,-90,0],...]};
+var A = {"version": 7, "data": [[ 0, -7.2, 0 ],...]};
+var B = {"version": 7, "data": [[ 0, 2.8, 0 ],...]};
 
 // set an intermediate posture
-man.posture = Mannequin.blend(A,B,0.5);
+man.posture = blend(A,B,0.5);
 
 // copy the posture to another figure
 woman.posture = man.posture;
@@ -360,7 +364,8 @@ woman.posture = man.posture;
 
 # Other functions
 
-Apart for moving body parts, the current version of mannequin.js provides basic functionality for additional modification or accessing the figure.
+Apart for moving body parts, the current version of mannequin.js provides basic
+functionality for additional modification or accessing the figure.
 
 ### Custom colors
 
@@ -370,11 +375,12 @@ By default, all figures use a predefined set of global colors for body parts. Gl
 ``` javascript
 setColors(
     'antiquewhite',	// head
-    'gray',		// shoes
+    'gray',		    // shoes
     'antiquewhite',	// pelvis
     'burlywood',	// joints
     'antiquewhite',	// limbs
-    'bisque'		// torso
+    'bisque',		// torso
+	'burlywood'     // nails
 );
 ```
 
@@ -384,7 +390,8 @@ The global color of joints and limbs refers to all joints and all limbs. Modific
 
 ``` javascript
 // global colors
-setColors('lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray');
+setColors( 'lightgreen', 'black', 'black', 'white',
+           'darkolivegreen', 'darkslategray', 'yellow' );
 
 var man = new Male();
 :
@@ -392,8 +399,8 @@ var man = new Male();
 man.l_elbow.setColor( 'yellow', 'black' );
 man.l_wrist.setColor( 'orange' );
 man.l_fingers.setColor( 'coral' );
-man.l_fingers.tips.setColor( 'maroon' );
 man.r_knee.setColor( 'antiquewhite', 'black' );
+man.l_nails.setColor( 'black' );
 ```
 
 The first parameter of `setColor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
@@ -478,9 +485,14 @@ man.r_leg.attach(obj);
 
 ### Global position
 
-Not all interaction between figures and other objects can be implemented by attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics) and calculates the global coordinates of the point *(x,y,z)*, defined in the local coordinate system of the body part.
+Not all interaction between figures and other objects can be implemented by
+attaching. Mannequin.js provides method `point(x,y,z)` for each body part. This
+method implements [forward kinematics](https://en.wikipedia.org/wiki/Forward_kinematics)
+and calculates the global coordinates of the point *(x,y,z)*, defined in the
+local coordinate system of the body part.
 
-The following example creates a thread going through 5 points relative to body parts of a figure ([live example](example-point.html)):
+The following example creates a thread going through 5 points relative to body
+parts of a figure ([live example](example-point.html)):
 
 [<img src="snapshots/example-point.jpg">](example-point.html)
 
@@ -492,9 +504,15 @@ setLoopVertex( 3, man.l_ankle.point(6,2,0) );
 setLoopVertex( 4, man.r_ankle.point(6,2,0) );
 ```
 
-Global positions could be used to ground figures &ndash; this is to put them down on the ground. However, mannequin.js does not contain any collision functionality, thus the user should pick collision points and use their global position.
+Global positions could be used to ground figures &ndash; this is to put them
+down on the ground. However, mannequin.js does not contain any collision
+functionality, thus the user should pick collision points and use their global
+position.
 
-The following example uses four contact points on each shoe (i.e. `man.r_ankle` and `man.l_ankle`). The contacts points of the left shoe are shown as red dots. The minimal vertical position of the eight contact points is used to adjust the vertical position of the figure ([live example](example-touch-ground.html)):
+The following example uses four contact points on the left shoe (i.e. `man.l_ankle`).
+The contacts points are shown as red dots. The minimal vertical position of the
+contact points is used to adjust the vertical position of the figure
+([live example](example-touch-ground.html)):
 
 [<img src="snapshots/example-touch-ground.jpg">](example-touch-ground.html)
 
@@ -512,9 +530,18 @@ var bottom = Math.min(
     man.r_ankle.point(2,2.5,-2).y
 );
 
-man.position.y += (-29.5-bottom);
+man.position.y += (GROUND_LEVEL-bottom);
 ```			
 
+The value of `GROUND_LEVEL` is defined by mannequin.js when `createScene()` is used.
+It contains the vertical offset of the ground.
+
+A figure may use `stepOnGround()` to move it vertically, so that its lower point
+touches the ground.
+
+``` javascript
+man.stepOnTheGround();
+```	
 
 		
 <div class="footnote">

@@ -9,8 +9,7 @@
 <body>
 	<script type="module">
 
-	import "mannequin";
-	import "./fonts/label.js";
+	import { addLabel, createScene, Male } from 'mannequin';
 
 	createScene( animate );
 
@@ -39,9 +38,9 @@
 
 	function animate( t ) {
 
-		man.l_finger_1.bend = 30 * sin( t ) + 40;
-		man.l_finger_1.mid.bend = 30 * sin( t ) + 40;
-		man.l_finger_1.tip.bend = 30 * sin( t ) + 40;
+		man.l_finger_1.bend = 30 * Math.sin( 2* t ) + 40;
+		man.l_finger_1.mid.bend = 30 * Math.sin( 2* t ) + 40;
+		man.l_finger_1.tip.bend = 30 * Math.sin( 2* t ) + 40;
 
 	}
 
