@@ -1,6 +1,6 @@
 {
   "name": "mannequin-js",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "A simple model of articulated human figure",
   "main": "mannequin.js",
   "directories": {
