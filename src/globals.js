@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const MANNEQUIN_VERSION = 5.1;
+const MANNEQUIN_VERSION = 5.2;
 const MANNEQUIN_POSTURE_VERSION = 7;
 
 const GROUND_LEVEL = -0.7;
