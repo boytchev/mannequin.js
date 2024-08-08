@@ -5,7 +5,7 @@
 
 ## <small><small>Този документ е наличен и на [български език](userguide-bg.md)</small></small>
 
-- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Installation](#installation) | [Figure types](#figure-types)</small>) 
+- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Installation](#installation) | [Figure types](#figure-types) | [API](#api)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
 - **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
 - **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
@@ -80,6 +80,16 @@ These three classes have a common predecessor &ndash; `Mannequin(feminine,height
 The difference between using different figure classes is that `Mannequin` sets
 a default neutral posture of the figure, while `Male` and `Female` set a default
 male and female posture.
+
+
+
+### API
+
+The library mannequin.js defines the following functions and classes:
+
+* `getVersion()` &ndash; function, returns the current version of mannequin.js as a number; e.g. 5.2
+* `getPostureVersion()` &ndash; function, returns the current version of posture data format
+* `getGroundLevel()` &ndash; function, returns the vertical position of the ground in meters
 
 
 
@@ -369,11 +379,13 @@ functionality for additional modification or accessing the figure.
 
 ### Custom colors
 
-By default, all figures use a predefined set of global colors for body parts. Global colors can be set with `setColors` with 7 [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp) parameters for the colors of
+By default, all figures use a predefined set of colors for body parts.
+The colors of a specific figure can be set with the method `recolor` with 7 parameters that
+are [Three.js colors](https://threejs.org/docs/#api/en/math/Color) or [HTML/CSS color names](https://www.w3schools.com/colors/colors_names.asp). These colors are for the 
 *head*, *shoes*, *pelvis*, *joints*, *limbs*, *torso* and *nails*:
 
 ``` javascript
-setColors(
+man.recolor(
     'antiquewhite',	// head
     'gray',		    // shoes
     'antiquewhite',	// pelvis
@@ -384,26 +396,30 @@ setColors(
 );
 ```
 
-The global color of joints and limbs refers to all joints and all limbs. Modification of the global colors has effect if it is done before the creation of figure instances. Individual colors of body parts are set via the `setColor` method of each body part ([live example](example-custom-colors.html)):
+The color of joints and limbs refers to all joints and all limbs. 
+Individual colors of body parts are set via the `recolor` method of each body part ([live example](example-custom-colors.html)):
 
 [<img src="snapshots/example-custom-colors.jpg">](example-custom-colors.html)
 
 ``` javascript
-// global colors
-setColors( 'lightgreen', 'black', 'black', 'white',
+var man = new Male();
+
+// overall colors
+man.recolor( 'lightgreen', 'black', 'black', 'white',
            'darkolivegreen', 'darkslategray', 'yellow' );
 
-var man = new Male();
 :
 // individual colors
-man.l_elbow.setColor( 'yellow', 'black' );
-man.l_wrist.setColor( 'orange' );
-man.l_fingers.setColor( 'coral' );
-man.r_knee.setColor( 'antiquewhite', 'black' );
-man.l_nails.setColor( 'black' );
+man.l_elbow.recolor( 'yellow', 'black' );
+man.l_wrist.recolor( 'orange' );
+man.l_fingers.recolor( 'coral' );
+man.r_knee.recolor( 'antiquewhite', 'black' );
+man.l_nails.recolor( 'black' );
 ```
 
-The first parameter of `setColor` is the color of the main section of the body part. The second parameter is the color of the spherical section (if present).
+The first parameter of `recolor` of a body part is the color of the main section
+of the body part. The second parameter is the color of the spherical section
+(if present).
 
 The tips of the fingers are accessed via `l_fingers.tips` and `r_fingers.tips`.
 

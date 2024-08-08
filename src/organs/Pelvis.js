@@ -16,6 +16,15 @@ class Pelvis extends Joint {
 
 	} // Pelvis.constructor
 
+	recolor( color ) {
+
+		if ( typeof color === 'string' )
+			color = new THREE.Color( color );
+
+		this.image.material.color = color;
+
+	} // Pelvis.recolor
+
 } // Pelvis
 
 

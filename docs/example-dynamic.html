@@ -10,7 +10,7 @@
 	<script type="module">
 
 	import * as THREE from 'three';
-	import { Child, createScene, GROUND_LEVEL, scene } from 'mannequin';
+	import { Child, createScene, getGroundLevel, scene } from 'mannequin';
 
 	createScene( animate );
 
@@ -30,7 +30,7 @@
 	var material = new THREE.MeshPhongMaterial( { color: 'crimson', side: THREE.DoubleSide } );
 
 	var ball = new THREE.Mesh( geometry, material );
-	ball.position.set( 0, GROUND_LEVEL+BALL_SIZE, 0 );
+	ball.position.set( 0, getGroundLevel()+BALL_SIZE, 0 );
 	ball.receiveShadow = true;
 	ball.castShadow = true;
 

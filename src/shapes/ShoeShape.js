@@ -1,19 +1,13 @@
-import * as THREE from "three";
-
-import { cos, cossers, defaultColors, limbTexture, sin } from '../globals.js';
+import { BODY_COLORS, cos, cossers, limbTexture, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
 // shoe shape as parametric surface
-class ShoeShape extends THREE.Group {
+class ShoeShape extends ParametricShape {
 
 	constructor( feminine, params ) {
 
-		super();
-
-		this.name = 'ShoeShape';
-
-		this.add( new ParametricShape( limbTexture, defaultColors[ 1 ], function ( u, v, target ) {
+		super( limbTexture, BODY_COLORS.SHOES, function ( u, v, target ) {
 
 			var r = cossers( u, v, [
 				[ 0.6, 1.1, 0.05, 0.95, 1 ],
@@ -26,11 +20,11 @@ class ShoeShape extends THREE.Group {
 				params.sy * sin( u ) * cos( v ) + 2,
 				params.sz * sin( v ) );
 
-		}, 24, 12 ) );
+		}, 24, 12 );
 
 		if ( feminine ) {
 
-			this.add( new ParametricShape( limbTexture, defaultColors[ 4 ], function ( u, v, target ) {
+			this.add( new ParametricShape( limbTexture, BODY_COLORS.LIMBS, function ( u, v, target ) {
 
 				var r = cossers( u, v, [
 					[ 0.6, 1.1, 0.05, 0.95, 1 / 2 ]
@@ -44,12 +38,13 @@ class ShoeShape extends THREE.Group {
 
 			}, 12, 12 ) );
 
+			this.geometry.rotateZ( 0.4 );
 			this.children[ 0 ].rotation.set( 0, 0, 0.4 );
-			this.children[ 1 ].rotation.set( 0, 0, 0.4 );
 
 		} // if (feminine)
 
 		this.rotation.z = -Math.PI / 2;
+		this.name = 'ShoeShape';
 
 	} // ShoeShape.constructor
 

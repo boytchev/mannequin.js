@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { defaultColors, jointGeometry } from '../globals.js';
+import { BODY_COLORS, jointGeometry } from '../globals.js';
 import { LimbShape } from '../shapes/LimbShape.js';
 import { Joint } from "./Joint.js";
 
@@ -18,7 +18,7 @@ class Phalange extends Joint {
 			this.nail = new THREE.Mesh( jointGeometry,
 				new THREE.MeshStandardMaterial(
 					{
-						color: defaultColors[ 6 ],
+						color: BODY_COLORS.NAILS,
 					} ) );
 			this.nail.name = 'nail';
 			this.nail.castShadow = true;
@@ -26,7 +26,7 @@ class Phalange extends Joint {
 			this.nail.scale.set( 0.05, 0.2*nailSize, 0.1*nailSize );
 			this.nail.position.set( params[ 0 ]/4, params[ 1 ]*0.7, 0 );
 			this.nail.rotation.set( 0, 0, 0.2 );
-			this.nail.setColor = function ( color ) {
+			this.nail.recolor = function ( color ) {
 
 				if ( typeof color === 'string' )
 					color = new THREE.Color( color );

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { cos, defaultColors, limbTexture, sin } from '../globals.js';
+import { BODY_COLORS, cos, limbTexture, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
@@ -17,7 +17,7 @@ class LimbShape extends ParametricShape {
 			offset = params[ 5 ],
 			scale = params[ 6 ],
 			rad = params[ 7 ];
-		super( limbTexture, defaultColors[ 4 ], function ( u, v, target ) {
+		super( limbTexture, BODY_COLORS.LIMBS, function ( u, v, target ) {
 
 			v = 360 * v;
 			var r = offset + scale * cos( alpha + dAlpha * u );

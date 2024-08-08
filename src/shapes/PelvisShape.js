@@ -1,4 +1,4 @@
-import { cos, cossers, defaultColors, limbTexture, sin } from '../globals.js';
+import { BODY_COLORS, cos, cossers, limbTexture, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
@@ -7,7 +7,7 @@ class PelvisShape extends ParametricShape {
 
 	constructor( feminine, params ) {
 
-		super( limbTexture, defaultColors[ 2 ], function ( u, v, target ) {
+		super( limbTexture, BODY_COLORS.PELVIS, function ( u, v, target ) {
 
 			var r = cossers( u, v, [
 				[ 0.6, 0.95, 0, 1, 4 ],

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { GROUND_LEVEL, MANNEQUIN_POSTURE_VERSION } from "../globals.js";
+import { getGroundLevel, getPostureVersion } from "../globals.js";
 import { scene } from "../scene.js";
 import { Body } from "../organs/Body.js";
 import { Torso } from "../organs/Torso.js";
@@ -24,7 +24,7 @@ class MannequinPostureVersionError extends Error {
 
 	constructor( version ) {
 
-		super( 'Posture data version ' + version + ' is incompatible with the currently supported version ' + MANNEQUIN_POSTURE_VERSION + '.' );
+		super( 'Posture data version ' + version + ' is incompatible with the currently supported version ' + getPostureVersion() + '.' );
 		this.name = "IncompatibleMannequinError";
 
 	}
@@ -235,7 +235,7 @@ class Mannequin extends THREE.Group {
 			this.r_finger_4.posture,
 		];
 		return {
-			version: MANNEQUIN_POSTURE_VERSION,
+			version: getPostureVersion(),
 			data: posture,
 		};
 
@@ -243,7 +243,7 @@ class Mannequin extends THREE.Group {
 
 	set posture( posture ) {
 
-		if ( posture.version != MANNEQUIN_POSTURE_VERSION )
+		if ( posture.version != getPostureVersion() )
 			throw new MannequinPostureVersionError( posture.version );
 
 		var i = 0;
@@ -300,12 +300,65 @@ class Mannequin extends THREE.Group {
 		this.position.y = 0;
 		this.updateMatrixWorld( true );
 		box.setFromObject( this, true );
-		this.position.y = -box.min.y + GROUND_LEVEL - 0.01;
+		this.position.y = -box.min.y + getGroundLevel() - 0.01;
 		this.rawHeight = box.max.y-box.min.y;
 		this.updateMatrixWorld( true );
 
 	}
 
+
+	recolor( head, shoes, pelvis, joints, limbs, torso, nails ) {
+
+		if ( head ) {
+
+			this.head.recolor( head );
+
+		}
+
+		if ( shoes ) {
+
+			this.l_ankle.recolor( shoes );
+			this.r_ankle.recolor( shoes );
+
+		}
+
+		if ( pelvis ) {
+
+			this.pelvis.recolor( pelvis );
+
+		}
+
+		if ( torso ) {
+
+			this.torso.recolor( torso, joints );
+
+		}
+
+		if ( nails ) {
+
+			this.l_nails.recolor( nails );
+
+		}
+
+		if ( limbs ) {
+
+			this.l_leg.recolor( limbs, joints );
+			this.l_knee.recolor( limbs, joints );
+			this.l_fingers.recolor( limbs, joints );
+			this.l_arm.recolor( limbs, joints );
+			this.l_elbow.recolor( limbs, joints );
+			this.l_wrist.recolor( limbs, joints );
+
+			this.r_leg.recolor( limbs, joints );
+			this.r_knee.recolor( limbs, joints );
+			this.r_fingers.recolor( limbs, joints );
+			this.r_arm.recolor( limbs, joints );
+			this.r_elbow.recolor( limbs, joints );
+			this.r_wrist.recolor( limbs, joints );
+
+		}
+
+	}
 
 } // Mannequin
 

@@ -9,15 +9,12 @@
 <body>
 	<script type="module">
 
-	import { createScene, Male, setColors } from 'mannequin';
+	import { createScene, Male } from 'mannequin';
 
 	createScene( animate );
 
-	// gobal colours
-	setColors( 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray', 'yellow' );
-
 	var man = new Male();
-
+	
 	man.torso.bend = 30;
 
 	man.l_arm.straddle = 40;
@@ -42,12 +39,15 @@
 
 	man.stepOnGround();
 
-	// individual colours
-	man.l_elbow.setColor( 'yellow', 'black' );
-	man.l_wrist.setColor( 'orange' );
-	man.l_fingers.setColor( 'coral' );
-	man.r_knee.setColor( 'antiquewhite', 'black' );
-	man.l_nails.setColor( 'black' );
+	// overall colors
+	man.recolor( 'lightgreen', 'black', 'black', 'white', 'darkolivegreen', 'darkslategray', 'yellow' );
+	
+	// individual colurs
+	man.l_elbow.recolor( 'yellow', 'black' );
+	man.l_wrist.recolor( 'orange' );
+	man.l_fingers.recolor( 'coral' );
+	man.r_knee.recolor( 'antiquewhite', 'black' );
+	man.l_nails.recolor( 'black' );
 
 	function animate( t ) {
 

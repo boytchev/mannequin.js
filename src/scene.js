@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 /*import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";*/
-import { GROUND_LEVEL } from "./globals.js";
+import { getGroundLevel } from "./globals.js";
 
 
 var renderer, scene, camera, light, clock, controls, ground;
@@ -94,7 +94,7 @@ function createScene( animateFunction ) {
 			} )
 	);
 	ground.receiveShadow = true;
-	ground.position.y = GROUND_LEVEL;
+	ground.position.y = getGroundLevel();
 	ground.rotation.x = -Math.PI / 2;
 	ground.renderOrder = -1;
 	scene.add( ground );

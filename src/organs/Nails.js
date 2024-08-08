@@ -19,15 +19,15 @@ class Nails extends Joint {
 	} // Nails.constructor
 
 	// change the colour of the nail
-	setColor( color ) {
+	recolor( color ) {
 
-		this.nail_0.setColor( color );
-		this.nail_1.setColor( color );
-		this.nail_2.setColor( color );
-		this.nail_3.setColor( color );
-		this.nail_4.setColor( color );
+		this.nail_0.recolor( color );
+		this.nail_1.recolor( color );
+		this.nail_2.recolor( color );
+		this.nail_3.recolor( color );
+		this.nail_4.recolor( color );
 
-	} // Nails.setColor
+	} // Nails.recolor
 
 } // Nails
 

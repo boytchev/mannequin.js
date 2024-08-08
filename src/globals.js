@@ -1,33 +1,49 @@
 import * as THREE from "three";
 
-const MANNEQUIN_VERSION = 5.2;
-const MANNEQUIN_POSTURE_VERSION = 7;
+
+const VERSION = 5.2;
+const VERSION_POSTURE = 7;
 
 const GROUND_LEVEL = -0.7;
 
-// default body parts colours
-var defaultColors = [
-	'antiquewhite', // head
-	'gray', // shoes
-	'antiquewhite', // pelvis
-	'burlywood', // joints
-	'antiquewhite', // limbs
-	'bisque', // torso
-	'burlywood', // nails
-];
+const BODY_COLORS = {
+	HEAD: 'antiquewhite', // 0
+	SHOES: 'gray', // 1
+	PELVIS: 'antiquewhite', // 2
+	JOINTS: 'burlywood', // 3
+	LIMBS: 'antiquewhite', // 4
+	TORSO: 'bisque', // 5
+	NAILS: 'burlywood', // 6
+};
 
 
-function setColors( head, shoes, pelvis, joints, limbs, torso, nails ) {
 
-	defaultColors[ 0 ] = head ?? defaultColors[ 0 ];
-	defaultColors[ 1 ] = shoes ?? defaultColors[ 1 ];
-	defaultColors[ 2 ] = pelvis ?? defaultColors[ 2 ];
-	defaultColors[ 3 ] = joints ?? defaultColors[ 3 ];
-	defaultColors[ 4 ] = limbs ?? defaultColors[ 4 ];
-	defaultColors[ 5 ] = torso ?? defaultColors[ 5 ];
-	defaultColors[ 6 ] = nails ?? defaultColors[ 6 ];
+// return the software version
+function getVersion( ) {
+
+	return VERSION;
 
 }
+
+
+
+// return the posture data version
+function getPostureVersion( ) {
+
+	return VERSION_POSTURE;
+
+}
+
+
+
+// return the vertical position of the ground
+function getGroundLevel( ) {
+
+	return GROUND_LEVEL;
+
+}
+
+
 
 // limb and body texture
 var limbTexture = new THREE.TextureLoader().load( "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAABlBMVEX////Ly8vsgL9iAAAAHElEQVQoz2OgEPyHAjgDjxoKGWTaRRkYDR/8AAAU9d8hJ6+ZxgAAAABJRU5ErkJggg==" );
@@ -118,5 +134,12 @@ function blend( posture0, posture1, k ) {
 
 
 
+// public exports
 
-export { defaultColors, setColors, jointGeometry, cossers, rad, grad, sin, cos, blend, limbTexture, MANNEQUIN_VERSION, MANNEQUIN_POSTURE_VERSION, GROUND_LEVEL };
+export { getVersion, getPostureVersion, getGroundLevel };
+
+
+
+// system exports
+
+export { BODY_COLORS, jointGeometry, cossers, rad, grad, sin, cos, blend, limbTexture };

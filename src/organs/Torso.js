@@ -52,6 +52,15 @@ class Torso extends Joint {
 
 	}
 
+	// recolor( color ) {
+
+	// if ( typeof color === 'string' )
+	// color = new THREE.Color( color );
+
+	// this.image.material.color = color;
+
+	// } // Torso.recolor
+
 } // Torso
 
 

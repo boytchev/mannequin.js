@@ -49,27 +49,27 @@ class Fingers extends Joint {
 	}
 
 	// change the colour of the joint
-	setColor( color, secondaryColor = color ) {
+	recolor( color, secondaryColor = color ) {
 
-		this.finger_0.setColor( color, secondaryColor );
-		this.finger_1.setColor( color, secondaryColor );
-		this.finger_2.setColor( color, secondaryColor );
-		this.finger_3.setColor( color, secondaryColor );
-		this.finger_4.setColor( color, secondaryColor );
+		this.finger_0.recolor( color, secondaryColor );
+		this.finger_1.recolor( color, secondaryColor );
+		this.finger_2.recolor( color, secondaryColor );
+		this.finger_3.recolor( color, secondaryColor );
+		this.finger_4.recolor( color, secondaryColor );
 
-		this.finger_0.mid.setColor( color, secondaryColor );
-		this.finger_1.mid.setColor( color, secondaryColor );
-		this.finger_2.mid.setColor( color, secondaryColor );
-		this.finger_3.mid.setColor( color, secondaryColor );
-		this.finger_4.mid.setColor( color, secondaryColor );
+		this.finger_0.mid.recolor( color, secondaryColor );
+		this.finger_1.mid.recolor( color, secondaryColor );
+		this.finger_2.mid.recolor( color, secondaryColor );
+		this.finger_3.mid.recolor( color, secondaryColor );
+		this.finger_4.mid.recolor( color, secondaryColor );
 
-		this.finger_0.tip.setColor( color, secondaryColor );
-		this.finger_1.tip.setColor( color, secondaryColor );
-		this.finger_2.tip.setColor( color, secondaryColor );
-		this.finger_3.tip.setColor( color, secondaryColor );
-		this.finger_4.tip.setColor( color, secondaryColor );
+		this.finger_0.tip.recolor( color, secondaryColor );
+		this.finger_1.tip.recolor( color, secondaryColor );
+		this.finger_2.tip.recolor( color, secondaryColor );
+		this.finger_3.tip.recolor( color, secondaryColor );
+		this.finger_4.tip.recolor( color, secondaryColor );
 
-	} // Fingers.setColor
+	} // Fingers.recolor
 
 } // Fingers
 

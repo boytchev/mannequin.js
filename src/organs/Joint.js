@@ -174,7 +174,7 @@ class Joint extends THREE.Group {
 	} // Joint.point
 
 	// change the colour of the joint
-	setColor( color, secondaryColor = color ) {
+	recolor( color, secondaryColor = color ) {
 
 		var joint = this.image;
 
@@ -184,15 +184,16 @@ class Joint extends THREE.Group {
 		if ( typeof secondaryColor === 'string' )
 			secondaryColor = new THREE.Color( secondaryColor );
 
-		joint.children[ 0 ].material.color = color;
+		//joint.children[ 0 ].material.color = color;
+		joint.material.color = color;
 
-		if ( joint.children.length > 1 ) {
+		if ( joint.children.length > 0 ) {
 
-			joint.children[ 1 ].material.color = secondaryColor;
+			joint.children[ 0 ].material.color = secondaryColor;
 
 		}
 
-	} // Joint.setColor
+	} // Joint.recolor
 
 	select( state ) {
 

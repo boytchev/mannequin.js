@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { ParametricGeometry } from 'three/addons/geometries/ParametricGeometry.js';
 
-import { defaultColors, jointGeometry } from "../globals.js";
+import { BODY_COLORS, jointGeometry } from "../globals.js";
 
 
 
@@ -32,7 +32,7 @@ class ParametricShape extends THREE.Mesh {
 		var s = new THREE.Mesh( jointGeometry,
 			new THREE.MeshStandardMaterial(
 				{
-					color: defaultColors[ 3 ],
+					color: BODY_COLORS.JOINTS,
 				} ) );
 		s.name = 'ParametricShape.Sphere';
 		s.castShadow = true;

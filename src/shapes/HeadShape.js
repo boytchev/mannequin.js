@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { cos, cossers, defaultColors, sin } from '../globals.js';
+import { BODY_COLORS, cos, cossers, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
@@ -14,7 +14,7 @@ class HeadShape extends ParametricShape {
 
 	constructor( feminine, params ) {
 
-		super( texHead, defaultColors[ 0 ], function ( u, v, target ) {
+		super( texHead, BODY_COLORS.HEAD, function ( u, v, target ) {
 
 			var r = cossers( u, v, [
 				[ 0.4, 0.9, 0, 1, -3 ],
