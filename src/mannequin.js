@@ -16,6 +16,6 @@ export * from './bodies/Mannequin.js';
 export * from './bodies/Female.js';
 export * from './bodies/Male.js';
 export * from './bodies/Child.js';
-export * from './globals.js';
+export { getVersion, getPostureVersion, getGroundLevel, blend } from './globals.js';
 export * from './scene.js';
-export * from './label.js';
+export { addLabel } from './label.js';

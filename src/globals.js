@@ -1,19 +1,21 @@
-import * as THREE from "three";
-
 
 const VERSION = 5.2;
 const VERSION_POSTURE = 7;
 
+
+
 const GROUND_LEVEL = -0.7;
 
+
+
 const BODY_COLORS = {
-	HEAD: 'antiquewhite', // 0
-	SHOES: 'gray', // 1
-	PELVIS: 'antiquewhite', // 2
-	JOINTS: 'burlywood', // 3
-	LIMBS: 'antiquewhite', // 4
-	TORSO: 'bisque', // 5
-	NAILS: 'burlywood', // 6
+	HEAD:	'antiquewhite',
+	SHOES:	'gray',
+	PELVIS:	'antiquewhite',
+	JOINTS:	'burlywood',
+	LIMBS:	'antiquewhite',
+	TORSO:	'bisque',
+	NAILS:	'burlywood',
 };
 
 
@@ -45,33 +47,34 @@ function getGroundLevel( ) {
 
 
 
-// limb and body texture
-var limbTexture = new THREE.TextureLoader().load( "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAABlBMVEX////Ly8vsgL9iAAAAHElEQVQoz2OgEPyHAjgDjxoKGWTaRRkYDR/8AAAU9d8hJ6+ZxgAAAABJRU5ErkJggg==" );
-
-
-// joint object-template
-var jointGeometry = new THREE.IcosahedronGeometry( 1, 2 );
-
-
-// helper functions working with degrees
+// helper function degrees->radians
 function rad( x ) {
 
 	return x * Math.PI / 180;
 
 }
 
+
+
+// helper function radians->degrees with rounding
 function grad( x ) {
 
 	return Number( ( x * 180 / Math.PI ).toFixed( 1 ) );
 
 }
 
+
+
+// helper function sine of degrees
 function sin( x ) {
 
 	return Math.sin( rad( x ) );
 
 }
 
+
+
+// helper function cosine of degrees
 function cos( x ) {
 
 	return Math.cos( rad( x ) );
@@ -102,7 +105,7 @@ function cossers( u, v, params ) {
 
 
 
-
+// blends two postures and returns the resulting posture
 function blend( posture0, posture1, k ) {
 
 	if ( posture0.version != posture1.version )
@@ -136,10 +139,10 @@ function blend( posture0, posture1, k ) {
 
 // public exports
 
-export { getVersion, getPostureVersion, getGroundLevel };
+export { getVersion, getPostureVersion, getGroundLevel, blend };
 
 
 
 // system exports
 
-export { BODY_COLORS, jointGeometry, cossers, rad, grad, sin, cos, blend, limbTexture };
+export { BODY_COLORS, cossers, rad, grad, sin, cos };

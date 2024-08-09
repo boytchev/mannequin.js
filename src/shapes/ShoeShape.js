@@ -1,4 +1,4 @@
-import { BODY_COLORS, cos, cossers, limbTexture, sin } from '../globals.js';
+import { BODY_COLORS, cos, cossers, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
@@ -7,7 +7,7 @@ class ShoeShape extends ParametricShape {
 
 	constructor( feminine, params ) {
 
-		super( limbTexture, BODY_COLORS.SHOES, function ( u, v, target ) {
+		super( null, BODY_COLORS.SHOES, function ( u, v, target ) {
 
 			var r = cossers( u, v, [
 				[ 0.6, 1.1, 0.05, 0.95, 1 ],
@@ -24,7 +24,7 @@ class ShoeShape extends ParametricShape {
 
 		if ( feminine ) {
 
-			this.add( new ParametricShape( limbTexture, BODY_COLORS.LIMBS, function ( u, v, target ) {
+			this.add( new ParametricShape( null, BODY_COLORS.LIMBS, function ( u, v, target ) {
 
 				var r = cossers( u, v, [
 					[ 0.6, 1.1, 0.05, 0.95, 1 / 2 ]

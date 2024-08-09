@@ -1,14 +1,20 @@
 import * as THREE from "three";
 import { ParametricGeometry } from 'three/addons/geometries/ParametricGeometry.js';
+import { BODY_COLORS } from "../globals.js";
 
-import { BODY_COLORS, jointGeometry } from "../globals.js";
 
+
+var JOINT_GEOMETRY = new THREE.IcosahedronGeometry( 1, 2 );
+
+var LIMB_TEXTURE = new THREE.TextureLoader().load( "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAABlBMVEX////Ly8vsgL9iAAAAHElEQVQoz2OgEPyHAjgDjxoKGWTaRRkYDR/8AAAU9d8hJ6+ZxgAAAABJRU5ErkJggg==" );
 
 
 // parametric surface
 class ParametricShape extends THREE.Mesh {
 
 	constructor( texture, color, func, uDivisions = 3, vDivisions = 3 ) {
+
+		texture = texture ?? LIMB_TEXTURE;
 
 		super(
 			new ParametricGeometry( func, uDivisions, vDivisions ),
@@ -29,7 +35,7 @@ class ParametricShape extends THREE.Mesh {
 
 	addSphere( radius, y, x = 0, z = 0 ) {
 
-		var s = new THREE.Mesh( jointGeometry,
+		var s = new THREE.Mesh( JOINT_GEOMETRY,
 			new THREE.MeshStandardMaterial(
 				{
 					color: BODY_COLORS.JOINTS,

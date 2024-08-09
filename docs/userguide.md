@@ -87,9 +87,11 @@ male and female posture.
 
 The library mannequin.js defines the following functions and classes:
 
-* `getVersion()` &ndash; function, returns the current version of mannequin.js as a number; e.g. 5.2
-* `getPostureVersion()` &ndash; function, returns the current version of posture data format
-* `getGroundLevel()` &ndash; function, returns the vertical position of the ground in meters
+* `getVersion()` &ndash; function, current version of mannequin.js as a number; e.g. 5.2
+* `getPostureVersion()` &ndash; function, current version of posture data format
+* `getGroundLevel()` &ndash; function, vertical position of the ground in meters
+* `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
+* `addLabel(...)` &ndash; function, attaches a 3D label to a joint
 
 
 

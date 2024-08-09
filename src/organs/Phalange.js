@@ -1,7 +1,12 @@
 import * as THREE from "three";
-import { BODY_COLORS, jointGeometry } from '../globals.js';
+import { BODY_COLORS } from '../globals.js';
 import { LimbShape } from '../shapes/LimbShape.js';
 import { Joint } from "./Joint.js";
+
+
+
+var NAIL_GEOMETRY = new THREE.IcosahedronGeometry( 1, 2 );
+
 
 
 class Phalange extends Joint {
@@ -15,7 +20,7 @@ class Phalange extends Joint {
 
 		if ( nailSize > 0 ) {
 
-			this.nail = new THREE.Mesh( jointGeometry,
+			this.nail = new THREE.Mesh( NAIL_GEOMETRY,
 				new THREE.MeshStandardMaterial(
 					{
 						color: BODY_COLORS.NAILS,

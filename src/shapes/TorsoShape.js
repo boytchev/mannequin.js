@@ -1,4 +1,4 @@
-import { BODY_COLORS, cos, cossers, limbTexture, sin } from '../globals.js';
+import { BODY_COLORS, cos, cossers, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
@@ -14,7 +14,7 @@ class TorsoShape extends ParametricShape {
 			dAlpha = params[ 4 ],
 			offset = params[ 5 ],
 			scale = params[ 6 ];
-		super( limbTexture, BODY_COLORS.TORSO, function ( u, v, target ) {
+		super( null, BODY_COLORS.TORSO, function ( u, v, target ) {
 
 			var r = offset + scale * cos( alpha + dAlpha * u );
 			if ( feminine ) r += cossers( u, v, [
