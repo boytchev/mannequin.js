@@ -30,15 +30,15 @@ Here is a reasonably minimal program that creates a male figure in the browser (
     </head>
     <body>
         <script type="module">
-            import { createScene, Male } from "mannequin";
-            createScene( );
+            import { createStage, Male } from "mannequin";
+            createStage( );
             new Male();
         </script>
     </body>
 </html>
 ```
 
-The helper function `createScene()` provides default scene, lighting, camera,
+The helper function `createStage()` provides default scene, lighting, camera,
 ground, and so on. `Male` constructs a male figure.
 
 
@@ -92,6 +92,8 @@ The library mannequin.js defines the following functions and classes:
 * `getGroundLevel()` &ndash; function, vertical position of the ground in meters
 * `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
 * `addLabel(...)` &ndash; function, attaches a 3D label to a joint
+* `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
+* `getStage()` &ndash; function, current stage
 
 
 
@@ -309,12 +311,12 @@ dynamic posture by a user-defined function called in the animation loop once for
 each frame. All changes of a posture should be defined inside this function
 ([live example](example-dynamic.html)). The parameter *t* is the time, measured
 in seconds since the start of the library. The name of the user-defined function
-is passed as an argument to `createScene()` or `animateFrame()`.
+is passed as an argument to `createStage()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
-createScene( animate );
+createStage( animate );
 
 function animate(t)
 {

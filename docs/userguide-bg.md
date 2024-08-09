@@ -37,15 +37,15 @@ TODO
     </head>
     <body>
         <script type="module">
-            import { createScene, Male } from "mannequin";
-            createScene( );
+            import { createStage, Male } from "mannequin";
+            createStage( );
             new Male();
         </script>
     </body>
 </html>
 ```
 
-Помощната функция `createScene()` създава сцената, осветлението, камерата,
+Помощната функция `createStage()` създава сцената, осветлението, камерата,
 земята и т.н. `Male` конструира мъжка фигура.
 
 
@@ -92,7 +92,9 @@ var kid = new Child();
 * `getPostureVersion()` &ndash; функция, текущата версия на формата на данните, описващи поза
 * `getGroundLevel()` &ndash; функция, вертикалното положение на земята в метри
 * `blend(p,q,k)` &ndash; функция, смесена поза на пози *p* и *q* с коефициент *k*
-
+* `addLabel(...)` &ndash; функция, закача 3D текст към става на фигура
+* `createStage(animationLoop)` &ndash; функция, създава сцена със земя и светлини
+* `getStage()` &ndash; функция, текущата сцене
 
 
 # Части на тялото
@@ -359,13 +361,12 @@ man.r_wrist.turn -= 60;
 се извиква в цикъла на анимацията веднъж за всеки кадър. Всички промени в позата
 трябва да бъдат дефинирани във функцията ([пример на живо](example-dynamic.html)).
 Параметърът *t* е времето, измерено в секунди от стартирането на библиотеката.
-Името на потребителската функция се подава като параметър на `createScene()`
-или `animateFrame()`.
+Името на потребителската функция се подава като параметър на `createStage()`.
 
 [<img src="snapshots/example-dynamic.jpg">](example-dynamic.html)
 
 ``` javascript
-createScene( animate );
+createStage( animate );
 
 function animate(t)
 {

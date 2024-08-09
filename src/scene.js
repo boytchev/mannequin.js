@@ -1,40 +1,43 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 /*import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";*/
-import { getGroundLevel } from "./globals.js";
+import { GROUND_LEVEL } from "./globals.js";
 
 
-var renderer, scene, camera, light, clock, controls, ground;
+
+var renderer, scene, camera, light, controls;
 
 
-function createScene( animateFunction ) {
+
+// add favicon
+var link = document.createElement( 'link' );
+link.rel = 'icon';
+document.head.appendChild( link );
+link.href = '../assets/logo/logo.png';
 
 
-	var link = document.createElement( 'link' );
-	link.rel = 'icon';
-	document.head.appendChild( link );
-	link.href = '../assets/logo/logo.png';
+
+// add meta tag for mobile devices
+var meta = document.createElement( 'meta' );
+meta.name = "viewport";
+meta.content = "width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0";
+document.head.appendChild( meta );
 
 
-	var meta = document.createElement( 'meta' );
-	meta.name = "viewport";
-	meta.content = "width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0";
-	document.head.appendChild( meta );
+
+
+// initialize Three.js elements that are created by default
+function initStage( ) {
 
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.outputColorSpace = THREE.SRGBColorSpace;
 	renderer.domElement.style = 'width:100%; height:100%; position:fixed; top:0; left:0;';
-	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-	//renderer.shadowMap.type = THREE.VSMShadowMap; // too slow in Firefox
-	renderer.setAnimationLoop( drawFrame );
+	renderer.setAnimationLoop( systemAnimate );
 	document.body.appendChild( renderer.domElement );
 
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color( 'gainsboro' );
-	window.scene = scene;
-	window.renderer = renderer;
 
 	camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.1, 2000 );
 	camera.position.set( 0, 0, 5 );
@@ -44,20 +47,7 @@ function createScene( animateFunction ) {
 	light.penumbra = 0.5;
 	light.angle = 0.8;
 	light.position.set( 0, 2, 1 ).setLength( 15 );
-	light.shadow.mapSize.width = Math.min( 4 * 1024, renderer.capabilities.maxTextureSize / 2 );
-	light.shadow.mapSize.height = light.shadow.mapSize.width;
-	light.shadow.camera.near = 13;
-	light.shadow.camera.far = 18.5;
-	light.shadow.camera.left = -5;
-	light.shadow.camera.right = 5;
-	light.shadow.camera.top = 5;
-	light.shadow.camera.bottom = -5;
-	light.shadow.normalBias = 0.005;
-	light.autoUpdate = false;
-	light.castShadow = true;
 	scene.add( light, new THREE.AmbientLight( 'white', 0.5 ) );
-
-	//scene.add( new THREE.CameraHelper(light.shadow.camera));
 
 	function onWindowResize( /*event*/ ) {
 
@@ -71,7 +61,54 @@ function createScene( animateFunction ) {
 	window.addEventListener( 'resize', onWindowResize, false );
 	onWindowResize();
 
+	var clock = new THREE.Clock();
 
+
+	function systemAnimate() {
+
+		if ( controls ) controls.update();
+
+		if ( stage.animationLoop ) stage.animationLoop( clock.getElapsedTime() );
+
+		renderer.render( scene, camera );
+
+	}
+
+	return {
+		renderer: renderer,
+		scene: scene,
+		camera: camera,
+		light: light,
+		animationLoop: null,
+	};;
+
+}
+
+
+// the stage is already created, just add ground, shadows, etc
+function createStage( animationLoop ) {
+
+	// turn on shadows
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+	// add shadows to light
+	light.shadow.mapSize.width = Math.min( 4 * 1024, renderer.capabilities.maxTextureSize / 2 );
+	light.shadow.mapSize.height = light.shadow.mapSize.width;
+	light.shadow.camera.near = 13;
+	light.shadow.camera.far = 18.5;
+	light.shadow.camera.left = -5;
+	light.shadow.camera.right = 5;
+	light.shadow.camera.top = 5;
+	light.shadow.camera.bottom = -5;
+	light.shadow.normalBias = 0.005;
+	light.autoUpdate = false;
+	light.castShadow = true;
+
+	//scene.add( new THREE.CameraHelper(light.shadow.camera));
+
+
+	// add ground
 	var canvas = document.createElement( 'CANVAS' );
 	canvas.width = 512;
 	canvas.height = 512;
@@ -83,8 +120,7 @@ function createScene( animateFunction ) {
 	context.arc( 256, 256, 150, 0, 2*Math.PI );
 	context.fill();
 
-
-	ground = new THREE.Mesh(
+	var ground = new THREE.Mesh(
 		new THREE.CircleGeometry( 50 ),
 		new THREE.MeshLambertMaterial(
 			{
@@ -94,19 +130,20 @@ function createScene( animateFunction ) {
 			} )
 	);
 	ground.receiveShadow = true;
-	ground.position.y = getGroundLevel();
+	ground.position.y = GROUND_LEVEL;
 	ground.rotation.x = -Math.PI / 2;
 	ground.renderOrder = -1;
 	scene.add( ground );
 
-
+	// add conntrols
 	controls = new OrbitControls( camera, renderer.domElement );
 	controls.enableDamping = true;
 
-	clock = new THREE.Clock();
+	stage.animationLoop = animationLoop;
 
-	animateFrame( animateFunction );
-
+	// add new properties to the stage
+	stage.ground = ground;
+	stage.controls = controls;
 
 	/*
 	const loader = new GLTFLoader();
@@ -124,27 +161,16 @@ console.log(model)
 } // createScene
 
 
-function drawFrame() {
 
-	controls.update();
-
-	if ( animate ) animate( clock.getElapsedTime() );
-	renderer.render( scene, camera );
-
-}
+var stage = initStage( );
 
 
-// a placeholder function, should be overwritten by the user
-var animate = null;
 
-function animateFrame( a ) {
-
-	animate = a;
-
+function getStage( )
+{
+	return stage;
 }
 
 
 
-
-
-export { createScene, scene, animateFrame, renderer, camera, light, controls, drawFrame, ground };
+export { renderer, scene, camera, light, controls, createStage, getStage };

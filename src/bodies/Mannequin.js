@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { getGroundLevel, getPostureVersion } from "../globals.js";
+import { GROUND_LEVEL, VERSION_POSTURE } from "../globals.js";
 import { scene } from "../scene.js";
 import { Body } from "../organs/Body.js";
 import { Torso } from "../organs/Torso.js";
@@ -24,7 +24,7 @@ class MannequinPostureVersionError extends Error {
 
 	constructor( version ) {
 
-		super( 'Posture data version ' + version + ' is incompatible with the currently supported version ' + getPostureVersion() + '.' );
+		super( 'Posture data version ' + version + ' is incompatible with the currently supported version ' + VERSION_POSTURE + '.' );
 		this.name = "IncompatibleMannequinError";
 
 	}
@@ -235,7 +235,7 @@ class Mannequin extends THREE.Group {
 			this.r_finger_4.posture,
 		];
 		return {
-			version: getPostureVersion(),
+			version: VERSION_POSTURE,
 			data: posture,
 		};
 
@@ -243,7 +243,7 @@ class Mannequin extends THREE.Group {
 
 	set posture( posture ) {
 
-		if ( posture.version != getPostureVersion() )
+		if ( posture.version != VERSION_POSTURE )
 			throw new MannequinPostureVersionError( posture.version );
 
 		var i = 0;
@@ -300,7 +300,7 @@ class Mannequin extends THREE.Group {
 		this.position.y = 0;
 		this.updateMatrixWorld( true );
 		box.setFromObject( this, true );
-		this.position.y = -box.min.y + getGroundLevel() - 0.01;
+		this.position.y = -box.min.y + GROUND_LEVEL - 0.01;
 		this.rawHeight = box.max.y-box.min.y;
 		this.updateMatrixWorld( true );
 

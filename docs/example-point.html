@@ -10,9 +10,9 @@
 	<script type="module">
 
 	import * as THREE from 'three';
-	import { createScene, Male, scene } from 'mannequin';
+	import { createStage, getStage, Male } from 'mannequin';
 
-	createScene( animate );
+	createStage( animate );
 
 	var man = new Male();
 
@@ -30,7 +30,7 @@
 
 	var loop = new THREE.LineLoop( geometry, material );
 	loop.castShadow = true;
-	scene.add( loop );
+	getStage().scene.add( loop );
 
 	function animate( t ) {
 

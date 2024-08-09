@@ -10,9 +10,9 @@
 	<script type="module">
 
 	import * as THREE from 'three';
-	import { Child, createScene, getGroundLevel, scene } from 'mannequin';
+	import { Child, createStage, getStage, getGroundLevel } from 'mannequin';
 
-	createScene( animate );
+	createStage( animate );
 
 	var child = new Child();
 
@@ -34,7 +34,7 @@
 	ball.receiveShadow = true;
 	ball.castShadow = true;
 
-	scene.add( ball );
+	getStage().scene.add( ball );
 
 	function animate( t ) {
 

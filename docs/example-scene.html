@@ -10,10 +10,10 @@
 	<script type="module">
 
 	import * as THREE from 'three';
-	import { createScene, Female, Male } from 'mannequin';
+	import { createStage, getStage, Female, Male } from 'mannequin';
 	import { LimbShape } from "mannequin/shapes/LimbShape.js";
 
-	createScene( animate );
+	createStage( animate );
 
 	var man = new Male();
 
@@ -120,7 +120,7 @@
 
 	}
 
-	scene.add( new Chair( -0.6, 0 ), new Chair( 0.6, Math.PI ) );
+	getStage().scene.add( new Chair( -0.6, 0 ), new Chair( 0.6, Math.PI ) );
 
 	//
 

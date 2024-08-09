@@ -11,9 +11,11 @@
 
 	import * as THREE from 'three';
 	import { VRButton } from 'three/addons/webxr/VRButton.js';
-	import { blend, createScene, Female, Male } from 'mannequin';
+	import { blend, createStage, getStage, Female, Male } from 'mannequin';
 
-	createScene( animate );
+	createStage( animate );
+	
+	var renderer = getStage().renderer;
 	
 	document.body.appendChild( VRButton.createButton( renderer ) );
 	renderer.xr.enabled = true;
