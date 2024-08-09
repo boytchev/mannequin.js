@@ -1,9 +1,21 @@
 import * as THREE from "three";
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { PelvisShape } from "../shapes/PelvisShape.js";
 import { ShoeShape } from "../shapes/ShoeShape.js";
 import { grad, rad } from "../globals.js";
+import { font } from "../font.js";
 
 var localScene = new THREE.Scene();
+
+var fontStyle = new THREE.MeshPhongMaterial( { color: 'crimson' } ),
+	fontParams = {
+		font: font,
+		size: 2.5,
+		depth: 0.2,
+		curveSegments: 8,
+		bevelEnabled: false
+	};
+
 
 // flexible joint
 class Joint extends THREE.Group {
@@ -204,6 +216,28 @@ class Joint extends THREE.Group {
 		} );
 
 	} // Joint.select
+
+
+	label( text, y, z=0.5, x=0, rotY=1, rotZ=0, rotX=0 ) {
+
+		var geometry = new TextGeometry( text, fontParams ),
+			label = new THREE.Mesh( geometry, fontStyle );
+
+		geometry.computeBoundingBox();
+		var box = geometry.boundingBox;
+
+		label.position.set( x, y, z*( box.max.x-box.min.x ) );
+		label.rotation.z = Math.PI/2*rotZ;
+		label.rotation.y = Math.PI/2*rotY;
+		label.rotation.x = Math.PI/2*rotX;
+		label.castShadow = true;
+
+		this.attach( label );
+
+		return label;
+
+	} // Joint.label
+
 
 } // Joint
 

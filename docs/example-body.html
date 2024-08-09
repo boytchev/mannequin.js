@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import { addLabel, Child, createStage, Female, Male } from 'mannequin';
+	import { Child, createStage, Female, Male } from 'mannequin';
 
 	createStage( animate );
 
@@ -21,9 +21,9 @@
 	var woman = new Female();
 	woman.position.x = 1;
 
-	addLabel( man.head, 'body.bend', 12, 0.5 );
-	addLabel( child.head, 'body.turn', 12, 0.5 );
-	addLabel( woman.head, 'body.tilt', 12, 0.5 );
+	man.head.label( 'body.bend', 12, 0.5 );
+	child.head.label( 'body.turn', 12, 0.5 );
+	woman.head.label( 'body.tilt', 12, 0.5 );
 
 	function animate( t ) {
 

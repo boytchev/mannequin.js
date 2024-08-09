@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import { addLabel, Child, createStage, Female, Male } from 'mannequin';
+	import { Child, createStage, Female, Male } from 'mannequin';
 
 	createStage( animate );
 
@@ -23,9 +23,9 @@
 	woman.l_arm.straddle = 15;
 	woman.r_arm.straddle = 15;
 
-	addLabel( man.l_arm, 'arm.raise', 0, -0.15, 0, 3, 1 );
-	addLabel( child.l_arm, 'arm.straddle', 0, -0.1, 0, 3, 1 ).scale.set( 1.5, 1.5, 1.5 );
-	addLabel( woman.l_arm, 'arm.turn', 0, -0.15, 0, 3, 1 );
+	man.l_arm.label( 'arm.raise', 0, -0.15, 0, 3, 1 );
+	child.l_arm.label( 'arm.straddle', 0, -0.1, 0, 3, 1 ).scale.set( 1.5, 1.5, 1.5 );
+	woman.l_arm.label( 'arm.turn', 0, -0.15, 0, 3, 1 );
 
 	function animate( t ) {
 

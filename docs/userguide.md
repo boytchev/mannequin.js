@@ -91,7 +91,6 @@ The library mannequin.js defines the following functions and classes:
 * `getPostureVersion()` &ndash; function, current version of posture data format
 * `getGroundLevel()` &ndash; function, vertical position of the ground in meters
 * `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
-* `addLabel(...)` &ndash; function, attaches a 3D label to a joint
 * `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
 * `getStage()` &ndash; function, current stage
 

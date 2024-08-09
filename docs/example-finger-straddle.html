@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import { addLabel, createStage, Male } from 'mannequin';
+	import { createStage, Male } from 'mannequin';
 
 	createStage( animate );
 
@@ -26,10 +26,10 @@
 
 	man.r_arm.straddle = 15;
 
-	addLabel( man.l_finger_1.tip, 'finger_1.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
-	addLabel( man.l_finger_2.tip, 'finger_2.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
-	addLabel( man.l_finger_3.tip, 'finger_3.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
-	addLabel( man.l_finger_4.tip, 'finger_4.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
+	man.l_finger_1.tip.label( 'finger_1.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
+	man.l_finger_2.tip.label( 'finger_2.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
+	man.l_finger_3.tip.label( 'finger_3.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
+	man.l_finger_4.tip.label( 'finger_4.straddle', 5.6, 0.005, 0, 1, 0, 3 ).scale.set( 0.2, 0.2, 0.2 );
 
 	function animate( t ) {
 

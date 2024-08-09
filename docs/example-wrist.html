@@ -9,7 +9,7 @@
 <body>
 	<script type="module">
 
-	import { addLabel, Child, createStage, Female, Male } from 'mannequin';
+	import { Child, createStage, Female, Male } from 'mannequin';
 
 	createStage( animate );
 
@@ -26,9 +26,9 @@
 	woman.r_arm.turn = 90;
 	woman.r_elbow.bend = 120;
 
-	addLabel( man.l_wrist, 'wrist.bend', -1, 0.5, 0, 2, 1 );
-	addLabel( child.l_wrist, 'wrist.turn', -1, 0, 1, 2, 1 ).scale.set( 1.5, 1.5, 1.5 );
-	addLabel( woman.r_wrist, 'wrist.tilt', 10 + 2, 0.15, 0, 3, 3 );
+	man.l_wrist.label( 'wrist.bend', -1, 0.5, 0, 2, 1 );
+	child.l_wrist.label( 'wrist.turn', -1, 0, 1, 2, 1 ).scale.set( 1.5, 1.5, 1.5 );
+	woman.r_wrist.label( 'wrist.tilt', 10 + 2, 0.15, 0, 3, 3 );
 
 	function animate( t ) {
 

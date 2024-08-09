@@ -82,4 +82,3 @@ export * from './bodies/Male.js';
 export * from './bodies/Child.js';
 export { createStage, getStage } from './scene.js';
 export { getVersion, getPostureVersion, getGroundLevel, blend };
-export { addLabel } from './label.js';

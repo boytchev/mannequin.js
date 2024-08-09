@@ -80,7 +80,7 @@ function initStage( ) {
 		camera: camera,
 		light: light,
 		animationLoop: null,
-	};;
+	};
 
 }
 
@@ -166,9 +166,10 @@ var stage = initStage( );
 
 
 
-function getStage( )
-{
+function getStage( ) {
+
 	return stage;
+
 }
 
 
