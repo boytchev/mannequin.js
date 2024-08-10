@@ -1,5 +1,6 @@
-import "mannequin";
-import { camera, controls, drawFrame, renderer } from "mannequin/scene.js";
+import * as THREE from "three";
+import { createStage, Male, Mannequin } from "mannequin";
+import { camera, controls, renderer, scene, systemAnimate } from "mannequin/scene.js";
 import { Torso } from "../organs/Torso.js";
 import { Head } from "../organs/Head.js";
 import { Pelvis } from "../organs/Pelvis.js";
@@ -17,7 +18,7 @@ const EPS = 0.00001;
 
 
 // create a scene with a better shadow
-createScene( animate );
+createStage( animate );
 
 
 
@@ -246,7 +247,7 @@ btnRemoveModel.addEventListener( 'click', removeModel );
 
 controls.addEventListener( 'start', function () {
 
-	renderer.setAnimationLoop( drawFrame );
+	renderer.setAnimationLoop( systemAnimate );
 
 } );
 
@@ -373,7 +374,7 @@ function onPointerDown( event ) {
 
 	}
 
-	renderer.setAnimationLoop( drawFrame );
+	renderer.setAnimationLoop( systemAnimate );
 
 }
 

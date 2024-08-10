@@ -25,6 +25,21 @@ document.head.appendChild( meta );
 
 
 
+var clock = new THREE.Clock();
+
+
+
+function systemAnimate() {
+
+	if ( controls ) controls.update();
+
+	if ( stage.animationLoop ) stage.animationLoop( clock.getElapsedTime() );
+
+	renderer.render( scene, camera );
+
+}
+
+
 
 // initialize Three.js elements that are created by default
 function initStage( ) {
@@ -60,19 +75,6 @@ function initStage( ) {
 
 	window.addEventListener( 'resize', onWindowResize, false );
 	onWindowResize();
-
-	var clock = new THREE.Clock();
-
-
-	function systemAnimate() {
-
-		if ( controls ) controls.update();
-
-		if ( stage.animationLoop ) stage.animationLoop( clock.getElapsedTime() );
-
-		renderer.render( scene, camera );
-
-	}
 
 	return {
 		renderer: renderer,
@@ -174,4 +176,4 @@ function getStage( ) {
 
 
 
-export { renderer, scene, camera, light, controls, createStage, getStage };
+export { renderer, scene, camera, light, controls, createStage, getStage, systemAnimate, clock };
