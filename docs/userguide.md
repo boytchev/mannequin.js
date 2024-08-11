@@ -5,49 +5,187 @@
 
 ## <small><small>Този документ е наличен и на [български език](userguide-bg.md)</small></small>
 
-- **[Initialization](#initialization)** (<small>[Minimal program](#minimal-program) | [Installation](#installation) | [Figure types](#figure-types) | [API](#api)</small>) 
+- **[Using Mannequin.js](#using-mannequinjs)** (<small>[CDN](#running-from-a-cdn) | [local web server](#running-via-a-local-web-server) | [Nodes.js](#running-via-nodesjs) | [API](#api)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
-- **[Body posture](#body-posture)** (<small>[Static posture](#static-posture) | [Dynamic posture](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
-- **[Other functions](#other-functions)** (<small>[Custom colors](#custom-colors) | [Hiding body parts](#hiding-body-parts) | [Custom body parts](#custom-body-parts) | [Global position](#global-position)</small>)
+- **[Body posture](#body-posture)** (<small>[Static](#static-posture) | [Dynamic](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
+- **[Other functions](#other-functions)** (<small>[Colors](#custom-colors) | [Body modification](#body-modification) | [Positioning](#global-position)</small>)
 
 
 
-# Initialization
+# Using mannequin.js
 
-The **mannequin.js** library is provided as a set of JavaScript modules. 
+The **mannequin.js** library is provided as a set of JavaScript modules. It is
+intended to be used from a CDN. Most lileely the library can be installed via
+`npm`, however this is not tested so far.
+
+The library uses Three.js and expects the following import maps to be defined:
+
+* `three`: pointer to the Three.js built called `three.module.js` 
+* `three/addons/`: pointer to the path of Three.js addons
+* `mannequin`: pointer to the main library file called `mannequin.js`
+
+The following subsections demonstrate some possible configuration scenarios of
+using mannequin.js.
 
 
+### Running from a CDN
 
-### Minimal program
+CDN stands for [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network). 
+Within mannnequin.js a CDN serves as a host of the library files. At the time of
+writing this document it is recommended to use [jsDelivr](https://cdn.jsdelivr.net)
+as CDN. Other CDNs are also available.
 
-Here is a reasonably minimal program that creates a male figure in the browser ([live example](example-minimal.html)):
+The main advantages of using a CDN are:
+* there is no need to install mannequin.js
+* there is no need to install nodes.js or another JS module manager
+* there is no need to install a local web server
+* a user file can be directly run in a browser
 
-``` xml
+The main disadvantages of using a CDN are:
+* internet access to the CDN is reuqired at program startup
+* pointers to Three.js and mannequin.js must be defined as importmaps
+
+A somewhat minimal program that uses mannequin.js from this CDN is showndemonstrated
+in this [live example](example-minimal-cdn.html). If the file is downloaded, it
+could be run locally without any additional installation. The importmaps in the
+example point to specific release of Three.js and to the latest version of mannequin.js.
+
+```html
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <script src="../src/importmap.js"></script>
-    </head>
-    <body>
-        <script type="module">
-            import { createStage, Male } from "mannequin";
-            createStage( );
-            new Male();
-        </script>
-    </body>
+
+<head>
+   <script type="importmap">
+   {
+      "imports": {
+         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
+      }
+   }
+   </script>
+</head>
+
+<body>
+   <script type="module">
+      import { createStage, Male } from "mannequin";
+      createStage( );
+      new Male();
+   </script>
+</body>
 </html>
 ```
 
-The helper function `createStage()` provides default scene, lighting, camera,
-ground, and so on. `Male` constructs a male figure.
+Note that many of the examples in this document use the script `importmap.js`
+to generate the import maps and inject them in the page. This is done solely
+for maintaining shorter code and to easily switch to other versions of either
+Three.js or mannequin.js.
+
+
+### Running via a local web server
+
+It is the same as running from a CDN, a local folder serves as a CDN. The only
+change is the paths of the import maps should point to local paths. 
+
+The main advantages of using only local files are:
+
+* no internet access is required
+* no need to install nodes.js or another JS module manager
+* protection from a breaking change in the online libraries
+* a user file can be directly run in a browser
+* user code can use modules and can be split in several files
+
+The main disadvantages of using only local files are:
+
+* mannequin.js and all its source files must be downloaded
+* a local web server must be installed
+* pointers to local Three.js and mannequin.js must be still defined as importmaps
+
+It is possible to CDN and local usage. For example, using online Three.js and 
+local mannequin.js. This is defined in the paths of the import maps.
+
+
+### Running via nodes.js
+
+The library is provided as a NPM package. If nodes.js is installed on the user
+machine, it should be possible to install mannequin.js and use it directly.
+
+The main advantages of using nodes.js:
+
+* no internet access is required once the package istallation is done
+* no need to use import maps (the whole importmaps section can be omitted)
+* protection from a breaking change in the online libraries
+
+The main disadvantages of using only local files are:
+* nodes.js must be installed
+* mannequin.js must be installed
+
+Note: This approach is not tested. If you find that it is not working and you
+know how to fix it, please get in touch.
 
 
 
-### Installation
 
-TODO
+### API
+
+The library mannequin.js defines the following functions and classes:
+
+* `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
+* `getStage()` &ndash; function, current stage
+* `getVersion()` &ndash; function, current version of mannequin.js as a number; e.g. 5.2
+* `getPostureVersion()` &ndash; function, current version of posture data format
+* `getGroundLevel()` &ndash; function, vertical position of the ground in meters
+* `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
+* `Mannequin(feminine,height)` &ndash; class, a general figure
+	- `Male(height)` &ndash; class, a male figure
+	- `Female(height)` &ndash; class, a female figure
+	- `Child(height)` &ndash; class, a child figure
+
+All figures (instances of `Mannequin`, `Male`, `Female` and `Child`) have the
+same set of properties and methods.
+
+* `body`, `pelvis`, `torso`, `neck`, `head` &ndash; properties, general body parts
+* `l_leg`, `l_knee`, `l_ankle` &ndash; properties, body parts of the left leg 
+* `r_leg`, `r_knee`, `r_ankle` &ndash; properties, body parts of the right leg
+* `l_arm`, `l_elbow`, `l_wrist`, `l_finger_0`...`l_finger_4`, `l_fingers`, `l_nails` &ndash; properties, body parts of the left arm
+* `r_arm`, `r_elbow`, `r_wrist`, `r_finger_0`...`r_finger_4`, `r_fingers`, `r_nails` &ndash; properties, body parts of the right arm
+* `feminine` &ndash; property, a boolean flag of the figure type
+* `bend`, `tilt`, `turn` &ndash; properties, body rotation
+* `posture`, `postureString` &ndash; properties, figure posture 
+* `stepOnGround()` &ndash; method, moves the figure vertically to reach the ground
+* `recolor(...)` &ndash; method, changes the colors of body parts
+
+All body parts have almost the same set of properties and methods. Some rotation
+properties are not available for all body parts (for biological reasons).
+
+* `posture` &ndash; property, posture of the body part (an array of its rotation angles)
+* `hide()`, `show()` &ndash; methods, shows and hides a body part
+* `attach(image)`, `detach(image)` &ndash; methods, attaches and detaches a custom image to a body part
+* `point(x,y,z)` &ndash; method, calculates global coordinates of local position (x,y,z) in respect to the body part
+* `recolor(...)` &ndash; method, changes the colors of a body part
+* `label(...)` &ndash; method, attaches a 3D text to a body part
+
+* `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, bodies, torses and wrists
+* `bend` &ndash; property, rotation of elbows and knees
+* `bend`, `straddle`, `turn` &ndash; properties, rotations of fingers
+* `raise`, `straddle`, `turn` &ndash; properties, rotations of arms and legs
+* `nod`, `tilt`, `turn` &ndash; properties, rotations of heads
+
+For finges there are additional properties and methods to manage their structure:
+
+* `mid` &ndash; property, the middle phalange of a finger
+	- `bend` &ndash; method, rotation of the middle phalange
+* `tip` &ndash; property, the last phalange of a finger
+	- `nail` &ndash; property, the nail of a finger
+	- `bend` &ndash; method, rotation of the last phalange
+	
+The collective properties `l_fingers` and `r_fingers` contain:
+* `finger_0`...`finger_4` &ndash; properties, individual fingers, corresponding to `l_finger_0`...`l_finger_4` and `r_finger_0`...`r_finger_4`
+* `bend` &ndash; method, bending rotation of all fingers at once, including middle phalanges and tips
 
 
+# Body parts
 
 ### Figure types
 
@@ -80,23 +218,6 @@ These three classes have a common predecessor &ndash; `Mannequin(feminine,height
 The difference between using different figure classes is that `Mannequin` sets
 a default neutral posture of the figure, while `Male` and `Female` set a default
 male and female posture.
-
-
-
-### API
-
-The library mannequin.js defines the following functions and classes:
-
-* `getVersion()` &ndash; function, current version of mannequin.js as a number; e.g. 5.2
-* `getPostureVersion()` &ndash; function, current version of posture data format
-* `getGroundLevel()` &ndash; function, vertical position of the ground in meters
-* `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
-* `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
-* `getStage()` &ndash; function, current stage
-
-
-
-# Body parts
 
 All types of figures have the same structure. For example, the right arm of a figure is named `r_arm`. For some body parts mannequin.js uses the name of the joint &ndash; e.g. the left forearm is named `l_elbow`. Left and right body parts are always in respect to the figure, not to the viewer ([live example](example-body-parts.html)):
 
@@ -427,15 +548,20 @@ of the body part. The second parameter is the color of the spherical section
 The tips of the fingers are accessed via `l_fingers.tips` and `r_fingers.tips`.
 
 
-### Hiding body parts
+### Body modification
 
-Each body part could be hidden. This does not remove the body part and its graphical object from the figure, instead it is just not rendered in the frame. The method to hide a joint from a figure is:
+Each body part could be hidden. This does not remove the body part and its
+graphical object from the figure, instead it is just not rendered in the frame.
+The method to hide a joint from a figure is:
 
 ``` javascript
 figure.joint.hide();
 ```
 
-where *joint* is the name of the body part to hide. Hidden body parts can still be rotated and this affects the other body parts attached to them. The following example hides both arms and both legs, but they are still preserved internally and used by elbows and knees ([live example](example-hide.html)):
+where *joint* is the name of the body part to hide. Hidden body parts can still
+be rotated and this affects the other body parts attached to them. The following
+example hides both arms and both legs, but they are still preserved internally
+and used by elbows and knees ([live example](example-hide.html)):
 
 [<img src="snapshots/example-hide.jpg">](example-hide.html)
 
@@ -446,10 +572,10 @@ man.l_arm.hide();
 man.r_arm.hide();
 ```
 
-
-### Custom body parts
-
-Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) and supports its properties and methods. However, due to the skeletal dependency and joint attachment, scaling of a body part should be congruent along all axes, otherwise positions need to be adjusted ([live example](example-custom-sizes.html)):
+Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D)
+and support its properties and methods. However, due to the skeletal dependency
+and joint attachment, scaling of a body part should be congruent along all axes,
+otherwise positions need to be adjusted ([live example](example-custom-sizes.html)):
 
 [<img src="snapshots/example-custom-sizes.jpg">](example-custom-sizes.html)
 

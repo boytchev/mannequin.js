@@ -71,15 +71,6 @@ class Head extends Joint {
 
 	} // Head.posture
 
-	// recolor( color ) {
-
-	// if ( typeof color === 'string' )
-	// color = new THREE.Color( color );
-
-	// this.image.material.color = color;
-
-	// } // Head.recolor
-
 } // Head
 
 
