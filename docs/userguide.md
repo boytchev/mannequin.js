@@ -165,7 +165,6 @@ properties are not available for all body parts (for biological reasons).
 * `point(x,y,z)` &ndash; method, calculates global coordinates of local position (x,y,z) in respect to the body part
 * `recolor(...)` &ndash; method, changes the colors of a body part
 * `label(...)` &ndash; method, attaches a 3D text to a body part
-
 * `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, bodies, torses and wrists
 * `bend` &ndash; property, rotation of elbows and knees
 * `bend`, `straddle`, `turn` &ndash; properties, rotations of fingers
