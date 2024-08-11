@@ -5,50 +5,15 @@
 
 ## <small><small>Този документ е наличен и на [български език](userguide-bg.md)</small></small>
 
-- **[Using Mannequin.js](#using-mannequinjs)** (<small>[CDN](#running-from-a-cdn) | [local web server](#running-via-a-local-web-server) | [Nodes.js](#running-via-nodesjs) | [API](#api)</small>) 
 - **[Body parts](#body-parts)** (<small>[Central body parts](#central-body-parts) | [Upper limbs](#upper-limbs) | [Lower limbs](#lower-limbs)</small>)
 - **[Body posture](#body-posture)** (<small>[Static](#static-posture) | [Dynamic](#dynamic-posture) | [Working with postures](#working-with-postures)</small>)
 - **[Other functions](#other-functions)** (<small>[Colors](#custom-colors) | [Body modification](#body-modification) | [Positioning](#global-position)</small>)
+- **[Using Mannequin.js](#using-mannequinjs)** (<small>[CDN](#running-from-a-cdn) | [local web server](#running-via-a-local-web-server) | [Nodes.js](#running-via-nodesjs) | [API](#api)</small>) 
 
-
-
-# Using mannequin.js
-
-The **mannequin.js** library is provided as a set of JavaScript modules. It is
-intended to be used from a CDN. Most lileely the library can be installed via
-`npm`, however this is not tested so far.
-
-The library uses Three.js and expects the following import maps to be defined:
-
-* `three`: pointer to the Three.js built called `three.module.js` 
-* `three/addons/`: pointer to the path of Three.js addons
-* `mannequin`: pointer to the main library file called `mannequin.js`
-
-The following subsections demonstrate some possible configuration scenarios of
-using mannequin.js.
-
-
-### Running from a CDN
-
-CDN stands for [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network). 
-Within mannnequin.js a CDN serves as a host of the library files. At the time of
-writing this document it is recommended to use [jsDelivr](https://cdn.jsdelivr.net)
-as CDN. Other CDNs are also available.
-
-The main advantages of using a CDN are:
-* there is no need to install mannequin.js
-* there is no need to install nodes.js or another JS module manager
-* there is no need to install a local web server
-* a user file can be directly run in a browser
-
-The main disadvantages of using a CDN are:
-* internet access to the CDN is reuqired at program startup
-* pointers to Three.js and mannequin.js must be defined as importmaps
-
-A somewhat minimal program that uses mannequin.js from this CDN is showndemonstrated
-in this [live example](example-minimal-cdn.html). If the file is downloaded, it
-could be run locally without any additional installation. The importmaps in the
-example point to specific release of Three.js and to the latest version of mannequin.js.
+Mannequin.js is a simple library of an articulated mannequin
+figures. The shape and the motion of the figures are done in
+JavaScript. Here is a short example that shows a male figure
+[live example](example-minimal-cdn.html).
 
 ```html
 <!DOCTYPE html>
@@ -76,112 +41,6 @@ example point to specific release of Three.js and to the latest version of manne
 </body>
 </html>
 ```
-
-Note that many of the examples in this document use the script `importmap.js`
-to generate the import maps and inject them in the page. This is done solely
-for maintaining shorter code and to easily switch to other versions of either
-Three.js or mannequin.js.
-
-
-### Running via a local web server
-
-It is the same as running from a CDN, a local folder serves as a CDN. The only
-change is the paths of the import maps should point to local paths. 
-
-The main advantages of using only local files are:
-
-* no internet access is required
-* no need to install nodes.js or another JS module manager
-* protection from a breaking change in the online libraries
-* a user file can be directly run in a browser
-* user code can use modules and can be split in several files
-
-The main disadvantages of using only local files are:
-
-* mannequin.js and all its source files must be downloaded
-* a local web server must be installed
-* pointers to local Three.js and mannequin.js must be still defined as importmaps
-
-It is possible to CDN and local usage. For example, using online Three.js and 
-local mannequin.js. This is defined in the paths of the import maps.
-
-
-### Running via nodes.js
-
-The library is provided as a NPM package. If nodes.js is installed on the user
-machine, it should be possible to install mannequin.js and use it directly.
-
-The main advantages of using nodes.js:
-
-* no internet access is required once the package istallation is done
-* no need to use import maps (the whole importmaps section can be omitted)
-* protection from a breaking change in the online libraries
-
-The main disadvantages of using only local files are:
-* nodes.js must be installed
-* mannequin.js must be installed
-
-Note: This approach is not tested. If you find that it is not working and you
-know how to fix it, please get in touch.
-
-
-
-
-### API
-
-The library mannequin.js defines the following functions and classes:
-
-* `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
-* `getStage()` &ndash; function, current stage
-* `getVersion()` &ndash; function, current version of mannequin.js as a number; e.g. 5.2
-* `getPostureVersion()` &ndash; function, current version of posture data format
-* `getGroundLevel()` &ndash; function, vertical position of the ground in meters
-* `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
-* `Mannequin(feminine,height)` &ndash; class, a general figure
-	- `Male(height)` &ndash; class, a male figure
-	- `Female(height)` &ndash; class, a female figure
-	- `Child(height)` &ndash; class, a child figure
-
-All figures (instances of `Mannequin`, `Male`, `Female` and `Child`) have the
-same set of properties and methods.
-
-* `body`, `pelvis`, `torso`, `neck`, `head` &ndash; properties, general body parts
-* `l_leg`, `l_knee`, `l_ankle` &ndash; properties, body parts of the left leg 
-* `r_leg`, `r_knee`, `r_ankle` &ndash; properties, body parts of the right leg
-* `l_arm`, `l_elbow`, `l_wrist`, `l_finger_0`...`l_finger_4`, `l_fingers`, `l_nails` &ndash; properties, body parts of the left arm
-* `r_arm`, `r_elbow`, `r_wrist`, `r_finger_0`...`r_finger_4`, `r_fingers`, `r_nails` &ndash; properties, body parts of the right arm
-* `feminine` &ndash; property, a boolean flag of the figure type
-* `bend`, `tilt`, `turn` &ndash; properties, body rotation
-* `posture`, `postureString` &ndash; properties, figure posture 
-* `stepOnGround()` &ndash; method, moves the figure vertically to reach the ground
-* `recolor(...)` &ndash; method, changes the colors of body parts
-
-All body parts have almost the same set of properties and methods. Some rotation
-properties are not available for all body parts (for biological reasons).
-
-* `posture` &ndash; property, posture of the body part (an array of its rotation angles)
-* `hide()`, `show()` &ndash; methods, shows and hides a body part
-* `attach(image)`, `detach(image)` &ndash; methods, attaches and detaches a custom image to a body part
-* `point(x,y,z)` &ndash; method, calculates global coordinates of local position (x,y,z) in respect to the body part
-* `recolor(...)` &ndash; method, changes the colors of a body part
-* `label(...)` &ndash; method, attaches a 3D text to a body part
-* `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, bodies, torses and wrists
-* `bend` &ndash; property, rotation of elbows and knees
-* `bend`, `straddle`, `turn` &ndash; properties, rotations of fingers
-* `raise`, `straddle`, `turn` &ndash; properties, rotations of arms and legs
-* `nod`, `tilt`, `turn` &ndash; properties, rotations of heads
-
-For finges there are additional properties and methods to manage their structure:
-
-* `mid` &ndash; property, the middle phalange of a finger
-	- `bend` &ndash; method, rotation of the middle phalange
-* `tip` &ndash; property, the last phalange of a finger
-	- `nail` &ndash; property, the nail of a finger
-	- `bend` &ndash; method, rotation of the last phalange
-	
-The collective properties `l_fingers` and `r_fingers` contain:
-* `finger_0`...`finger_4` &ndash; properties, individual fingers, corresponding to `l_finger_0`...`l_finger_4` and `r_finger_0`...`r_finger_4`
-* `bend` &ndash; method, bending rotation of all fingers at once, including middle phalanges and tips
 
 
 # Body parts
@@ -688,6 +547,179 @@ man.stepOnTheGround();
 ```	
 
 		
+# Using mannequin.js
+
+The **mannequin.js** library is provided as a set of JavaScript modules. It is
+intended to be used from a CDN. Most lileely the library can be installed via
+`npm`, however this is not tested so far.
+
+The library uses Three.js and expects the following import maps to be defined:
+
+* `three`: pointer to the Three.js built called `three.module.js` 
+* `three/addons/`: pointer to the path of Three.js addons
+* `mannequin`: pointer to the main library file called `mannequin.js`
+
+The following subsections demonstrate some possible configuration scenarios of
+using mannequin.js.
+
+
+### Running from a CDN
+
+CDN stands for [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network). 
+Within mannnequin.js a CDN serves as a host of the library files. At the time of
+writing this document it is recommended to use [jsDelivr](https://cdn.jsdelivr.net)
+as CDN. Other CDNs are also available.
+
+The main advantages of using a CDN are:
+* there is no need to install mannequin.js
+* there is no need to install nodes.js or another JS module manager
+* there is no need to install a local web server
+* a user file can be directly run in a browser
+
+The main disadvantages of using a CDN are:
+* internet access to the CDN is reuqired at program startup
+* pointers to Three.js and mannequin.js must be defined as importmaps
+
+A somewhat minimal program that uses mannequin.js from this CDN is showndemonstrated
+in this [live example](example-minimal-cdn.html). If the file is downloaded, it
+could be run locally without any additional installation. The importmaps in the
+example point to specific release of Three.js and to the latest version of mannequin.js.
+
+```html
+<!DOCTYPE html>
+
+<html>
+
+<head>
+   <script type="importmap">
+   {
+      "imports": {
+         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
+      }
+   }
+   </script>
+</head>
+
+<body>
+   <script type="module">
+      import { createStage, Male } from "mannequin";
+      createStage( );
+      new Male();
+   </script>
+</body>
+</html>
+```
+
+Note that many of the examples in this document use the script `importmap.js`
+to generate the import maps and inject them in the page. This is done solely
+for maintaining shorter code and to easily switch to other versions of either
+Three.js or mannequin.js.
+
+
+### Running via a local web server
+
+It is the same as running from a CDN, a local folder serves as a CDN. The only
+change is the paths of the import maps should point to local paths. 
+
+The main advantages of using only local files are:
+
+* no internet access is required
+* no need to install nodes.js or another JS module manager
+* protection from a breaking change in the online libraries
+* a user file can be directly run in a browser
+* user code can use modules and can be split in several files
+
+The main disadvantages of using only local files are:
+
+* mannequin.js and all its source files must be downloaded
+* a local web server must be installed
+* pointers to local Three.js and mannequin.js must be still defined as importmaps
+
+It is possible to CDN and local usage. For example, using online Three.js and 
+local mannequin.js. This is defined in the paths of the import maps.
+
+
+### Running via nodes.js
+
+The library is provided as a NPM package. If nodes.js is installed on the user
+machine, it should be possible to install mannequin.js and use it directly.
+
+The main advantages of using nodes.js:
+
+* no internet access is required once the package istallation is done
+* no need to use import maps (the whole importmaps section can be omitted)
+* protection from a breaking change in the online libraries
+
+The main disadvantages of using only local files are:
+* nodes.js must be installed
+* mannequin.js must be installed
+
+Note: This approach is not tested. If you find that it is not working and you
+know how to fix it, please get in touch.
+
+
+
+
+### API
+
+The library mannequin.js defines the following functions and classes:
+
+* `createStage(animationLoop)` &ndash; function, create a stage with ground and lights
+* `getStage()` &ndash; function, current stage
+* `getVersion()` &ndash; function, current version of mannequin.js as a number; e.g. 5.2
+* `getPostureVersion()` &ndash; function, current version of posture data format
+* `getGroundLevel()` &ndash; function, vertical position of the ground in meters
+* `blend(p,q,k)` &ndash; function, blended posture of postures *p* and *q* with coefficient *k*
+* `Mannequin(feminine,height)` &ndash; class, a general figure
+* `Male(height)` &ndash; class, a male figure
+* `Female(height)` &ndash; class, a female figure
+* `Child(height)` &ndash; class, a child figure
+
+All figures (instances of `Mannequin`, `Male`, `Female` and `Child`) have the
+same set of properties and methods.
+
+* `body`, `pelvis`, `torso`, `neck`, `head` &ndash; properties, general body parts
+* `l_leg`, `l_knee`, `l_ankle` &ndash; properties, body parts of the left leg 
+* `r_leg`, `r_knee`, `r_ankle` &ndash; properties, body parts of the right leg
+* `l_arm`, `l_elbow`, `l_wrist`, `l_finger_0`...`l_finger_4`, `l_fingers`, `l_nails` &ndash; properties, body parts of the left arm
+* `r_arm`, `r_elbow`, `r_wrist`, `r_finger_0`...`r_finger_4`, `r_fingers`, `r_nails` &ndash; properties, body parts of the right arm
+* `feminine` &ndash; property, a boolean flag of the figure type
+* `bend`, `tilt`, `turn` &ndash; properties, body rotation
+* `posture`, `postureString` &ndash; properties, figure posture 
+* `stepOnGround()` &ndash; method, moves the figure vertically to reach the ground
+* `recolor(...)` &ndash; method, changes the colors of body parts
+
+All body parts have almost the same set of properties and methods. Some rotation
+properties are not available for all body parts (for biological reasons).
+
+* `posture` &ndash; property, posture of the body part (an array of its rotation angles)
+* `hide()`, `show()` &ndash; methods, shows and hides a body part
+* `attach(image)`, `detach(image)` &ndash; methods, attaches and detaches a custom image to a body part
+* `point(x,y,z)` &ndash; method, calculates global coordinates of local position (x,y,z) in respect to the body part
+* `recolor(...)` &ndash; method, changes the colors of a body part
+* `label(...)` &ndash; method, attaches a 3D text to a body part
+* `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, bodies, torses and wrists
+* `bend` &ndash; property, rotation of elbows and knees
+* `bend`, `straddle`, `turn` &ndash; properties, rotations of fingers
+* `raise`, `straddle`, `turn` &ndash; properties, rotations of arms and legs
+* `nod`, `tilt`, `turn` &ndash; properties, rotations of heads
+
+For finges there are additional properties and methods to manage their structure:
+
+* `mid` &ndash; property, the middle phalange of a finger
+* `mid.bend` &ndash; method, rotation of the middle phalange
+* `tip` &ndash; property, the last phalange of a finger
+* `tip.nail` &ndash; property, the nail of a finger
+* `tip.bend` &ndash; method, rotation of the last phalange
+	
+The collective properties `l_fingers` and `r_fingers` contain:
+* `finger_0`...`finger_4` &ndash; properties, individual fingers, corresponding to `l_finger_0`...`l_finger_4` and `r_finger_0`...`r_finger_4`
+* `bend` &ndash; method, bending rotation of all fingers at once, including middle phalanges and tips
+
+
+
 <div class="footnote">
 	<a href="../">Home</a> &middot;
 	<a href="https://github.com/boytchev/mannequin.js">GitHub</a> &middot; 
