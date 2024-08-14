@@ -550,7 +550,7 @@ man.stepOnTheGround();
 # Using mannequin.js
 
 The **mannequin.js** library is provided as a set of JavaScript modules. It is
-intended to be used from a CDN. Most lileely the library can be installed via
+intended to be used from a CDN. Most likely the library can be installed via
 `npm`, however this is not tested so far.
 
 The library uses Three.js and expects the following import maps to be defined:
@@ -580,7 +580,7 @@ The main disadvantages of using a CDN are:
 * internet access to the CDN is reuqired at program startup
 * pointers to Three.js and mannequin.js must be defined as importmaps
 
-A somewhat minimal program that uses mannequin.js from this CDN is showndemonstrated
+A somewhat minimal program that uses mannequin.js from this CDN is shown
 in this [live example](example-minimal-cdn.html). If the file is downloaded, it
 could be run locally without any additional installation. The importmaps in the
 example point to specific release of Three.js and to the latest version of mannequin.js.
@@ -652,7 +652,7 @@ The main advantages of using nodes.js:
 * no need to use import maps (the whole importmaps section can be omitted)
 * protection from a breaking change in the online libraries
 
-The main disadvantages of using only local files are:
+The main disadvantages of using using nodes.js:
 * nodes.js must be installed
 * mannequin.js must be installed
 
@@ -700,11 +700,11 @@ properties are not available for all body parts (for biological reasons).
 * `point(x,y,z)` &ndash; method, calculates global coordinates of local position (x,y,z) in respect to the body part
 * `recolor(...)` &ndash; method, changes the colors of a body part
 * `label(...)` &ndash; method, attaches a 3D text to a body part
-* `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, bodies, torses and wrists
+* `bend`, `tilt`, `turn` &ndash; properties, rotations of ankles, body, torse and wrists
 * `bend` &ndash; property, rotation of elbows and knees
 * `bend`, `straddle`, `turn` &ndash; properties, rotations of fingers
 * `raise`, `straddle`, `turn` &ndash; properties, rotations of arms and legs
-* `nod`, `tilt`, `turn` &ndash; properties, rotations of heads
+* `nod`, `tilt`, `turn` &ndash; properties, rotations of head
 
 For finges there are additional properties and methods to manage their structure:
 
