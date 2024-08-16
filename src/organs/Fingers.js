@@ -71,6 +71,53 @@ class Fingers extends Joint {
 
 	} // Fingers.recolor
 
+	// hide all figers
+	hide( ) {
+
+		this.finger_0.hide( );
+		this.finger_1.hide( );
+		this.finger_2.hide( );
+		this.finger_3.hide( );
+		this.finger_4.hide( );
+
+		this.finger_0.mid.hide( );
+		this.finger_1.mid.hide( );
+		this.finger_2.mid.hide( );
+		this.finger_3.mid.hide( );
+		this.finger_4.mid.hide( );
+
+		this.finger_0.tip.hide( );
+		this.finger_1.tip.hide( );
+		this.finger_2.tip.hide( );
+		this.finger_3.tip.hide( );
+		this.finger_4.tip.hide( );
+
+	}
+
+
+	// show all figers
+	show( ) {
+
+		this.finger_0.show( );
+		this.finger_1.show( );
+		this.finger_2.show( );
+		this.finger_3.show( );
+		this.finger_4.show( );
+
+		this.finger_0.mid.show( );
+		this.finger_1.mid.show( );
+		this.finger_2.mid.show( );
+		this.finger_3.mid.show( );
+		this.finger_4.mid.show( );
+
+		this.finger_0.tip.show( );
+		this.finger_1.tip.show( );
+		this.finger_2.tip.show( );
+		this.finger_3.tip.show( );
+		this.finger_4.tip.show( );
+
+	}
+
 } // Fingers
 
 

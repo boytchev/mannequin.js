@@ -717,6 +717,7 @@ For finges there are additional properties and methods to manage their structure
 The collective properties `l_fingers` and `r_fingers` contain:
 * `finger_0`...`finger_4` &ndash; properties, individual fingers, corresponding to `l_finger_0`...`l_finger_4` and `r_finger_0`...`r_finger_4`
 * `bend` &ndash; method, bending rotation of all fingers at once, including middle phalanges and tips
+* `hide()`, `show()` &ndash; methods, shows and hides all figers
 
 
 

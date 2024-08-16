@@ -60,6 +60,20 @@ class Phalange extends Joint {
 
 	}
 
+	hide( ) {
+
+		super.hide();
+		if ( this.nail ) this.nail.visible = false;
+
+	}
+
+	show( ) {
+
+		super.show();
+		if ( this.nail ) this.show.visible = false;
+
+	}
+
 } // Phalange
 
 
