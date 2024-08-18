@@ -8,12 +8,14 @@ import { GROUND_LEVEL } from "./globals.js";
 var renderer, scene, camera, light, controls;
 
 
-
 // add favicon
 var link = document.createElement( 'link' );
 link.rel = 'icon';
 document.head.appendChild( link );
-link.href = '../assets/logo/logo.png';
+if ( window.location.pathname.indexOf( 'src/editor' )<0 )
+	link.href = '../assets/logo/logo.png';
+else
+	link.href = '../../assets/logo/logo.png';
 
 
 

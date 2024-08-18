@@ -71,7 +71,7 @@ class Fingers extends Joint {
 
 	} // Fingers.recolor
 
-	// hide all figers
+	// hide all fingers
 	hide( ) {
 
 		this.finger_0.hide( );
@@ -95,7 +95,7 @@ class Fingers extends Joint {
 	}
 
 
-	// show all figers
+	// show all fingers
 	show( ) {
 
 		this.finger_0.show( );
