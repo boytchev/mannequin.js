@@ -414,6 +414,7 @@ The method to hide a joint from a figure is:
 
 ``` javascript
 figure.joint.hide();
+figure.joint.hide( true );
 ```
 
 where *joint* is the name of the body part to hide. Hidden body parts can still
@@ -429,6 +430,17 @@ man.r_leg.hide();
 man.l_arm.hide();
 man.r_arm.hide();
 ```
+
+If `hide` is used with parameter `true`, then hiding is applied to the body part
+and all its subparts.
+
+To show a hidden body part use:
+
+``` javascript
+figure.joint.show();
+figure.joint.show( true );
+```
+
 
 Body parts are descendants of [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D)
 and support its properties and methods. However, due to the skeletal dependency

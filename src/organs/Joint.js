@@ -146,15 +146,31 @@ class Joint extends THREE.Group {
 
 	}
 
-	hide() {
+	hide( recursive ) {
 
 		this.image.visible = false;
 
+		if ( recursive )
+			this.traverse( ( joint )=> {
+
+				if ( joint.image )
+					joint.hide();
+
+			} );
+
 	} // Joint.hide
 
-	show() {
+	show( recursive ) {
 
 		this.image.visible = true;
+
+		if ( recursive )
+			this.traverse( ( joint )=> {
+
+				if ( joint.image )
+					joint.show();
+
+			} );
 
 	} // Joint.show
 

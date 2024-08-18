@@ -13,9 +13,6 @@ import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 const EPS = 0.00001;
 
 
-//var mouseInterface = false;
-//var touchInterface = false;
-
 
 // create a scene with a better shadow
 createStage( animate );
@@ -369,6 +366,7 @@ function onPointerDown( event ) {
 
 		if ( !cbMovX.checked && !cbMovY.checked && !cbMovZ.checked ) obj.imageWrapper.add( gauge );
 		gauge.position.y = ( obj instanceof Ankle ) ? 2 : 0;
+
 
 		processCheckBoxes();
 

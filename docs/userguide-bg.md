@@ -481,6 +481,7 @@ man.l_nails.recolor( 'black' );
 
 ``` javascript
 figure.joint.hide();
+figure.joint.hide( true );
 ```
 
 където *joint* е името на частта от тялото, която
@@ -497,6 +498,17 @@ man.l_leg.hide();
 man.r_leg.hide();
 man.l_arm.hide();
 man.r_arm.hide();
+```
+
+Ако `hide` се използва с параметър `true`, тогава скриването
+се прилага както а съответната част на тялото, така и на
+всички подчинени части.
+
+Показването на скрита част на тяло става с:
+
+``` javascript
+figure.joint.show();
+figure.joint.show( true );
 ```
 
 Частите на тялото са наследници на класа [`THREE.Object3D`](https://threejs.org/docs/#api/en/core/Object3D) и поддържат

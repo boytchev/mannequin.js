@@ -60,16 +60,16 @@ class Phalange extends Joint {
 
 	}
 
-	hide( ) {
+	hide( recursive ) {
 
-		super.hide();
+		super.hide( recursive );
 		if ( this.nail ) this.nail.visible = false;
 
 	}
 
-	show( ) {
+	show( recursive ) {
 
-		super.show();
+		super.show( recursive );
 		if ( this.nail ) this.show.visible = false;
 
 	}

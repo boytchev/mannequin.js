@@ -72,49 +72,49 @@ class Fingers extends Joint {
 	} // Fingers.recolor
 
 	// hide all fingers
-	hide( ) {
+	hide( recursive ) {
 
-		this.finger_0.hide( );
-		this.finger_1.hide( );
-		this.finger_2.hide( );
-		this.finger_3.hide( );
-		this.finger_4.hide( );
+		this.finger_0.hide( recursive );
+		this.finger_1.hide( recursive );
+		this.finger_2.hide( recursive );
+		this.finger_3.hide( recursive );
+		this.finger_4.hide( recursive );
 
-		this.finger_0.mid.hide( );
-		this.finger_1.mid.hide( );
-		this.finger_2.mid.hide( );
-		this.finger_3.mid.hide( );
-		this.finger_4.mid.hide( );
+		this.finger_0.mid.hide( recursive );
+		this.finger_1.mid.hide( recursive );
+		this.finger_2.mid.hide( recursive );
+		this.finger_3.mid.hide( recursive );
+		this.finger_4.mid.hide( recursive );
 
-		this.finger_0.tip.hide( );
-		this.finger_1.tip.hide( );
-		this.finger_2.tip.hide( );
-		this.finger_3.tip.hide( );
-		this.finger_4.tip.hide( );
+		this.finger_0.tip.hide( recursive );
+		this.finger_1.tip.hide( recursive );
+		this.finger_2.tip.hide( recursive );
+		this.finger_3.tip.hide( recursive );
+		this.finger_4.tip.hide( recursive );
 
 	}
 
 
 	// show all fingers
-	show( ) {
+	show( recursive ) {
 
-		this.finger_0.show( );
-		this.finger_1.show( );
-		this.finger_2.show( );
-		this.finger_3.show( );
-		this.finger_4.show( );
+		this.finger_0.show( recursive );
+		this.finger_1.show( recursive );
+		this.finger_2.show( recursive );
+		this.finger_3.show( recursive );
+		this.finger_4.show( recursive );
 
-		this.finger_0.mid.show( );
-		this.finger_1.mid.show( );
-		this.finger_2.mid.show( );
-		this.finger_3.mid.show( );
-		this.finger_4.mid.show( );
+		this.finger_0.mid.show( recursive );
+		this.finger_1.mid.show( recursive );
+		this.finger_2.mid.show( recursive );
+		this.finger_3.mid.show( recursive );
+		this.finger_4.mid.show( recursive );
 
-		this.finger_0.tip.show( );
-		this.finger_1.tip.show( );
-		this.finger_2.tip.show( );
-		this.finger_3.tip.show( );
-		this.finger_4.tip.show( );
+		this.finger_0.tip.show( recursive );
+		this.finger_1.tip.show( recursive );
+		this.finger_2.tip.show( recursive );
+		this.finger_3.tip.show( recursive );
+		this.finger_4.tip.show( recursive );
 
 	}
 
