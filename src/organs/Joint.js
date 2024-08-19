@@ -212,12 +212,20 @@ class Joint extends THREE.Group {
 		if ( typeof secondaryColor === 'string' )
 			secondaryColor = new THREE.Color( secondaryColor );
 
-		//joint.children[ 0 ].material.color = color;
-		joint.material.color = color;
+		if ( joint.material instanceof Array ) {
 
-		if ( joint.children.length > 0 ) {
+			joint.material[ 0 ].color = color;
+			joint.material[ 1 ].color = secondaryColor;
 
-			joint.children[ 0 ].material.color = secondaryColor;
+		} else {
+
+			joint.material.color = color;
+
+			if ( joint.children.length > 0 ) {
+
+				joint.children[ 0 ].material.color = secondaryColor;
+
+			}
 
 		}
 

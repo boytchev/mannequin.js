@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { ParametricGeometry } from 'three/addons/geometries/ParametricGeometry.js';
+import { mergeGeometries, mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { BODY_COLORS } from "../globals.js";
 
 
@@ -33,7 +34,19 @@ class ParametricShape extends THREE.Mesh {
 
 	} // ParametricShape.constructor
 
+	addJointSphere( radius, y ) {
+
+		var s = new THREE.IcosahedronGeometry( radius, radius>1?2:1 ).translate( 0, y, 0 );
+		this.geometry = mergeGeometries([ this.geometry, mergeVertices( s ) ], true );
+		this.material = [
+			this.material,
+			new THREE.MeshStandardMaterial( { color: BODY_COLORS.JOINTS, } )
+		];
+
+	} // ParametricShape.addJointSphere
+
 	addSphere( radius, y, x = 0, z = 0 ) {
+
 
 		var s = new THREE.Mesh( JOINT_GEOMETRY,
 			new THREE.MeshStandardMaterial(
@@ -45,6 +58,7 @@ class ParametricShape extends THREE.Mesh {
 		s.receiveShadow = true;
 		s.scale.setScalar( radius );
 		s.position.set( x, y, z );
+
 		this.add( s );
 		return s;
 
@@ -52,10 +66,19 @@ class ParametricShape extends THREE.Mesh {
 
 	recolor( color, secondaryColor = color ) {
 
-		this.material.color.set( color );
-		if ( this.children.length>0 ) {
+		if ( this.material instanceof Array ) {
 
-			this.children[ 0 ].material.color.set( secondaryColor );
+			this.material[ 0 ].color.set( color );
+			this.material[ 1 ].color.set( secondaryColor );
+
+		} else {
+
+			this.material.color.set( color );
+			if ( this.children.length>0 ) {
+
+				this.children[ 0 ].material.color.set( secondaryColor );
+
+			}
 
 		}
 

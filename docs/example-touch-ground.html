@@ -10,7 +10,7 @@
 	<script type="module">
 
 	import * as THREE from 'three';
-	import { createStage, getGroundLevel, Male } from 'mannequin';
+	import { createStage, getGroundLevel, getStage, Male } from 'mannequin';
 
 	createStage( animate );
 
@@ -24,7 +24,7 @@
 	var s3 = new THREE.Mesh( geometry, material );
 	var s4 = new THREE.Mesh( geometry, material );
 
-	scene.add( s1, s2, s3, s4 );
+	getStage().scene.add( s1, s2, s3, s4 );
 
 	function animate( t ) {
 

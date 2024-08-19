@@ -11,7 +11,7 @@ class Leg extends Joint {
 
 		this.imageWrapper.rotation.set( Math.PI, 0, 0 );
 
-		this.name = 'Arm';
+		this.name = 'Leg';
 
 	} // Leg.constructor
 

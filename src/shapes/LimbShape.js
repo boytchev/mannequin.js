@@ -4,6 +4,7 @@ import { BODY_COLORS, cos, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
 
+
 // limb shape as parametric surface
 class LimbShape extends ParametricShape {
 
@@ -26,11 +27,11 @@ class LimbShape extends ParametricShape {
 				y * ( 1 / 2 + sin( 180 * u - 90 ) / 2 ),
 				z * sin( v ) * cos( 180 * u - 90 ) / 2 );
 			target = target.lerp( w, Math.pow( Math.abs( 2 * u - 1 ), 16 ) );
-			target.y += -y/2;
+			target.y += -0.5*y;
 
 		}, nU, nV );
 
-		if ( rad ) this.addSphere( rad ? rad : z / 2, -y / 2 );
+		if ( rad ) this.addJointSphere( rad, -y / 2 );
 
 		this.name = 'LimbShape';
 
