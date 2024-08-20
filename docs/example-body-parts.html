@@ -16,20 +16,14 @@
 	var man = new Male();
 	
 	man.turnRight = 90;
-
+	
 	man.l_fingers.bend = 20;
 	man.r_fingers.bend = 20;
 
-	man.l_leg.straddle = 30;
-	man.r_leg.straddle = 30;
-
-	man.l_ankle.tilt = 30;
-	man.r_ankle.tilt = 30;
-
-	man.stepOnGround();
+	man.position.y = +0.13;
 	
 	man.body.label( 'body', -27, 1.5, 0 ).scale.set( 3, 3, 3 );
-	man.head.label( 'head', 12 );
+	man.head.label( 'head', 9 );
 	man.neck.label( 'neck', 0, 0.5, 3 );
 	man.torso.label( 'torso', 7, 0.5, 3 );
 	man.pelvis.label( 'pelvis', 0, 0.5, 2 );
@@ -51,25 +45,36 @@
 	man.r_leg.label( 'r_leg', 5, -1.55, 0, 1, 2.02 );
 	man.r_knee.label( 'r_knee', 4, -1.25, 0, 1, 2.08 );
 	man.r_ankle.label( 'r_ankle', 1, -1.2, -1, 1, 2, 0 );
-
+	
 	function animate( t ) {
 
+		var s = Math.sin( 2*t );
+	
 		man.head.turn = -45 * Math.sin( 2*t +0.5 );
 
 		man.torso.tilt = -15 * Math.sin( 2*t -0.5 );
 
-		man.l_arm.straddle = 55 - 30 * Math.sin( 2*t );
-		man.r_arm.straddle = 55 + 30 * Math.sin( 2*t );
+		man.l_arm.straddle = 55 - 30 * s;
+		man.r_arm.straddle = 55 + 30 * s;
 
-		man.l_elbow.bend = 30 + 30 * Math.sin( 2*t );
-		man.r_elbow.bend = 30 - 30 * Math.sin( 2*t );
+		man.l_elbow.bend = 30 + 30 * s;
+		man.r_elbow.bend = 30 - 30 * s;
 
-		man.l_wrist.bend = 25 + 15 * Math.sin( 2*t );
-		man.r_wrist.bend = 25 - 15 * Math.sin( 2*t );
+		man.l_wrist.bend = 25 + 15 * s;
+		man.r_wrist.bend = 25 - 15 * s;
 
-		man.l_fingers.bend = 40 + 20 * Math.sin( 2*t );
-		man.r_fingers.bend = 40 - 20 * Math.sin( 2*t );
+		man.l_fingers.bend = 40 + 20 * s;
+		man.r_fingers.bend = 40 - 20 * s;
 
+		man.body.position.x = -0.7*s;
+		man.body.tilt = 10*s;
+	
+		man.l_leg.straddle = 30+12.5*s;
+		man.r_leg.straddle = 30-12.5*s;
+
+		man.l_ankle.tilt = 30+3*s;
+		man.r_ankle.tilt = 30-3*s;
+	
 	}
 
 	</script>

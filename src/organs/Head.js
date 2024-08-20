@@ -9,7 +9,7 @@ class Head extends Joint {
 
 	constructor( parentJoint ) {
 
-		super( parentJoint, [ 1, 3, 0 ], Head.SIZE, HeadShape );
+		super( parentJoint, [ 1, 3+1.5, 0 ], Head.SIZE, HeadShape );
 
 		this.minRot = new THREE.Vector3( -45 / 2, -90 / 2, -60 / 2 );
 		this.maxRot = new THREE.Vector3( 45 / 2, 90 / 2, 50 / 2 );

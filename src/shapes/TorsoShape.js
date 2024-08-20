@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { BODY_COLORS, cos, cossers, sin } from '../globals.js';
 import { ParametricShape } from './ParametricShape.js';
 
@@ -16,6 +17,8 @@ class TorsoShape extends ParametricShape {
 			scale = params[ 6 ];
 		super( null, BODY_COLORS.TORSO, function ( u, v, target ) {
 
+			if ( u<0.3 ) u = THREE.MathUtils.smoothstep( u, 0, 1 );
+
 			var r = offset + scale * cos( alpha + dAlpha * u );
 			if ( feminine ) r += cossers( u, v, [
 				[ 0.35, 0.85, 0.7, 0.95, 2 ],
@@ -31,11 +34,11 @@ class TorsoShape extends ParametricShape {
 			var k = Math.pow( Math.abs( 2 * u - 1 ), 16 ),
 				kx = Math.pow( Math.abs( 2 * u - 1 ), 2 );
 			if ( x2 < 0 ) kx = k;
-			target.set( x1 * ( 1 - kx ) + kx * x2, y1 * ( 1 - k ) + k * y2 - y/2, z1 * ( 1 - k ) + k * z2 );
+			target.set( x1 * ( 1 - kx ) + kx * x2, y1 * ( 1 - k ) + k * y2 /*- y/2*/, z1 * ( 1 - k ) + k * z2 );
 
-		}, 30, 20 );
+		}, 20, 20 );
 
-		this.addSphere( 2, -y / 2 );
+		this.addSphere( 2, /*-y / 2*/0 );
 
 		this.name = 'TorsoShape';
 

@@ -362,9 +362,11 @@ function onPointerDown( event ) {
 		document.getElementById( 'rot-z-name' ).innerHTML = model[ name ].nameUI.z || 'N/A';
 
 		dragPoint.position.copy( obj.worldToLocal( intersects[ 0 ].point ) );
-		obj.imageWrapper.add( dragPoint );
+		//obj.imageWrapper.add( dragPoint );
+		obj.image.add( dragPoint );
 
-		if ( !cbMovX.checked && !cbMovY.checked && !cbMovZ.checked ) obj.imageWrapper.add( gauge );
+		//if ( !cbMovX.checked && !cbMovY.checked && !cbMovZ.checked ) obj.imageWrapper.add( gauge );
+		if ( !cbMovX.checked && !cbMovY.checked && !cbMovZ.checked ) obj.image.add( gauge );
 		gauge.position.y = ( obj instanceof Ankle ) ? 2 : 0;
 
 

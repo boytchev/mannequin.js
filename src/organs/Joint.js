@@ -38,11 +38,12 @@ class Joint extends THREE.Group {
 		}
 
 		this.image.castShadow = true;
- 		if ( shape != PelvisShape && shape != ShoeShape ) {
+ 		//if ( shape != PelvisShape && shape != ShoeShape ) {
+		//
+		//	this.image.position.set( 0, yVal / 2, 0 );
+		//
+		//}
 
-			this.image.position.set( 0, yVal / 2, 0 );
-
-		}
 
 		this.imageWrapper = new THREE.Group();
 		this.imageWrapper.add( this.image );
@@ -235,7 +236,13 @@ class Joint extends THREE.Group {
 
 		this.traverse( function ( o ) {
 
-			if ( o.material && o.material.emissive ) o.material.emissive.setRGB( 0, state ? -1 : 0, state ? -0.4 : 0 );
+			if ( ( o.material instanceof Array ) ) {
+
+				if ( o.material[ 0 ] && o.material[ 0 ].emissive ) o.material[ 0 ].emissive.setRGB( 0, state ? -1 : 0, state ? -0.4 : 0 );
+				if ( o.material[ 1 ] && o.material[ 1 ].emissive ) o.material[ 1 ].emissive.setRGB( 0, state ? -1 : 0, state ? -0.4 : 0 );
+
+			} else
+				if ( o.material && o.material.emissive ) o.material.emissive.setRGB( 0, state ? -1 : 0, state ? -0.4 : 0 );
 
 		} );
 

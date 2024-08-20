@@ -97,7 +97,7 @@
 
 			super();
 
-			this.position.set( x, -0.6, 0 );
+			this.position.set( x, -0.72, 0 );
 			this.rotation.y = angle;
 
 			var seat = new LimbShape( false, [ 0.4, 0.27, 0.4, 0, 270, 1, 0.2, 0 ], 20, 60 );
@@ -105,7 +105,7 @@
 
 			var backrest = new LimbShape( false, [ 0.05, 1.0, 0.15, -90, 270, 1, 0.5, 0 ], 50, 10 );
 			backrest.recolor( 'darksalmon' );
-			backrest.position.set( -0.27, 0.55, 0 );
+			backrest.position.set( -0.12, 0.2, 0 );
 			backrest.rotation.set( 0, 0, 0.35 );
 
 			var cussion = new THREE.Mesh(
