@@ -49,11 +49,12 @@
 	man1.position.x = 1;
 	man1.stepOnGround();
 
-	function transparentMaterial( material )
-	{
+	function transparentMaterial( material ) {
+
 		material.transparent = true;
 		material.opacity = 0.3;
 		material.depthWrite = false;
+	
 	}
 	
 
@@ -61,8 +62,8 @@
 	
 		if ( object.material ) {
 
-			if( Array.isArray( object.material ) )
-				for( var mat of object.material ) transparentMaterial( mat );
+			if ( Array.isArray( object.material ) )
+				for ( var mat of object.material ) transparentMaterial( mat );
 			else
 				transparentMaterial( object.material );
 
