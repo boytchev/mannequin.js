@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { PelvisShape } from "../shapes/PelvisShape.js";
-import { ShoeShape } from "../shapes/ShoeShape.js";
 import { grad, rad } from "../globals.js";
 import { font } from "../font.js";
 
