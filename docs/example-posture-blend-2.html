@@ -33,10 +33,6 @@
 	man0.r_fingers.attach( stick01 );
 	man1.r_fingers.attach( stick01.clone() );
 
-	//			man0.position.x = -30;
-	//			man0.rotation.y = 2;
-
-	//			man1.position.x = +30;
 
 	// posture from example-posture.html
 	var A = { "version": 7, "data": [[ 0, -7.2, 0 ], [ 90, -85, 74.8 ], [ 16.1, -29.5, 26.3 ], [ 3.5, -34.8, 6.1 ], [ 14.1, -2.9, -19.8 ], [ 30 ], [ -6, -6, -42.6 ], [ 14.6, -46.9, 98.9 ], [ 90 ], [ 4.9, 9, -15.4 ], [ 68.9, -34.7, -2.1 ], [ 155 ], [ -20, 0, 0 ], [ -90, 70, 85, 0, -5, 0, -5 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ 0, 0, -10, 0, -10, 0, -10 ], [ -77, 4.9, -1.1 ], [ 55 ], [ -5, -60, -20 ], [ 148.7, -4.4, 127.3, 0, 50, 0, 35 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ], [ 0, 0, 70, 0, 70, 0, 70 ]] };
@@ -53,29 +49,31 @@
 	man1.position.x = 1;
 	man1.stepOnGround();
 
-	man0.traverse( function ( o ) {
+	function transparentMaterial( material )
+	{
+		material.transparent = true;
+		material.opacity = 0.3;
+		material.depthWrite = false;
+	}
+	
 
-		if ( o.material ) {
+	function transparentObject( object ) {
+	
+		if ( object.material ) {
 
-			o.material.transparent = true;
-			o.material.opacity = 0.3;
-			o.material.depthWrite = false;
-
-		}
-
-	} );
-
-	man1.traverse( function ( o ) {
-
-		if ( o.material ) {
-
-			o.material.transparent = true;
-			o.material.opacity = 0.3;
-			o.material.depthWrite = false;
+			if( Array.isArray( object.material ) )
+				for( var mat of object.material ) transparentMaterial( mat );
+			else
+				transparentMaterial( object.material );
 
 		}
 
-	} );
+	}
+
+
+	man0.traverse( transparentObject );
+	man1.traverse( transparentObject );
+
 
 	function animate( t ) {
 

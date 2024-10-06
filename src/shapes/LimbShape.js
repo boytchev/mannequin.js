@@ -18,6 +18,7 @@ class LimbShape extends ParametricShape {
 			offset = params[ 5 ],
 			scale = params[ 6 ],
 			rad = params[ 7 ];
+			
 		super( null, BODY_COLORS.LIMBS, function ( u, v, target ) {
 
 			u = THREE.MathUtils.smoothstep( u, 0, 1 );
