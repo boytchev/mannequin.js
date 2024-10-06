@@ -90,6 +90,7 @@ class Mannequin extends THREE.Group {
 
 		var s = 1.5 / ( 0.5 + height );
 		this.head.scale.set( s, s, s );
+		this.head.position.y = THREE.MathUtils.mapLinear( height, 1.8, 1.15, 4.7, 5.8 );
 		this.castShadow = true;
 		this.receiveShadow = true;
 		scene.add( this );
