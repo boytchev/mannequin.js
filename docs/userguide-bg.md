@@ -24,8 +24,8 @@ Mannequin.js е несложна библиптека за движение на
    <script type="importmap">
    {
       "imports": {
-         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
          "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
       }
    }
@@ -688,8 +688,8 @@ man.stepOnTheGround();
    <script type="importmap">
    {
       "imports": {
-         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
          "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
       }
    }

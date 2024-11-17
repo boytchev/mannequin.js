@@ -24,8 +24,8 @@ JavaScript. Here is a short example that shows a male figure
    <script type="importmap">
    {
       "imports": {
-         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
          "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
       }
    }
@@ -606,8 +606,8 @@ example point to specific release of Three.js and to the latest version of manne
    <script type="importmap">
    {
       "imports": {
-         "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/",
+         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
          "mannequin": "https://cdn.jsdelivr.net/npm/mannequin-js@latest/src/mannequin.js"
       }
    }
