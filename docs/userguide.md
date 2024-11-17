@@ -555,7 +555,7 @@ A figure may use `stepOnGround()` to move it vertically, so that its lower point
 touches the ground.
 
 ``` javascript
-man.stepOnTheGround();
+man.stepOnGround();
 ```	
 
 		

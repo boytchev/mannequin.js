@@ -634,7 +634,7 @@ man.position.y += (GROUND_LEVEL-bottom);
 така че най-ниската ѝ точка да докосва земята.
 
 ``` javascript
-man.stepOnTheGround();
+man.stepOnGround();
 ```	
 
 
